@@ -1,0 +1,57 @@
+/***
+*** Button Styles ***
+***/
+
+/*** Buttons ***/
+
+.btn,
+input[type="submit"] {
+  @apply text-white border-2 border-solid border-white;
+
+  border-radius: 5px;
+  font-size: 1rem;
+  padding: 0.5rem 1.25rem;
+  letter-spacing: 0.05em;
+  font-weight: 700;
+  display: block;
+  width: fit-content;
+  background: transparent;
+  transition: background-color 0.3s, border 0.3s;
+}
+
+.btn.primary,
+input[type="submit"] {
+  @apply bg-primary border-2 border-solid border-primary;
+}
+
+.btn.primary:hover,
+input[type="submit"]:hover {
+  @apply text-primary bg-white;
+}
+
+.btn.secondary {
+  @apply bg-secondary border-2 border-solid border-secondary;
+}
+
+.btn.secondary:hover {
+  @apply text-primary;
+
+  background: transparent;
+}
+
+.btn.primary.light-text:hover,
+.btn.secondary.light-text:hover {
+  @apply text-white border-2 border-solid border-white;
+}
+
+main a:not(.btn):link,
+#footer-phone a,
+#footer-bottom a {
+  @apply text-primary;
+}
+
+main a:not(.btn):hover,
+#footer-phone a:hover,
+#footer-bottom a:hover {
+  @apply text-[#c54a40];
+}

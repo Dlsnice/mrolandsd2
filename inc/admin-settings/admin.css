@@ -1,0 +1,42 @@
+/***
+*** Editor Styles ***
+***/
+
+body #editor * {
+  font-family: dashicons, sans-serif !important;
+}
+
+body .edit-post-visual-editor,
+body .edit-post-visual__metaboxes {
+  max-width: 1024px !important;
+  margin: 0 auto;
+  width: 100%;
+}
+
+body .edit-post-visual-editor {
+  padding: 0 25px;
+  background: transparent;
+}
+
+body #editor .editor-styles-wrapper .is-root-container.block-editor-block-list__layout {
+  display: block;
+}
+
+/***
+*** Carbon Fields Styles ***
+***/
+
+body #editor .cf-field {
+  padding: 25px !important;
+  background: #eee;
+  border-top: 1px solid #bcbcbc !important;
+}
+
+body #editor .cf-field:nth-child(1) {
+  border-top: none !important;
+}
+
+body #editor .cf-container__tabs-item--current {
+  background: #eee;
+  border-bottom: none !important;
+}

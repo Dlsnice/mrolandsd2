@@ -1,0 +1,111 @@
+name: Deploy to WP Engine
+
+on:
+  workflow_dispatch:
+    inputs:
+      WPEDestinationENV:
+        description: Where to Deploy?
+        type: choice
+        required: true
+        default: production
+        options:
+          - staging
+          - production
+
+      # BuildComposer:
+      #   description: Install Composer Packages
+      #   type: boolean
+      #   default: false
+
+      WPEClearCache:
+        description: Clear WP Engine Cache
+        type: boolean
+        default: true
+
+env:
+  ENVIRONMENT: ${{ inputs.WPEDestinationENV }}
+  CLEARCACHE: ${{ inputs.WPEClearCache }}
+  # BUILDCOMPOSER: ${{ inputs.BuildComposer }}
+
+jobs:
+  build:
+    runs-on: ubuntu-22.04
+
+    steps:
+
+
+      
+      - name: Check out code
+        uses: actions/checkout@v3
+
+      - name: Debug vars Variables
+        run: |
+          echo "WPE_STAGING_ENV=${{ vars.WPE_STAGING_ENV }}"
+          echo "WPE_PROD_ENV=${{ vars.WPE_PROD_ENV }}"
+
+          
+      # - name: Use Composer
+      #   if: env.BUILDCOMPOSER == 'true'
+      #   uses: php-actions/composer@v6
+      #   with:
+      #     command: install
+
+      # - name: Setup Node.js
+      #   uses: actions/setup-node@v3
+      #   with:
+      #     node-version: '20'
+      #     check-latest: true
+      
+      # - name: Install NPM packages
+      #   run: npm ci
+
+      # - name: Build assets
+      #   run: |
+      #     npm run build
+
+      - name: Set WP Engine Environment
+        run: |
+          case "${{ env.ENVIRONMENT }}" in
+            staging)
+              echo "WPE_ENV=${{ vars.WPE_STAGING_ENV }}" >> $GITHUB_ENV
+              ;;
+            production)
+              echo "WPE_ENV=${{ vars.WPE_PROD_ENV }}" >> $GITHUB_ENV
+              ;;
+            *)
+              echo "Unsupported environment: ${{ env.ENVIRONMENT }}"
+              exit 1
+              ;;
+          esac
+
+      - name: Debug WPE_ENV
+        run: |
+          echo "WPE_ENV: $WPE_ENV"    
+
+      - name: List Files
+        run: ls -al
+
+      - name: List Environment Variables
+        run: env
+
+      # - name: Deploy to WP Engine with Composer
+      #   if: env.BUILDCOMPOSER == 'true'
+      #   uses: wpengine/github-action-wpe-site-deploy@v3.2.2
+      #   with:
+      #     WPE_SSHG_KEY_PRIVATE: ${{ secrets.WPENGINESSH }}
+      #     WPE_ENV: $WPE_ENV
+      #     REMOTE_PATH: wp-content/themes/everpro
+      #     PHP_LINT: FALSE
+      #     FLAGS: -azvr --delete --exclude-from=.deployignore
+      #     CACHE_CLEAR: ${{ env.CLEARCACHE }}
+
+      - name: Deploy to WP Engine without Composer
+        # if: env.BUILDCOMPOSER == 'false'
+        uses: wpengine/github-action-wpe-site-deploy@v3.2.2
+        with:
+          WPE_SSHG_KEY_PRIVATE: ${{ secrets.WPE_SSHG_KEY_PRIVATE }}
+          WPE_ENV: $WPE_ENV
+          REMOTE_PATH: wp-content/themes/mroland
+          PHP_LINT: FALSE
+          # FLAGS: -azvr --delete --exclude-from=.deployignore --exclude vendor/
+          CACHE_CLEAR: ${{ env.CLEARCACHE }}

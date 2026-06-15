@@ -1,0 +1,35 @@
+{
+    "version": 2,
+    "settings": {
+        "color": {
+            "defaultPalette": false,
+            "palette": [
+                {
+                    "name": "Primary",
+                    "slug": "primary",
+                    "color": "#a7c9e7"
+                },
+                {
+                    "name": "Secondary",
+                    "slug": "secondary",
+                    "color": "#4c6085"
+                },
+                {
+                    "name": "Light Grey",
+                    "slug": "lightgrey",
+                    "color": "#EEEEEE"
+                },
+                {
+                    "name": "Dark Grey",
+                    "slug": "darkgrey",
+                    "color": "#333333"
+                },
+                {
+                    "name": "Black",
+                    "slug": "black",
+                    "color": "#101010"
+                }
+            ]
+        }
+    }
+}
