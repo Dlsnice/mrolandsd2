@@ -1,0 +1,268 @@
+/***
+*** Fluid Spacing Styles ***
+***/
+
+:root {
+  --fluid-min-width: 320;
+  --fluid-max-width: 1536;
+  --fluid-screen: 100vw;
+  --fluid-bp: calc((var(--fluid-screen) - var(--fluid-min-width) / 16 * 1rem) / (var(--fluid-max-width) - var(--fluid-min-width)));
+}
+
+@media screen and (min-width: 1536px) {
+  :root {
+    --fluid-screen: calc(var(--fluid-max-width) * 1px);
+  }
+}
+
+:root {
+  /*** Space Scale ***/
+
+  /* - */
+  --space-1-min: 8;
+  --space-1-max: 8;
+  --space-1: calc(((var(--space-1-min) / 16) * 1rem) + (var(--space-1-max) - var(--space-1-min)) * var(--fluid-bp));
+
+  /* - */
+  --space-2-min: 8;
+  --space-2-max: 16;
+  --space-2: calc(((var(--space-2-min) / 16) * 1rem) + (var(--space-2-max) - var(--space-2-min)) * var(--fluid-bp));
+
+  /* - */
+  --space-3-min: 12;
+  --space-3-max: 24;
+  --space-3: calc(((var(--space-3-min) / 16) * 1rem) + (var(--space-3-max) - var(--space-3-min)) * var(--fluid-bp));
+
+  /* - */
+  --space-4-min: 16;
+  --space-4-max: 32;
+  --space-4: calc(((var(--space-4-min) / 16) * 1rem) + (var(--space-4-max) - var(--space-4-min)) * var(--fluid-bp));
+
+  /* - */
+  --space-5-min: 20;
+  --space-5-max: 40;
+  --space-5: calc(((var(--space-5-min) / 16) * 1rem) + (var(--space-5-max) - var(--space-5-min)) * var(--fluid-bp));
+
+  /* - */
+  --space-6-min: 24;
+  --space-6-max: 48;
+  --space-6: calc(((var(--space-6-min) / 16) * 1rem) + (var(--space-6-max) - var(--space-6-min)) * var(--fluid-bp));
+
+  /* - */
+  --space-7-min: 28;
+  --space-7-max: 56;
+  --space-7: calc(((var(--space-7-min) / 16) * 1rem) + (var(--space-7-max) - var(--space-7-min)) * var(--fluid-bp));
+
+  /* - */
+  --space-8-min: 32;
+  --space-8-max: 64;
+  --space-8: calc(((var(--space-8-min) / 16) * 1rem) + (var(--space-8-max) - var(--space-8-min)) * var(--fluid-bp));
+
+  /* - */
+  --space-9-min: 36;
+  --space-9-max: 72;
+  --space-9: calc(((var(--space-9-min) / 16) * 1rem) + (var(--space-9-max) - var(--space-9-min)) * var(--fluid-bp));
+
+  /* - */
+  --space-10-min: 40;
+  --space-10-max: 80;
+  --space-10: calc(((var(--space-10-min) / 16) * 1rem) + (var(--space-10-max) - var(--space-10-min)) * var(--fluid-bp));
+
+  /* - */
+  --space-11-min: 44;
+  --space-11-max: 88;
+  --space-11: calc(((var(--space-11-min) / 16) * 1rem) + (var(--space-11-max) - var(--space-11-min)) * var(--fluid-bp));
+
+  /* - */
+  --space-12-min: 48;
+  --space-12-max: 96;
+  --space-12: calc(((var(--space-12-min) / 16) * 1rem) + (var(--space-12-max) - var(--space-12-min)) * var(--fluid-bp));
+}
+
+/***
+*** Fluid Typographic Styles ***
+***/
+
+:root {
+  --fluid-min-width: 320;
+  --fluid-max-width: 1536;
+  --fluid-screen: 100vw;
+  --fluid-bp: calc((var(--fluid-screen) - var(--fluid-min-width) / 16 * 1rem) / (var(--fluid-max-width) - var(--fluid-min-width)));
+}
+
+@media screen and (min-width: 1536px) {
+  :root {
+    --fluid-screen: calc(var(--fluid-max-width) * 1px);
+  }
+}
+
+:root {
+  /*** h1 - font-size ***/
+  --h1-f-min: 32;
+  --h1-f-max: 48;
+  --h1-f: calc(((var(--h1-f-min) / 16) * 1rem) + (var(--h1-f-max) - var(--h1-f-min)) * var(--fluid-bp));
+
+  /*** h1 - line-height ***/
+  --h1-lh-min: 40;
+  --h1-lh-max: 54;
+  --h1-lh: calc(((var(--h1-lh-min) / 16) * 1rem) + (var(--h1-lh-max) - var(--h1-lh-min)) * var(--fluid-bp));
+
+  /*** h1 (large) - font-size ***/
+  --h1-large-f-min: 40;
+  --h1-large-f-max: 65;
+  --h1-large-f: calc(((var(--h1-large-f-min) / 16) * 1rem) + (var(--h1-large-f-max) - var(--h1-large-f-min)) * var(--fluid-bp));
+
+  /*** h1 (large) - line-height ***/
+  --h1-large-lh-min: 50;
+  --h1-large-lh-max: 71;
+  --h1-large-lh: calc(((var(--h1-large-lh-min) / 16) * 1rem) + (var(--h1-large-lh-max) - var(--h1-large-lh-min)) * var(--fluid-bp));
+
+  /*** h2 - font-size ***/
+  --h2-f-min: 24;
+  --h2-f-max: 32;
+  --h2-f: calc(((var(--h2-f-min) / 16) * 1rem) + (var(--h2-f-max) - var(--h2-f-min)) * var(--fluid-bp));
+
+  /*** h2 - line-height ***/
+  --h2-lh-min: 32;
+  --h2-lh-max: 40;
+  --h2-lh: calc(((var(--h2-lh-min) / 16) * 1rem) + (var(--h2-lh-max) - var(--h2-lh-min)) * var(--fluid-bp));
+
+  /*** h3 - font-size ***/
+  --h3-f-min: 22;
+  --h3-f-max: 24;
+  --h3-f: calc(((var(--h3-f-min) / 16) * 1rem) + (var(--h3-f-max) - var(--h3-f-min)) * var(--fluid-bp));
+
+  /*** h3 - line-height ***/
+  --h3-lh-min: 30;
+  --h3-lh-max: 32;
+  --h3-lh: calc(((var(--h3-lh-min) / 16) * 1rem) + (var(--h3-lh-max) - var(--h3-lh-min)) * var(--fluid-bp));
+
+  /*** h4 - font-size ***/
+  --h4-f-min: 16;
+  --h4-f-max: 20;
+  --h4-f: calc(((var(--h4-f-min) / 16) * 1rem) + (var(--h4-f-max) - var(--h4-f-min)) * var(--fluid-bp));
+
+  /*** h4 - line-height ***/
+  --h4-lh-min: 22;
+  --h4-lh-max: 28;
+  --h4-lh: calc(((var(--h4-lh-min) / 16) * 1rem) + (var(--h4-lh-max) - var(--h4-lh-min)) * var(--fluid-bp));
+
+  /*** h5 - font-size ***/
+  --h5-f-min: 20;
+  --h5-f-max: 20;
+  --h5-f: calc(((var(--h5-f-min) / 16) * 1rem) + (var(--h5-f-max) - var(--h5-f-min)) * var(--fluid-bp));
+
+  /*** h5 - line-height ***/
+  --h5-lh-min: 24;
+  --h5-lh-max: 28;
+  --h5-lh: calc(((var(--h5-lh-min) / 16) * 1rem) + (var(--h5-lh-max) - var(--h5-lh-min)) * var(--fluid-bp));
+
+  /*** h6 - font-size ***/
+  --h6-f-min: 20;
+  --h6-f-max: 20;
+  --h6-f: calc(((var(--h6-f-min) / 16) * 1rem) + (var(--h6-f-max) - var(--h6-f-min)) * var(--fluid-bp));
+
+  /*** h6 - line-height ***/
+  --h6-lh-min: 24;
+  --h6-lh-max: 28;
+  --h6-lh: calc(((var(--h6-lh-min) / 16) * 1rem) + (var(--h6-lh-max) - var(--h6-lh-min)) * var(--fluid-bp));
+
+  /*** Section Stats ***/
+
+  /* - */
+  --f-stats-min: 45;
+  --f-stats-max: 65;
+  --f-stats: calc(((var(--f-stats-min) / 16) * 1rem) + (var(--f-stats-max) - var(--f-stats-min)) * var(--fluid-bp));
+
+  /* - */
+  --f-stats-title-min: 16;
+  --f-stats-title-max: 20;
+  --f-stats-title: calc(((var(--f-stats-title-min) / 16) * 1rem) + (var(--f-stats-title-max) - var(--f-stats-title-min)) * var(--fluid-bp));
+}
+
+* {
+  @apply font-heading font-normal leading-[1.5] tracking-[0] text-[#1A1A1C] mt-[0] 3xl:text-[18px] 2xl:text-[17px] xl:text-[16px] lg:text-[15px] text-[18px]
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+div.h5,
+h6 {
+  font-family: 'Fieldwork';
+}
+
+h1,
+h1 * {
+  @apply text-darkgrey;
+
+  font-size: var(--h1-f);
+  line-height: var(--h1-lh);
+}
+
+h2,
+h2 * {
+  @apply text-darkgrey;
+
+  font-size: var(--h2-f);
+  line-height: var(--h2-lh);
+
+}
+
+h3,
+h3 * {
+  @apply text-darkgrey;
+
+  font-size: var(--h3-f);
+  line-height: var(--h3-lh);
+
+}
+
+h4,
+h4 * {
+  @apply text-darkgrey;
+  font-size: var(--h4-f);
+  line-height: var(--h4-lh);
+}
+
+h5,
+h5 *,
+div.h5 {
+  @apply text-darkgrey;
+
+  font-size: var(--h5-f);
+  line-height: var(--h5-lh);
+
+}
+
+h6,
+h6 * {
+  @apply text-primary;
+  font-size: var(--h6-f);
+  line-height: var(--h6-lh);
+
+}
+
+main p,
+main p span,
+main p a,
+main a,
+main ul,
+main li,
+#banner p,
+#banner p span,
+#banner p a,
+#banner ul,
+#banner ol,
+#banner li {
+  font-family: 'Century Gothic';
+  font-size: 1rem;
+  line-height: 1.5rem;
+  font-weight: 400;
+}
+
+figure.wp-block-image {
+  margin-bottom: var(--space-3);
+}

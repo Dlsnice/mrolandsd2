@@ -1,13 +1,9 @@
-<<<<<<< HEAD
-<?php
-// Silence is golden.
-=======
 <?php get_header(); ?> 
-<?php get_template_part('templates/template-parts/heros/blog', 'hero'); ?>
+<?php get_template_part('templates/template-parts/heros/default', 'hero'); ?>
 <main>
     <section id="posts-container" class="posts-container">
 		<div id="post-block-wrapper">
-			<div id="articles-wrapper" class="grid lg:grid-cols-3 gap-6">
+			<div id="articles-wrapper" class="grid lg:grid-cols-3">
 				<?php the_archive_description( '<div class="taxonomy-description">', '</div>' ); ?>
                 <?php if (have_posts()) : while (have_posts()) : the_post();?>
                 <?php get_template_part('templates/template-parts/blog/blog', 'content'); ?>
@@ -15,9 +11,10 @@
 			</div>
 			<?php get_template_part('templates/template-parts/blog/blog', 'pagination'); ?>
 			<?php else : ?>
-			<h2>Page not Found</h2>
-			<p>We're sorry, but the page you're looking for isn't here.</p>
-			<p>Try searching for the page you are looking for or using the navigation in the header or sidebar</p>
+			<div id="no-results">
+				<h2>No Posts Found</h2>
+				<p>We're sorry, but your search did not return any results.</p>
+			</div>
 			<?php endif; ?>
 		</div>
 	</section>
@@ -35,4 +32,3 @@
 		ev.stopPropagation(); //this is important! If removed, both click events will occur
 	}, false);
 </script>
->>>>>>> c97d96c883a24628d9b6e9d16f26cce12afd4bd6

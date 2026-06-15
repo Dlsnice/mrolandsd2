@@ -1,7 +1,3 @@
-<<<<<<< HEAD
-<?php
-// Silence is golden.
-=======
 <?php get_header(); ?> 
 <?php get_template_part('templates/template-parts/heros/blog', 'hero'); ?>
 <main>
@@ -35,4 +31,3 @@
 		ev.stopPropagation(); //this is important! If removed, both click events will occur
 	}, false);
 </script>
->>>>>>> c97d96c883a24628d9b6e9d16f26cce12afd4bd6
