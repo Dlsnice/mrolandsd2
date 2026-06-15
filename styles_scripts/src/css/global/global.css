@@ -4,7 +4,7 @@
 
 
 body {
-  @apply bg-[url(../../assets/images/home-pattern.webp)] bg-repeat bg-auto relative z-[1] m-20
+  @apply bg-[url(../../assets/images/home-pattern.webp)] bg-repeat bg-auto relative z-[1] pt-[100px]
 }
 
 body::before {
