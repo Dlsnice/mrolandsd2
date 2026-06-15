@@ -112,7 +112,11 @@ abstract class GFLocking {
 	}
 
 	public function register_scripts() {
+<<<<<<< HEAD
 		$min = defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG || isset( $_GET['gform_debug'] ) ? '' : '.min'; // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+=======
+		$min = defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG || isset( $_GET['gform_debug'] ) ? '' : '.min';
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 		$locking_path = GFCommon::get_base_url() . '/includes/locking/';
 		wp_register_script( 'gforms_locking', $locking_path . "js/locking{$min}.js", array( 'jquery', 'heartbeat' ), GFCommon::$version );
 		wp_register_script( 'gforms_locking_view', $locking_path . "js/locking-view{$min}.js", array( 'jquery', 'heartbeat' ), GFCommon::$version );
@@ -323,11 +327,19 @@ abstract class GFLocking {
 	}
 
 	public function maybe_lock_object( $is_edit_page ) {
+<<<<<<< HEAD
 		if ( isset( $_GET['get-edit-lock'] ) ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended
 			$this->set_lock( $this->_object_id );
 			wp_safe_redirect( $this->_edit_url );
 			exit();
 		} else if ( isset( $_GET['release-edit-lock'] ) ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+=======
+		if ( isset( $_GET['get-edit-lock'] ) ) {
+			$this->set_lock( $this->_object_id );
+			wp_safe_redirect( $this->_edit_url );
+			exit();
+		} else if ( isset( $_GET['release-edit-lock'] ) ) {
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 			$this->delete_lock_meta( $this->_object_id );
 			wp_safe_redirect( $this->_redirect_url );
 			exit();
@@ -477,7 +489,11 @@ abstract class GFLocking {
 
 		$locked = $user_id && $user;
 
+<<<<<<< HEAD
 		$edit_url = $this->_edit_url === null ? '' : $this->_edit_url;
+=======
+		$edit_url = $this->_edit_url;
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 
 		$hidden = $locked ? '' : ' hidden';
 		if ( $locked ) {
@@ -533,7 +549,11 @@ abstract class GFLocking {
 		$locked_class = $this->is_locked( $object_id ) ? 'wp-locked' : '';
 		$classes      = ' gf-locking ' . $locked_class;
 		if ( $echo ) {
+<<<<<<< HEAD
 			echo $classes; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+=======
+			echo $classes;
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 		}
 
 		return $classes;
@@ -556,7 +576,11 @@ abstract class GFLocking {
 		$lock_indicator = '<div class="locked-indicator"></div>';
 
 		if ( $echo ) {
+<<<<<<< HEAD
 			echo $lock_indicator; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+=======
+			echo $lock_indicator;
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 		}
 
 		return $lock_indicator;
@@ -579,7 +603,11 @@ abstract class GFLocking {
 		$locked_info = '<div class="locked-info"><span class="locked-avatar">' . $locked_avatar . '</span> <span class="locked-text">' . $locked_text . "</span></div>\n";
 
 		if ( $echo ) {
+<<<<<<< HEAD
 			echo $locked_info; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+=======
+			echo $locked_info;
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 		}
 
 		return $locked_info;

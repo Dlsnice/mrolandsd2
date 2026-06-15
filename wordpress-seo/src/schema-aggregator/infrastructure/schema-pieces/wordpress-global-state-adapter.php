@@ -3,6 +3,11 @@
 namespace Yoast\WP\SEO\Schema_Aggregator\Infrastructure\Schema_Pieces;
 
 use WP_Post;
+<<<<<<< HEAD
+=======
+use Yoast\WP\SEO\Context\Meta_Tags_Context;
+use Yoast\WP\SEO\Memoizers\Meta_Tags_Context_Memoizer;
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 use Yoast\WP\SEO\Models\Indexable;
 /**
  * Helper class to set and reset WordPress global state.
@@ -10,6 +15,16 @@ use Yoast\WP\SEO\Models\Indexable;
 class WordPress_Global_State_Adapter {
 
 	/**
+<<<<<<< HEAD
+=======
+	 * The meta tags context memoizer.
+	 *
+	 * @var Meta_Tags_Context_Memoizer
+	 */
+	private $memoizer;
+
+	/**
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 	 * Previous global $post
 	 *
 	 * @var WP_Post|null
@@ -38,6 +53,7 @@ class WordPress_Global_State_Adapter {
 	private $previous_query_flags;
 
 	/**
+<<<<<<< HEAD
 	 * Set WordPress global state
 	 *
 	 * Helper method to set $post and $wp_query globals based on the given indexable.
@@ -48,6 +64,30 @@ class WordPress_Global_State_Adapter {
 	 * @return void
 	 */
 	public function set_global_state( Indexable $indexable ): void {
+=======
+	 * Constructor.
+	 *
+	 * @param Meta_Tags_Context_Memoizer $memoizer The meta tags context memoizer.
+	 */
+	public function __construct( Meta_Tags_Context_Memoizer $memoizer ) {
+		$this->memoizer = $memoizer;
+	}
+
+	/**
+	 * Set WordPress global state
+	 *
+	 * Helper method to set $post and $wp_query globals based on the given indexable, and
+	 * prime the memoizer's current_page slot with the indexable's context so external schema
+	 * generators (e.g. WPSEO_WooCommerce_Schema) read the correct per-indexable values.
+	 * This is critical to ensure that schema pieces relying on global state function correctly.
+	 *
+	 * @param Indexable         $indexable The indexable to set the global state for.
+	 * @param Meta_Tags_Context $context   The indexable's context, installed as the current_page slot.
+	 *
+	 * @return void
+	 */
+	public function set_global_state( Indexable $indexable, Meta_Tags_Context $context ): void {
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 		global $post, $wp_query;
 		$this->previous_post              = $post;
 		$this->previous_queried_object    = ( $wp_query->queried_object ?? null );
@@ -77,6 +117,14 @@ class WordPress_Global_State_Adapter {
 		}
 
 		\setup_postdata( $post );
+<<<<<<< HEAD
+=======
+
+		// Make for_current_page() resolve to the indexable being processed, so external schema
+		// generators (e.g. WPSEO_WooCommerce_Schema) read the correct per-indexable canonical /
+		// main_schema_id. reset_global_state() clears this slot at the end of the iteration.
+		$this->memoizer->set_for_current_page( $context );
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 	}
 
 	/**
@@ -102,5 +150,12 @@ class WordPress_Global_State_Adapter {
 			$wp_query->is_page           = $this->previous_query_flags['is_page'];
 			$wp_query->is_singular       = $this->previous_query_flags['is_singular'];
 		}
+<<<<<<< HEAD
+=======
+
+		// Drop the per-iteration current_page context primed by Schema_Piece_Repository::get(),
+		// so the next iteration re-resolves cleanly.
+		$this->memoizer->clear_for_current_page();
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 	}
 }

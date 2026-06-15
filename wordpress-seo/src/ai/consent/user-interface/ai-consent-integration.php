@@ -6,6 +6,10 @@ namespace Yoast\WP\SEO\AI\Consent\User_Interface;
 
 use WPSEO_Admin_Asset_Manager;
 use Yoast\WP\SEO\AI\Consent\Application\Consent_Endpoints_Repository;
+<<<<<<< HEAD
+=======
+use Yoast\WP\SEO\Conditionals\New_Premium_Or_Free_AI_Conditional;
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 use Yoast\WP\SEO\Conditionals\User_Profile_Conditional;
 use Yoast\WP\SEO\Helpers\Short_Link_Helper;
 use Yoast\WP\SEO\Helpers\User_Helper;
@@ -50,7 +54,11 @@ class Ai_Consent_Integration implements Integration_Interface {
 	 * @return array<string>
 	 */
 	public static function get_conditionals(): array {
+<<<<<<< HEAD
 		return [ User_Profile_Conditional::class ];
+=======
+		return [ User_Profile_Conditional::class, New_Premium_Or_Free_AI_Conditional::class ];
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 	}
 
 	/**

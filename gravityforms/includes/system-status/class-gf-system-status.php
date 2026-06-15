@@ -95,7 +95,11 @@ class GF_System_Status {
 	 */
 	public static function get_current_subview() {
 
+<<<<<<< HEAD
 		return rgempty( 'subview', $_GET ) ? 'report' : rgget( 'subview' ); // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+=======
+		return rgempty( 'subview', $_GET ) ? 'report' : rgget( 'subview' );
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 
 	}
 

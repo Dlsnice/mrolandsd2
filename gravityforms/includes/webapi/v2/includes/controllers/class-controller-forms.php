@@ -67,7 +67,11 @@ class GF_REST_Forms_Controller extends GF_REST_Controller {
 			),
 		) );
 
+<<<<<<< HEAD
 		register_rest_route( $namespace, '/' . $base . '/schema', array( // nosemgrep audit.php.wp.security.rest-route.permission-callback.return-true
+=======
+		register_rest_route( $namespace, '/' . $base . '/schema', array(
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 			'methods'             => WP_REST_Server::READABLE,
 			'callback'            => array( $this, 'get_public_item_schema' ),
 			'permission_callback' => '__return_true',

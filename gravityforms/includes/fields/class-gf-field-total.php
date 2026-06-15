@@ -7,8 +7,12 @@ if ( ! class_exists( 'GFForms' ) ) {
 
 class GF_Field_Total extends GF_Field {
 
+<<<<<<< HEAD
 	public $type         = 'total';
 	public $numberFormat = 'currency'; // This is used to property format the total during conditional logic evaluation.
+=======
+	public $type = 'total';
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 
 	function get_form_editor_field_settings() {
 		return array(
@@ -78,12 +82,17 @@ class GF_Field_Total extends GF_Field {
 						</div>";
 			} else {
 				return "<div class='ginput_container ginput_container_total'>
+<<<<<<< HEAD
 							<input type='text' readonly name='input_{$id}' id='{$field_id}' value='" . GFCommon::to_money( '0' ) . "' class='gform-text-input-reset ginput_total ginput_total_{$form_id}' />
+=======
+							<input readonly name='input_{$id}' id='{$field_id}' value='" . GFCommon::to_money( '0' ) . "' class='gform-text-input-reset ginput_total ginput_total_{$form_id}' />
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 						</div>";
 			}
 		}
 	}
 
+<<<<<<< HEAD
 	/**
 	 * Format the entry value for display on the entry detail page and for the {all_fields} merge tag.
 	 *
@@ -100,6 +109,10 @@ class GF_Field_Total extends GF_Field {
 	 */
 	public function get_value_entry_detail( $value, $entry = array(), $use_text = false, $format = 'html', $media = 'screen' ) {
 		return GFCommon::to_money( $value, rgar( $entry, 'currency' ) );
+=======
+	public function get_value_entry_detail( $value, $currency = '', $use_text = false, $format = 'html', $media = 'screen' ) {
+		return GFCommon::to_money( $value, $currency );
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 	}
 
 	public function get_value_save_entry( $value, $form, $input_name, $lead_id, $lead ) {
@@ -144,6 +157,7 @@ class GF_Field_Total extends GF_Field {
 		return GFCommon::format_variable_value( $value, $url_encode, $esc_html, $format );
 	}
 
+<<<<<<< HEAD
 	/**
 	 * Validates the field value.
 	 *
@@ -205,6 +219,8 @@ class GF_Field_Total extends GF_Field {
 			$this->validateTotal = (bool) $this->validateTotal;
 		}
 	}
+=======
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 
 }
 

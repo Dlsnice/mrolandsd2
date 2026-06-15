@@ -143,8 +143,13 @@ class GF_Block {
 	 * @return void
 	 */
 	public function register_block_assets() {
+<<<<<<< HEAD
 		add_action( 'enqueue_block_assets', array( $this, 'register_scripts' ) );
 		add_action( 'enqueue_block_assets', array( $this, 'register_styles' ) );
+=======
+		add_action( 'enqueue_block_editor_assets', array( $this, 'register_scripts' ) );
+		add_action( 'enqueue_block_editor_assets', array( $this, 'register_styles' ) );
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 	}
 
 	/**
@@ -162,8 +167,13 @@ class GF_Block {
 
 		// Only enqueue block editor assets if all blocks are allowed or if the current block type is an allowed block.
 		if ( $allowed_block_types === true || ( is_array( $allowed_block_types ) && in_array( $this->get_type(), $allowed_block_types ) ) ) {
+<<<<<<< HEAD
 			add_action( 'enqueue_block_assets', array( $this, 'register_scripts' ) );
 			add_action( 'enqueue_block_assets', array( $this, 'register_styles' ) );
+=======
+			add_action( 'enqueue_block_editor_assets', array( $this, 'register_scripts' ) );
+			add_action( 'enqueue_block_editor_assets', array( $this, 'register_styles' ) );
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 		}
 
 		return $allowed_block_types;
@@ -182,9 +192,12 @@ class GF_Block {
 	 * @uses   GF_Block::scripts()
 	 */
 	public function register_scripts() {
+<<<<<<< HEAD
 		if ( ! is_admin() ) {
 			return;
 		}
+=======
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 
 		// Get registered scripts.
 		$scripts = $this->scripts();
@@ -282,9 +295,12 @@ class GF_Block {
 	 * @since  2.4.10
 	 */
 	public function register_styles() {
+<<<<<<< HEAD
 		if ( ! is_admin() ) {
 			return;
 		}
+=======
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 
 		// Get registered styles.
 		$styles = $this->styles();

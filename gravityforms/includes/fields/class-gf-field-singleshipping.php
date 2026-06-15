@@ -9,6 +9,7 @@ class GF_Field_SingleShipping extends GF_Field {
 
 	public $type = 'singleshipping';
 
+<<<<<<< HEAD
 	/**
 	 * Indicates if this field supports state validation.
 	 *
@@ -31,6 +32,8 @@ class GF_Field_SingleShipping extends GF_Field {
 		return 'gform-icon--shipping';
 	}
 
+=======
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 	function get_form_editor_field_settings() {
 		return array(
 			'base_price_setting',
@@ -58,6 +61,7 @@ class GF_Field_SingleShipping extends GF_Field {
 		$price = esc_attr( GFCommon::to_money( $price ) );
 
 		return "<div class='ginput_container ginput_container_singleshipping'>
+<<<<<<< HEAD
 					<input type='text' readonly class='ginput_shipping_price gform-text-input-reset' id='{$field_id}' name='input_{$id}' value='{$price}' />
 				</div>";
 	}
@@ -78,6 +82,14 @@ class GF_Field_SingleShipping extends GF_Field {
 	 */
 	public function get_value_entry_detail( $value, $entry = array(), $use_text = false, $format = 'html', $media = 'screen' ) {
 		return GFCommon::to_money( $value, rgar( $entry, 'currency' ) );
+=======
+					<input readonly class='ginput_shipping_price gform-text-input-reset' id='{$field_id}' name='input_{$id}' value='{$price}' />
+				</div>";
+	}
+
+	public function get_value_entry_detail( $value, $currency = '', $use_text = false, $format = 'html', $media = 'screen' ) {
+		return GFCommon::to_money( $value, $currency );
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 	}
 
 	public function sanitize_settings() {

@@ -65,10 +65,17 @@ class GF_API_Keys_Table extends WP_List_Table {
 		$nonce_url = wp_nonce_url( '?page=gf_settings&subview=gravityformswebapi', 'gf_revoke_key' );
 
 		$actions = array(
+<<<<<<< HEAD
 			'edit' => '<a href="#" class="rest-api-edit-key" data-id=" ' . esc_attr__( $item['key_id'] ) . ' " >' . esc_html__( 'Edit', 'gravityforms' ) . '</a>',
 			'delete' => sprintf( '<a data-wp-lists="delete:the-list:key_row_%d::status=delete&action=delete_key&key=%d" onclick="%s" href="%s" class="submitdelete">Revoke</a>', absint( $item['key_id'] ), absint( $item['key_id'] ), $confirm, $nonce_url ),
 		);
   
+=======
+			'edit' => '<a href="javascript:editKey( ' . $item['key_id'] . ' );">' . esc_html__( 'Edit', 'gravityforms' ) . '</a>',
+			'delete' => sprintf( '<a data-wp-lists="delete:the-list:key_row_%d::status=delete&action=delete_key&key=%d" onclick="%s" href="%s" class="submitdelete">Revoke</a>', absint( $item['key_id'] ), absint( $item['key_id'] ), $confirm, $nonce_url ),
+		);
+
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 		return $description . $this->row_actions( $actions );
 	}
 
@@ -91,7 +98,11 @@ class GF_API_Keys_Table extends WP_List_Table {
 	}
 
 	function no_items() {
+<<<<<<< HEAD
 		echo '<div style="padding:10px;">' . esc_html__( 'You don\'t have any API keys. Let\'s add one by clicking the Add Key button below.', 'gravityforms' ) . '</div>';
+=======
+		echo '<div style="padding:10px;">' . sprintf( esc_html__( 'You don\'t have any API keys. Let\'s go %1$screate one%2$s!', 'gravityforms' ), '<a href="javascript:editKey( 0 );">', '</a>' ) . '</div>';
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 	}
 
 	/**
@@ -106,7 +117,11 @@ class GF_API_Keys_Table extends WP_List_Table {
 		?>
 
 		<input type="hidden" name="single_action"/> <input type="hidden" name="action_args"/>
+<<<<<<< HEAD
 		<table class="wp-list-table <?php echo esc_attr( implode( ' ', $this->get_table_classes() ) ); ?>">
+=======
+		<table class="wp-list-table <?php echo implode( ' ', $this->get_table_classes() ); ?>">
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 			<thead>
 			<tr>
 				<?php $this->print_column_headers(); ?>
@@ -115,13 +130,23 @@ class GF_API_Keys_Table extends WP_List_Table {
 
 			<tbody id="the-list"<?php
 			if ( $singular ) {
+<<<<<<< HEAD
 				echo " data-wp-lists='list:$singular'"; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+=======
+				echo " data-wp-lists='list:$singular'";
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 			} ?>>
 			<?php $this->display_rows_or_placeholder(); ?>
 			</tbody>
 
 		</table>
+<<<<<<< HEAD
         <button type="button" class="gform-button gform-button--white" id="rest-api-add-key" data-js="rest-api-add-key" style="margin-top: 10px"><?php echo esc_html__( 'Add Key', 'gravityforms' ) ?></button>
+=======
+		<div>
+			<a class="button" id="add_setting_button" href="javascript:editKey( 0 );">Add Key</a>
+		</div>
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 		<?php
 
 	}
@@ -134,7 +159,11 @@ class GF_API_Keys_Table extends WP_List_Table {
 	 * @param object $item The current item
 	 */
 	public function single_row( $item ) {
+<<<<<<< HEAD
 		echo "<tr id='key_row_{$item['key_id']}' >"; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+=======
+		echo "<tr id='key_row_{$item['key_id']}' >";
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 		$this->single_row_columns( $item );
 		echo '</tr>';
 	}
@@ -156,6 +185,7 @@ class GF_API_Keys_Table extends WP_List_Table {
 
 			jQuery(document).ready(function () {
 
+<<<<<<< HEAD
 				const list = jQuery("#the-list");
 				list.wpList();
 
@@ -170,6 +200,10 @@ class GF_API_Keys_Table extends WP_List_Table {
 						list.html( noItemsHTML );
 					}
 				} )
+=======
+				jQuery("#the-list").wpList();
+
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 			});
 
 		</script>

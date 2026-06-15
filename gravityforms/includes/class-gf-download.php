@@ -13,9 +13,15 @@ class GF_Download {
 	 * @since 2.0
 	 */
 	public static function maybe_process() {
+<<<<<<< HEAD
 		if ( isset( $_GET['gf-download'] ) ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended
 
 			$file     = $_GET['gf-download']; // phpcs:ignore WordPress.Security.NonceVerification.Recommended, WordPress.Security.ValidatedSanitizedInput.InputNotSanitized, WordPress.Security.ValidatedSanitizedInput.MissingUnslash
+=======
+		if ( isset( $_GET['gf-download'] ) ) {
+
+			$file     = $_GET['gf-download'];
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 			$form_id  = rgget( 'form-id' );
 			$field_id = rgget( 'field-id' );
 
@@ -23,6 +29,7 @@ class GF_Download {
 				return;
 			}
 
+<<<<<<< HEAD
 			$hash     = rgget( 'hash' );
 			$entry_id = rgget( 'entry-id' );
 
@@ -35,6 +42,12 @@ class GF_Download {
 			}
 
 			$permission_granted = self::validate_download( $form_id, $field_id, $file, $hash, $entry_id );
+=======
+			$hash = rgget( 'hash' );
+			GFCommon::log_debug( __METHOD__ . "(): Starting file download process. file: {$file}, hash: {$hash}." );
+
+			$permission_granted = self::validate_download( $form_id, $field_id, $file, $hash );
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 
 			if ( has_filter( 'gform_permission_granted_pre_download' ) ) {
 				GFCommon::log_debug( __METHOD__ . '(): Executing functions hooked to gform_permission_granted_pre_download.' );
@@ -45,15 +58,25 @@ class GF_Download {
 			 *
 			 * @since 2.4.3.2
 			 *
+<<<<<<< HEAD
 			 * @param bool   $permission_granted Indicates if access to the file has been granted. Default is the result of the hash validation.
 			 * @param string $form_id            The ID of the form used to upload the requested file.
 			 * @param string $field_id           The ID of the field used to upload the requested file.
+=======
+			 * @param bool $permission_granted Indicates if access to the file has been granted. Default is the result of the hash validation.
+			 * @param int  $form_id            The ID of the form used to upload the requested file.
+			 * @param int  $field_id           The ID of the field used to upload the requested file.
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 			 */
 			$permission_granted = apply_filters( 'gform_permission_granted_pre_download', $permission_granted, $form_id, $field_id );
 
 			if ( $permission_granted ) {
 				GFCommon::log_debug( __METHOD__ . '(): Download validated. Proceeding.' );
+<<<<<<< HEAD
 				self::deliver( $form_id, $file, $entry_id );
+=======
+				self::deliver( $form_id, $file );
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 			} else {
 				GFCommon::log_debug( __METHOD__ . '(): Download validation failed. Aborting with 401.' );
 				self::die_401();
@@ -64,6 +87,7 @@ class GF_Download {
 	/**
 	 * Verifies the hash for the download.
 	 *
+<<<<<<< HEAD
 	 * @since 2.0
 	 * @since 2.9.29 Added the $entry_id param.
 	 *
@@ -76,6 +100,16 @@ class GF_Download {
 	 * @return bool
 	 */
 	private static function validate_download( $form_id, $field_id, $file, $hash, $entry_id ) {
+=======
+	 * @param int $form_id
+	 * @param int $field_id
+	 * @param string $file
+	 * @param string $hash
+	 *
+	 * @return bool
+	 */
+	private static function validate_download( $form_id, $field_id, $file, $hash ) {
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 		if ( empty( $hash ) ) {
 			return false;
 		}
@@ -89,13 +123,20 @@ class GF_Download {
 		 *
 		 * @since 2.2.3.16
 		 *
+<<<<<<< HEAD
 		 * @param bool   $require_login Does the user need to be logged in to access the file? Default false.
 		 * @param string $form_id       The ID of the form used to upload the requested file.
 		 * @param string $field_id      The ID of the field used to upload the requested file.
+=======
+		 * @param bool $require_login Does the user need to be logged in to access the file? Default false.
+		 * @param int  $form_id       The ID of the form used to upload the requested file.
+		 * @param int  $field_id      The ID of the field used to upload the requested file.
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 		 */
 		$require_login = apply_filters( 'gform_require_login_pre_download', false, $form_id, $field_id );
 
 		if ( $require_login && ! is_user_logged_in() ) {
+<<<<<<< HEAD
 			GFCommon::log_debug( __METHOD__ . '(): Login required to access file.' );
 
 			return false;
@@ -111,11 +152,21 @@ class GF_Download {
 		}
 
 		return true;
+=======
+			return false;
+		}
+
+		$hash_check = GFCommon::generate_download_hash( $form_id, $field_id, $file );
+		$valid      = hash_equals( $hash, $hash_check );
+
+		return $valid;
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 	}
 
 	/**
 	 * Send the file.
 	 *
+<<<<<<< HEAD
 	 * @since 2.0
 	 * @since 2.9.29 Added the $entry_id param.
 	 *
@@ -129,6 +180,12 @@ class GF_Download {
 			self::die_404();
 		}
 
+=======
+	 * @param $form_id
+	 * @param $file
+	 */
+	private static function deliver( $form_id, $file ) {
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 		$path      = GFFormsModel::get_upload_path( $form_id );
 		$file_path = trailingslashit( $path ) . $file;
 
@@ -140,6 +197,7 @@ class GF_Download {
 			$content_type        = self::get_content_type( $file_path );
 			$content_disposition = rgget( 'dl' ) ? 'attachment' : 'inline';
 
+<<<<<<< HEAD
 			/**
 			 * Allows the nocache_headers() to be overridden.
 			 *
@@ -153,6 +211,9 @@ class GF_Download {
 				nocache_headers();
 			}
 
+=======
+			nocache_headers();
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 			header( 'X-Robots-Tag: noindex', true );
 			header( 'Content-Type: ' . $content_type );
 			header( 'Content-Description: File Transfer' );
@@ -210,7 +271,11 @@ class GF_Download {
 
 		while ( ! @feof( $handle ) ) {
 			$buffer = @fread( $handle, $chunksize );
+<<<<<<< HEAD
 			echo $buffer; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+=======
+			echo $buffer;
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 
 			if ( $retbytes ) {
 				$cnt += strlen( $buffer );
@@ -241,6 +306,7 @@ class GF_Download {
 	}
 
 	/**
+<<<<<<< HEAD
 	 * Validates a file path from a download request for security concerns.
 	 *
 	 * Checks for null bytes and directory traversal characters (including encoded variants).
@@ -271,6 +337,8 @@ class GF_Download {
 	}
 
 	/**
+=======
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 	 * Ends the request with a 401 (Unauthorized) HTTP status code.
 	 */
 	private static function die_401() {

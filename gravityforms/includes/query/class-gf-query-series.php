@@ -33,7 +33,11 @@ class GF_Query_Series {
 	public function sql( $query, $delimiter = '' ) {
 		$values = array();
 
+<<<<<<< HEAD
 		foreach ( $this->_values as $value ) {
+=======
+		foreach( $this->_values as $value ) {
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 			$values[] = $value->sql( $query );
 		}
 
@@ -46,7 +50,11 @@ class GF_Query_Series {
 	 * Proxy read-only values.
 	 */
 	public function __get( $key ) {
+<<<<<<< HEAD
 		switch ( $key ) :
+=======
+		switch ( $key ):
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 			case 'values':
 				return $this->_values;
 		endswitch;

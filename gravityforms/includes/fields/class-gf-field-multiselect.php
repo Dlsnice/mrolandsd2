@@ -206,28 +206,45 @@ class GF_Field_MultiSelect extends GF_Field {
 	 * Format the entry value for display on the entry detail page and for the {all_fields} merge tag.
 	 *
 	 * @since  Unknown
+<<<<<<< HEAD
 	 * @since  2.9.29 Changed the second parameter $currency (string) to $entry (array).
 	 *
 	 * @param string|array $value    The field value.
 	 * @param array        $entry    The entry.
+=======
+	 * @access public
+	 *
+	 * @uses GFCommon::selection_display()
+	 *
+	 * @param string|array $value    The field value.
+	 * @param string       $currency The entry currency code.
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 	 * @param bool|false   $use_text When processing choice based fields should the choice text be returned instead of the value.
 	 * @param string       $format   The format requested for the location the merge is being used. Possible values: html, text or url.
 	 * @param string       $media    The location where the value will be displayed. Possible values: screen or email.
 	 *
 	 * @return string The list items, stored within an unordered list.
 	 */
+<<<<<<< HEAD
 	public function get_value_entry_detail( $value, $entry = array(), $use_text = false, $format = 'html', $media = 'screen' ) {
 
 		if ( $this->type === 'post_category' ) {
 			$value = GFCommon::prepare_post_category_value( $value, $this, 'entry_detail' );
 		}
+=======
+	public function get_value_entry_detail( $value, $currency = '', $use_text = false, $format = 'html', $media = 'screen' ) {
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 
 		if ( empty( $value ) || ( $format == 'text' && $this->storageType !== 'json' ) ) {
 			return $value;
 		}
 
+<<<<<<< HEAD
 		$items    = $this->to_array( $value );
 		$currency = rgar( $entry, 'currency' );
+=======
+		$items = $this->to_array( $value );
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 
 		foreach ( $items as &$item ) {
 			$item = esc_html( GFCommon::selection_display( $item, $this, $currency, $use_text ) );

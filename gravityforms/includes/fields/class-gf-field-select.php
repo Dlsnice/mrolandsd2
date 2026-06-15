@@ -9,6 +9,7 @@ class GF_Field_Select extends GF_Field {
 
 	public $type = 'select';
 
+<<<<<<< HEAD
 	/**
 	 * Indicates if this field supports state validation.
 	 *
@@ -18,6 +19,8 @@ class GF_Field_Select extends GF_Field {
 	 */
 	protected $_supports_state_validation = true;
 
+=======
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 	public function get_form_editor_field_title() {
 		return esc_attr__( 'Drop Down', 'gravityforms' );
 	}
@@ -101,7 +104,12 @@ class GF_Field_Select extends GF_Field {
 	}
 
 	public function get_value_entry_list( $value, $entry, $field_id, $columns, $form ) {
+<<<<<<< HEAD
 		return esc_html( $this->get_selected_choice_output( $value, rgar( $entry, 'currency' ) ) );
+=======
+		$return = esc_html( $value );
+		return GFCommon::selection_display( $return, $this, $entry['currency'] );
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 	}
 
 
@@ -149,9 +157,15 @@ class GF_Field_Select extends GF_Field {
 
 		foreach ( $items as $input_id => $item ) {
 			if ( $use_value ) {
+<<<<<<< HEAD
 				list( $val, $price ) = rgexplode( '|', $item, 2, true );
 			} elseif ( $use_price ) {
 				list( $name, $val ) = rgexplode( '|', $item, 2, true );
+=======
+				list( $val, $price ) = rgexplode( '|', $item, 2 );
+			} elseif ( $use_price ) {
+				list( $name, $val ) = rgexplode( '|', $item, 2 );
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 				if ( $format_currency ) {
 					$val = GFCommon::to_money( $val, rgar( $entry, 'currency' ) );
 				}
@@ -170,6 +184,7 @@ class GF_Field_Select extends GF_Field {
 		return GFCommon::implode_non_blank( ', ', $ary );
 	}
 
+<<<<<<< HEAD
 	/**
 	 * Format the entry value for display on the entry detail page and for the {all_fields} merge tag.
 	 *
@@ -190,6 +205,11 @@ class GF_Field_Select extends GF_Field {
 		}
 
 		return esc_html( $this->get_selected_choice_output( $value, rgar( $entry, 'currency' ), $use_text ) );
+=======
+	public function get_value_entry_detail( $value, $currency = '', $use_text = false, $format = 'html', $media = 'screen' ) {
+		$return = esc_html( $value );
+		return GFCommon::selection_display( $return, $this, $currency, $use_text );
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 	}
 
 	public function get_value_export( $entry, $input_id = '', $use_text = false, $is_csv = false ) {
@@ -205,15 +225,19 @@ class GF_Field_Select extends GF_Field {
 	/**
 	 * Strips all tags from the input value.
 	 *
+<<<<<<< HEAD
 	 * @since 1.9
 	 * @since 2.9.18 Added check for state validation.
 	 *
+=======
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 	 * @param string $value The field value to be processed.
 	 * @param int $form_id The ID of the form currently being processed.
 	 *
 	 * @return string
 	 */
 	public function sanitize_entry_value( $value, $form_id ) {
+<<<<<<< HEAD
 		if ( $this->is_state_validation_supported() ) {
 			return parent::sanitize_entry_value( $value, $form_id );
 		}
@@ -232,6 +256,12 @@ class GF_Field_Select extends GF_Field {
 	public function sanitize_settings() {
 		parent::sanitize_settings();
 		$this->enableEnhancedUI = (bool) $this->enableEnhancedUI;
+=======
+
+		$value = wp_strip_all_tags( $value );
+
+		return $value;
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 	}
 
 	// # FIELD FILTER UI HELPERS ---------------------------------------------------------------------------------------

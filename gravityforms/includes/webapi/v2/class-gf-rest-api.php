@@ -59,7 +59,10 @@ class GF_REST_API {
 			'GF_REST_Form_Entries_Controller',
 			'GF_REST_Form_Results_Controller',
 			'GF_REST_Form_Submissions_Controller',
+<<<<<<< HEAD
 			'GF_REST_Form_Submissions_Validation_Controller',
+=======
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 			'GF_REST_Forms_Controller',
 			'GF_REST_Feeds_Controller',
 			'GF_REST_Form_Feeds_Controller',

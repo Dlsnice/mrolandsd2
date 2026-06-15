@@ -13,6 +13,7 @@ class GF_Field_Donation extends GF_Field {
 
 	public $type = 'donation';
 
+<<<<<<< HEAD
 	/**
 	 * Indicates if this field supports state validation.
 	 *
@@ -22,6 +23,8 @@ class GF_Field_Donation extends GF_Field {
 	 */
 	protected $_supports_state_validation = true;
 
+=======
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 	function get_form_editor_field_settings() {
 		return array(
 			'conditional_logic_field_setting',
@@ -81,6 +84,7 @@ class GF_Field_Donation extends GF_Field {
 
 	}
 
+<<<<<<< HEAD
 	/**
 	 * Format the entry value for display on the entry detail page and for the {all_fields} merge tag.
 	 *
@@ -97,6 +101,10 @@ class GF_Field_Donation extends GF_Field {
 	 */
 	public function get_value_entry_detail( $value, $entry = array(), $use_text = false, $format = 'html', $media = 'screen' ) {
 		return GFCommon::to_money( $value, rgar( $entry, 'currency' ) );
+=======
+	public function get_value_entry_detail( $value, $currency = '', $use_text = false, $format = 'html', $media = 'screen' ) {
+		return GFCommon::to_money( $value, $currency );
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 	}
 
 }

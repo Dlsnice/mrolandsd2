@@ -10,6 +10,7 @@ class GFAsyncUpload {
 
 		GFCommon::log_debug( 'GFAsyncUpload::upload(): Starting.' );
 
+<<<<<<< HEAD
 		if ( $_SERVER['REQUEST_METHOD'] !== 'POST' ) { // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotValidated
 			self::die_error();
 		}
@@ -18,10 +19,28 @@ class GFAsyncUpload {
 		// This might happen if the file is bigger than the max post size ini setting.
 		// Validation in the browser reduces the risk of this happening.
 		if ( ! isset( $_REQUEST['form_id'] ) ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+=======
+		if ( $_SERVER['REQUEST_METHOD'] != 'POST' ) {
+			status_header( 404 );
+			die();
+		}
+
+		header( 'Content-Type: text/html; charset=' . get_option( 'blog_charset' ) );
+		send_nosniff_header();
+		nocache_headers();
+
+		status_header( 200 );
+
+		// If the file is bigger than the server can accept then the form_id might not arrive.
+		// This might happen if the file is bigger than the max post size ini setting.
+		// Validation in the browser reduces the risk of this happening.
+		if ( ! isset( $_REQUEST['form_id'] ) ) {
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 			GFCommon::log_debug( 'GFAsyncUpload::upload(): File upload aborted because the form_id was not found. The file may have been bigger than the max post size ini setting.' );
 			self::die_error( 500, __( 'Failed to upload file.', 'gravityforms' ) );
 		}
 
+<<<<<<< HEAD
 		$form_unique_id = rgpost( 'gform_unique_id' );
 		if ( ! ctype_alnum( $form_unique_id ) ) {
 			self::die_error();
@@ -64,6 +83,35 @@ class GFAsyncUpload {
 		if ( empty( $target_dir ) || ( ! is_dir( $target_dir ) && ! wp_mkdir_p( $target_dir ) ) ) {
 			GFCommon::log_debug( "GFAsyncUpload::upload(): Couldn't create the tmp folder: " . $target_dir );
 			self::die_error( 500, __( 'Failed to upload file.', 'gravityforms' ) );
+=======
+
+		$form_id        = absint( $_REQUEST['form_id'] );
+		$form_unique_id = rgpost( 'gform_unique_id' );
+		$form           = GFAPI::get_form( $form_id );
+
+		if ( empty( $form ) || ! $form['is_active'] ) {
+			die();
+		}
+
+		if ( rgar( $form, 'requireLogin' ) ) {
+			if ( ! is_user_logged_in() ) {
+				die();
+			}
+			check_admin_referer( 'gform_file_upload_' . $form_id, '_gform_file_upload_nonce_' . $form_id );
+		}
+
+		if ( ! ctype_alnum( $form_unique_id ) ) {
+			die();
+		}
+
+		$target_dir = GFFormsModel::get_upload_path( $form_id ) . DIRECTORY_SEPARATOR . 'tmp' . DIRECTORY_SEPARATOR;
+
+		if ( ! is_dir( $target_dir ) ) {
+			if ( ! wp_mkdir_p( $target_dir ) ) {
+				GFCommon::log_debug( "GFAsyncUpload::upload(): Couldn't create the tmp folder: " . $target_dir );
+				self::die_error( 500, __( 'Failed to upload file.', 'gravityforms' ) );
+			}
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 		}
 
 		$time = current_time( 'mysql' );
@@ -73,14 +121,21 @@ class GFAsyncUpload {
 		//adding index.html files to all subfolders
 		if ( ! file_exists( GFFormsModel::get_upload_root() . '/index.html' ) ) {
 			GFForms::add_security_files();
+<<<<<<< HEAD
 		} else if ( ! file_exists( GFFormsModel::get_upload_path( $form_id ) . '/index.html' ) ) { // nosemgrep audit.php.lang.security.file.phar-deserialization
 			GFCommon::recursive_add_index_file( GFFormsModel::get_upload_path( $form_id ) );
 		} else if ( ! file_exists( GFFormsModel::get_upload_path( $form_id ) . "/$y/index.html" ) ) { // nosemgrep audit.php.lang.security.file.phar-deserialization 
+=======
+		} else if ( ! file_exists( GFFormsModel::get_upload_path( $form_id ) . '/index.html' ) ) {
+			GFCommon::recursive_add_index_file( GFFormsModel::get_upload_path( $form_id ) );
+		} else if ( ! file_exists( GFFormsModel::get_upload_path( $form_id ) . "/$y/index.html" ) ) {
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 			GFCommon::recursive_add_index_file( GFFormsModel::get_upload_path( $form_id ) . "/$y" );
 		} else {
 			GFCommon::recursive_add_index_file( GFFormsModel::get_upload_path( $form_id ) . "/$y/$m" );
 		}
 
+<<<<<<< HEAD
 		if ( ! file_exists( $target_dir . '/index.html' ) ) { // nosemgrep audit.php.lang.security.file.phar-deserialization
 			GFCommon::recursive_add_index_file( $target_dir );
 		}
@@ -143,6 +198,90 @@ class GFAsyncUpload {
 		}
 
 		$cleanup_target_dir = apply_filters( 'gform_cleanup_target_dir', true ); // Remove old files
+=======
+		if ( ! file_exists( $target_dir . '/index.html' ) ) {
+			GFCommon::recursive_add_index_file( $target_dir );
+		}
+
+		$uploaded_filename = $_REQUEST['original_filename'];
+		$file_name = isset( $_REQUEST['name'] ) ? $_REQUEST['name'] : '';
+		$field_id  = rgpost( 'field_id' );
+		$field_id  = absint( $field_id );
+
+		/**
+		 * Filter the field object that will be associated with the uploaded file.
+		 *
+		 * This is useful when you want to use Gravity Forms' upload system to upload files. Using this filter you can return a one-time-use field object
+		 * to process the file as desired.
+		 *
+		 * @since 2.2.2
+		 *
+		 * @param GF_Field $field    The current field object.
+		 * @param array    $form     The current form object.
+		 * @param int      $field_id The field ID as passed via the $_POST. Used to fetch the current $field.
+		 */
+		$field = gf_apply_filters( array( 'gform_multifile_upload_field', $form['id'], $field_id ), GFFormsModel::get_field( $form, $field_id ), $form, $field_id );
+
+		if ( empty( $field ) || GFFormsModel::get_input_type( $field ) != 'fileupload' ) {
+			die();
+		}
+
+		$file_name = sanitize_file_name( $file_name );
+		$uploaded_filename = sanitize_file_name( $uploaded_filename );
+
+		$allowed_extensions = ! empty( $field->allowedExtensions ) ? GFCommon::clean_extensions( explode( ',', strtolower( $field->allowedExtensions ) ) ) : array();
+
+		$max_upload_size_in_bytes = $field->maxFileSize > 0 ? $field->maxFileSize * 1048576 : wp_max_upload_size();
+		$max_upload_size_in_mb    = $max_upload_size_in_bytes / 1048576;
+
+		if ( $_FILES['file']['size'] > 0 && $_FILES['file']['size'] > $max_upload_size_in_bytes ) {
+			self::die_error( 104,sprintf( __( 'File exceeds size limit. Maximum file size: %dMB', 'gravityforms' ), $max_upload_size_in_mb ) );
+		}
+
+		if ( GFCommon::file_name_has_disallowed_extension( $file_name ) || GFCommon::file_name_has_disallowed_extension( $uploaded_filename ) ) {
+			GFCommon::log_debug( "GFAsyncUpload::upload(): Illegal file extension: {$file_name}" );
+			self::die_error( 104, __( 'The uploaded file type is not allowed.', 'gravityforms' ) );
+		}
+
+		if ( ! empty( $allowed_extensions ) ) {
+			if ( ! GFCommon::match_file_extension( $file_name, $allowed_extensions ) || ! GFCommon::match_file_extension( $uploaded_filename, $allowed_extensions ) ) {
+				GFCommon::log_debug( "GFAsyncUpload::upload(): The uploaded file type is not allowed: {$file_name}" );
+				self::die_error( 104, sprintf( __( 'The uploaded file type is not allowed. Must be one of the following: %s', 'gravityforms' ), strtolower( $field['allowedExtensions'] ) ) );
+			}
+		}
+
+		/**
+		 * Allows the disabling of file upload whitelisting
+		 *
+		 * @param bool false Set to 'true' to disable whitelisting.  Defaults to 'false'.
+		 */
+		$whitelisting_disabled = apply_filters( 'gform_file_upload_whitelisting_disabled', false );
+
+		if ( ! $whitelisting_disabled ) {
+			// Whitelist the file type
+			$valid_uploaded_filename = GFCommon::check_type_and_ext( $_FILES['file'], $uploaded_filename );
+
+			if ( is_wp_error( $valid_uploaded_filename ) ) {
+				GFCommon::log_debug( sprintf( '%s(): %s; %s; %s', __METHOD__, $uploaded_filename, $valid_uploaded_filename->get_error_code(), $valid_uploaded_filename->get_error_message() ) );
+				self::die_error( $valid_uploaded_filename->get_error_code(), $valid_uploaded_filename->get_error_message() );
+			}
+
+			$valid_file_name = GFCommon::check_type_and_ext( $_FILES['file'], $file_name );
+
+			if ( is_wp_error( $valid_file_name ) ) {
+				GFCommon::log_debug( sprintf( '%s(): %s; %s; %s', __METHOD__, $file_name, $valid_file_name->get_error_code(), $valid_file_name->get_error_message() ) );
+				self::die_error( $valid_file_name->get_error_code(), $valid_file_name->get_error_message() );
+			}
+		}
+
+		$tmp_file_name = $form_unique_id . '_input_' . $field_id . '_' . GFCommon::random_str( 16 ) . '_' . $file_name;
+
+		$tmp_file_name = sanitize_file_name( $tmp_file_name );
+
+		$file_path = $target_dir . $tmp_file_name;
+
+		$cleanup_target_dir = true; // Remove old files
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 		$max_file_age = 5 * 3600; // Temp file age in seconds
 
 		// Remove old temp files
@@ -152,9 +291,15 @@ class GFAsyncUpload {
 					$tmp_file_path = $target_dir . $file;
 
 					// Remove temp file if it is older than the max age and is not the current file
+<<<<<<< HEAD
 					if ( preg_match( '/\.part$/', $file ) && ( filemtime( $tmp_file_path ) < time() - $max_file_age ) && ( $tmp_file_path != "{$file_path}.part" ) ) { // nosemgrep audit.php.lang.security.file.phar-deserialization
 						GFCommon::log_debug( 'GFAsyncUpload::upload(): Deleting file: ' . $tmp_file_path );
 						@unlink( $tmp_file_path ); // nosemgrep audit.php.lang.security.file.phar-deserialization, audit.php.lang.security.file.read-write-delete
+=======
+					if ( preg_match( '/\.part$/', $file ) && ( filemtime( $tmp_file_path ) < time() - $max_file_age ) && ( $tmp_file_path != "{$file_path}.part" ) ) {
+						GFCommon::log_debug( 'GFAsyncUpload::upload(): Deleting file: ' . $tmp_file_path );
+						@unlink( $tmp_file_path );
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 					}
 				}
 				closedir( $dir );
@@ -165,6 +310,7 @@ class GFAsyncUpload {
 		}
 
 		if ( isset( $_SERVER['HTTP_CONTENT_TYPE'] ) ) {
+<<<<<<< HEAD
 			$contentType = $_SERVER['HTTP_CONTENT_TYPE']; // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized, WordPress.Security.ValidatedSanitizedInput.MissingUnslash
 		}
 
@@ -175,15 +321,38 @@ class GFAsyncUpload {
 		// Handle non multipart uploads older WebKit versions didn't support multipart in HTML5
 		if ( strpos( $contentType, 'multipart' ) !== false ) {
 			if ( isset( $_FILES['file']['tmp_name'] ) && is_uploaded_file( $_FILES['file']['tmp_name'] ) ) { // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized, WordPress.Security.NonceVerification.Missing
+=======
+			$contentType = $_SERVER['HTTP_CONTENT_TYPE'];
+		}
+
+		if ( isset( $_SERVER['CONTENT_TYPE'] ) ) {
+			$contentType = $_SERVER['CONTENT_TYPE'];
+		}
+
+		$chunk  = isset( $_REQUEST['chunk'] ) ? intval( $_REQUEST['chunk'] ) : 0;
+		$chunks = isset( $_REQUEST['chunks'] ) ? intval( $_REQUEST['chunks'] ) : 0;
+
+		// Handle non multipart uploads older WebKit versions didn't support multipart in HTML5
+		if ( strpos( $contentType, 'multipart' ) !== false ) {
+			if ( isset( $_FILES['file']['tmp_name'] ) && is_uploaded_file( $_FILES['file']['tmp_name'] ) ) {
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 				// Open temp file
 				$out = @fopen( "{$file_path}.part", $chunk == 0 ? 'wb' : 'ab' );
 				if ( $out ) {
 					// Read binary input stream and append it to temp file
+<<<<<<< HEAD
 					$in = @fopen( $_FILES['file']['tmp_name'], 'rb' ); // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized, WordPress.Security.NonceVerification.Missing
 
 					if ( $in ) {
 						while ( $buff = fread( $in, 4096 ) ) {
 							fwrite( $out, $buff ); // nosemgrep audit.php.lang.security.file.read-write-delete
+=======
+					$in = @fopen( $_FILES['file']['tmp_name'], 'rb' );
+
+					if ( $in ) {
+						while ( $buff = fread( $in, 4096 ) ) {
+							fwrite( $out, $buff );
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 						}
 					} else {
 						self::die_error( 101, __( 'Failed to open input stream.', 'gravityforms' ) );
@@ -191,7 +360,11 @@ class GFAsyncUpload {
 
 					@fclose( $in );
 					@fclose( $out );
+<<<<<<< HEAD
 					@unlink( $_FILES['file']['tmp_name'] ); // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized, WordPress.Security.NonceVerification.Missing
+=======
+					@unlink( $_FILES['file']['tmp_name'] );
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 				} else {
 					self::die_error( 102, __( 'Failed to open output stream.', 'gravityforms' ) );
 				}
@@ -207,7 +380,11 @@ class GFAsyncUpload {
 
 				if ( $in ) {
 					while ( $buff = fread( $in, 4096 ) ) {
+<<<<<<< HEAD
 						fwrite( $out, $buff ); // nosemgrep audit.php.lang.security.file.read-write-delete
+=======
+						fwrite( $out, $buff );
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 					}
 				} else {
 					self::die_error( 101, __( 'Failed to open input stream.', 'gravityforms' ) );
@@ -224,13 +401,20 @@ class GFAsyncUpload {
 			// Upload is complete. Strip the temp .part suffix off
 			rename( "{$file_path}.part", $file_path );
 
+<<<<<<< HEAD
 			if ( file_exists( $file_path ) ) { // nosemgrep audit.php.lang.security.file.phar-deserialization
+=======
+			if ( file_exists( $file_path ) ) {
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 				GFFormsModel::set_permissions( $file_path );
 			} else {
 				self::die_error( 105, __( 'Upload unsuccessful', 'gravityforms' ) . ' ' . $uploaded_filename );
 			}
 
+<<<<<<< HEAD
 			self::send_headers( 200 );
+=======
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 			gf_do_action( array( 'gform_post_multifile_upload', $form['id'] ), $form, $field, $uploaded_filename, $tmp_file_name, $file_path );
 
 			GFCommon::log_debug( sprintf( 'GFAsyncUpload::upload(): File upload complete. temp_filename: %s  uploaded_filename: %s ', $tmp_file_name, $uploaded_filename ) );
@@ -241,7 +425,10 @@ class GFAsyncUpload {
 				self::die_error( 105, __( 'Upload unsuccessful', 'gravityforms' ) . ' ' . $uploaded_filename );
 			}
 
+<<<<<<< HEAD
 			self::send_headers( 200 );
+=======
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 			GFCommon::log_debug( sprintf( 'GFAsyncUpload::upload(): Chunk upload complete. temp_filename: %s  uploaded_filename: %s chunk: %d', $tmp_file_name, $uploaded_filename, $chunk ) );
 		}
 
@@ -253,6 +440,7 @@ class GFAsyncUpload {
 			)
 		);
 
+<<<<<<< HEAD
 		if ( $chunks && ( $chunk != $chunks - 1 ) ) {
 			$output['data']['hash'] = self::get_chunk_hash( $tmp_file_name, $chunk, $form_id, $field_id, $uploaded_filename );
 		}
@@ -436,4 +624,26 @@ class GFAsyncUpload {
 
 }
 
+=======
+		$output = json_encode( $output );
+
+		die( $output );
+	}
+
+	public static function die_error( $status_code, $message ) {
+		$response = array();
+
+		$response['status'] = 'error';
+		$response['error'] = array(
+			'code' => $status_code,
+			'message' => $message,
+		);
+		$response_json = json_encode( $response );
+		die( $response_json );
+	}
+}
+
+
+
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 GFAsyncUpload::upload();

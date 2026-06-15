@@ -43,7 +43,10 @@ class GF_Field_HTML extends GF_Field {
 			'conditional_logic_field_setting',
 			'label_setting',
 			'css_class_setting',
+<<<<<<< HEAD
 			'visibility_setting',
+=======
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 		);
 	}
 
@@ -65,6 +68,7 @@ class GF_Field_HTML extends GF_Field {
 	}
 
 	public function get_field_content( $value, $force_frontend_label, $form ) {
+<<<<<<< HEAD
 		$form_id             = $form['id'];
 		$admin_buttons       = $this->get_admin_buttons();
 		$is_entry_detail     = $this->is_entry_detail();
@@ -74,6 +78,16 @@ class GF_Field_HTML extends GF_Field {
 		$field_id            = $is_admin || $form_id == 0 ? "input_{$this->id}" : 'input_' . $form_id . "_{$this->id}";
 		$admin_hidden_markup = ( $this->visibility == 'hidden' ) ? $this->get_hidden_admin_markup() : '';
 		$field_content       = ! $is_admin ? '{FIELD}' : $field_content = sprintf( "%s%s<label class='gfield_label gform-field-label' for='%s'>%s</label>{FIELD}", $admin_buttons, $admin_hidden_markup, $field_id, esc_html( $field_label ) );
+=======
+		$form_id         = $form['id'];
+		$admin_buttons   = $this->get_admin_buttons();
+		$is_entry_detail = $this->is_entry_detail();
+		$is_form_editor  = $this->is_form_editor();
+		$is_admin        = $is_entry_detail || $is_form_editor;
+		$field_label     = $this->get_field_label( $force_frontend_label, $value );
+		$field_id        = $is_admin || $form_id == 0 ? "input_{$this->id}" : 'input_' . $form_id . "_{$this->id}";
+		$field_content   = ! $is_admin ? '{FIELD}' : $field_content = sprintf( "%s<label class='gfield_label' for='%s'>%s</label>{FIELD}", $admin_buttons, $field_id, esc_html( $field_label ) );
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 
 		return $field_content;
 	}

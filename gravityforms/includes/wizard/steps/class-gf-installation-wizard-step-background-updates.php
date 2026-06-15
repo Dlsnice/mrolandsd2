@@ -55,7 +55,11 @@ class GF_Installation_Wizard_Step_Background_Updates extends GF_Installation_Wiz
 		<div id="accept_terms_container" style="display:none;">
 			<div id="are_you_sure" style="background: #fff none repeat scroll 0 0;box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.1);padding: 1px 12px;border-left: 4px solid #dd3d36;margin: 5px 0 15px;display: inline-block;">
 
+<<<<<<< HEAD
 				<h3 style="margin-top:0.6em;"><i class="fa fa-exclamation-triangle gf_invalid"></i> <?php esc_html_e( 'Are you sure?', 'gravityforms' ); ?>
+=======
+				<h3 style="margin-top:0.6em;"><i class="fa fa-exclamation-triangle gf_invalid"></i> <?php _e( 'Are you sure?', 'gravityforms' ); ?>
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 				</h3>
 				<p>
 					<strong><?php esc_html_e( 'By disabling background updates your site may not get critical bug fixes and security enhancements. We only recommend doing this if you are experienced at managing a WordPress site and accept the risks involved in manually keeping your WordPress site updated.', 'gravityforms' ); ?></strong>
@@ -109,7 +113,11 @@ class GF_Installation_Wizard_Step_Background_Updates extends GF_Installation_Wiz
 	function summary( $echo = true ){
 		$html = $this->background_updates !== 'disabled' ? esc_html__( 'Enabled', 'gravityforms' ) . '&nbsp;<i class="fa fa-check gf_valid"></i>' :   esc_html__( 'Disabled', 'gravityforms' ) . '&nbsp;<i class="fa fa-times gf_invalid"></i>' ;
 		if ( $echo ) {
+<<<<<<< HEAD
 			echo $html; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+=======
+			echo $html;
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 		}
 		return $html;
 	}

@@ -24,7 +24,11 @@ if ( ! class_exists( 'GFForms' ) ) {
 }
 
 if ( ! GFCommon::current_user_can_any( 'gravityforms_view_entries' ) ) {
+<<<<<<< HEAD
 	die( esc_html__( "You don't have adequate permission to view entries.", 'gravityforms' ) );
+=======
+	die( __( "You don't have adequate permission to view entries.", 'gravityforms' ) );
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 }
 
 add_action( 'gform_print_entry_content', 'gform_default_entry_content', 10, 3 );
@@ -65,7 +69,11 @@ function gform_default_entry_content( $form, $entry, $entry_ids ) {
 
 	// Output entry divider/page break.
 	if ( array_search( $entry['id'], $entry_ids ) < count( $entry_ids ) - 1 ) {
+<<<<<<< HEAD
 		echo '<div class="print-hr ' . esc_attr( $page_break ) . '"></div>';
+=======
+		echo '<div class="print-hr ' . $page_break . '"></div>';
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 	}
 
 }
@@ -96,7 +104,11 @@ if ( 0 == $entry_ids ) {
 	$search_field_id = rgget( 'field_id' );
 	$search_operator = rgget( 'operator' );
 
+<<<<<<< HEAD
 	if ( isset( $_GET['field_id'] ) && $_GET['field_id'] !== '' ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+=======
+	if ( isset( $_GET['field_id'] ) && $_GET['field_id'] !== '' ) {
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 		$key            = $search_field_id;
 		$val            = rgget( 's' );
 		$strpos_row_key = strpos( $search_field_id, '|' );
@@ -107,7 +119,11 @@ if ( 0 == $entry_ids ) {
 		}
 		$search_criteria['field_filters'][] = array(
 			'key'      => $key,
+<<<<<<< HEAD
 			'operator' => rgempty( 'operator', $_GET ) ? 'is' : rgget( 'operator' ), // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+=======
+			'operator' => rgempty( 'operator', $_GET ) ? 'is' : rgget( 'operator' ),
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 			'value'    => $val,
 		);
 	}
@@ -137,7 +153,11 @@ if ( 0 == $entry_ids ) {
 	 * Allow the entry list search criteria to be overridden.
 	 *
 	 * @deprecated 2.3 Use "gform_search_criteria_entry_list" instead.
+<<<<<<< HEAD
 	 * @remove-in 3.0
+=======
+	 *
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 	 * @since  1.9.14.30
 	 *
 	 * @param array $search_criteria An array containing the search criteria.
@@ -180,12 +200,16 @@ if ( empty( $form_id ) || empty( $entry_ids ) ) {
 $form = GFAPI::get_form( $form_id );
 
 // Get script/styling extension.
+<<<<<<< HEAD
 $min = defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG || isset( $_GET['gform_debug'] ) ? '' : '.min';  // phpcs:ignore WordPress.Security.NonceVerification.Recommended
 
 $entry_title = count( $entry_ids ) > 1 ? esc_html__( 'Bulk Print', 'gravityforms' ) : esc_html__( 'Entry # ', 'gravityforms' ) . absint( $entry_ids[0] );
 
 /* translators: Print preview page title. 1: entry title, 2: form title, 3: site title. */
 $admin_title = sprintf( __( '%1$s &lsaquo; %2$s &lsaquo; Print Preview - Gravity Forms &lsaquo; %3$s &#8212; WordPress', 'gravityforms' ), esc_html( $entry_title ), esc_html( $form['title'] ), esc_html( get_bloginfo( 'name' ) ) );
+=======
+$min = defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG || isset( $_GET['gform_debug'] ) ? '' : '.min';
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 
 ?>
 
@@ -198,8 +222,17 @@ $admin_title = sprintf( __( '%1$s &lsaquo; %2$s &lsaquo; Print Preview - Gravity
 		<meta name="MSSmartTagsPreventParsing" content="true" />
 		<meta name="Robots" content="noindex, nofollow" />
 		<meta http-equiv="Imagetoolbar" content="No" />
+<<<<<<< HEAD
 		<title><?php echo esc_html( $admin_title ); ?></title>
 		<link rel='stylesheet' href='<?php echo esc_url( GFCommon::get_base_url() ) ?>/css/print<?php echo esc_html( $min ); ?>.css' type='text/css' />
+=======
+		<title>
+			Print Preview :
+			<?php echo esc_html( $form['title'] ) ?> :
+			<?php echo count( $entry_ids ) > 1 ? esc_html__( 'Bulk Print', 'gravityforms' ) : esc_html__( 'Entry # ', 'gravityforms' ) . absint( $entry_ids[0] ); ?>
+		</title>
+		<link rel='stylesheet' href='<?php echo GFCommon::get_base_url() ?>/css/print<?php echo $min; ?>.css' type='text/css' />
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 		<?php
 
 			/**
@@ -231,7 +264,11 @@ $admin_title = sprintf( __( '%1$s &lsaquo; %2$s &lsaquo; Print Preview - Gravity
 
 		?>
 	</head>
+<<<<<<< HEAD
 	<body <?php echo esc_attr( $auto_print ); ?>>
+=======
+	<body <?php echo $auto_print; ?>>
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 
 		<div id="print_preview_hdr" style="display:none">
 			<div>

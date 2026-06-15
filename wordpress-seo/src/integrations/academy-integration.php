@@ -5,7 +5,10 @@ namespace Yoast\WP\SEO\Integrations;
 use WPSEO_Addon_Manager;
 use WPSEO_Admin_Asset_Manager;
 use Yoast\WP\SEO\Conditionals\Admin_Conditional;
+<<<<<<< HEAD
 use Yoast\WP\SEO\Conditionals\User_Can_Manage_Wpseo_Options_Conditional;
+=======
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 use Yoast\WP\SEO\Helpers\Current_Page_Helper;
 use Yoast\WP\SEO\Helpers\Product_Helper;
 use Yoast\WP\SEO\Helpers\Short_Link_Helper;
@@ -71,7 +74,11 @@ class Academy_Integration implements Integration_Interface {
 	 * @return array
 	 */
 	public static function get_conditionals() {
+<<<<<<< HEAD
 		return [ Admin_Conditional::class, User_Can_Manage_Wpseo_Options_Conditional::class ];
+=======
+		return [ Admin_Conditional::class ];
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 	}
 
 	/**
@@ -109,7 +116,11 @@ class Academy_Integration implements Integration_Interface {
 					'wpseo_dashboard',
 					'',
 					\__( 'Academy', 'wordpress-seo' ),
+<<<<<<< HEAD
 					'wpseo_manage_options',
+=======
+					'edit_posts',
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 					self::PAGE,
 					[ $this, 'display_page' ],
 				],

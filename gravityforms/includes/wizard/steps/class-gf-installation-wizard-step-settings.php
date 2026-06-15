@@ -24,7 +24,11 @@ class GF_Installation_Wizard_Step_Settings extends GF_Installation_Wizard_Step {
 					$disabled = apply_filters( 'gform_currency_disabled', false ) ? "disabled='disabled'" : ''
 					?>
 
+<<<<<<< HEAD
 					<select id="gforms_currency" name="currency" <?php echo $disabled; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>>
+=======
+					<select id="gforms_currency" name="currency" <?php echo $disabled ?>>
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 						<option value=""><?php esc_html_e( 'Select a Currency', 'gravityforms' ) ?></option>
 						<?php
 						$current_currency = $this->currency;
@@ -89,5 +93,9 @@ class GF_Installation_Wizard_Step_Settings extends GF_Installation_Wizard_Step {
 		update_option( 'rg_gforms_enable_akismet', (bool) $this->enable_akismet );
 		update_option( 'rg_gforms_currency', $this->currency );
 		update_option( 'gform_enable_toolbar_menu', (bool) $this->enable_toolbar_menu );
+<<<<<<< HEAD
+=======
+		update_option( 'rg_gforms_enable_html5', 1 );
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 	}
 }

@@ -46,9 +46,12 @@ class GFAutoUpgrade {
 		// Check for updates. The check might not run the admin context. E.g. from WP-CLI.
 		add_filter( 'transient_update_plugins', array( $this, 'check_update' ) );
 		add_filter( 'site_transient_update_plugins', array( $this, 'check_update' ) );
+<<<<<<< HEAD
 		add_filter( 'auto_update_plugin', function ( $update, $item ) {
 			return GFForms::maybe_auto_update( $update, $item, $this->_slug, $this->_version );
 		}, 10, 2 );
+=======
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 
 		// ManageWP premium update filters
 		add_filter( 'mwp_premium_update_notification', array( $this, 'premium_update_push' ) );
@@ -67,7 +70,11 @@ class GFAutoUpgrade {
 
 		if ( ! $this->_is_gravityforms_supported ) {
 			$message = sprintf( esc_html__( 'Gravity Forms %s is required. Activate it now or %spurchase it today!%s', 'gravityforms' ), $this->_min_gravityforms_version, "<a href='https://www.gravityforms.com'>", '</a>' );
+<<<<<<< HEAD
 			GFAddOn::display_plugin_message( $message, 'error' );
+=======
+			GFAddOn::display_plugin_message( $message, true );
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 		}
 	}
 
@@ -140,6 +147,7 @@ class GFAutoUpgrade {
 			$option->response[ $this->_path ] = new stdClass();
 		}
 
+<<<<<<< HEAD
 		$new_version = rgar( $version_info, 'version', '0' );
 
 		$plugin = array(
@@ -155,12 +163,26 @@ class GFAutoUpgrade {
 
 		//Empty response means that the key is invalid. Do not queue for upgrade
 		if ( ! rgar( $version_info, 'is_valid_key' ) || version_compare( $this->_version, $new_version, '>=' ) ) {
+=======
+		$plugin = array(
+			'plugin'      => $this->_path,
+			'url'         => $this->_url,
+			'slug'        => $this->_slug,
+			'package'     => str_replace( '{KEY}', $key, $version_info['url'] ),
+			'new_version' => $version_info['version'],
+			'id'          => '0',
+		);
+
+		//Empty response means that the key is invalid. Do not queue for upgrade
+		if ( ! rgar( $version_info, 'is_valid_key' ) || version_compare( $this->_version, $version_info['version'], '>=' ) ) {
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 			unset( $option->response[ $this->_path ] );
 			$option->no_update[ $this->_path ] = (object) $plugin;
 		} else {
 			$option->response[ $this->_path ] = (object) $plugin;
 		}
 
+<<<<<<< HEAD
 		// Check minimum requirements. If not met, remove from response and add to no_update.
 		$minimum_requirements_evaluation_result = GFCommon::evaluate_minimum_requirements(
 			is_array( $version_info['minimum_requirements'] ?? null )
@@ -175,6 +197,8 @@ class GFAutoUpgrade {
 			$option->no_update[ $this->_path ] = (object) $plugin;
 		}
 
+=======
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 		return $option;
 
 	}
@@ -183,11 +207,19 @@ class GFAutoUpgrade {
 
 	// Displays current version details on plugins page and updates page
 	public function display_changelog() {
+<<<<<<< HEAD
 		if ( isset( $_REQUEST['plugin'] ) && $_REQUEST['plugin'] != $this->_slug ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended
 			return;
 		}
 		$change_log = $this->get_changelog();
 		echo $change_log; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+=======
+		if ( $_REQUEST['plugin'] != $this->_slug ) {
+			return;
+		}
+		$change_log = $this->get_changelog();
+		echo $change_log;
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 
 		exit;
 	}
@@ -211,12 +243,20 @@ class GFAutoUpgrade {
 			'Content-Type'   => 'application/x-www-form-urlencoded; charset=' . get_option( 'blog_charset' ),
 			'Content-Length' => strlen( $body ),
 			'User-Agent'     => 'WordPress/' . get_bloginfo( 'version' ),
+<<<<<<< HEAD
+=======
+			'Referer'        => get_bloginfo( 'url' ),
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 		);
 
 		$raw_response = GFCommon::post_to_manager( 'changelog.php', $this->get_remote_request_params( $this->_slug, $key, $this->_version ), $options );
 
 		if ( is_wp_error( $raw_response ) || 200 != $raw_response['response']['code'] ) {
+<<<<<<< HEAD
 			$text = sprintf( esc_html__( 'Oops!! Something went wrong.%sPlease try again or %scontact us%s.', 'gravityforms' ), '<br/>', "<a href='" . esc_attr( GFCommon::get_support_url() ). "'>", '</a>' );
+=======
+			$text = sprintf( esc_html__( 'Oops!! Something went wrong.%sPlease try again or %scontact us%s.', 'gravityforms' ), '<br/>', "<a href='https://www.gravityforms.com/support/'>", '</a>' );
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 		} else {
 			$text = $raw_response['body'];
 			if ( substr( $text, 0, 10 ) != '<!--GFM-->' ) {
@@ -230,6 +270,7 @@ class GFAutoUpgrade {
 	private function get_version_info( $offering, $use_cache = true ) {
 
 		$version_info = GFCommon::get_version_info( $use_cache );
+<<<<<<< HEAD
 
 		$info = array( 
 			'is_valid_key'         => rgar( $version_info, 'is_valid_key' ),
@@ -239,6 +280,11 @@ class GFAutoUpgrade {
 			'minimum_requirements' => rgars( $version_info, "offerings/{$offering}/minimum_requirements" ),
 			'version_latest'       => rgars( $version_info, "offerings/{$offering}/version_latest" ),
 		);
+=======
+		$is_valid_key = rgar( $version_info, 'is_valid_key' ) && rgars( $version_info, "offerings/{$offering}/is_available" );
+
+		$info = array( 'is_valid_key' => $is_valid_key, 'version' => rgars( $version_info, "offerings/{$offering}/version" ), 'url' => rgars( $version_info, "offerings/{$offering}/url" ) );
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 
 		return $info;
 	}
@@ -315,7 +361,11 @@ class GFAutoUpgrade {
 	public function display_updates() {
 
 		?>
+<<<<<<< HEAD
 		<div class="wrap <?php echo esc_attr( GFCommon::get_browser_class() ); ?>">
+=======
+		<div class="wrap <?php echo GFCommon::get_browser_class() ?>">
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 			<h2><?php esc_html_e( $this->_title ); ?></h2>
 			<?php
 			$force_check = rgget( 'force-check' ) == 1;
@@ -340,7 +390,11 @@ class GFAutoUpgrade {
 
 					?>
 					<div class="gf_update_outdated alert_yellow">
+<<<<<<< HEAD
 						<?php echo $message . ' <p>' . sprintf( esc_html__( 'You can update to the latest version automatically or download the update and install it manually. %sUpdate Automatically%s %sDownload Update%s', 'gravityforms' ), "</p><a class='button-primary' href='{$upgrade_url}'>", '</a>', "&nbsp;<a class='button' href='{$version_info['url']}'>", '</a>' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped?>
+=======
+						<?php echo $message . ' <p>' . sprintf( esc_html__( 'You can update to the latest version automatically or download the update and install it manually. %sUpdate Automatically%s %sDownload Update%s', 'gravityforms' ), "</p><a class='button-primary' href='{$upgrade_url}'>", '</a>', "&nbsp;<a class='button' href='{$version_info['url']}'>", '</a>' ); ?>
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 					</div>
 				<?php
 				}
@@ -348,7 +402,11 @@ class GFAutoUpgrade {
 
 				?>
 				<div class="gf_update_current alert_green">
+<<<<<<< HEAD
 					<?php printf( esc_html__( 'Your version of %s is up to date.', 'gravityforms' ), esc_html( $this->_title ) ); ?>
+=======
+					<?php printf( esc_html__( 'Your version of %s is up to date.', 'gravityforms' ), $this->_title ); ?>
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 				</div>
 			<?php
 			}

@@ -131,20 +131,34 @@
 				label = indent + subFilter.text;
 				val = subFilter.key;
 				disabled = isFieldSelected(val) ? 'disabled="disabled"' : "";
+<<<<<<< HEAD
 				options.push('<option {0} value="{1}">{2}</option>'.gformFormat(disabled, val, label));
+=======
+				options.push('<option {0} value="{1}">{2}</option>'.format(disabled, val, label));
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 			}
 			indent = indentString.repeat(depth);
 			groupLabel = indent + setting.text;
 			if ( setting.isNestable ) {
 				// Optgroups can't be nested so close the optgroup immediately and fake the nested options with indentation.
+<<<<<<< HEAD
 				select.push('<optgroup label="{0}"></optgroup>{1}'.gformFormat(groupLabel, options.join('')));
 			} else {
 				select.push('<optgroup label="{0}">{1}</optgroup>'.gformFormat(groupLabel, options.join('')));
+=======
+				select.push('<optgroup label="{0}"></optgroup>{1}'.format(groupLabel, options.join('')));
+			} else {
+				select.push('<optgroup label="{0}">{1}</optgroup>'.format(groupLabel, options.join('')));
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 			}
 		} else {
 			disabled = setting.preventMultiple && isFieldSelected(key) ? "disabled='disabled'" : "";
 			label = setting.text;
+<<<<<<< HEAD
 			select.push('<option {0} value="{1}">{2}</option>'.gformFormat(disabled, key, label));
+=======
+			select.push('<option {0} value="{1}">{2}</option>'.format(disabled, key, label));
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 		}
 		return select.join('');
 	}
@@ -187,7 +201,11 @@
         if (filter) {
             for (i = 0; i < filter.operators.length; i++) {
                 operator = filter.operators[i];
+<<<<<<< HEAD
                 str += '<option value="{0}">{1}</option>'.gformFormat(operator, gf_vars[operatorStrings[operator]] );
+=======
+                str += '<option value="{0}">{1}</option>'.format(operator, gf_vars[operatorStrings[operator]] );
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
             }
         }
         str += "</select>";
@@ -205,7 +223,11 @@
         if ( filter && filter.values && selectedOperator != 'contains' ) {
 
             if ( typeof filter.placeholder != 'undefined' ){
+<<<<<<< HEAD
                 options += '<option value="">{0}</option>'.gformFormat(filter.placeholder);
+=======
+                options += '<option value="">{0}</option>'.format(filter.placeholder);
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
             }
 
             for (i = 0; i < filter.values.length; i++) {
@@ -214,6 +236,7 @@
                 if ( filter.values[i].operators && $.inArray( selectedOperator, filter.values[i].operators ) === -1 ) {
                     continue;
                 }
+<<<<<<< HEAD
                 options += '<option value="{0}">{1}</option>'.gformFormat(val, text);
             }
             str = "<select name='v[]' class='{0}'>{1}</select>".gformFormat(cssClass, options);
@@ -221,6 +244,15 @@
             placeholder = ( filter && typeof filter.placeholder != 'undefined' ) ? "placeholder='{0}'".gformFormat(filter.placeholder) : '';
 
             str = "<input type='text' value='' name='v[]' class='{0}' {1}/>".gformFormat(cssClass, placeholder);
+=======
+                options += '<option value="{0}">{1}</option>'.format(val, text);
+            }
+            str = "<select name='v[]' class='{0}'>{1}</select>".format(cssClass, options);
+        } else {
+            placeholder = ( filter && typeof filter.placeholder != 'undefined' ) ? "placeholder='{0}'".format(filter.placeholder) : '';
+
+            str = "<input type='text' value='' name='v[]' class='{0}' {1}/>".format(cssClass, placeholder);
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
         }
 
         return str;
@@ -258,7 +290,11 @@
         str += "<button " +
 	        "class='gform-add add_field_choice gform-st-icon gform-st-icon--circle-plus' " +
 	        "title='{0}'" +
+<<<<<<< HEAD
 	        "></button>".gformFormat(gf_vars.addFieldFilter);
+=======
+	        "></button>".format(gf_vars.addFieldFilter);
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
         str += "<button " +
 	        "class='gform-remove delete_field_choice gform-st-icon gform-st-icon--circle-minus' " +
 	        "title='" + gf_vars.removeFieldFilter + "'" +
@@ -300,7 +336,11 @@
         str += "<button " +
 	        "class='gform-add add_field_choice gform-st-icon gform-st-icon--circle-plus' " +
 	        "title='{0}'" +
+<<<<<<< HEAD
 	        "></div>".gformFormat(gf_vars.addFieldFilter);
+=======
+	        "></div>".format(gf_vars.addFieldFilter);
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
         $("#gform-field-filters").html(str);
         if(isResizable){
             $container.css({'min-height': '', 'border-bottom': ''});
@@ -323,8 +363,13 @@
 
     function getFilterMode(mode){
         var html;
+<<<<<<< HEAD
         html = '<select name="mode"><option value="all" {0}>{1}</option><option value="any" {2}>{3}</option></select>'.gformFormat(selected("all", mode), gf_vars.all, selected("any", mode), gf_vars.any);
         html = gf_vars.filterAndAny.gformFormat(html);
+=======
+        html = '<select name="mode"><option value="all" {0}>{1}</option><option value="any" {2}>{3}</option></select>'.format(selected("all", mode), gf_vars.all, selected("any", mode), gf_vars.any);
+        html = gf_vars.filterAndAny.format(html);
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
         return html
     }
 
@@ -365,6 +410,7 @@
         maybeMakeResizable();
     }
 
+<<<<<<< HEAD
 	if ( ! String.prototype.gformFormat ) {
 		String.prototype.gformFormat = function() {
 			var args = arguments;
@@ -373,5 +419,16 @@
 			} );
 		};
 	}
+=======
+    String.prototype.format = function () {
+        var args = arguments;
+        return this.replace(/{(\d+)}/g, function (match, number) {
+            return typeof args[number] != 'undefined'
+                ? args[number]
+                : match
+                ;
+        });
+    };
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 
 }(window.gfFilterUI = window.gfFilterUI || {}, jQuery));

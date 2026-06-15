@@ -67,8 +67,19 @@ trait Child_Task_Trait {
 	 * @return Copy_Set
 	 */
 	public function get_copy_set(): Copy_Set {
+<<<<<<< HEAD
 		return new Copy_Set(
 			\html_entity_decode( $this->content_item_data->get_title(), \ENT_QUOTES, 'UTF-8' ),
+=======
+		$title = \html_entity_decode( $this->content_item_data->get_title(), \ENT_QUOTES, 'UTF-8' );
+		if ( $title === '' ) {
+			// Mirror WordPress' own untitled-post convention so screen readers have text content.
+			$title = \__( '(no title)', 'wordpress-seo' );
+		}
+
+		return new Copy_Set(
+			$title,
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 			$this->parent_task->get_copy_set()->get_about(),
 		);
 	}

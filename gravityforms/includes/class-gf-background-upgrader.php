@@ -11,15 +11,23 @@
  * @author   Rocketgenius
  */
 
+<<<<<<< HEAD
 use Gravity_Forms\Gravity_Forms\Async\GF_Background_Process;
 
+=======
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
+<<<<<<< HEAD
 if ( ! class_exists( 'Gravity_Forms\Gravity_Forms\Async\GF_Background_Process' ) ) {
 	require_once GF_PLUGIN_DIR_PATH . 'includes/async/class-gf-background-process.php';
 }
+=======
+require_once( 'libraries/wp-async-request.php' );
+require_once( 'libraries/gf-background-process.php' );
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 
 /**
  * GF_Background_Upgrader Class.

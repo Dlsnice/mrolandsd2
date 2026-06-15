@@ -65,6 +65,7 @@ abstract class GFFeedAddOn extends GFAddOn {
 	protected $_bypass_feed_delay = false;
 
 	/**
+<<<<<<< HEAD
 	 * Indicates if the add-on supports processing feeds multiple times for the same entry.
 	 *
 	 * @since 2.9.2
@@ -87,6 +88,8 @@ abstract class GFFeedAddOn extends GFAddOn {
 	public $delayed_payment_integration = array();
 
 	/**
+=======
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 	 * @var string Version number of the Add-On Framework
 	 */
 	private $_feed_version = '0.14';
@@ -107,6 +110,7 @@ abstract class GFFeedAddOn extends GFAddOn {
 	private $_table_error_rendered = array();
 
 	/**
+<<<<<<< HEAD
 	 * Gets all active, registered feed add-ons.
 	 *
 	 * @since 2.9.2
@@ -122,11 +126,14 @@ abstract class GFFeedAddOn extends GFAddOn {
 	}
 
 	/**
+=======
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 	 * Attaches any filters or actions needed to bootstrap the addon.
 	 *
 	 * @since 2.5.2
 	 */
 	public function bootstrap() {
+<<<<<<< HEAD
 		if ( ! $this instanceof GFPaymentAddOn ) {
 			if ( ! function_exists( 'gf_feed_processor' ) ) {
 				require_once GF_PLUGIN_DIR_PATH . 'includes/addon/class-gf-feed-processor.php';
@@ -134,6 +141,8 @@ abstract class GFFeedAddOn extends GFAddOn {
 			gf_feed_processor( $this );
 		}
 
+=======
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 		parent::bootstrap();
 
 		if ( $this->is_feed_edit_page() ) {
@@ -150,7 +159,10 @@ abstract class GFFeedAddOn extends GFAddOn {
 
 		add_filter( 'gform_entry_post_save', array( $this, 'maybe_process_feed' ), 10, 2 );
 		add_action( 'gform_after_delete_form', array( $this, 'delete_feeds' ) );
+<<<<<<< HEAD
 		add_action( 'gform_update_status', array( $this, 'process_feed_when_unspammed' ), 10, 3 );
+=======
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 
 		// Register GFFrontendFeeds.
 		if ( $this->_supports_frontend_feeds && ! has_action( 'gform_register_init_scripts', array( __class__, 'register_frontend_feeds_init_script' ) ) ) {
@@ -167,7 +179,11 @@ abstract class GFFeedAddOn extends GFAddOn {
 
 		parent::init_ajax();
 
+<<<<<<< HEAD
 		add_action( "wp_ajax_gf_feed_is_active_{$this->get_slug()}", array( $this, 'ajax_toggle_is_active' ) );
+=======
+		add_action( "wp_ajax_gf_feed_is_active_{$this->_slug}", array( $this, 'ajax_toggle_is_active' ) );
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 		add_action( 'wp_ajax_gf_save_feed_order', array( $this, 'ajax_save_feed_order' ) );
 
 	}
@@ -250,7 +266,11 @@ abstract class GFFeedAddOn extends GFAddOn {
 
 	public function scripts() {
 
+<<<<<<< HEAD
 		$min     = defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG || isset( $_GET['gform_debug'] ) ? '' : '.min'; // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+=======
+		$min     = defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG || isset( $_GET['gform_debug'] ) ? '' : '.min';
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 		$scripts = array(
 			array(
 				'handle'  => 'gform_form_admin',
@@ -307,6 +327,7 @@ abstract class GFFeedAddOn extends GFAddOn {
 		return array_merge( parent::scripts(), $scripts );
 	}
 
+<<<<<<< HEAD
 	/**
 	 * Deletes the feeds and clears queued background tasks on uninstall.
 	 *
@@ -323,10 +344,18 @@ abstract class GFFeedAddOn extends GFAddOn {
 		if ( ! $this instanceof GFPaymentAddOn ) {
 			gf_feed_processor( $this )->uninstall();
 		}
+=======
+	public function uninstall() {
+		global $wpdb;
+		$sql = $wpdb->prepare( "DELETE FROM {$wpdb->prefix}gf_addon_feed WHERE addon_slug=%s", $this->_slug );
+		$wpdb->query( $sql );
+
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 	}
 
 	//-------- Front-end methods ---------------------------
 
+<<<<<<< HEAD
     public function set_bypass_feed_delay( $bypass ) {
         $this->_bypass_feed_delay = (bool) $bypass;
     }
@@ -341,22 +370,42 @@ abstract class GFFeedAddOn extends GFAddOn {
 	 *
 	 * @param array $entry The Entry Object currently being processed.
 	 * @param array $form  The Form Object currently being processed.
+=======
+	/**
+	 * Determines what feeds need to be processed for the provided entry.
+	 *
+	 * @access public
+	 * @param array $entry The Entry Object currently being processed.
+	 * @param array $form The Form Object currently being processed.
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 	 *
 	 * @return array $entry
 	 */
 	public function maybe_process_feed( $entry, $form ) {
+<<<<<<< HEAD
 		$entry_id = (int) rgar( $entry, 'id' );
 
 		if ( 'spam' === rgar( $entry, 'status' ) ) {
 			$this->log_debug( __METHOD__ . "(): Entry #{$entry_id} is marked as spam; not processing feeds." );
+=======
+
+		if ( 'spam' === $entry['status'] ) {
+			$this->log_debug( "GFFeedAddOn::maybe_process_feed(): Entry #{$entry['id']} is marked as spam; not processing feeds for {$this->_slug}." );
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 
 			return $entry;
 		}
 
+<<<<<<< HEAD
 		$this->log_debug( __METHOD__ . "(): Checking for feeds to process for entry #{$entry_id}." );
 
 		$form_id = (int) rgar( $form, 'id' );
 		$feeds   = false;
+=======
+		$this->log_debug( __METHOD__ . "(): Checking for feeds to process for entry #{$entry['id']} for {$this->_slug}." );
+
+		$feeds = false;
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 
 		// If this is a single submission feed, get the first feed. Otherwise, get all feeds.
 		if ( $this->_single_feed_submission ) {
@@ -365,7 +414,11 @@ abstract class GFFeedAddOn extends GFAddOn {
 				$feeds = array( $feed );
 			}
 		} else {
+<<<<<<< HEAD
 			$feeds = $this->get_feeds( $form_id );
+=======
+			$feeds = $this->get_feeds( $form['id'] );
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 		}
 
 		// Run filters before processing feeds.
@@ -373,8 +426,12 @@ abstract class GFFeedAddOn extends GFAddOn {
 
 		// If there are no feeds to process, return.
 		if ( empty( $feeds ) ) {
+<<<<<<< HEAD
 			$this->log_debug( __METHOD__ . "(): No feeds to process for entry #{$entry_id}." );
 
+=======
+			$this->log_debug( __METHOD__ . "(): No feeds to process for entry #{$entry['id']}." );
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 			return $entry;
 		}
 
@@ -384,12 +441,16 @@ abstract class GFFeedAddOn extends GFAddOn {
 		// Initialize array of feeds that have been processed.
 		$processed_feeds = array();
 
+<<<<<<< HEAD
 		$background_processor = gf_feed_processor( $this );
 
+=======
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 		// Loop through feeds.
 		foreach ( $feeds as $feed ) {
 
 			// Get the feed name.
+<<<<<<< HEAD
 			$feed_name = $this->get_feed_name( $feed );
 			$feed_id   = (int) rgar( $feed, 'id' );
 
@@ -401,12 +462,23 @@ abstract class GFFeedAddOn extends GFAddOn {
 
 			if ( ! $this->can_process_feed( $feed, $entry, $form ) ) {
 				$this->log_debug( __METHOD__ . "(): Feed can't be re-processed. Not processing feed (#{$feed_id} - {$feed_name}) for entry #{$entry_id}." );
+=======
+			$feed_name = rgempty( 'feed_name', $feed['meta'] ) ? rgar( $feed['meta'], 'feedName' ) : rgar( $feed['meta'], 'feed_name' );
+
+			// If this feed is inactive, log that it's not being processed and skip it.
+			if ( ! $feed['is_active'] ) {
+				$this->log_debug( "GFFeedAddOn::maybe_process_feed(): Feed is inactive, not processing feed (#{$feed['id']} - {$feed_name}) for entry #{$entry['id']}." );
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 				continue;
 			}
 
 			// If this feed's condition is not met, log that it's not being processed and skip it.
 			if ( ! $this->is_feed_condition_met( $feed, $form, $entry ) ) {
+<<<<<<< HEAD
 				$this->log_debug( __METHOD__ . "(): Feed condition not met, not processing feed (#{$feed_id} - {$feed_name}) for entry #{$entry_id}." );
+=======
+				$this->log_debug( "GFFeedAddOn::maybe_process_feed(): Feed condition not met, not processing feed (#{$feed['id']} - {$feed_name}) for entry #{$entry['id']}." );
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 				continue;
 			}
 
@@ -417,6 +489,7 @@ abstract class GFFeedAddOn extends GFAddOn {
 				if ( $this->is_asynchronous( $feed, $entry, $form ) ) {
 
 					// Log that feed processing is being delayed.
+<<<<<<< HEAD
 					$this->log_debug( __METHOD__ . "(): Adding feed (#{$feed_id} - {$feed_name}) to the processing queue for entry #{$entry_id}." );
 
 					// Add feed to processing queue.
@@ -429,10 +502,24 @@ abstract class GFFeedAddOn extends GFAddOn {
 						)
 					);
 					$this->delay_feed( $feed, $entry, $form );
+=======
+					$this->log_debug( "GFFeedAddOn::maybe_process_feed(): Adding feed (#{$feed['id']} - {$feed_name}) for entry #{$entry['id']} for {$this->_slug} to the processing queue." );
+
+					// Add feed to processing queue.
+					gf_feed_processor()->push_to_queue(
+						array(
+							'addon' => $this,
+							'feed'  => $feed,
+							'entry_id' => $entry['id'],
+							'form_id'  => $form['id'],
+						)
+					);
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 
 				} else {
 
 					// All requirements are met; process feed.
+<<<<<<< HEAD
 					$this->log_debug( __METHOD__ . "(): Starting to process feed (#{$feed_id} - {$feed_name}) for entry #{$entry_id}." );
 					$result = $this->process_feed( $feed, $entry, $form );
 					$this->save_entry_feed_status( $result, $entry_id, $feed_id, $form_id );
@@ -447,12 +534,45 @@ abstract class GFFeedAddOn extends GFAddOn {
 
 					// Adding this feed to the list of processed feeds
 					$processed_feeds[] = $feed_id;
+=======
+					$this->log_debug( "GFFeedAddOn::maybe_process_feed(): Starting to process feed (#{$feed['id']} - {$feed_name}) for entry #{$entry['id']} for {$this->_slug}" );
+					$returned_entry = $this->process_feed( $feed, $entry, $form );
+
+					// If returned value from the process feed call is an array containing an id, set the entry to its value.
+					if ( is_array( $returned_entry ) && rgar( $returned_entry, 'id' ) ) {
+						$entry = $returned_entry;
+					}
+
+					/**
+					 * Perform a custom action when a feed has been processed.
+					 *
+					 * @param array $feed The feed which was processed.
+					 * @param array $entry The current entry object, which may have been modified by the processed feed.
+					 * @param array $form The current form object.
+					 * @param GFAddOn $addon The current instance of the GFAddOn object which extends GFFeedAddOn or GFPaymentAddOn (i.e. GFCoupons, GF_User_Registration, GFStripe).
+					 *
+					 * @since 2.0
+					 */
+					do_action( 'gform_post_process_feed', $feed, $entry, $form, $this );
+					do_action( "gform_{$this->_slug}_post_process_feed", $feed, $entry, $form, $this );
+
+					// Log that Add-On has been fulfilled.
+					$this->log_debug( 'GFFeedAddOn::maybe_process_feed(): Marking entry #' . $entry['id'] . ' as fulfilled for ' . $this->_slug );
+					gform_update_meta( $entry['id'], "{$this->_slug}_is_fulfilled", true );
+
+					// Adding this feed to the list of processed feeds
+					$processed_feeds[] = $feed['id'];
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 				}
 
 			} else {
 
 				// Log that feed processing is being delayed.
+<<<<<<< HEAD
 				$this->log_debug( __METHOD__ . "(): Feed processing is delayed, not processing feed (#{$feed_id} - {$feed_name}) for entry #{$entry_id}." );
+=======
+				$this->log_debug( 'GFFeedAddOn::maybe_process_feed(): Feed processing is delayed, not processing feed for entry #' . $entry['id'] . ' for ' . $this->_slug );
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 
 				// Delay feed.
 				$this->delay_feed( $feed, $entry, $form );
@@ -462,10 +582,29 @@ abstract class GFFeedAddOn extends GFAddOn {
 
 		// If any feeds were processed, save the processed feed IDs.
 		if ( ! empty( $processed_feeds ) ) {
+<<<<<<< HEAD
 			GFAPI::update_processed_feeds_meta( $entry_id, $this->get_slug(), $processed_feeds, $form_id );
 		}
 
 		$background_processor->save()->dispatch_on_shutdown();
+=======
+
+			// Get current processed feeds.
+			$meta = gform_get_meta( $entry['id'], 'processed_feeds' );
+
+			// If no feeds have been processed for this entry, initialize the meta array.
+			if ( empty( $meta ) ) {
+				$meta = array();
+			}
+
+			// Add this Add-On's processed feeds to the entry meta.
+			$meta[ $this->_slug ] = $processed_feeds;
+
+			// Update the entry meta.
+			gform_update_meta( $entry['id'], 'processed_feeds', $meta );
+
+		}
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 
 		// Return the entry object.
 		return $entry;
@@ -473,6 +612,7 @@ abstract class GFFeedAddOn extends GFAddOn {
 	}
 
 	/**
+<<<<<<< HEAD
 	 * Retrieves the name of the given feed.
 	 *
 	 * @since 2.9.9
@@ -585,6 +725,8 @@ abstract class GFFeedAddOn extends GFAddOn {
 	}
 
 	/**
+=======
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 	 * Determines if feed processing is delayed by another add-on.
 	 *
 	 * Also enables use of the gform_is_delayed_pre_process_feed filter.
@@ -624,7 +766,11 @@ abstract class GFFeedAddOn extends GFAddOn {
 	 * @return bool|null
 	 */
 	public function is_delayed( $payment_feed ) {
+<<<<<<< HEAD
 		$delay = rgar( $payment_feed['meta'], 'delay_' . $this->get_slug() );
+=======
+		$delay = rgar( $payment_feed['meta'], 'delay_' . $this->_slug );
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 
 		return $delay;
 	}
@@ -663,6 +809,7 @@ abstract class GFFeedAddOn extends GFAddOn {
 	}
 
 	/**
+<<<<<<< HEAD
 	 * Determines if the add-on supports processing feeds multiple times for the same entry (e.g. by the async processor).
 	 *
 	 * @since 2.9.2
@@ -795,6 +942,18 @@ abstract class GFFeedAddOn extends GFAddOn {
 	 *                                       - void or null when the feed status should not be saved.
 	 *                                       - false or a WP_Error when a failed status should be saved.
 	 *                                       - true or the entry array when a success status should be saved.
+=======
+	 * Processes feed action.
+	 *
+	 * @since  Unknown
+	 * @access public
+	 *
+	 * @param array  $feed  The Feed Object currently being processed.
+	 * @param array  $entry The Entry Object currently being processed.
+	 * @param array  $form  The Form Object currently being processed.
+	 *
+	 * @return array|null Returns a modified entry object or null.
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 	 */
 	public function process_feed( $feed, $entry, $form ) {
 
@@ -829,7 +988,11 @@ abstract class GFFeedAddOn extends GFAddOn {
 	 */
 	public function create_feed_nonce() {
 
+<<<<<<< HEAD
 		$action = 'gform_' . $this->get_slug() . '_process_feed';
+=======
+		$action = 'gform_' . $this->_slug . '_process_feed';
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 		$i      = wp_nonce_tick();
 
 		return substr( wp_hash( $i . $action, 'nonce' ), - 12, 10 );
@@ -847,7 +1010,11 @@ abstract class GFFeedAddOn extends GFAddOn {
 	 */
 	public function verify_feed_nonce( $nonce ) {
 
+<<<<<<< HEAD
 		$action = 'gform_' . $this->get_slug() . '_process_feed';
+=======
+		$action = 'gform_' . $this->_slug . '_process_feed';
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 		$i      = wp_nonce_tick();
 
 		// Nonce generated 0-12 hours ago.
@@ -904,6 +1071,7 @@ abstract class GFFeedAddOn extends GFAddOn {
 
 	//--------  Feed data methods  -------------------------
 
+<<<<<<< HEAD
 	/**
 	 * Gets the feeds for the specified form id.
 	 *
@@ -914,11 +1082,14 @@ abstract class GFFeedAddOn extends GFAddOn {
 	 *
 	 * @return array Returns an array of feeds for the specified form id.
 	 */
+=======
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 	public function get_feeds( $form_id = null ) {
 		global $wpdb;
 
 		$form_filter = is_numeric( $form_id ) ? $wpdb->prepare( 'AND form_id=%d', absint( $form_id ) ) : '';
 
+<<<<<<< HEAD
 		// phpcs:disable WordPress.DB.PreparedSQL.InterpolatedNotPrepared
 		$sql = $wpdb->prepare(
 			"SELECT * FROM {$wpdb->prefix}gf_addon_feed
@@ -929,6 +1100,16 @@ abstract class GFFeedAddOn extends GFAddOn {
 		$results = $wpdb->get_results( $sql, ARRAY_A ); // phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared, WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
 		foreach ( $results as &$result ) {
 			$result['meta'] = $this->decrypt_feed_meta( json_decode( $result['meta'], true ) );
+=======
+		$sql = $wpdb->prepare(
+			"SELECT * FROM {$wpdb->prefix}gf_addon_feed
+                               WHERE addon_slug=%s {$form_filter} ORDER BY `feed_order`, `id` ASC", $this->_slug
+		);
+
+		$results = $wpdb->get_results( $sql, ARRAY_A );
+		foreach ( $results as &$result ) {
+			$result['meta'] = json_decode( $result['meta'], true );
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 		}
 
 		return $results;
@@ -938,7 +1119,10 @@ abstract class GFFeedAddOn extends GFAddOn {
 	 * Queries and returns all active feeds for this Add-On
 	 *
 	 * @since 2.4
+<<<<<<< HEAD
 	 * @since 2.7.17 Added support for decrypting settings fields.
+=======
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 	 *
 	 * @param int $form_id The Form Id to get feeds from.
 	 *
@@ -949,6 +1133,7 @@ abstract class GFFeedAddOn extends GFAddOn {
 
 		$form_filter = is_numeric( $form_id ) ? $wpdb->prepare( 'AND form_id=%d', absint( $form_id ) ) : '';
 
+<<<<<<< HEAD
 		// phpcs:disable WordPress.DB.PreparedSQL.InterpolatedNotPrepared
 		$sql = $wpdb->prepare(
 			"SELECT * FROM {$wpdb->prefix}gf_addon_feed
@@ -959,11 +1144,22 @@ abstract class GFFeedAddOn extends GFAddOn {
 		$results = $wpdb->get_results( $sql, ARRAY_A ); // phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared, WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
 		foreach ( $results as &$result ) {
 			$result['meta'] = $this->decrypt_feed_meta( json_decode( $result['meta'], true ) );
+=======
+		$sql = $wpdb->prepare(
+			"SELECT * FROM {$wpdb->prefix}gf_addon_feed
+                               WHERE addon_slug=%s AND is_active=1 {$form_filter} ORDER BY `feed_order`, `id` ASC", $this->_slug
+		);
+
+		$results = $wpdb->get_results( $sql, ARRAY_A );
+		foreach ( $results as &$result ) {
+			$result['meta'] = json_decode( $result['meta'], true );
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 		}
 
 		return $results;
 	}
 
+<<<<<<< HEAD
 	/**
 	 * Gets the feeds for the specified addon slug and form id.
 	 *
@@ -975,6 +1171,8 @@ abstract class GFFeedAddOn extends GFAddOn {
 	 *
 	 * @return array Returns an array of feeds for the specified form id.
 	 */
+=======
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 	public function get_feeds_by_slug( $slug, $form_id = null ) {
 		global $wpdb;
 
@@ -985,6 +1183,7 @@ abstract class GFFeedAddOn extends GFAddOn {
 
 		$form_filter = is_numeric( $form_id ) ? $wpdb->prepare( 'AND form_id=%d', absint( $form_id ) ) : '';
 
+<<<<<<< HEAD
 		// phpcs:disable WordPress.DB.PreparedSQL.InterpolatedNotPrepared
 		$sql = $wpdb->prepare( "SELECT * FROM {$wpdb->prefix}gf_addon_feed
                                WHERE addon_slug=%s {$form_filter} ORDER BY `feed_order`, `id` ASC", $slug );
@@ -992,6 +1191,14 @@ abstract class GFFeedAddOn extends GFAddOn {
 		$results = $wpdb->get_results( $sql, ARRAY_A ); // phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared, WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
 		foreach( $results as &$result ) {
 			$result['meta'] = $this->decrypt_feed_meta( json_decode( $result['meta'], true ) );
+=======
+		$sql = $wpdb->prepare( "SELECT * FROM {$wpdb->prefix}gf_addon_feed
+                               WHERE addon_slug=%s {$form_filter} ORDER BY `feed_order`, `id` ASC", $slug );
+
+		$results = $wpdb->get_results( $sql, ARRAY_A );
+		foreach( $results as &$result ) {
+			$result['meta'] = json_decode( $result['meta'], true );
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 		}
 
 		return $results;
@@ -1013,6 +1220,7 @@ abstract class GFFeedAddOn extends GFAddOn {
 		}
 	}
 
+<<<<<<< HEAD
 	/**
 	 * Gets a feed by its id.
 	 *
@@ -1023,6 +1231,8 @@ abstract class GFFeedAddOn extends GFAddOn {
 	 *
 	 * @return array Returns the feed array if found, false otherwise.
 	 */
+=======
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 	public function get_feed( $id ) {
 		global $wpdb;
 
@@ -1033,12 +1243,20 @@ abstract class GFFeedAddOn extends GFAddOn {
 
 		$sql = $wpdb->prepare( "SELECT * FROM {$wpdb->prefix}gf_addon_feed WHERE id=%d", $id );
 
+<<<<<<< HEAD
 		$row = $wpdb->get_row( $sql, ARRAY_A ); // phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared, WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
+=======
+		$row = $wpdb->get_row( $sql, ARRAY_A );
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 		if ( ! $row ) {
 			return false;
 		}
 
+<<<<<<< HEAD
 		$row['meta'] = $this->decrypt_feed_meta( json_decode( $row['meta'], true ) );
+=======
+		$row['meta'] = json_decode( $row['meta'], true );
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 
 		return $row;
 	}
@@ -1049,7 +1267,11 @@ abstract class GFFeedAddOn extends GFAddOn {
 			return false;
 		}
 
+<<<<<<< HEAD
 		return rgar( $processed_feeds, $this->get_slug() );
+=======
+		return rgar( $processed_feeds, $this->_slug );
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 	}
 
 	public function has_feed( $form_id, $meets_conditional_logic = null ) {
@@ -1079,6 +1301,7 @@ abstract class GFFeedAddOn extends GFAddOn {
 		return $meets_conditional_logic ? false : $has_active_feed;
 	}
 
+<<<<<<< HEAD
 	/**
 	 * Decrypts the feed meta row and return the decripted array.
 	 *
@@ -1093,6 +1316,8 @@ abstract class GFFeedAddOn extends GFAddOn {
 		return $this->get_encryptor()->decrypt_feed_meta( $row );
 	}
 
+=======
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 	public function get_single_submission_feed( $entry = false, $form = false ) {
 
 		if ( ! $entry && ! $form ) {
@@ -1100,18 +1325,39 @@ abstract class GFFeedAddOn extends GFAddOn {
 		}
 
 		$feed = false;
+<<<<<<< HEAD
 		if ( ! empty( $this->_single_submission_feed ) && ( ! $form || $this->_single_submission_feed['form_id'] == $form['id'] ) ) {
 			$feed = $this->_single_submission_feed;
 		} elseif ( ! empty( $entry['id'] ) ) {
 			$feeds = $this->get_feeds_by_entry( $entry['id'] );
+=======
+
+		if ( ! empty( $this->_single_submission_feed ) && ( ! $form || $this->_single_submission_feed['form_id'] == $form['id'] ) ) {
+
+			$feed = $this->_single_submission_feed;
+
+		} elseif ( ! empty( $entry['id'] ) ) {
+
+			$feeds = $this->get_feeds_by_entry( $entry['id'] );
+
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 			if ( empty( $feeds ) ) {
 				$feed = $this->get_single_submission_feed_by_form( $form, $entry );
 			} else {
 				$feed = $this->get_feed( $feeds[0] );
 			}
+<<<<<<< HEAD
 		} elseif ( $form ) {
 			$feed                          = $this->get_single_submission_feed_by_form( $form, $entry );
 			$this->_single_submission_feed = $feed;
+=======
+
+		} elseif ( $form ) {
+
+			$feed                          = $this->get_single_submission_feed_by_form( $form, $entry );
+			$this->_single_submission_feed = $feed;
+
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 		}
 
 		return $feed;
@@ -1140,6 +1386,7 @@ abstract class GFFeedAddOn extends GFAddOn {
 		return false;
 	}
 
+<<<<<<< HEAD
 	/**
 	 * Allows the feeds to be filtered before they are processed.
 	 *
@@ -1155,19 +1402,31 @@ abstract class GFFeedAddOn extends GFAddOn {
 		$count   = is_array( $feeds ) ? count( $feeds ) : 0;
 		$form_id = (int) rgar( $form, 'id' );
 		$this->log_debug( __METHOD__ . "(): Found {$count} feeds for form #{$form_id}." );
+=======
+	public function pre_process_feeds( $feeds, $entry, $form ) {
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 
 		/**
 		 * Modify feeds before they are processed.
 		 *
+<<<<<<< HEAD
 		 * @since 2.0
 		 *
 		 * @param false|array $feeds An array of $feed objects
 		 * @param array       $entry Current entry for which feeds will be processed
 		 * @param array       $form  Current form object.
+=======
+		 * @param array $feeds An array of $feed objects
+		 * @param array $entry Current entry for which feeds will be processed
+		 * @param array $form Current form object.
+		 *
+		 * @since 2.0
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 		 *
 		 * @return array An array of $feeds
 		 */
 		$feeds = apply_filters( 'gform_addon_pre_process_feeds', $feeds, $entry, $form );
+<<<<<<< HEAD
 		$feeds = apply_filters( "gform_addon_pre_process_feeds_{$form_id}", $feeds, $entry, $form );
 		$feeds = apply_filters( "gform_{$this->get_slug()}_pre_process_feeds", $feeds, $entry, $form );
 		$feeds = apply_filters( "gform_{$this->get_slug()}_pre_process_feeds_{$form_id}", $feeds, $entry, $form );
@@ -1176,6 +1435,11 @@ abstract class GFFeedAddOn extends GFAddOn {
 		if ( $filtered_count !== $count ) {
 			$this->log_debug( __METHOD__ . "(): {$filtered_count} feeds for form #{$form_id} after filters." );
 		}
+=======
+		$feeds = apply_filters( "gform_addon_pre_process_feeds_{$form['id']}", $feeds, $entry, $form );
+		$feeds = apply_filters( "gform_{$this->_slug}_pre_process_feeds", $feeds, $entry, $form );
+		$feeds = apply_filters( "gform_{$this->_slug}_pre_process_feeds_{$form['id']}", $feeds, $entry, $form );
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 
 		return $feeds;
 	}
@@ -1200,7 +1464,11 @@ abstract class GFFeedAddOn extends GFAddOn {
 		$counter_to_use = 0;
 
 		// Get Add-On feeds.
+<<<<<<< HEAD
 		$feeds_to_filter = $this->get_feeds_by_slug( $this->get_slug() );
+=======
+		$feeds_to_filter = $this->get_feeds_by_slug( $this->_slug );
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 
 		// If feeds were found, loop through and increase counter.
 		if ( $feeds_to_filter ) {
@@ -1209,7 +1477,11 @@ abstract class GFFeedAddOn extends GFAddOn {
 			foreach ( $feeds_to_filter as $check ) {
 
 				// Get feed name and trim.
+<<<<<<< HEAD
 				$name = $this->get_feed_name( $check );
+=======
+				$name = rgars( $check, 'meta/feed_name' ) ? rgars( $check, 'meta/feed_name' ) : rgars( $check, 'meta/feedName' );
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 				$name = trim( $name );
 
 				// Prepare feed name pattern.
@@ -1247,7 +1519,11 @@ abstract class GFFeedAddOn extends GFAddOn {
 	public function is_unique_feed_name( $name, $form_id ) {
 		$feeds = $this->get_feeds( $form_id );
 		foreach ( $feeds as $feed ) {
+<<<<<<< HEAD
 			$feed_name = $this->get_feed_name( $feed );
+=======
+			$feed_name = rgars( $feed, 'meta/feed_name' ) ? rgars( $feed, 'meta/feed_name' ) : rgars( $feed, 'meta/feedName' );
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 			if ( strtolower( $feed_name ) === strtolower( $name ) ) {
 				return false;
 			}
@@ -1256,6 +1532,7 @@ abstract class GFFeedAddOn extends GFAddOn {
 		return true;
 	}
 
+<<<<<<< HEAD
 	/**
 	 * Updates the feed meta
 	 *
@@ -1275,6 +1552,13 @@ abstract class GFFeedAddOn extends GFAddOn {
 
 		$meta = json_encode( $meta );
 		$wpdb->update( "{$wpdb->prefix}gf_addon_feed", array( 'meta' => $meta ), array( 'id' => $id ), array( '%s' ), array( '%d' ) ); // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
+=======
+	public function update_feed_meta( $id, $meta ) {
+		global $wpdb;
+
+		$meta = json_encode( $meta );
+		$wpdb->update( "{$wpdb->prefix}gf_addon_feed", array( 'meta' => $meta ), array( 'id' => $id ), array( '%s' ), array( '%d' ) );
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 
 		return $wpdb->rows_affected > 0;
 	}
@@ -1283,6 +1567,7 @@ abstract class GFFeedAddOn extends GFAddOn {
 		global $wpdb;
 		$is_active = $is_active ? '1' : '0';
 
+<<<<<<< HEAD
 		$wpdb->update( "{$wpdb->prefix}gf_addon_feed", array( 'is_active' => $is_active ), array( 'id' => $id ), array( '%d' ), array( '%d' ) ); // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
 
 		$success = $wpdb->rows_affected > 0;
@@ -1314,6 +1599,13 @@ abstract class GFFeedAddOn extends GFAddOn {
 	 *
 	 * @return false|int Returns the ID of the newly created feed or false if the feed table does not exist.
 	 */
+=======
+		$wpdb->update( "{$wpdb->prefix}gf_addon_feed", array( 'is_active' => $is_active ), array( 'id' => $id ), array( '%d' ), array( '%d' ) );
+
+		return $wpdb->rows_affected > 0;
+	}
+
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 	public function insert_feed( $form_id, $is_active, $meta ) {
 		global $wpdb;
 
@@ -1322,14 +1614,20 @@ abstract class GFFeedAddOn extends GFAddOn {
 			return false;
 		}
 
+<<<<<<< HEAD
 		$meta = $this->get_encryptor()->encrypt_feed_meta( $meta, $this->get_fields_to_encrypt() );
 
 		$meta = json_encode( $meta );
 		$wpdb->insert( "{$wpdb->prefix}gf_addon_feed", array( 'addon_slug' => $this->get_slug(), 'form_id' => $form_id, 'is_active' => $is_active, 'meta' => $meta ), array( '%s', '%d', '%d', '%s' ) ); // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
+=======
+		$meta = json_encode( $meta );
+		$wpdb->insert( "{$wpdb->prefix}gf_addon_feed", array( 'addon_slug' => $this->_slug, 'form_id' => $form_id, 'is_active' => $is_active, 'meta' => $meta ), array( '%s', '%d', '%d', '%s' ) );
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 
 		return $wpdb->insert_id;
 	}
 
+<<<<<<< HEAD
 	/**
 	 * Get the array of feed settings field names that are configured to be encrypted.
 	 *
@@ -1363,6 +1661,8 @@ abstract class GFFeedAddOn extends GFAddOn {
 		return $fields_to_encrypt;
 	}
 
+=======
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 	public function delete_feed( $id ) {
 		global $wpdb;
 
@@ -1377,7 +1677,11 @@ abstract class GFFeedAddOn extends GFAddOn {
 		do_action( 'gform_pre_delete_feed', $id, $this );
 		do_action( "gform_{$this->get_short_slug()}_pre_delete_feed", $id, $this );
 
+<<<<<<< HEAD
 		$wpdb->delete( "{$wpdb->prefix}gf_addon_feed", array( 'id' => $id ), array( '%d' ) ); // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
+=======
+		$wpdb->delete( "{$wpdb->prefix}gf_addon_feed", array( 'id' => $id ), array( '%d' ) );
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 	}
 
 	public function delete_feeds( $form_id = null ) {
@@ -1385,6 +1689,7 @@ abstract class GFFeedAddOn extends GFAddOn {
 
 		$form_filter = is_numeric( $form_id ) ? $wpdb->prepare( 'AND form_id=%d', absint( $form_id ) ) : '';
 
+<<<<<<< HEAD
 		// phpcs:disable WordPress.DB.PreparedSQL.InterpolatedNotPrepared
 		$sql = $wpdb->prepare(
 			"SELECT id FROM {$wpdb->prefix}gf_addon_feed
@@ -1393,6 +1698,14 @@ abstract class GFFeedAddOn extends GFAddOn {
 		// phpcs:enable WordPress.DB.PreparedSQL.InterpolatedNotPrepared
 
 		$feed_ids = $wpdb->get_col( $sql ); // phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared, WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
+=======
+		$sql = $wpdb->prepare(
+			"SELECT id FROM {$wpdb->prefix}gf_addon_feed
+                               WHERE addon_slug=%s {$form_filter} ORDER BY `feed_order`, `id` ASC", $this->_slug
+		);
+
+		$feed_ids = $wpdb->get_col( $sql );
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 
 		if ( ! empty( $feed_ids ) ) {
 			array_map( array( $this, 'delete_feed' ), $feed_ids );
@@ -1427,6 +1740,7 @@ abstract class GFFeedAddOn extends GFAddOn {
 		}
 
 		// Get feed name key.
+<<<<<<< HEAD
 		$feed_name_key      = rgars( $original_feed, 'meta/feed_name' ) ? 'feed_name' : 'feedName';
 		$original_feed_name = $this->get_feed_name( $original_feed, $feed_name_key );
 
@@ -1435,6 +1749,15 @@ abstract class GFFeedAddOn extends GFAddOn {
 		$feed_name = $original_feed_name . ' - ' . esc_html__( 'Copy 1', 'gravityforms' );
 		while ( ! $this->is_unique_feed_name( $feed_name, $original_feed['form_id'] ) ) {
 			$feed_name = $original_feed_name . ' - ' . sprintf( esc_html__( 'Copy %d', 'gravityforms' ), $count );
+=======
+		$feed_name_key = rgars( $original_feed, 'meta/feed_name' ) ? 'feed_name' : 'feedName';
+
+		// Make sure the new feed name is unique.
+		$count     = 2;
+		$feed_name = rgars( $original_feed, 'meta/' . $feed_name_key ) . ' - ' . esc_html__( 'Copy 1', 'gravityforms' );
+		while ( ! $this->is_unique_feed_name( $feed_name, $original_feed['form_id'] ) ) {
+			$feed_name = rgars( $original_feed, 'meta/' . $feed_name_key ) . ' - ' . sprintf( esc_html__( 'Copy %d', 'gravityforms' ), $count );
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 			$count++;
 		}
 
@@ -1478,7 +1801,11 @@ abstract class GFFeedAddOn extends GFAddOn {
 			esc_html__( 'The table `%1$s` does not exist. Please visit the %2$sForms > System Status%3$s page and click the "Re-run database upgrade" link (under the Database section) to create the missing table.', 'gravityforms' ),
 			esc_html( $table ),
 			'<a href="' . esc_attr( $status_page_url ) . '" target="_blank" rel="noopener">',
+<<<<<<< HEAD
 			'<span class="screen-reader-text">' . esc_html__('(opens in a new tab)', 'gravityforms') . '</span>&nbsp;<span class="gform-icon gform-icon--external-link" aria-hidden="true"></span></a>'
+=======
+			'</a>'
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 		);
 	}
 
@@ -1510,13 +1837,21 @@ abstract class GFFeedAddOn extends GFAddOn {
 			add_action(
 				'admin_notices',
 				function() use ( $notice ) {
+<<<<<<< HEAD
 					echo $notice; // phpcs:ignore WordPress.Security.EscapeOutput
+=======
+					echo $notice;
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 				}
 			);
 			return;
 		}
 
+<<<<<<< HEAD
 		echo $notice; // phpcs:ignore WordPress.Security.EscapeOutput
+=======
+		echo $notice;
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 	}
 
 	/**
@@ -1560,7 +1895,11 @@ abstract class GFFeedAddOn extends GFAddOn {
 		// Update each feed.
 		foreach ( $feed_order as $feed_id => $position ) {
 
+<<<<<<< HEAD
 			$wpdb->update( // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
+=======
+			$wpdb->update(
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 				$wpdb->prefix . 'gf_addon_feed',
 				array( 'feed_order' => $position ),
 				array( 'id' => $feed_id ),
@@ -1572,6 +1911,7 @@ abstract class GFFeedAddOn extends GFAddOn {
 
 	}
 
+<<<<<<< HEAD
 	/* Process feeds when an entry is marked as "not spam"
 	 *
 	 * @since  2.8.1
@@ -1663,6 +2003,8 @@ abstract class GFFeedAddOn extends GFAddOn {
 		$this->log_debug( __METHOD__ . '(): Submission was not processed by a payment add-on.' );
 	}
 
+=======
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 	//---------- Form Settings Pages --------------------------
 
 	public function form_settings_init() {
@@ -1672,7 +2014,11 @@ abstract class GFFeedAddOn extends GFAddOn {
 	public function ajax_toggle_is_active() {
 		check_ajax_referer( 'feed_list', 'nonce' );
 
+<<<<<<< HEAD
 		if ( ! $this->current_user_can_any( $this->get_form_settings_capabilities() ) ) {
+=======
+		if ( ! $this->current_user_can_any( $this->_capabilities_form_settings ) ) {
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 			wp_send_json_error( array( 'message' => esc_html__( 'Access denied.', 'gravityforms' ) ) );
 		}
 
@@ -1689,7 +2035,11 @@ abstract class GFFeedAddOn extends GFAddOn {
 	public function ajax_save_feed_order() {
 		check_ajax_referer( 'gform_feed_order', 'nonce' );
 
+<<<<<<< HEAD
 		if ( ! $this->current_user_can_any( $this->get_form_settings_capabilities() ) ) {
+=======
+		if ( ! $this->current_user_can_any( $this->_capabilities_form_settings ) ) {
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 			return;
 		}
 
@@ -1698,7 +2048,11 @@ abstract class GFFeedAddOn extends GFAddOn {
 		$feed_order = rgpost( 'feed_order' ) ? rgpost( 'feed_order' ) : array();
 		$feed_order = array_map( 'absint', $feed_order );
 
+<<<<<<< HEAD
 		if ( $addon == $this->get_slug() ) {
+=======
+		if ( $addon == $this->_slug ) {
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 			$this->save_feed_order( $feed_order );
 		}
 	}
@@ -1744,7 +2098,11 @@ abstract class GFFeedAddOn extends GFAddOn {
 	}
 
 	public function is_feed_list_page() {
+<<<<<<< HEAD
 		return ! isset( $_GET['fid'] ); // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+=======
+		return ! isset( $_GET['fid'] );
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 	}
 
 	public function is_detail_page() {
@@ -1755,7 +2113,11 @@ abstract class GFFeedAddOn extends GFAddOn {
 		if ( $this->is_feed_list_page() ) {
 			$title = $this->form_settings_title();
 			$url = add_query_arg( array( 'fid' => 0 ) );
+<<<<<<< HEAD
 			return $title . " <a class='add-new-h2' href='" . esc_url( $url ) . "'>" . esc_html__( 'Add New', 'gravityforms' ) . '</a>';
+=======
+			return $title . " <a class='add-new-h2' href='" . esc_html( $url ) . "'>" . esc_html__( 'Add New', 'gravityforms' ) . '</a>';
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 		}
 	}
 
@@ -1772,7 +2134,11 @@ abstract class GFFeedAddOn extends GFAddOn {
 	public function feed_settings_init() {
 		// Get current form.
 		$form = ( $this->get_current_form() ) ? $this->get_current_form() : array();
+<<<<<<< HEAD
 		$form = GFCommon::gform_admin_pre_render( $form );
+=======
+		$form = gf_apply_filters( array( 'gform_admin_pre_render', rgar( $form, 'id', 0 ) ), $form );
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 
 		// Get current feed ID, feed object.
 		$feed_id      = $this->_multiple_feeds ? $this->get_current_feed_id() : $this->get_default_feed_id( rgar( $form, 'id', 0 ) );
@@ -1781,7 +2147,11 @@ abstract class GFFeedAddOn extends GFAddOn {
 		// Initialize new settings renderer.
 		$renderer = new Settings(
 			array(
+<<<<<<< HEAD
 				'capability'     => $this->get_form_settings_capabilities(),
+=======
+				'capability'     => $this->_capabilities_form_settings,
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 				'initial_values' => rgar( $current_feed, 'meta' ),
 				'save_callback'  => function( $values ) use ( $feed_id ) {
 
@@ -1795,11 +2165,16 @@ abstract class GFFeedAddOn extends GFAddOn {
 
 					// If feed IDs do not match, redirect.
 					if ( $feed_id !== $this->_current_feed_id && $this->_multiple_feeds ) {
+<<<<<<< HEAD
 						wp_safe_redirect( esc_url_raw( add_query_arg( array( 'fid' => $this->_current_feed_id ) ) ) );
+=======
+						wp_safe_redirect( add_query_arg( array( 'fid' => $this->_current_feed_id ) ) );
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 					}
 
 				},
 				'before_fields'  => function() use ( $form ) {
+<<<<<<< HEAD
 					$script     = sprintf( 'var form = %s;', wp_json_encode( $form ) );
 					$entry_meta = $this->get_feed_settings_entry_meta( $form );
 					if ( ! empty( $entry_meta ) ) {
@@ -1821,6 +2196,14 @@ abstract class GFFeedAddOn extends GFAddOn {
 					 * @param array  $form          The form associated with the feed.
 					 */
 					return gf_apply_filters( array( 'gform_feed_settings_before_fields', rgar( $form, 'id' ) ), $before_fields, $form );
+=======
+					return sprintf( '
+						<input type="hidden" name="gf_feed_id" value="%d" />
+						<script type="text/javascript">var form = %s;</script>',
+						(int) $this->get_current_feed_id(),
+						wp_json_encode( $form )
+					);
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 				},
 			)
 		);
@@ -1833,6 +2216,7 @@ abstract class GFFeedAddOn extends GFAddOn {
 		$sections = $this->prepare_settings_sections( $sections, 'feed_settings' );
 		$this->get_settings_renderer()->set_fields( $sections );
 
+<<<<<<< HEAD
 		// Set save success message following new feed (fid=0) redirect to saved fid.
 		$this->get_settings_renderer()->set_postback_message_callback( function( $message ) use ( $renderer ) {
 
@@ -1840,6 +2224,11 @@ abstract class GFFeedAddOn extends GFAddOn {
 				return $message;
 			}
 
+=======
+		// Set validation message on redirect.
+		$this->get_settings_renderer()->set_postback_message_callback( function( $message ) use ( $renderer ) {
+
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 			// Get referrer.
 			$referrer = rgar( $_SERVER, 'HTTP_REFERER' );
 
@@ -1850,6 +2239,7 @@ abstract class GFFeedAddOn extends GFAddOn {
 
 			// Parse URL, get feed ID.
 			$query_args = array();
+<<<<<<< HEAD
 			$referrer   = wp_parse_url( $referrer );
 			parse_str( rgar( $referrer, 'query' ), $query_args );
 
@@ -1869,6 +2259,16 @@ abstract class GFFeedAddOn extends GFAddOn {
 			}
 
 			return $renderer->get_save_success_message();
+=======
+			$referrer = wp_parse_url( $referrer );
+			parse_str( rgar( $referrer, 'query' ), $query_args );
+
+			if ( rgar( $query_args, 'fid' ) == '0' && empty( $_POST ) ) {
+				return $renderer->get_save_success_message();
+			}
+
+			return $message;
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 
 		} );
 
@@ -1880,6 +2280,7 @@ abstract class GFFeedAddOn extends GFAddOn {
 	}
 
 	/**
+<<<<<<< HEAD
 	 * Returns an array of entry meta fields to be assigned to the JavaScript entry_meta variable used by the feed condition setting.
 	 *
 	 * @since 2.9
@@ -1903,6 +2304,8 @@ abstract class GFFeedAddOn extends GFAddOn {
 	}
 
 	/**
+=======
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 	 * Render feed edit page.
 	 *
 	 * @since Unknown
@@ -1917,17 +2320,29 @@ abstract class GFFeedAddOn extends GFAddOn {
 
 		// If feed creation is disabled, display configuration message.
 		if ( ! $this->can_create_feed() ) {
+<<<<<<< HEAD
 			printf( '%s<div>%s</div>', $title, $this->configure_addon_message() );  // phpcs:ignore WordPress.Security.EscapeOutput
+=======
+			printf( '%s<div>%s</div>', $title, $this->configure_addon_message() );
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 			return;
 		}
 
 		// Output required scripts.
+<<<<<<< HEAD
 		printf( '<script type="text/javascript">%s</script>', GFFormSettings::output_field_scripts( false ) );  // phpcs:ignore WordPress.Security.EscapeOutput
+=======
+		printf( '<script type="text/javascript">%s</script>', GFFormSettings::output_field_scripts( false ) );
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 
 		// Render Settings framework or error message.
 		if ( ! $this->get_settings_renderer() ) {
 			$this->log_debug( __METHOD__ . '(): Could not load add-on settings. Settings renderer not initialized.' );
+<<<<<<< HEAD
 			printf( '%s<p>%s</p>', $title, esc_html__( 'Unable to render feed settings.', 'gravityforms' ) );  // phpcs:ignore WordPress.Security.EscapeOutput
+=======
+			printf( '%s<p>%s</p>', $title, esc_html__( 'Unable to render feed settings.', 'gravityforms' ) );
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 
 			return;
 		}
@@ -1973,7 +2388,11 @@ abstract class GFFeedAddOn extends GFAddOn {
 
 		<div class="gform-settings-panel">
 			<header class="gform-settings-panel__header">
+<<<<<<< HEAD
 				<h4 class="gform-settings-panel__title"><span><?php echo $this->feed_list_title(); // phpcs:ignore WordPress.Security.EscapeOutput ?></span></h4>
+=======
+				<h4 class="gform-settings-panel__title"><span><?php echo $this->feed_list_title() ?></span></h4>
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 			</header>
 
 			<div class="gform-settings-panel__content">
@@ -1987,7 +2406,11 @@ abstract class GFFeedAddOn extends GFAddOn {
 					<!--Needed to save state after bulk operations-->
 					<input type="hidden" value="gf_edit_forms" name="page">
 					<input type="hidden" value="settings" name="view">
+<<<<<<< HEAD
 					<input type="hidden" value="<?php echo esc_attr( $this->get_slug() ); ?>" name="subview">
+=======
+					<input type="hidden" value="<?php echo esc_attr( $this->_slug ); ?>" name="subview">
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 					<input type="hidden" value="<?php echo esc_attr( rgar( $form, 'id' ) ); ?>" name="id">
 					<input id="single_action" type="hidden" value="" name="single_action">
 					<input id="single_action_argument" type="hidden" value="" name="single_action_argument">
@@ -2005,7 +2428,11 @@ abstract class GFFeedAddOn extends GFAddOn {
 
 					// Prepare feed ordering options.
 					$feed_order_options = array(
+<<<<<<< HEAD
 						'addon'  => $this->get_slug(),
+=======
+						'addon'  => $this->_slug,
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 						'formId' => rgar( $form, 'id' ),
 						'nonce'  => wp_create_nonce( 'gform_feed_order' ),
 					);
@@ -2032,7 +2459,11 @@ abstract class GFFeedAddOn extends GFAddOn {
 		$no_item_callback      = array( $this, 'feed_list_no_item_message' );
 		$message_callback      = array( $this, 'feed_list_message' );
 
+<<<<<<< HEAD
 		return new GFAddOnFeedsTable( $feeds, $this->get_slug(), $columns, $bulk_actions, $action_links, $column_value_callback, $no_item_callback, $message_callback, $this );
+=======
+		return new GFAddOnFeedsTable( $feeds, $this->_slug, $columns, $bulk_actions, $action_links, $column_value_callback, $no_item_callback, $message_callback, $this );
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 	}
 
 	public function feed_list_title() {
@@ -2045,9 +2476,15 @@ abstract class GFFeedAddOn extends GFAddOn {
 			return $feed_id;
 		}
 
+<<<<<<< HEAD
 		check_admin_referer( $this->get_slug() . '_save_settings', '_' . $this->get_slug() . '_save_settings_nonce' );
 
 		if ( ! $this->current_user_can_any( $this->get_form_settings_capabilities() ) ) {
+=======
+		check_admin_referer( $this->_slug . '_save_settings', '_' . $this->_slug . '_save_settings_nonce' );
+
+		if ( ! $this->current_user_can_any( $this->_capabilities_form_settings ) ) {
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 			GFCommon::add_error_message( esc_html__( "You don't have sufficient permissions to update the form settings.", 'gravityforms' ) );
 			return $feed_id;
 		}
@@ -2154,7 +2591,11 @@ abstract class GFFeedAddOn extends GFAddOn {
 		 * @return array
 		 */
 		$feed_settings_fields = apply_filters( 'gform_addon_feed_settings_fields', $this->feed_settings_fields(), $this );
+<<<<<<< HEAD
 		$feed_settings_fields = apply_filters( "gform_{$this->get_slug()}_feed_settings_fields", $feed_settings_fields, $this );
+=======
+		$feed_settings_fields = apply_filters( "gform_{$this->_slug}_feed_settings_fields", $feed_settings_fields, $this );
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 
 		$this->_feed_settings_fields = $this->add_default_feed_settings_fields_props( $feed_settings_fields );
 
@@ -2323,7 +2764,11 @@ abstract class GFFeedAddOn extends GFAddOn {
 	public function update_form_settings( $form, $new_form_settings ) {
 		$feed_id = rgar( $new_form_settings, 'id' );
 		foreach ( $new_form_settings as $key => $value ) {
+<<<<<<< HEAD
 			$form[ $this->get_slug() ]['feeds'][ $feed_id ][ $key ] = $value;
+=======
+			$form[ $this->_slug ]['feeds'][ $feed_id ][ $key ] = $value;
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 		}
 
 		return $form;
@@ -2332,9 +2777,15 @@ abstract class GFFeedAddOn extends GFAddOn {
 	public function get_default_feed_id( $form_id ) {
 		global $wpdb;
 
+<<<<<<< HEAD
 		$sql = $wpdb->prepare( "SELECT id FROM {$wpdb->prefix}gf_addon_feed WHERE addon_slug=%s AND form_id = %d LIMIT 0,1", $this->get_slug(), $form_id );
 
 		$feed_id = $wpdb->get_var( $sql ); // phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared, WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
+=======
+		$sql = $wpdb->prepare( "SELECT id FROM {$wpdb->prefix}gf_addon_feed WHERE addon_slug=%s AND form_id = %d LIMIT 0,1", $this->_slug, $form_id );
+
+		$feed_id = $wpdb->get_var( $sql );
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 		if ( ! $feed_id ) {
 			$feed_id = 0;
 		}
@@ -2362,7 +2813,11 @@ abstract class GFFeedAddOn extends GFAddOn {
 		}
 
 		if ( $echo ) {
+<<<<<<< HEAD
 			echo $html;  // phpcs:ignore WordPress.Security.EscapeOutput
+=======
+			echo $html;
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 		}
 
 		return $html;
@@ -2457,6 +2912,10 @@ abstract class GFFeedAddOn extends GFAddOn {
 			add_filter( 'gform_addon_feed_settings_fields', array( $this, 'add_post_payment_actions' ), 10, 2 );
 		}
 
+<<<<<<< HEAD
+=======
+		add_action( 'gform_paypal_fulfillment', array( $this, 'paypal_fulfillment' ), 10, 4 );
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 		add_action( 'gform_trigger_payment_delayed_feeds', array( $this, 'action_trigger_payment_delayed_feeds' ), 10, 4 );
 	}
 
@@ -2509,6 +2968,7 @@ abstract class GFFeedAddOn extends GFAddOn {
 			$addon_label = rgar( $this->delayed_payment_integration, 'option_label' );
 			$choice      = array(
 				'label' => $addon_label ? $addon_label : sprintf( esc_html__( 'Process %s feed only when payment is received.', 'gravityforms' ), $this->get_short_title() ),
+<<<<<<< HEAD
 				'name'  => 'delay_' . $this->get_slug(),
 			);
 
@@ -2516,6 +2976,11 @@ abstract class GFFeedAddOn extends GFAddOn {
 				$choice['default_value'] = $config['default_value'];
 			}
 
+=======
+				'name'  => 'delay_' . $this->_slug,
+			);
+
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 			$field_name = 'post_payment_actions';
 			$field      = $this->get_field( $field_name, $feed_settings_fields );
 
@@ -2551,6 +3016,24 @@ abstract class GFFeedAddOn extends GFAddOn {
 	}
 
 	/**
+<<<<<<< HEAD
+=======
+	 * Triggers processing of feeds delayed by the PayPal add-on.
+	 *
+	 * @since 2.4.13 Updated to use action_trigger_payment_delayed_feeds().
+	 * @since unknown
+	 *
+	 * @param array  $entry          The entry currently being processed.
+	 * @param array  $paypal_config  The payment feed which originated the transaction.
+	 * @param string $transaction_id The transaction or subscription ID.
+	 * @param string $amount         The transaction amount.
+	 */
+	public function paypal_fulfillment( $entry, $paypal_config, $transaction_id, $amount ) {
+		$this->action_trigger_payment_delayed_feeds( $transaction_id, $paypal_config, $entry );
+	}
+
+	/**
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 	 * Triggers processing of feeds delayed by payment add-ons.
 	 *
 	 * @since 2.4.13
@@ -2563,7 +3046,11 @@ abstract class GFFeedAddOn extends GFAddOn {
 	public function action_trigger_payment_delayed_feeds( $transaction_id, $payment_feed, $entry, $form = null ) {
 		$this->log_debug( __METHOD__ . '(): Checking fulfillment for transaction ' . $transaction_id . ' for ' . $payment_feed['addon_slug'] );
 
+<<<<<<< HEAD
 		$is_fulfilled = gform_get_meta( $entry['id'], "{$this->get_slug()}_is_fulfilled" );
+=======
+		$is_fulfilled = gform_get_meta( $entry['id'], "{$this->_slug}_is_fulfilled" );
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 		if ( $is_fulfilled || ! $this->is_delayed( $payment_feed ) ) {
 			$this->log_debug( __METHOD__ . '(): Entry ' . $entry['id'] . ' is already fulfilled or feeds are not delayed. No action necessary.' );
 
@@ -2593,18 +3080,31 @@ abstract class GFFeedAddOn extends GFAddOn {
 	public function add_feed_error( $error_message, $feed, $entry, $form ) {
 
 		/* Log debug error before we prepend the error name. */
+<<<<<<< HEAD
 		$backtrace = debug_backtrace(); // phpcs:ignore QITStandard.PHP.DebugCode.DebugFunctionFound
+=======
+		$backtrace = debug_backtrace();
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 		$method    = $backtrace[1]['class'] . '::' . $backtrace[1]['function'];
 		$this->log_error( $method . '(): ' . $error_message );
 
 		/* Prepend feed name to the error message. */
+<<<<<<< HEAD
 		$note_error_message = $this->get_feed_name( $feed ) . ': ' . $error_message;
+=======
+		$feed_name          = rgars( $feed, 'meta/feed_name' ) ? rgars( $feed, 'meta/feed_name' ) : rgars( $feed, 'meta/feedName' );
+		$note_error_message = $feed_name . ': ' . $error_message;
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 
 		/* Add error note to the entry. */
 		$this->add_note( $entry['id'], $note_error_message, 'error' );
 
 		/* Get Add-On slug */
+<<<<<<< HEAD
 		$slug = str_replace( 'gravityforms', '', $this->get_slug() );
+=======
+		$slug = str_replace( 'gravityforms', '', $this->_slug );
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 
 		/**
 		 * Process any error actions.
@@ -2709,7 +3209,11 @@ abstract class GFFeedAddOn extends GFAddOn {
 	}
 
 	public function is_delayed_payment( $entry, $form, $is_delayed ) {
+<<<<<<< HEAD
 		if ( $this->get_slug() == 'gravityformspaypal' ) {
+=======
+		if ( $this->_slug == 'gravityformspaypal' ) {
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 			return false;
 		}
 
@@ -2720,7 +3224,11 @@ abstract class GFFeedAddOn extends GFAddOn {
 
 		$has_payment = self::get_paypal_payment_amount( $form, $entry, $paypal_feed ) > 0;
 
+<<<<<<< HEAD
 		return rgar( $paypal_feed['meta'], "delay_{$this->get_slug()}" ) && $has_payment && ! $is_delayed;
+=======
+		return rgar( $paypal_feed['meta'], "delay_{$this->_slug}" ) && $has_payment && ! $is_delayed;
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 	}
 
 	public static function get_paypal_payment_amount( $form, $entry, $paypal_config ) {
@@ -2830,15 +3338,24 @@ abstract class GFFeedAddOn extends GFAddOn {
 
 			$_feed = array(
 				'feedId'           => $feed['id'],
+<<<<<<< HEAD
 				'addonSlug'        => $this->get_slug(),
+=======
+				'addonSlug'        => $this->_slug,
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 				'conditionalLogic' => rgars( $feed, 'meta/feed_condition_conditional_logic' ) === '0' ? false : rgars( $feed, 'meta/feed_condition_conditional_logic_object/conditionalLogic', false ),
 				'isSingleFeed'     => $this->_single_feed_submission,
 			);
 
 			$_feed = apply_filters( 'gform_addon_frontend_feed',                           $_feed, $form, $feed );
 			$_feed = apply_filters( "gform_addon_frontend_feed_{$form['id']}",             $_feed, $form, $feed );
+<<<<<<< HEAD
 			$_feed = apply_filters( "gform_{$this->get_slug()}_frontend_feed",                  $_feed, $form, $feed );
 			$_feed = apply_filters( "gform_{$this->get_slug()}_frontend_feed_{$form['id']}",    $_feed, $form, $feed );
+=======
+			$_feed = apply_filters( "gform_{$this->_slug}_frontend_feed",                  $_feed, $form, $feed );
+			$_feed = apply_filters( "gform_{$this->_slug}_frontend_feed_{$form['id']}",    $_feed, $form, $feed );
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 
 			$frontend_feeds[] = $_feed;
 
@@ -2944,7 +3461,11 @@ class GFAddOnFeedsTable extends WP_List_Table {
 	}
 
 	function no_items() {
+<<<<<<< HEAD
 		echo call_user_func( $this->_no_items_callback ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+=======
+		echo call_user_func( $this->_no_items_callback );
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 	}
 
 	function display_rows_or_placeholder() {
@@ -2953,11 +3474,19 @@ class GFAddOnFeedsTable extends WP_List_Table {
 		if ( $message !== false ) {
 			?>
 			<tr class="no-items">
+<<<<<<< HEAD
 				<td class="colspanchange" colspan="<?php echo esc_attr( $this->get_column_count() ); ?>">
 					<?php echo $message; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
 				</td>
 			</tr>
 			<?php
+=======
+				<td class="colspanchange" colspan="<?php echo $this->get_column_count() ?>">
+					<?php echo $message ?>
+				</td>
+			</tr>
+		<?php
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 		} else {
 			parent::display_rows_or_placeholder();
 		}
@@ -3013,7 +3542,11 @@ class GFAddOnFeedsTable extends WP_List_Table {
 	function _column_is_active( $item, $classes, $data, $primary ) {
 
 		// Open cell as a table header.
+<<<<<<< HEAD
 		echo '<td class="manage-column column-is_active">';
+=======
+		echo '<th scope="row" class="manage-column column-is_active">';
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 
 		// Display the active/inactive toggle button.
 		if ( rgar( $item, 'is_active' ) ) {
@@ -3024,6 +3557,7 @@ class GFAddOnFeedsTable extends WP_List_Table {
 			$text  = esc_html__( 'Inactive', 'gravityforms' );
 		}
 		?>
+<<<<<<< HEAD
 		<button
 			type="button"
 			class="gform-status-indicator gform-status-indicator--size-sm gform-status-indicator--theme-cosmos <?php echo esc_attr( $class ); ?>"
@@ -3033,11 +3567,20 @@ class GFAddOnFeedsTable extends WP_List_Table {
 			<span class="gform-status-indicator-status gform-typography--weight-medium gform-typography--size-text-xs">
 				<?php echo esc_html( $text ); ?>
 			</span>
+=======
+		<button type="button" class="gform-status-indicator <?php echo esc_attr( $class ); ?>" onclick="gaddon.toggleFeedActive( this, '<?php echo esc_js( $this->_slug ); ?>', '<?php echo esc_js( $item['id'] ); ?>' );" onkeypress="gaddon.toggleFeedActive( this, '<?php echo esc_js( $this->_slug ); ?>', '<?php echo esc_js( $item['id'] ); ?>' );">
+			<svg viewBox="0 0 6 6" xmlns="http://www.w3.org/2000/svg"><circle cx="3" cy="2" r="1" stroke-width="2"/></svg>
+			<span class="gform-status-indicator-status"><?php echo esc_html( $text ); ?></span>
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 		</button>
 		<?php
 
 		// Close cell.
+<<<<<<< HEAD
 		echo '</td>';
+=======
+		echo '</th>';
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 
 	}
 	/**

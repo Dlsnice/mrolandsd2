@@ -6,6 +6,10 @@ namespace Yoast\WP\SEO\AI\Generator\User_Interface;
 use WP_REST_Response;
 use WPSEO_Addon_Manager;
 use Yoast\WP\SEO\Conditionals\AI_Conditional;
+<<<<<<< HEAD
+=======
+use Yoast\WP\SEO\Conditionals\New_Premium_Or_Free_AI_Conditional;
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 use Yoast\WP\SEO\Main;
 use Yoast\WP\SEO\Routes\Route_Interface;
 
@@ -47,7 +51,11 @@ class Bust_Subscription_Cache_Route implements Route_Interface {
 	 * @return array<string> The conditionals.
 	 */
 	public static function get_conditionals() {
+<<<<<<< HEAD
 		return [ AI_Conditional::class ];
+=======
+		return [ AI_Conditional::class, New_Premium_Or_Free_AI_Conditional::class ];
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 	}
 
 	/**

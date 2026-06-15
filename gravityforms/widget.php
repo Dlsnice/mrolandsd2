@@ -56,7 +56,11 @@ if ( ! class_exists( 'GFWidget' ) ) {
 		function widget( $args, $instance ) {
 
 			extract( $args );
+<<<<<<< HEAD
 			echo $before_widget; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+=======
+			echo $before_widget;
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 
 			if ( empty( $instance ) ) {
 				$forms = RGFormsModel::get_forms( 1, 'title' );
@@ -83,7 +87,11 @@ if ( ! class_exists( 'GFWidget' ) ) {
 			$title = apply_filters( 'widget_title', rgar( $instance, 'title' ), $instance, $this->id_base );
 
 			if ( $title ) {
+<<<<<<< HEAD
 				echo $before_title . $title . $after_title; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+=======
+				echo $before_title . $title . $after_title;
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 			}
 
 			$tabindex = is_numeric( rgar( $instance, 'tabindex' ) ) ? $instance['tabindex'] : 0;
@@ -98,8 +106,13 @@ if ( ! class_exists( 'GFWidget' ) ) {
 			$form_markup = RGForms::get_form( $instance['form_id'], $instance['showtitle'], $instance['showdescription'], false, null, $instance['ajax'], $tabindex );
 
 			// Display form
+<<<<<<< HEAD
 			echo $form_markup; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 			echo $after_widget; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+=======
+			echo $form_markup;
+			echo $after_widget;
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 		}
 
 		/**
@@ -148,7 +161,11 @@ if ( ! class_exists( 'GFWidget' ) ) {
 						if ( $form->id == rgar( $instance, 'form_id' ) ) {
 							$selected = ' selected="selected"';
 						}
+<<<<<<< HEAD
 						echo '<option value="' . absint( $form->id ) . '" ' . $selected . '>' . esc_html( $form->title ) . '</option>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+=======
+						echo '<option value="' . absint( $form->id ) . '" ' . $selected . '>' . esc_html( $form->title ) . '</option>';
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 					}
 					?>
 				</select>

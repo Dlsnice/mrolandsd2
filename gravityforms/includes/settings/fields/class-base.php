@@ -8,7 +8,10 @@ use GFCommon;
 
 defined( 'ABSPATH' ) || die();
 
+<<<<<<< HEAD
 #[\AllowDynamicProperties]
+=======
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 class Base implements ArrayAccess {
 
 	/**
@@ -125,6 +128,7 @@ class Base implements ArrayAccess {
 	 */
 	public $settings;
 
+<<<<<<< HEAD
 	/** Used to check if encryption is suppported.
 	 *
 	 * @since 2.7.15.2
@@ -268,6 +272,8 @@ class Base implements ArrayAccess {
 	 */
 	public $readonly;
 
+=======
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 	/**
 	 * Field error message.
 	 *
@@ -275,6 +281,7 @@ class Base implements ArrayAccess {
 	 *
 	 * @var string|false
 	 */
+<<<<<<< HEAD
 	protected $error = false;
 
 	/**
@@ -285,6 +292,9 @@ class Base implements ArrayAccess {
 	 * @var string|false
 	 */
 	public $onchange;
+=======
+	private $error = false;
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 
 	/**
 	 * Current function rendering field.
@@ -295,8 +305,11 @@ class Base implements ArrayAccess {
 	 */
 	protected static $current_render_callback;
 
+<<<<<<< HEAD
 
 
+=======
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 	/**
 	 * Initialize field.
 	 *
@@ -417,7 +430,10 @@ class Base implements ArrayAccess {
 		$default_atts = array(
 			'class'         => '',
 			'default_value' => '', // Default value that should be selected or entered for the field.
+<<<<<<< HEAD
 			'placeholder'   => $this->placeholder,
+=======
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 		);
 
 		// Add additional default attributes.
@@ -452,8 +468,13 @@ class Base implements ArrayAccess {
 
 		// Merge field properties with default attributes.
 		$atts             = wp_parse_args( $this, $default_atts );
+<<<<<<< HEAD
 		$atts['id']       = rgempty( 'id', $atts ) ? rgar( $atts, 'name' ) : rgar( $atts, 'id' );
 		$atts['id']       = str_replace( '[]', '', $atts['id'] );
+=======
+		$atts['id'] = rgempty( 'id', $atts ) ? rgar( $atts, 'name' ) : rgar( $atts, 'id' );
+		$atts['id'] = str_replace( '[]', null, $atts['id'] );
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 		$atts['required'] = ( $atts['required'] === true ) ? 'required' : null;
 
 		// Remove disabled property.
@@ -481,14 +502,22 @@ class Base implements ArrayAccess {
 		// Prepare attributes as strings.
 		$return = array();
 		foreach ( $atts as $att => $value ) {
+<<<<<<< HEAD
 			$allow_callable_string = ( $att === 'id' && $value === 'event' );
 			if ( ! $allow_callable_string && ! in_array( $value, array( 'disabled', 'readonly' ) ) && ( is_callable( $value ) || empty( $value ) ) ) {
+=======
+			if ( ! in_array( $value, array( 'disabled', 'readonly' ) ) && ( is_callable( $value ) || empty( $value ) ) ) {
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 				continue;
 			}
 			$return[ $att ] = "{$att}='" . esc_attr( $value ) . "'";
 		}
 
 		return $return;
+<<<<<<< HEAD
+=======
+
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 	}
 
 	/**
@@ -527,6 +556,7 @@ class Base implements ArrayAccess {
 		}
 
 		// Adding default attributes: create new attribute or prepend to existing.
+<<<<<<< HEAD
 		if ( is_array( $default_attributes ) ) {
 			foreach ( $default_attributes as $attr_name => $attr_value ) {
 				if ( isset( $atts[ $attr_name ] ) ) {
@@ -534,6 +564,13 @@ class Base implements ArrayAccess {
 				} else {
 					$atts[ $attr_name ] = "{$attr_name}='" . esc_attr( $attr_value ) . "'";
 				}
+=======
+		foreach ( $default_attributes as $attr_name => $attr_value ) {
+			if ( isset( $atts[ $attr_name ] ) ) {
+				$atts[ $attr_name ] = str_replace( "{$attr_name}='", "{$attr_name}='{$attr_value}", $atts[ $attr_name ] );
+			} else {
+				$atts[ $attr_name ] = "{$attr_name}='" . esc_attr( $attr_value ) . "'";
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 			}
 		}
 
@@ -604,7 +641,11 @@ class Base implements ArrayAccess {
 
 		if ( $is_invalid ) { $container_classes[] = 'gform-settings-input__container--invalid'; }
 		if ( isset( $this->append ) ) { $container_classes[] = 'gform-settings-input__container--with-append'; }
+<<<<<<< HEAD
 		if ( $this->class && strpos( $this->class, 'merge-tag-support' ) !== false ) { $container_classes[] = 'gform-settings-input__container--with-merge-tag'; }
+=======
+		if ( strpos( $this->class, 'merge-tag-support' ) !== false ) { $container_classes[] = 'gform-settings-input__container--with-merge-tag'; }
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 
 		return implode( ' ', $container_classes );
 
@@ -908,7 +949,10 @@ class Base implements ArrayAccess {
 	 *
 	 * @return bool
 	 */
+<<<<<<< HEAD
 	#[\ReturnTypeWillChange]
+=======
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 	public function offsetExists( $offset ) {
 
 		return isset( $this->$offset );
@@ -924,7 +968,10 @@ class Base implements ArrayAccess {
 	 *
 	 * @return mixed
 	 */
+<<<<<<< HEAD
 	#[\ReturnTypeWillChange]
+=======
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 	public function offsetGet( $offset ) {
 
 		if ( ! isset( $this->$offset ) ) {
@@ -943,7 +990,10 @@ class Base implements ArrayAccess {
 	 * @param mixed $offset The offset to assign the value to.
 	 * @param mixed $data   The value to set.
 	 */
+<<<<<<< HEAD
 	#[\ReturnTypeWillChange]
+=======
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 	public function offsetSet( $offset, $data ) {
 
 		if ( $offset === null ) {
@@ -961,7 +1011,10 @@ class Base implements ArrayAccess {
 	 *
 	 * @param mixed $offset The offset to unset.
 	 */
+<<<<<<< HEAD
 	#[\ReturnTypeWillChange]
+=======
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 	public function offsetUnset( $offset ) {
 
 		unset( $this->$offset );

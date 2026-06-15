@@ -104,7 +104,11 @@ class GF_Installation_Wizard {
 
 		<br />
 		<h2>
+<<<<<<< HEAD
 			<?php echo esc_html( $current_step->get_title() ); ?>
+=======
+			<?php echo $current_step->get_title(); ?>
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 		</h2>
 
 			<form action="" method="POST">
@@ -114,7 +118,11 @@ class GF_Installation_Wizard {
 
 				$validation_summary = $current_step->get_validation_summary();
 				if ( $validation_summary ) {
+<<<<<<< HEAD
 					printf( '<div class="delete-alert alert_red">%s</div>', $validation_summary ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+=======
+					printf( '<div class="delete-alert alert_red">%s</div>', $validation_summary );
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 				}
 
 				?>
@@ -139,9 +147,15 @@ class GF_Installation_Wizard {
 					$previous_button_text = $current_step->get_previous_button_text();
 					if ( $previous_button_text ) {
 						$previous_button = $this->get_step_index( $current_step ) > 0 ? '<input name="_previous" class="button button-primary" type="submit" value="' . esc_attr( $previous_button_text ) . '" style="margin-right:30px;" />' : '';
+<<<<<<< HEAD
 						echo $previous_button; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 					}
 					echo $next_button; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+=======
+						echo $previous_button;
+					}
+					echo $next_button;
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 					?>
 				</div>
 			</form>
@@ -248,7 +262,11 @@ class GF_Installation_Wizard {
 		$html .= '</ul>';
 
 		if ( $echo ) {
+<<<<<<< HEAD
 			echo $html; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+=======
+			echo $html;
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 		}
 		return $html;
 	}
@@ -268,7 +286,11 @@ class GF_Installation_Wizard {
 		foreach ( $steps as $step ) {
 			$step_summary = $step->summary( false );
 			if ( $step_summary ) {
+<<<<<<< HEAD
 				printf( '<tr valign="top"><th scope="row"><label>%s</label></th><td>%s</td></tr>', esc_html( $step->get_title() ), $step_summary ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+=======
+				printf( '<tr valign="top"><th scope="row"><label>%s</label></th><td>%s</td></tr>', esc_html( $step->get_title() ), $step_summary );
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 			}
 		}
 		echo '</tbody></table>';

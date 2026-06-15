@@ -18,12 +18,19 @@ if ( ! class_exists( 'Gravity_Api' ) ) {
 	 * @since      1.9
 	 * @access     public
 	 */
+<<<<<<< HEAD
+=======
+
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 	class Gravity_Api {
 
 		private static $instance = null;
 
+<<<<<<< HEAD
 		private static $raw_response = null;
 
+=======
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 		public static function get_instance() {
 			if ( null == self::$instance ) {
 				self::$instance = new self;
@@ -36,6 +43,7 @@ if ( ! class_exists( 'Gravity_Api' ) ) {
 		 * Retrieves site key and site secret key from remote API and stores them as WP options. Returns false if license key is invalid; otherwise, returns true.
 		 *
 		 * @since  2.3
+<<<<<<< HEAD
 		 *
 		 * @param string $license_key License key to be registered.
 		 * @param boolean $is_md5 Specifies if $license_key provided is an MD5 or unhashed license key.
@@ -45,18 +53,41 @@ if ( ! class_exists( 'Gravity_Api' ) ) {
 		public function register_current_site( $license_key, $is_md5 = false ) {
 
 			$body              = array();
+=======
+		 * @access public
+		 *
+		 * @param string $license_key License key to be registered
+		 * @param boolean $is_md5 Specifies if $license_key provided is an MD5 or unhashed license key.
+		 *
+		 * @return bool Success
+		 */
+		public function register_current_site( $license_key, $is_md5 = false ) {
+
+			$body = array();
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 			$body['site_name'] = get_bloginfo( 'name' );
 			$body['site_url']  = get_bloginfo( 'url' );
 
 			if ( $is_md5 ) {
+<<<<<<< HEAD
 				$body['license_key_md5'] = $license_key;
 			} else {
 				$body['license_key'] = $license_key;
+=======
+
+				$body['license_key_md5'] = $license_key;
+
+			} else {
+
+				$body['license_key'] = $license_key;
+
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 			}
 
 			GFCommon::log_debug( __METHOD__ . '(): registering site' );
 
 			$result = $this->request( 'sites', $body, 'POST', array( 'headers' => $this->get_license_auth_header( $license_key ) ) );
+<<<<<<< HEAD
 			$result = $this->prepare_response_body( $result, true );
 
 			if ( is_wp_error( $result ) ) {
@@ -69,6 +100,20 @@ if ( ! class_exists( 'Gravity_Api' ) ) {
 			update_option( 'gf_site_secret', $result['secret'] );
 
 			GFCommon::log_debug( __METHOD__ . '(): site registration successful. Site Key: ' . $result['key'] );
+=======
+			$result = $this->prepare_response_body( $result );
+
+			if ( is_wp_error( $result ) || ! is_object( $result ) ) {
+				GFCommon::log_error( __METHOD__ . '(): error registering site. ' . print_r( $result, true ) );
+				return $result;
+			}
+
+			// Updating site key and secret
+			update_option( 'gf_site_key', $result->key );
+			update_option( 'gf_site_secret', $result->secret );
+
+			GFCommon::log_debug( __METHOD__ . '(): site registration successful. Site Key: ' . $result->key );
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 
 			return true;
 		}
@@ -77,44 +122,74 @@ if ( ! class_exists( 'Gravity_Api' ) ) {
 		 * Updates license key for a site that has already been registered.
 		 *
 		 * @since  2.3
+<<<<<<< HEAD
 		 * @since  2.5 Returns License Response on success.
 		 *
+=======
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 		 * @access public
 		 *
 		 * @param string $new_license_key_md5 Hash license key to be updated
 		 *
+<<<<<<< HEAD
 		 * @return \Gravity_Forms\Gravity_Forms\License\GF_License_API_Response|WP_Error
 		 */
 		public function update_current_site( $new_license_key_md5 ) {
 
 			$site_key    = $this->get_site_key();
+=======
+		 * @return bool Success
+		 */
+		public function update_current_site( $new_license_key_md5 ) {
+
+			$site_key = $this->get_site_key();
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 			$site_secret = $this->get_site_secret();
 			if ( empty( $site_key ) || empty( $site_secret ) ) {
 
 				return false;
 			}
 
+<<<<<<< HEAD
 			$body                    = GFCommon::get_remote_post_params();
 			$body['site_name']       = get_bloginfo( 'name' );
 			$body['site_url']        = get_bloginfo( 'url' );
 			$body['site_key']        = $site_key;
 			$body['site_secret']     = $site_secret;
+=======
+			$body = GFCommon::get_remote_post_params();
+			$body['site_name'] = get_bloginfo( 'name' );
+			$body['site_url']  = get_bloginfo( 'url' );
+			$body['site_key'] = $site_key;
+			$body['site_secret'] = $site_secret;
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 			$body['license_key_md5'] = $new_license_key_md5;
 
 			GFCommon::log_debug( __METHOD__ . '(): refreshing license info' );
 
 			$result = $this->request( 'sites/' . $site_key, $body, 'PUT', array( 'headers' => $this->get_site_auth_header( $site_key, $site_secret ) ) );
+<<<<<<< HEAD
 			$result = $this->prepare_response_body( $result, true );
+=======
+			$result = $this->prepare_response_body( $result );
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 
 			if ( is_wp_error( $result ) ) {
 
 				GFCommon::log_debug( __METHOD__ . '(): error updating site registration. ' . print_r( $result, true ) );
+<<<<<<< HEAD
 
+=======
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 				return $result;
 
 			}
 
+<<<<<<< HEAD
 			return $result;
+=======
+			return true;
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 		}
 
 		/***
@@ -126,7 +201,11 @@ if ( ! class_exists( 'Gravity_Api' ) ) {
 		 */
 		public function deregister_current_site() {
 
+<<<<<<< HEAD
 			$site_key    = $this->get_site_key();
+=======
+			$site_key = $this->get_site_key();
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 			$site_secret = $this->get_site_secret();
 
 			if ( empty( $site_key ) ) {
@@ -140,12 +219,19 @@ if ( ! class_exists( 'Gravity_Api' ) ) {
 			);
 
 			$result = $this->request( 'sites/' . $site_key, $body, 'PUT', array( 'headers' => $this->get_site_auth_header( $site_key, $site_secret ) ) );
+<<<<<<< HEAD
 			$result = $this->prepare_response_body( $result, true );
+=======
+			$result = $this->prepare_response_body( $result );
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 
 			if ( is_wp_error( $result ) ) {
 
 				GFCommon::log_debug( __METHOD__ . '(): error updating site registration. ' . print_r( $result, true ) );
+<<<<<<< HEAD
 
+=======
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 				return $result;
 
 			}
@@ -153,6 +239,7 @@ if ( ! class_exists( 'Gravity_Api' ) ) {
 			return true;
 		}
 
+<<<<<<< HEAD
 		/**
 		 * Check the given license key to get its information from the API.
 		 *
@@ -390,10 +477,19 @@ if ( ! class_exists( 'Gravity_Api' ) ) {
 
 			$auth = base64_encode( "{$site_key}:{$site_secret}" );
 
+=======
+
+		// # HELPERS
+
+		private function get_site_auth_header( $site_key, $site_secret ) {
+
+			$auth = base64_encode( "{$site_key}:{$site_secret}" );
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 			return array( 'Authorization' => 'GravityAPI ' . $auth );
 
 		}
 
+<<<<<<< HEAD
 		/**
 		 * @param $site_secret
 		 *
@@ -414,10 +510,16 @@ if ( ! class_exists( 'Gravity_Api' ) ) {
 
 			$auth = base64_encode( "license:{$license_key_md5}" );
 
+=======
+		private function get_license_auth_header( $license_key_md5 ) {
+
+			$auth = base64_encode( "license:{$license_key_md5}" );
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 			return array( 'Authorization' => 'GravityAPI ' . $auth );
 
 		}
 
+<<<<<<< HEAD
 		/**
 		 * Prepare response body.
 		 *
@@ -454,21 +556,39 @@ if ( ! class_exists( 'Gravity_Api' ) ) {
 
 				return $error;
 
+=======
+		public function prepare_response_body( $raw_response ) {
+
+			if ( is_wp_error( $raw_response ) ) {
+				return $raw_response;
+			} elseif ( $raw_response['response']['code'] != 200 ) {
+				return new WP_Error( 'server_error', 'Error from server: ' . $raw_response['response']['message'] );
+			}
+
+			$response_body = json_decode( $raw_response['body'] );
+
+			if ( $response_body === null ) {
+				return new WP_Error( 'invalid_response', 'Invalid response from server: ' . $raw_response['body'] );
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 			}
 
 			return $response_body;
 		}
 
+<<<<<<< HEAD
 		/**
 		 * Purge the site credentials.
 		 *
 		 * @since unknown
 		 * @since 2.5     Added the deletion of the gf_site_registered option.
 		 */
+=======
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 		public function purge_site_credentials() {
 
 			delete_option( 'gf_site_key' );
 			delete_option( 'gf_site_secret' );
+<<<<<<< HEAD
 			delete_option( 'gf_site_registered' );
 
 		}
@@ -486,28 +606,46 @@ if ( ! class_exists( 'Gravity_Api' ) ) {
 		 *
 		 * @return array|WP_Error
 		 */
+=======
+		}
+
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 		public function request( $resource, $body, $method = 'POST', $options = array() ) {
 			$body['timestamp'] = time();
 
 			// set default options
 			$options = wp_parse_args( $options, array(
+<<<<<<< HEAD
 				'method'    => $method,
 				'timeout'   => 10,
 				'body'      => in_array( $method, array( 'GET', 'DELETE' ) ) ? null : json_encode( $body ),
 				'headers'   => array(),
+=======
+				'method'  => $method,
+				'timeout' => 10,
+				'body'    => in_array( $method, array( 'GET', 'DELETE' ) ) ? null : json_encode( $body ),
+				'headers' => array(),
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 				'sslverify' => false,
 			) );
 
 			// set default header options
 			$options['headers'] = wp_parse_args( $options['headers'], array(
+<<<<<<< HEAD
 				'Content-Type' => 'application/json; charset=' . get_option( 'blog_charset' ),
 				'User-Agent'   => 'WordPress/' . get_bloginfo( 'version' ),
 				'Referer'      => get_bloginfo( 'url' ),
+=======
+				'Content-Type'   => 'application/json; charset=' . get_option( 'blog_charset' ),
+				'User-Agent'     => 'WordPress/' . get_bloginfo( 'version' ),
+				'Referer'        => get_bloginfo( 'url' ),
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 			) );
 
 			// WP docs say method should be uppercase
 			$options['method'] = strtoupper( $options['method'] );
 
+<<<<<<< HEAD
 			$request_url = $this->get_gravity_api_url() . $resource;
 
 			return wp_remote_request( $request_url, $options );
@@ -516,6 +654,15 @@ if ( ! class_exists( 'Gravity_Api' ) ) {
 		/**
 		 * @return false|mixed|void
 		 */
+=======
+			$request_url  = $this->get_gravity_api_url() . $resource;
+			$raw_response = wp_remote_request( $request_url, $options );
+
+
+			return $raw_response;
+		}
+
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 		public function get_site_key() {
 
 			if ( defined( 'GRAVITY_API_SITE_KEY' ) ) {
@@ -526,14 +673,20 @@ if ( ! class_exists( 'Gravity_Api' ) ) {
 			if ( empty( $site_key ) ) {
 				return false;
 			}
+<<<<<<< HEAD
 
+=======
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 			return $site_key;
 
 		}
 
+<<<<<<< HEAD
 		/**
 		 * @return false|mixed|void
 		 */
+=======
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 		public function get_site_secret() {
 			if ( defined( 'GRAVITY_API_SITE_SECRET' ) ) {
 				return GRAVITY_API_SITE_SECRET;
@@ -542,6 +695,7 @@ if ( ! class_exists( 'Gravity_Api' ) ) {
 			if ( empty( $site_secret ) ) {
 				return false;
 			}
+<<<<<<< HEAD
 
 			return $site_secret;
 		}
@@ -549,10 +703,16 @@ if ( ! class_exists( 'Gravity_Api' ) ) {
 		/**
 		 * @return string
 		 */
+=======
+			return $site_secret;
+		}
+
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 		public function get_gravity_api_url() {
 			return trailingslashit( GRAVITY_API_URL );
 		}
 
+<<<<<<< HEAD
 		/**
 		 * Check if the site has the gf_site_key and gf_site_secret options.
 		 *
@@ -560,10 +720,13 @@ if ( ! class_exists( 'Gravity_Api' ) ) {
 		 *
 		 * @return bool
 		 */
+=======
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 		public function is_site_registered() {
 			return $this->get_site_key() && $this->get_site_secret();
 		}
 
+<<<<<<< HEAD
 		/**
 		 * Check if the site has the gf_site_key, gf_site_secret and also the gf_site_registered options.
 		 *
@@ -577,6 +740,8 @@ if ( ! class_exists( 'Gravity_Api' ) ) {
 
 		}
 
+=======
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 	}
 
 	function gapi() {
@@ -585,4 +750,8 @@ if ( ! class_exists( 'Gravity_Api' ) ) {
 
 	gapi();
 
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6

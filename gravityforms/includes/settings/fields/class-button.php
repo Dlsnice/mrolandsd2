@@ -46,8 +46,13 @@ class Button extends Base {
 		parent::__construct( $props, $settings );
 
 		// Set default value.
+<<<<<<< HEAD
 		if ( ! isset( $this->default_value ) ) {
 			$this->default_value = esc_html__( 'Submit', 'gravityforms' );
+=======
+		if ( ! isset( $this->value ) ) {
+			$this->value = esc_html__( 'Submit', 'gravityforms' );
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 		}
 
 	}
@@ -73,7 +78,11 @@ class Button extends Base {
 			$this->input_type,
 			$this->name,
 			implode( ' ', $this->get_attributes() ),
+<<<<<<< HEAD
 			esc_attr( $this->default_value )
+=======
+			esc_attr( $this->value )
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 		);
 
 		return $html;

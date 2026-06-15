@@ -3,7 +3,11 @@
         'name' => 'yoast/wordpress-seo',
         'pretty_version' => 'dev-main',
         'version' => 'dev-main',
+<<<<<<< HEAD
         'reference' => 'f24505aab10c47b8b0fc68fd6126ca7fa9309138',
+=======
+        'reference' => '5837b53213d01fd34b4954c7259526457ea80879',
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
         'type' => 'wordpress-plugin',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -22,7 +26,11 @@
         'yoast/wordpress-seo' => array(
             'pretty_version' => 'dev-main',
             'version' => 'dev-main',
+<<<<<<< HEAD
             'reference' => 'f24505aab10c47b8b0fc68fd6126ca7fa9309138',
+=======
+            'reference' => '5837b53213d01fd34b4954c7259526457ea80879',
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
             'type' => 'wordpress-plugin',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),

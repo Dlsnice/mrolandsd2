@@ -90,7 +90,11 @@ abstract class GF_Installation_Wizard_Step extends stdClass {
 		}
 
 		if ( $echo ) {
+<<<<<<< HEAD
 			echo $message; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+=======
+			echo $message;
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 		}
 		return $message;
 	}
@@ -130,7 +134,11 @@ abstract class GF_Installation_Wizard_Step extends stdClass {
 
 	function get_posted_values() {
 
+<<<<<<< HEAD
 		$posted_values = stripslashes_deep( $_POST ); // phpcs:ignore WordPress.Security.NonceVerification.Missing
+=======
+		$posted_values = stripslashes_deep( $_POST );
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 		$values        = array();
 		foreach ( $posted_values as $key => $value ) {
 			if ( strpos( $key, '_', 0 ) !== 0 ) {

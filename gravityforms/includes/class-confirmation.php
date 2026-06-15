@@ -119,12 +119,20 @@ class GF_Confirmation {
 
 					jQuery.ajax(
 						{
+<<<<<<< HEAD
 							url:      '<?php echo admin_url( 'admin-ajax.php' ); //phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>',
+=======
+							url:      '<?php echo admin_url( 'admin-ajax.php' ); ?>',
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 							method:   'POST',
 							dataType: 'json',
 							data: {
 								action:                        'rg_update_confirmation_active',
+<<<<<<< HEAD
 								rg_update_confirmation_active: '<?php echo wp_create_nonce( 'rg_update_confirmation_active' ); //phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped  ?>',
+=======
+								rg_update_confirmation_active: '<?php echo wp_create_nonce( 'rg_update_confirmation_active' ); ?>',
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 								form_id:                       '<?php echo intval( $form_id ); ?>',
 								confirmation_id:               confirmation_id,
 								is_active:                     is_active ? 0 : 1,
@@ -204,6 +212,30 @@ class GF_Confirmation {
 	 */
 	private static function settings_fields( $confirmation, $form ) {
 
+<<<<<<< HEAD
+=======
+		// Initialize page choices array.
+		$page_choices = array(
+			array(
+				'label' => esc_html__( 'Select a Page', 'gravityforms' ),
+				'value' => '',
+			),
+		);
+
+		// Get pages.
+		$pages = get_pages( array( 'depth' => 0, 'child_of' => 0 ) );
+
+		// Loop through pages, add as choices.
+		if ( is_array( $pages ) && ! empty( $pages ) ) {
+			foreach ( $pages as $page ) {
+				$page_choices[] = array(
+					'label' => esc_html( $page->post_title ),
+					'value' => esc_attr( $page->ID ),
+				);
+			}
+		}
+
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 		// Build confirmation settings fields.
 		$fields = array(
 			array(
@@ -283,7 +315,12 @@ class GF_Confirmation {
 					array(
 						'name'       => 'page',
 						'label'      => esc_html__( 'Page', 'gravityforms' ),
+<<<<<<< HEAD
 						'type'       => 'post_select',
+=======
+						'type'       => 'select',
+						'choices'    => $page_choices,
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 						'required'   => true,
 						'dependency' => array(
 							'live'     => true,
@@ -426,7 +463,11 @@ class GF_Confirmation {
 
 		// Get ID of confirmation to duplicate, determine if we are duplicating confirmation.
 		$duplicated_cid = sanitize_key( rgget( 'duplicatedcid' ) );
+<<<<<<< HEAD
 		$is_duplicate   = empty( $_POST ) && ! empty( $duplicated_cid ); // phpcs:ignore WordPress.Security.NonceVerification.Missing
+=======
+		$is_duplicate   = empty( $_POST ) && ! empty( $duplicated_cid );
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 
 		// Get confirmation object.
 		$confirmation = rgar( $form['confirmations'], $is_duplicate ? $duplicated_cid : $confirmation_id, array() );
@@ -437,8 +478,14 @@ class GF_Confirmation {
 		}
 
 		// Reset confirmation ID, default status, conditional logic.
+<<<<<<< HEAD
 		$confirmation['id']        = null;
 		$confirmation['isDefault'] = false;
+=======
+		$confirmation['id']               = null;
+		$confirmation['isDefault']        = false;
+		$confirmation['conditionalLogic'] = null;
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 
 		// Check for confirmation count in confirmation name.
 		preg_match_all( '/(\\(([0-9])*\\))$/mi', $confirmation['name'], $count_exists_in_name );
@@ -455,7 +502,11 @@ class GF_Confirmation {
 			$count = (int) $count_exists_in_name[2][0] + 1;
 
 			// Remove existing count from title.
+<<<<<<< HEAD
 			$confirmation['name'] = preg_replace( '/(\\(([0-9])*\\))$/mi', '', $confirmation['name'] );
+=======
+			$confirmation['name'] = preg_replace( '/(\\(([0-9])*\\))$/mi', null, $confirmation['name'] );
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 
 		}
 
@@ -497,7 +548,21 @@ class GF_Confirmation {
 		$form_id         = absint( rgget( 'id' ) );
 		$confirmation_id = rgpost( 'confirmation_id' ) ? rgpost( 'confirmation_id' ) : rgget( 'cid' );
 
+<<<<<<< HEAD
 		$form = GFCommon::gform_admin_pre_render( GFFormsModel::get_form_meta( $form_id ) );
+=======
+		/**
+		 * Filters to form meta being used within the confirmations edit page.
+		 *
+		 * @since Unknown
+		 *
+		 * @param array $form The Form Object.
+		 */
+		$form = gf_apply_filters( array(
+			'gform_admin_pre_render',
+			$form_id
+		), GFFormsModel::get_form_meta( $form_id ) );
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 
 		// Get confirmation object.
 		$confirmation = self::get_confirmation( $confirmation_id, $form );
@@ -515,11 +580,15 @@ class GF_Confirmation {
 		// Add warning if confirmation message is unsafe.
 		if ( ! empty( $confirmation['message'] ) && self::confirmation_looks_unsafe( $confirmation['message'] ) ) {
 			$dismissible_message = esc_html__( 'Your confirmation message appears to contain a merge tag as the value for an HTML attribute. Depending on the attribute and field type, this might be a security risk. %sFurther details%s', 'gravityforms' );
+<<<<<<< HEAD
 			$dismissible_message = sprintf(
 				$dismissible_message,
 				'<a href="https://docs.gravityforms.com/security-warning-merge-tags-html-attribute-values/" target="_blank">',
 				'<span class="screen-reader-text">' . esc_html__( '(opens in a new tab)', 'gravityforms' ) . '</span>&nbsp;<span class="gform-icon gform-icon--external-link" aria-hidden="true"></span></a>'
 			);
+=======
+			$dismissible_message = sprintf( $dismissible_message, '<a href="https://docs.gravityforms.com/security-warning-merge-tags-html-attribute-values/" target="_blank">', '</a>' );
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 			GFCommon::add_dismissible_message( $dismissible_message, 'confirmation_unsafe_' . $form_id );
 		}
 
@@ -607,7 +676,11 @@ class GF_Confirmation {
 
 						var confirmation = <?php echo $confirmation ? json_encode( $confirmation ) : 'new ConfirmationObj()' ?>;
 						var form = <?php echo json_encode( $form ); ?>;
+<<<<<<< HEAD
 						var entry_meta = <?php echo GFCommon::json_encode( $entry_meta ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>;
+=======
+						var entry_meta = <?php echo GFCommon::json_encode( $entry_meta ) ?>;
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 
 						gform.addFilter( 'gform_merge_tags', 'MaybeAddSaveMergeTags' );
 
@@ -813,6 +886,7 @@ class GF_Confirmation {
 
 	}
 
+<<<<<<< HEAD
 	/**
 	 * Output the duplicate conditional logic confirmation notice.
 	 *
@@ -827,6 +901,8 @@ class GF_Confirmation {
 			</div>';
 	}
 
+=======
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 }
 
 // Include WP_List_Table.
@@ -933,7 +1009,11 @@ class GFConfirmationTable extends WP_List_Table {
 
 		$this->display_tablenav( 'top' );
 		?>
+<<<<<<< HEAD
 		<table class="wp-list-table <?php echo esc_attr( implode( ' ', $this->get_table_classes() ) ); ?>" cellspacing="0">
+=======
+		<table class="wp-list-table <?php echo implode( ' ', $this->get_table_classes() ); ?>" cellspacing="0">
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 			<thead>
 			<tr>
 				<?php $this->print_column_headers(); ?>
@@ -947,7 +1027,11 @@ class GFConfirmationTable extends WP_List_Table {
 			</tfoot>
 
 			<tbody id="the-list"<?php if ( $singular ) {
+<<<<<<< HEAD
 				echo " class='list:$singular'"; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+=======
+				echo " class='list:$singular'";
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 			} ?>>
 
 			<?php $this->display_rows_or_placeholder(); ?>
@@ -974,7 +1058,11 @@ class GFConfirmationTable extends WP_List_Table {
 		printf(
 			'<tr id="confirmation-%s" %s>',
 			esc_attr( $item['id'] ),
+<<<<<<< HEAD
 			$row_class // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+=======
+			$row_class
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 		);
 		$this->single_row_columns( $item );
 		echo '</tr>';
@@ -1019,7 +1107,11 @@ class GFConfirmationTable extends WP_List_Table {
 	 */
 	public function column_default( $item, $column ) {
 
+<<<<<<< HEAD
 		echo rgar( $item, $column ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+=======
+		echo rgar( $item, $column );
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 
 	}
 
@@ -1061,6 +1153,7 @@ class GFConfirmationTable extends WP_List_Table {
 			$text  = esc_html__( 'Inactive', 'gravityforms' );
 		}
 		?>
+<<<<<<< HEAD
 		<button
 			type="button"
 			class="gform-status-indicator gform-status-indicator--size-sm gform-status-indicator--theme-cosmos <?php echo esc_attr( $class ); ?>"
@@ -1070,6 +1163,11 @@ class GFConfirmationTable extends WP_List_Table {
 			<span class="gform-status-indicator-status gform-typography--weight-medium gform-typography--size-text-xs">
 				<?php echo esc_html( $text ); ?>
 			</span>
+=======
+		<button type="button" class="gform-status-indicator <?php echo esc_attr( $class ); ?>" onclick="ToggleActive( this, '<?php echo esc_js( $item['id'] ); ?>' );" onkeypress="ToggleActive( this, '<?php echo esc_js( $item['id'] ); ?>' );">
+			<svg viewBox="0 0 6 6" xmlns="http://www.w3.org/2000/svg"><circle cx="3" cy="2" r="1" stroke-width="2"/></svg>
+			<span class="gform-status-indicator-status"><?php echo esc_html( $text ); ?></span>
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 		</button>
 		<?php
 
@@ -1084,6 +1182,7 @@ class GFConfirmationTable extends WP_List_Table {
 	 */
 	public function column_name( $item ) {
 
+<<<<<<< HEAD
 		$edit_url        = add_query_arg( array( 'cid' => $item['id'] ) );
 		$duplicate_url   = add_query_arg( array( 'cid' => 0, 'duplicatedcid' => $item['id'] ) );
 		$confirm_message = esc_js(
@@ -1092,11 +1191,19 @@ class GFConfirmationTable extends WP_List_Table {
 			__( "'Cancel' to stop, 'OK' to delete.", 'gravityforms' )
 		);
 
+=======
+		$edit_url      = add_query_arg( array( 'cid' => $item['id'] ) );
+		$duplicate_url = add_query_arg( array( 'cid' => 0, 'duplicatedcid' => $item['id'] ) );
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 		$actions       = apply_filters(
 			'gform_confirmation_actions', array(
 				'edit'      => '<a href="' . esc_url( $edit_url ) . '">' . __( 'Edit', 'gravityforms' ) . '</a>',
 				'duplicate' => '<a href="' . esc_url( $duplicate_url ) . '">' . __( 'Duplicate', 'gravityforms' ) . '</a>',
+<<<<<<< HEAD
 				'delete'    => '<a class="submitdelete" onclick="javascript: if(confirm(\'' . $confirm_message . '\')){ DeleteConfirmation(\'' . esc_js( $item['id'] ) . '\'); }" onkeypress="javascript: if(confirm(\'' . $confirm_message . '\')){ DeleteConfirmation(\'' . esc_js( $item['id'] ) . '\'); }" style="cursor:pointer;">' . esc_html__( 'Delete', 'gravityforms' ) . '</a>',
+=======
+				'delete'    => '<a class="submitdelete" onclick="javascript: if(confirm(\'' . __( 'WARNING: You are about to delete this confirmation.', 'gravityforms' ) . __( "\'Cancel\' to stop, \'OK\' to delete.", 'gravityforms' ) . '\')){ DeleteConfirmation(\'' . esc_js( $item['id'] ) . '\'); }" onkeypress="javascript: if(confirm(\'' . __( 'WARNING: You are about to delete this confirmation.', 'gravityforms' ) . __( "\'Cancel\' to stop, \'OK\' to delete.", 'gravityforms' ) . '\')){ DeleteConfirmation(\'' . esc_js( $item['id'] ) . '\'); }" style="cursor:pointer;">' . __( 'Delete', 'gravityforms' ) . '</a>',
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 			)
 		);
 
@@ -1104,6 +1211,7 @@ class GFConfirmationTable extends WP_List_Table {
 			unset( $actions['delete'] );
 		}
 
+<<<<<<< HEAD
 		$aria_label = sprintf(
 			/* translators: %s: Confirmation name */
 			__( '%s (Edit)', 'gravityforms' ),
@@ -1112,6 +1220,12 @@ class GFConfirmationTable extends WP_List_Table {
 		?>
 
 		<a href="<?php echo esc_url( $edit_url ); ?>" aria-label="<?php echo esc_attr( $aria_label ); ?>"><strong><?php echo esc_html( rgar( $item, 'name' ) ); ?></strong></a>
+=======
+
+		?>
+
+		<a href="<?php echo esc_url( $edit_url ); ?>"><strong><?php echo esc_html( rgar( $item, 'name' ) ); ?></strong></a>
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 		<div class="row-actions">
 
 			<?php
@@ -1122,8 +1236,13 @@ class GFConfirmationTable extends WP_List_Table {
 				foreach ( $actions as $key => $html ) {
 					$divider = $key == $last_key ? '' : ' | ';
 					?>
+<<<<<<< HEAD
 					<span class="<?php echo esc_attr( $key ); ?>">
                         <?php echo $html . $divider; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
+=======
+					<span class="<?php echo $key; ?>">
+                        <?php echo $html . $divider; ?>
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
                     </span>
 					<?php
 

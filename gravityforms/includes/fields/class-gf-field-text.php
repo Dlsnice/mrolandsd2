@@ -119,14 +119,23 @@ class GF_Field_Text extends GF_Field {
 		// For Post Tags, Use the WordPress built-in class "howto" in the form editor.
 		$text_hint = '';
 		if ( $this->type === 'post_tags' ) {
+<<<<<<< HEAD
 			$text_hint = '<p class="gfield_post_tags_hint gfield_description" id="' . $field_id . '_desc">' . gf_apply_filters( array(
+=======
+			$text_hint_class = $is_form_editor ? 'howto' : 'gfield_post_tags_hint';
+			$text_hint       = '<p class="' . $text_hint_class . '" id="' . $field_id . '_desc">' . gf_apply_filters( array(
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 					'gform_post_tags_hint',
 					$form_id,
 					$this->id,
 				), esc_html__( 'Separate tags with commas', 'gravityforms' ), $form_id ) . '</p>';
 		}
 
+<<<<<<< HEAD
 		$input = "<input name='input_{$id}' id='{$field_id}' type='{$html_input_type}' value='{$value}' class='{$class}' {$max_length} {$aria_describedby} {$tabindex} {$placeholder_attribute} {$required_attribute} {$invalid_attribute} {$disabled_text} {$autocomplete} />{$text_hint}";
+=======
+		$input = "<input name='input_{$id}' id='{$field_id}' type='{$html_input_type}' value='{$value}' class='{$class}' {$max_length} {$aria_describedby} {$tabindex} {$placeholder_attribute} {$required_attribute} {$invalid_attribute} {$disabled_text} {$autocomplete} /> {$text_hint}";
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 
 		return sprintf( "<div class='ginput_container ginput_container_text'>%s</div>", $input );
 	}
@@ -220,6 +229,7 @@ class GF_Field_Text extends GF_Field {
 	/**
 	 * Format the entry value safe for displaying on the entry detail page and for the {all_fields} merge tag.
 	 *
+<<<<<<< HEAD
 	 * @since 1.9
 	 * @since 2.9.29 Changed the second parameter $currency (string) to $entry (array).
 	 *
@@ -232,13 +242,28 @@ class GF_Field_Text extends GF_Field {
 	 * @return string
 	 */
 	public function get_value_entry_detail( $value, $entry = array(), $use_text = false, $format = 'html', $media = 'screen' ) {
+=======
+	 * @param string|array $value The field value.
+	 * @param string $currency The entry currency code.
+	 * @param bool|false $use_text When processing choice based fields should the choice text be returned instead of the value.
+	 * @param string $format The format requested for the location the merge is being used. Possible values: html, text or url.
+	 * @param string $media The location where the value will be displayed. Possible values: screen or email.
+	 *
+	 * @return string
+	 */
+	public function get_value_entry_detail( $value, $currency = '', $use_text = false, $format = 'html', $media = 'screen' ) {
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 
 		if ( is_array( $value ) ) {
 			return '';
 		}
 
 		if ( $format === 'html' ) {
+<<<<<<< HEAD
 			$value = nl2br( (string) $value );
+=======
+			$value = nl2br( $value );
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 
 			$allowable_tags = $this->get_allowable_tags();
 
@@ -266,7 +291,11 @@ class GF_Field_Text extends GF_Field {
 	 * @return string
 	 */
 	public function get_aria_describedby( $extra_ids = array() ) {
+<<<<<<< HEAD
 		if ( $this->type === 'text' || $this->type === 'post_custom_field' || $this->type === 'survey' ) {
+=======
+		if ( $this->type === 'text' || $this->type === 'post_custom_field' ) {
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 			return parent::get_aria_describedby( $extra_ids );
 		}
 

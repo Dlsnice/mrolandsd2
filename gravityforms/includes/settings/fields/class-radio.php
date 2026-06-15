@@ -29,6 +29,7 @@ class Radio extends Base {
 	public $choices = array();
 
 	/**
+<<<<<<< HEAD
 	 * Whether the input should be an image select.
 	 *
 	 * @var bool
@@ -45,6 +46,8 @@ class Radio extends Base {
 	public $horizontal;
 
 	/**
+=======
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 	 * Initialize field.
 	 *
 	 * @since 2.5
@@ -91,10 +94,13 @@ class Radio extends Base {
 		$horizontal_class = rgobj( $this, 'horizontal' ) || self::has_icons( $choices ) ? ' gform-settings-choice--inline' : '';
 		$icon_class       = self::has_icons( $choices ) ? ' gform-settings-choice--visual' : '';
 
+<<<<<<< HEAD
 		if ( $this->image_select ) {
 			$icon_class = ' gform-settings-choice--image-select';
 		}
 
+=======
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 		// If no choices exist, return.
 		if ( $choices === false || empty( $choices ) ) {
 			return '';
@@ -109,7 +115,11 @@ class Radio extends Base {
 		foreach ( $choices as $i => $choice ) {
 
 			// Prepare choice attributes.
+<<<<<<< HEAD
 			$choice['id']   = rgempty( 'id', $choice ) ? sprintf( '%s%s', $this->name, $i ) : $choice['id'];
+=======
+			$choice['id']   = rgempty( 'id', 'choice' ) ? sprintf( '%s%s', $this->name, $i ) : $choice['id'];
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 			$choice_value   = isset( $choice['value'] ) ? $choice['value'] : $choice['label'];
 			$choice_tooltip = $this->settings->maybe_get_tooltip( $choice );
 
@@ -135,7 +145,11 @@ class Radio extends Base {
 				'<div id="gform-settings-radio-choice-%1$s" class="gform-settings-choice%2$s%3$s">
 					%4$s
 					<label for="%1$s">
+<<<<<<< HEAD
 						<span>%5$s <span class="gform-settings-choice-label">%6$s</span> %7$s</span>
+=======
+						<span>%5$s %6$s %7$s</span>
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 					</label>
 				</div>',
 				esc_attr( $choice['id'] ),

@@ -68,10 +68,13 @@
 		var isThemeDatepicker = $element.closest( '.gform_wrapper' ).length > 0;
 		var isPreview = $( '#preview_form_container' ).length > 0;
 		var isRTL = window.getComputedStyle($element[0], null).getPropertyValue('direction') === 'rtl';
+<<<<<<< HEAD
 		var formTheme = isThemeDatepicker ? $element.closest( '.gform_wrapper' ).data( 'form-theme' ) : 'gravity-theme';
 		var formId = isThemeDatepicker ? $element.closest( '.gform_wrapper' ).attr( 'id' ).replace( 'gform_wrapper_', '' ) : '';
 		var formPageInstance = isThemeDatepicker ? $element.closest( '.gform_wrapper' ).attr( 'data-form-index' ) : '';
 
+=======
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 		return {
 			yearRange: '-100:+20',
 			showOn: 'focus',
@@ -93,6 +96,7 @@
 				}, 200 );
 			},
 			beforeShow: function( input, inst ) {
+<<<<<<< HEAD
 
 				// Remove any classes that were added before as it could have been added to a different datepicker.
 				inst.dpDiv[0].classList.remove( 'gform-theme-datepicker' );
@@ -122,12 +126,23 @@
 				}
 
 				// If the form is in preview mode and the site is RTL, adjust the datepicker position.
+=======
+				inst.dpDiv[0].classList.remove( 'gform-theme-datepicker' );
+				inst.dpDiv[0].classList.remove( 'gform-legacy-datepicker' );
+
+				if ( isThemeDatepicker ) {
+					inst.dpDiv[ 0 ].classList.add( 'gform-theme-datepicker' );
+				}
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 				if ( isRTL && isPreview ) {
 					var $inputContainer = $( input ).closest( '.gfield' );
 					var rightOffset = $( document ).outerWidth() - ( $inputContainer.offset().left + $inputContainer.outerWidth() );
 					inst.dpDiv[ 0 ].style.right = rightOffset + 'px';
 				}
+<<<<<<< HEAD
 
+=======
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 				return ! this.suppressDatePicker;
 			},
 		};
@@ -164,8 +179,11 @@
 			optionsObj.buttonImage = $element.parent().siblings( "[id^='gforms_calendar_icon_input']" ).val();
 			optionsObj.buttonImageOnly = true;
 			optionsObj.buttonText = i18n.iconText;
+<<<<<<< HEAD
 		} else {
 			optionsObj.showOn = 'focus';
+=======
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 		}
 
 		inputId = inputId.split( '_' );
@@ -192,7 +210,11 @@
 	 */
 
 	function initDatepickers() {
+<<<<<<< HEAD
 		$( '.gform-datepicker:not(.initialized)' ).each( function() {
+=======
+		$( '.datepicker:not(.initialized)' ).each( function() {
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 			var $element = $( this );
 			initSingleDatepicker( $element );
 			$element.addClass( 'initialized' );
@@ -201,7 +223,11 @@
 
 	$( document ).ready( initDatepickers );
 
+<<<<<<< HEAD
 	// Make all and single init functions public for add-ons.
+=======
+	// Make all and single init functions public for add ons.
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 	// Naming is done in the 2.4 backwards compatible way.
 	window.gformInitDatepicker = initDatepickers;
 	window.gformInitSingleDatepicker = initSingleDatepicker;

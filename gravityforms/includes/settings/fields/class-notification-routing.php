@@ -248,7 +248,10 @@ class Notification_Routing extends Base {
 				}
 
 				jQuery( "#gform_notification_to_routing_rules" ).html( str );
+<<<<<<< HEAD
 				jQuery( '#routing' ).val( JSON.stringify( current_notification.routing ) );
+=======
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 			}
 
 			function GetRoutingValues( index, fieldId, selectedValue ) {
@@ -426,8 +429,11 @@ class Notification_Routing extends Base {
 			}
 
 			function DeleteRouting(ruleIndex) {
+<<<<<<< HEAD
 				// Set the routing array for the current notification based on the hidden field value, so we delete the correct index.
 				current_notification.routing = JSON.parse( jQuery( '#routing' ).val() );
+=======
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 				current_notification.routing.splice(ruleIndex, 1);
 				CreateRouting(current_notification.routing);
 				jQuery( '#routing' ).val( JSON.stringify( current_notification.routing ) );

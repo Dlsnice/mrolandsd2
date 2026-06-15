@@ -45,6 +45,7 @@ class Select extends Base {
 	public $enhanced_ui = false;
 
 	/**
+<<<<<<< HEAD
 	 * Field content after select.
 	 *
 	 * @since 2.5
@@ -56,6 +57,8 @@ class Select extends Base {
 	public $disabled;
 
 	/**
+=======
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 	 * Register scripts to enqueue when displaying field.
 	 *
 	 * @since 2.5
@@ -111,7 +114,11 @@ class Select extends Base {
 			$select_input = sprintf(
 				'<select name="%s_%s" %s %s>%s</select>%s',
 				esc_attr( $this->settings->get_input_name_prefix() ),
+<<<<<<< HEAD
 				esc_attr( $this->name . ( ( $this->support_multiple() && ! str_ends_with( $this->name, '[]' ) ) ? '[]' : '' ) ),
+=======
+				esc_attr( $this->name ),
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 				$this->get_describer() ? sprintf( 'aria-describedby="%s"', $this->get_describer() ) : '',
 				implode( ' ', $attributes ),
 				self::get_options( $choices, $this->get_value() ),
@@ -163,18 +170,25 @@ class Select extends Base {
 	 */
 	public static function get_options( $choices, $selected ) {
 
+<<<<<<< HEAD
 		// Return blank if $choices is not an array.
 		if ( ! is_array( $choices ) ) {
 			return '';
 		}
 
+=======
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 		$html = '';
 
 		// Loop through choices, prepare HTML.
 		foreach ( $choices as $choice ) {
 
 			// If choice has choices, render as option group.
+<<<<<<< HEAD
 			if ( isset( $choice['choices'] ) ) {
+=======
+			if ( rgar( $choice, 'choices') ) {
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 
 				$html .= sprintf(
 					'<optgroup label="%s">%s</optgroup>',

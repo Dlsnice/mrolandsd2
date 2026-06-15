@@ -7,7 +7,10 @@ use GFCommon;
 use GF_Fields;
 use GFForms;
 use GFFormsModel;
+<<<<<<< HEAD
 use GF_Confirmation;
+=======
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 
 use WP_Error;
 
@@ -205,11 +208,19 @@ class Settings {
 		}
 
 		if ( rgar( $args, 'save_callback' ) ) {
+<<<<<<< HEAD
 			$this->set_save_setting_callback( $args['save_callback'] );
 		}
 
 		if ( ! rgar( $args, 'save_callback' ) && rgar( $args, 'initial_values' ) && is_string( $args['initial_values'] ) && ! is_serialized( $args['initial_values'] ) ) {
 			$this->set_save_setting_callback( $args['initial_values'] );
+=======
+			$this->set_save_callback( $args['save_callback'] );
+		}
+
+		if ( ! rgar( $args, 'save_callback' ) && rgar( $args, 'initial_values' ) && is_string( $args['initial_values'] ) && ! is_serialized( $args['initial_values'] ) ) {
+			$this->set_save_callback( $args['initial_values'] );
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 		}
 
 		if ( rgar( $args, 'postback_message_callback' ) ) {
@@ -340,7 +351,11 @@ class Settings {
 	 */
 	public function scripts() {
 
+<<<<<<< HEAD
 		$min = defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG || isset( $_GET['gform_debug'] ) ? '' : '.min'; // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+=======
+		$min = defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG || isset( $_GET['gform_debug'] ) ? '' : '.min';
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 
 		// Define base scripts.
 		$scripts = array(
@@ -447,8 +462,13 @@ class Settings {
 					return true;
 				}
 			} else {
+<<<<<<< HEAD
 				$query_matches      = isset( $condition['query'] ) ? $this->script_request_condition_matches( $_GET, $condition['query'] ) : true; // phpcs:ignore WordPress.Security.NonceVerification.Recommended
 				$post_matches       = isset( $condition['post'] ) ? $this->script_request_condition_matches( $_POST, $condition['post'] ) : true;  // phpcs:ignore WordPress.Security.NonceVerification.Missing
+=======
+				$query_matches      = isset( $condition['query'] ) ? $this->script_request_condition_matches( $_GET, $condition['query'] ) : true;
+				$post_matches       = isset( $condition['post'] ) ? $this->script_request_condition_matches( $_POST, $condition['post'] ) : true;
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 				$field_type_matches = isset( $condition['field_types'] ) ? $this->script_field_condition_matches( $condition['field_types'], $form ) : true;
 
 				if ( $query_matches && $post_matches && $field_type_matches ) {
@@ -570,6 +590,12 @@ class Settings {
 	}
 
 
+<<<<<<< HEAD
+=======
+
+
+
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 	// # RENDER METHODS ------------------------------------------------------------------------------------------------
 
 	/**
@@ -600,25 +626,40 @@ class Settings {
 			printf(
 				'<div class="alert %s" role="alert">%s</div>',
 				empty( $field_errors ) ? 'gforms_note_success' : 'gforms_note_error',
+<<<<<<< HEAD
 				$this->postback_message // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+=======
+				$this->postback_message
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 			);
 
 		}
 
+<<<<<<< HEAD
 		if ( rgget( 'subview' ) === 'confirmation' && rgget( 'duplicatedcid' ) ) {
 			GF_Confirmation::output_duplicate_confirmation_notice();
 		}
 
+=======
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 		// Get sections.
 		$fields = $this->get_fields();
 
 		?>
 
+<<<<<<< HEAD
 		<form id="gform-settings" class="gform_settings_form" data-js="page-loader" action="" method="post" enctype="multipart/form-data" novalidate>
 			<?php
 
 				if ( ! empty( $this->before_fields ) && is_callable( $this->before_fields ) ) {
 					echo call_user_func( $this->before_fields ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+=======
+		<form id="gform-settings" class="gform_settings_form" action="" method="post" enctype="multipart/form-data" novalidate>
+			<?php
+
+				if ( ! empty( $this->before_fields ) && is_callable( $this->before_fields ) ) {
+					echo call_user_func( $this->before_fields );
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 				}
 
 				// If settings are tabbed, render tab navigation and tab content.
@@ -642,11 +683,19 @@ class Settings {
 				// Get save button.
 				$save = $this->render_save_button();
 				if ( ! empty( $save ) ) {
+<<<<<<< HEAD
 					printf( '<div class="gform-settings-save-container">%s</div>', $save ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 				}
 
 				if ( ! empty( $this->after_fields ) && is_callable( $this->after_fields ) ) {
 					echo call_user_func( $this->after_fields ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+=======
+					printf( '<div class="gform-settings-save-container">%s</div>', $save );
+				}
+
+				if ( ! empty( $this->after_fields ) && is_callable( $this->after_fields ) ) {
+					echo call_user_func( $this->after_fields );
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 				}
 
 				wp_nonce_field( 'gform_settings_save', 'gform_settings_save_nonce' );
@@ -800,8 +849,13 @@ class Settings {
 		// Open section container.
 		printf(
 			'<fieldset id="%s" class="%s"%s>',
+<<<<<<< HEAD
 			esc_attr( $this->get_section_id( $section ) ),
 			esc_attr( implode(' ', $class ) ),
+=======
+			rgar( $section, 'id' ) ? esc_attr( $section['id'] ) : '',
+			implode(' ', $class ),
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 			rgar( $section, 'style' ) ? sprintf( ' style="%s"', esc_attr( $section['style'] ) ) : ''
 		);
 
@@ -813,7 +867,11 @@ class Settings {
 				printf(
 					'<legend class="gform-settings-panel__title gform-settings-panel__title--header">%s %s</legend>',
 					esc_html( $section['title'] ),
+<<<<<<< HEAD
 					self::maybe_get_tooltip( $section ) // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+=======
+					self::maybe_get_tooltip( $section )
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 				);
 			}
 
@@ -840,7 +898,11 @@ class Settings {
 
 		// Display section description.
 		if ( rgar( $section, 'description' ) ) {
+<<<<<<< HEAD
 			printf( '<div class="gform-settings-description gform-kitchen-sink">%s</div>', $section['description'] ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+=======
+			printf( '<div class="gform-settings-description gform-kitchen-sink">%s</div>', $section['description'] );
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 		}
 
 		/**
@@ -883,6 +945,7 @@ class Settings {
 		// Prepare hidden styling.
 		$hidden = rgar( $field, 'hidden' ) === true || rgar( $field, 'type' ) === 'hidden' ? ' style="display:none;"' : '';
 
+<<<<<<< HEAD
 		$field_name = $field->name ? str_replace( array( '[', ']' ), array( '_', null ), $field->name ) : '';
 
 		printf(
@@ -890,6 +953,13 @@ class Settings {
 			esc_attr( $field_name ),
 			esc_attr( $field->type ),
 			$hidden // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+=======
+		printf(
+			'<div id="gform_setting_%s" class="gform-settings-field gform-settings-field__%s" %s>',
+			esc_attr( str_replace( array( '[', ']' ), array( '_', null ), $field->name ) ),
+			$field->type,
+			$hidden
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 		);
 
 		// Display field label.
@@ -897,15 +967,25 @@ class Settings {
 			printf(
 				'<div class="gform-settings-field__header"><label class="gform-settings-label" for="%s">%s%s</label>%s</div>',
 				esc_attr( $field->name ),
+<<<<<<< HEAD
 				rgobj( $field, 'label' ), // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 				$field->required ? '<span class="required">(' . esc_html__( 'Required', 'gravityforms' ) . ')</span>' : '',
 				self::maybe_get_tooltip( $field ) // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+=======
+				rgobj( $field, 'label' ),
+				$field->required ? '<span class="required">(' . __( 'Required', 'gravityforms' ) . ')</span>' : '',
+				self::maybe_get_tooltip( $field )
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 			);
 		}
 
 
 		// Display field input.
+<<<<<<< HEAD
 		echo $field->prepare_markup(); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+=======
+		echo $field->prepare_markup();
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 
 		echo '</div>';
 
@@ -924,7 +1004,11 @@ class Settings {
 	 */
 	private static function is_section_collapsed( $props = array() ) {
 
+<<<<<<< HEAD
 		return empty( $_POST ) ? rgar( $props, 'is_collapsed' ) : (bool) rgpost( 'gform_settings_section_collapsed_' . $props['id'] ); // phpcs:ignore WordPress.Security.NonceVerification.Missing
+=======
+		return empty( $_POST ) ? rgar( $props, 'is_collapsed' ) : (bool) rgpost( 'gform_settings_section_collapsed_' . $props['id'] );
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 
 	}
 
@@ -1039,7 +1123,14 @@ class Settings {
 			$dependency = array(
 				'prefix'   => $this->input_name_prefix,
 				'operator' => rgars( $group, 'dependency/operator' ) ? strtoupper( $group['dependency']['operator'] ) : 'ALL',
+<<<<<<< HEAD
 				'target'   => $this->get_target_for_live_dependency( $group ),
+=======
+				'target'   => array(
+					'type'  => rgar( $group, 'sections' ) ? 'tab' : ( rgar( $group, 'fields' ) ? 'section' : 'field' ),
+					'field' => rgar( $group, 'sections' ) || rgar( $group, 'fields' ) ? rgar( $group, 'id' ) : rgar( $group, 'name' ),
+				),
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 				'fields'   => rgars( $group, 'dependency/fields' ),
 			);
 
@@ -1062,7 +1153,11 @@ class Settings {
 
 				// Get field type.
 				$dependency_field                         = $this->get_field( $_field['field'] );
+<<<<<<< HEAD
 				$dependency['fields'][ $f ]['field_type'] = rgobj( $dependency_field, 'type' );
+=======
+				$dependency['fields'][ $f ]['field_type'] = $dependency_field->type;
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 
 				// If field is a checkbox, check options.
 				if ( rgar( $dependency_field, 'type' ) === 'checkbox' ) {
@@ -1105,10 +1200,13 @@ class Settings {
 		// Loop through fields, add dependencies.
 		foreach ( rgar( $group, $nested_key, array() ) as $item ) {
 
+<<<<<<< HEAD
 			if ( ! rgar( $item, 'id' ) ) {
 				$item['id'] = $this->get_section_id( $item );
 			}
 
+=======
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 			// If field has nested fields, add dependencies.
 			if ( rgar( $item, 'sections' ) || rgar( $item, 'fields' ) ) {
 				$dependencies = array_merge( $dependencies, $this->get_live_dependencies_for_group( $item ) );
@@ -1123,7 +1221,14 @@ class Settings {
 			$dependency = array(
 				'prefix'   => $this->input_name_prefix,
 				'operator' => rgars( $item, 'dependency/operator' ) ? strtoupper( $item['dependency']['operator'] ) : 'ALL',
+<<<<<<< HEAD
 				'target'   => $this->get_target_for_live_dependency( $item ),
+=======
+				'target'   => array(
+					'type'  => rgar( $item, 'sections' ) ? 'tab' : ( rgar( $item, 'fields' ) ? 'section' : 'field' ),
+					'field' => rgar( $item, 'sections' ) || rgar( $item, 'fields' ) ? rgar( $item, 'id' ) : rgar( $item, 'name' ),
+				),
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 				'fields'   => rgars( $item, 'dependency/fields' ),
 			);
 
@@ -1151,7 +1256,11 @@ class Settings {
 
 				// Get field type.
 				$dependency_field                         = $this->get_field( $_field['field'] );
+<<<<<<< HEAD
 				$dependency['fields'][ $f ]['field_type'] = rgobj( $dependency_field, 'type' );
+=======
+				$dependency['fields'][ $f ]['field_type'] = $dependency_field->type;
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 
 				// If field is a checkbox, check options.
 				if ( rgar( $dependency_field, 'type' ) === 'checkbox' ) {
@@ -1176,6 +1285,7 @@ class Settings {
 	}
 
 	/**
+<<<<<<< HEAD
 	 * Returns the target type and field name/ID for live dependency.
 	 *
 	 * @since 2.5.13
@@ -1224,6 +1334,8 @@ class Settings {
 	}
 
 	/**
+=======
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 	 * Returns message to display when settings have been successfully saved.
 	 *
 	 * @since 2.5
@@ -1453,10 +1565,13 @@ class Settings {
 			return false;
 		}
 
+<<<<<<< HEAD
 		if ( ! rgars( $section['fields'], '0/type' ) ) {
 			return false;
 		}
 
+=======
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 		if ( 'card' !== $section['fields'][0]['type'] ) {
 			return false;
 		}
@@ -1626,7 +1741,11 @@ class Settings {
 
 			// Validate nested fields.
 			if ( rgar( $item, 'fields' ) ) {
+<<<<<<< HEAD
 				$values = $this->filter_group_values( $values, $item );
+=======
+				$values = $this->filter_group_values( $values, array( $item ) );
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 			}
 
 		}
@@ -1677,6 +1796,10 @@ class Settings {
 		} else if ( is_string( $callback ) ) {
 			update_option( $callback, $values );
 		}
+<<<<<<< HEAD
+=======
+
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 	}
 
 
@@ -1917,7 +2040,11 @@ class Settings {
 		$errors = $this->get_field_errors();
 
 		if ( empty( $errors ) ) {
+<<<<<<< HEAD
 			return rgpost( 'gform_settings_tab' ) ? sanitize_text_field( $_POST['gform_settings_tab'] ) : rgars( $tabs, '0/id' ); // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotValidated, WordPress.Security.ValidatedSanitizedInput.MissingUnslash, WordPress.Security.NonceVerification.Missing
+=======
+			return rgpost( 'gform_settings_tab' ) ? sanitize_text_field( $_POST['gform_settings_tab'] ) : rgars( $tabs, '0/id' );
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 		}
 
 		// Get failed field names.
@@ -1969,7 +2096,11 @@ class Settings {
 		}
 
 		if ( is_admin() ) {
+<<<<<<< HEAD
 			$form = GFCommon::gform_admin_pre_render( $form );
+=======
+			$form = gf_apply_filters( array( 'gform_admin_pre_render', $form_id ), $form );
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 		}
 
 		return $form;
@@ -2519,12 +2650,20 @@ class Settings {
 		$_gf_settings_posted_values = array();
 
 		// If no values have been posted, return.
+<<<<<<< HEAD
 		if ( count( $_POST ) <= 0 ) { // phpcs:ignore WordPress.Security.NonceVerification.Missing
+=======
+		if ( count( $_POST ) <= 0 ) {
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 			return $_gf_settings_posted_values;
 		}
 
 		// Strip input name prefix from keys.
+<<<<<<< HEAD
 		foreach ( $_POST as $key => $value ) { // phpcs:ignore WordPress.Security.NonceVerification.Missing
+=======
+		foreach ( $_POST as $key => $value ) {
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 			if ( preg_match( '|' . $this->input_name_prefix . '_(.*)|', $key, $matches ) ) {
 				$_gf_settings_posted_values[ $matches[1] ] = GFCommon::maybe_decode_json( stripslashes_deep( $value ) );
 				if ( is_string( $_gf_settings_posted_values[ $matches[1] ] ) ) {
@@ -2551,10 +2690,13 @@ class Settings {
 	 */
 	public function get_value( $name, $default_value = '', $values = false ) {
 
+<<<<<<< HEAD
 		if ( empty( $name ) ) {
 			return '';
 		}
 
+=======
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 		// Get current values.
 		if ( ! $values || ! is_array( $values ) ) {
 			$values = $this->get_current_values();
@@ -2640,7 +2782,10 @@ class Settings {
 
 	}
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 	/**
 	 * Save previous field values.
 	 *
@@ -2671,11 +2816,15 @@ class Settings {
 	 * Set the save callback.
 	 *
 	 * @since 2.5
+<<<<<<< HEAD
 	 * @deprecated 2.6.1
+=======
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 	 *
 	 * @param string|callable $callback Option name or callable function values will be saved to.
 	 */
 	public function set_save_callback( $callback = '' ) {
+<<<<<<< HEAD
 		_deprecated_function( 'set_save_callback', '2.6', 'set_save_setting_callback' );
 
 		$this->set_save_setting_callback( $callback );
@@ -2690,6 +2839,8 @@ class Settings {
 	 * @param string|callable $callback Option name or callable function values will be saved to.
 	 */
 	protected function set_save_setting_callback( $callback = '' ) {
+=======
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 
 		$this->_save_callback = $callback;
 
@@ -2717,6 +2868,13 @@ class Settings {
 
 	}
 
+<<<<<<< HEAD
+=======
+
+
+
+
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 	// # MISC HELPER METHODS -------------------------------------------------------------------------------------------
 
 	/**
@@ -2732,6 +2890,7 @@ class Settings {
 
 	}
 
+<<<<<<< HEAD
 	/**
 	 * Remove the "has published posts" query from the REST user query.
 	 *
@@ -2762,4 +2921,6 @@ class Settings {
 
 		return $prepared_args;
 	}
+=======
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 }

@@ -41,7 +41,11 @@ abstract class WP_REST_Controller {
 	 *
 	 */
 	public function register_routes() {
+<<<<<<< HEAD
 		_doing_it_wrong( 'WP_REST_Controller::register_routes', esc_html__( 'The register_routes() method must be overriden', 'gravityforms' ), 'WPAPI-2.0' );
+=======
+		_doing_it_wrong( 'WP_REST_Controller::register_routes', __( 'The register_routes() method must be overriden' ), 'WPAPI-2.0' );
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 	}
 
 	/**

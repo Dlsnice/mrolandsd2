@@ -42,6 +42,7 @@ class GF_Field_Consent extends GF_Field {
 	public $checked_indicator_markup = '';
 
 	/**
+<<<<<<< HEAD
 	 * Indicates if this field supports state validation.
 	 *
 	 * @since 2.5.11
@@ -51,6 +52,8 @@ class GF_Field_Consent extends GF_Field {
 	protected $_supports_state_validation = true;
 
 	/**
+=======
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 	 * GF_Field_Consent constructor.
 	 *
 	 * @since 2.4
@@ -76,7 +79,11 @@ class GF_Field_Consent extends GF_Field {
 		 *
 		 * @param string $tag Image tag.
 		 */
+<<<<<<< HEAD
 		$this->checked_indicator_markup = apply_filters( 'gform_consent_checked_indicator_markup', '<img src="' . esc_url( $this->checked_indicator_url ) . '" alt="" />' );
+=======
+		$this->checked_indicator_markup = apply_filters( 'gform_consent_checked_indicator_markup', '<img src="' . esc_url( $this->checked_indicator_url ) . '" />' );
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 	}
 
 	/**
@@ -208,8 +215,13 @@ class GF_Field_Consent extends GF_Field {
 
 		$target_input_id       = parent::get_first_input_id( $form );
 		$for_attribute         = empty( $target_input_id ) ? '' : "for='{$target_input_id}'";
+<<<<<<< HEAD
 		$label_class_attribute = 'class="gform-field-label gform-field-label--type-inline gfield_consent_label"';
 		$required_div          = ( $this->labelPlacement === 'hidden_label' && $this->isRequired && ! GFCommon::is_entry_detail_edit() ) ? $this->get_required_indicator() : '';
+=======
+		$label_class_attribute = 'class="gfield_consent_label"';
+		$required_div          = ( $this->labelPlacement === 'hidden_label' && $this->isRequired ) ? $this->get_required_indicator() : '';
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 
 		if ( $is_admin && ! GFCommon::is_entry_detail_edit() ) {
 			$checkbox_label = ! is_array( $value ) || empty( $value[ $id . '.2' ] ) ? $this->checkboxLabel : $value[ $id . '.2' ];
@@ -230,7 +242,11 @@ class GF_Field_Consent extends GF_Field {
 		$extra_describedby_ids = empty( $description ) ? array() : array( "gfield_consent_description_{$form['id']}_{$this->id}" );
 		$aria_describedby      = $this->get_aria_describedby( $extra_describedby_ids );
 
+<<<<<<< HEAD
 		$input  = "<input name='input_{$id}.1' id='{$target_input_id}' type='{$html_input_type}' value='1' {$tabindex} {$aria_describedby} {$required_attribute} {$invalid_attribute} {$disabled_text} {$checked} /> <label {$label_class_attribute} {$for_attribute} >{$checkbox_label}{$required_div}</label>";
+=======
+		$input  = "<input name='input_{$id}.1' id='{$target_input_id}' type='{$html_input_type}' value='1' {$tabindex} {$aria_describedby} {$required_attribute} {$invalid_attribute} {$disabled_text} {$checked} /> <label {$label_class_attribute} {$for_attribute} >{$checkbox_label}</label>{$required_div}";
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 		$input .= "<input type='hidden' name='input_{$id}.2' value='" . esc_attr( $checkbox_label ) . "' class='gform_hidden' />";
 		$input .= "<input type='hidden' name='input_{$id}.3' value='" . esc_attr( $revision_id ) . "' class='gform_hidden' />";
 
@@ -272,13 +288,18 @@ class GF_Field_Consent extends GF_Field {
 
 			$css_class .= ' gfield_consent_description';
 
+<<<<<<< HEAD
 			return "<div class='$css_class' id='$id' tabindex='0'>" . nl2br( $description ) . '</div>';
+=======
+			return "<div class='$css_class' id='$id'>" . nl2br( $description ) . '</div>';
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 		}
 
 		return parent::get_description( $description, $css_class );
 	}
 
 	/**
+<<<<<<< HEAD
 	 * If a field has a description, the aria-describedby attribute for the input field is returned.
 	 * This method is specific to the consent field since the consent description has a different ID pattern.
 	 *
@@ -317,6 +338,23 @@ class GF_Field_Consent extends GF_Field {
 	 */
 	public function is_value_submission_empty( $form_id ) {
 		return rgblank( rgpost( 'input_' . $this->id . '_1' ) );
+=======
+	 * Return the result (bool) by setting $this->failed_validation.
+	 * Return the validation message (string) by setting $this->validation_message.
+	 *
+	 * @since 2.4
+	 *
+	 * @param string|array $value The field value from get_value_submission().
+	 * @param array        $form  The Form Object currently being processed.
+	 */
+	public function validate( $value, $form ) {
+		$consent = rgget( $this->id . '.1', $value );
+
+		if ( $this->isRequired && rgblank( $consent ) ) {
+			$this->failed_validation  = true;
+			$this->validation_message = empty( $this->errorMessage ) ? esc_html__( 'This field is required.', 'gravityforms' ) : $this->errorMessage;
+		}
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 	}
 
 	/**
@@ -406,7 +444,11 @@ class GF_Field_Consent extends GF_Field {
 		switch ( $input_id ) {
 			case '1':
 				$value  = ! rgblank( $value ) ? $this->checked_indicator_markup : '';
+<<<<<<< HEAD
 				$value .= ! rgblank( $value ) ? ' ' . wp_kses( trim( $entry[ $this->id . '.2' ] ), wp_kses_allowed_html( 'data' ) ) : '';
+=======
+				$value .= ! rgblank( $value ) ? ' ' . trim( $entry[ $this->id . '.2' ] ) : '';
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 				break;
 		}
 
@@ -417,17 +459,27 @@ class GF_Field_Consent extends GF_Field {
 	 * Format the entry value for display on the entry detail page and for the {all_fields} merge tag.
 	 *
 	 * @since 2.4
+<<<<<<< HEAD
 	 * @since 2.9.29 Changed the second parameter $currency (string) to $entry (array).
 	 *
 	 * @param string|array $value    The field value.
 	 * @param array        $entry    The entry.
+=======
+	 *
+	 * @param string|array $value    The field value.
+	 * @param string       $currency The entry currency code.
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 	 * @param bool|false   $use_text When processing choice based fields should the choice text be returned instead of the value.
 	 * @param string       $format   The format requested for the location the merge is being used. Possible values: html, text or url.
 	 * @param string       $media    The location where the value will be displayed. Possible values: screen or email.
 	 *
 	 * @return string
 	 */
+<<<<<<< HEAD
 	public function get_value_entry_detail( $value, $entry = array(), $use_text = false, $format = 'html', $media = 'screen' ) {
+=======
+	public function get_value_entry_detail( $value, $currency = '', $use_text = false, $format = 'html', $media = 'screen' ) {
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 		$return = '';
 
 		if ( is_array( $value ) && ! empty( $value ) ) {
@@ -437,6 +489,7 @@ class GF_Field_Consent extends GF_Field {
 
 			if ( ! rgblank( $consent ) ) {
 				$return  = $this->checked_indicator_markup;
+<<<<<<< HEAD
 				$return .= ' ' . wp_kses( $text, wp_kses_allowed_html( 'data' ) );
 
 				if ( $media === 'screen' ) {
@@ -446,6 +499,15 @@ class GF_Field_Consent extends GF_Field {
 					if ( ! empty( $description ) ) {
 						$return .= '<br /><div class="gfield_consent_description">' . nl2br( $description ) . '</div>';
 					}
+=======
+				$return .= ' ' . wp_kses_post( $text );
+
+				// checking revisions.
+				$description = $this->get_field_description_from_revision( $revision_id );
+
+				if ( ! empty( $description ) ) {
+					$return .= '<br /><div class="gfield_consent_description">' . nl2br( $description ) . '</div>';
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 				}
 			}
 		}
@@ -568,7 +630,11 @@ class GF_Field_Consent extends GF_Field {
 	public function get_field_description_from_revision( $revision_id ) {
 		global $wpdb;
 		$revisions_table_name = GFFormsModel::get_form_revisions_table_name();
+<<<<<<< HEAD
 		$display_meta         = $wpdb->get_var( $wpdb->prepare( "SELECT display_meta FROM $revisions_table_name WHERE form_id=%d AND id=%d", $this->formId, $revision_id ) ); // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.PreparedSQL.InterpolatedNotPrepared
+=======
+		$display_meta         = $wpdb->get_var( $wpdb->prepare( "SELECT display_meta FROM $revisions_table_name WHERE form_id=%d AND id=%d", $this->formId, $revision_id ) );
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 		$value                = '';
 		$is_entry_detail = $this->is_entry_detail();
 

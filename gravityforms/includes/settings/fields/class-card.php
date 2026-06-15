@@ -94,7 +94,11 @@ class Card extends Radio {
 		foreach ( $choices as $i => $choice ) {
 
 			// Prepare choice attributes.
+<<<<<<< HEAD
 			$choice['id']   = rgempty( 'id', $choice ) ? sprintf( '%s%s', $this->name, $i ) : $choice['id'];
+=======
+			$choice['id']   = rgempty( 'id', 'choice' ) ? sprintf( '%s%s', $this->name, $i ) : $choice['id'];
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 			$choice_value   = rgar( $choice, 'value' ) ? $choice['value'] : $choice['label'];
 			$choice_tooltip = $this->settings->maybe_get_tooltip( $choice );
 

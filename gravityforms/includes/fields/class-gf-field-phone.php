@@ -144,6 +144,10 @@ class GF_Field_Phone extends GF_Field {
 	 * @uses    GF_Field::is_form_editor()
 	 * @uses    GF_Field_Phone::$failed_validation
 	 * @uses    GF_Field_Phone::get_phone_format()
+<<<<<<< HEAD
+=======
+	 * @uses    GFFormsModel::is_html5_enabled()
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 	 * @uses    GF_Field::get_field_placeholder_attribute()
 	 * @uses    GF_Field_Phone::$isRequired
 	 * @uses    GF_Field::get_tabindex()
@@ -177,11 +181,19 @@ class GF_Field_Phone extends GF_Field {
 		if ( $this->failed_validation ) {
 			$phone_format = $this->get_phone_format();
 			if ( rgar( $phone_format, 'instruction' ) ) {
+<<<<<<< HEAD
 				$instruction_div = sprintf( "<div class='gfield_description instruction validation_message'>%s %s</div>", esc_html__( 'Phone format:', 'gravityforms' ), $phone_format['instruction'] );
 			}
 		}
 
 		$html_input_type        = 'tel';
+=======
+				$instruction_div = sprintf( "<div class='instruction validation_message'>%s %s</div>", esc_html__( 'Phone format:', 'gravityforms' ), $phone_format['instruction'] );
+			}
+		}
+
+		$html_input_type        = RGFormsModel::is_html5_enabled() ? 'tel' : 'text';
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 		$placeholder_attribute  = $this->get_field_placeholder_attribute();
 		$required_attribute     = $this->isRequired ? 'aria-required="true"' : '';
 		$invalid_attribute      = $this->failed_validation ? 'aria-invalid="true"' : 'aria-invalid="false"';

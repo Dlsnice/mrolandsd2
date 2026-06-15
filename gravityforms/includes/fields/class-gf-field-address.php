@@ -92,6 +92,7 @@ class GF_Field_Address extends GF_Field {
 
 	}
 
+<<<<<<< HEAD
 	/**
 	 * Validates the address field inputs.
 	 *
@@ -115,6 +116,26 @@ class GF_Field_Address extends GF_Field {
 		}
 
 		$this->set_required_error( $value, true );
+=======
+	function validate( $value, $form ) {
+
+		if ( $this->isRequired ) {
+			$copy_values_option_activated = $this->enableCopyValuesOption && rgpost( 'input_' . $this->id . '_copy_values_activated' );
+			if ( $copy_values_option_activated ) {
+				// validation will occur in the source field
+				return;
+			}
+
+			$message = $this->complex_validation_message( $value, $this->get_required_inputs_ids() );
+
+			if ( $message ) {
+				$this->failed_validation  = true;
+				$message_intro            = empty( $this->errorMessage ) ? __( 'This field is required.', 'gravityforms' ) : $this->errorMessage;
+				$this->validation_message = $message_intro . ' ' . $message;
+			}
+		}
+
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 	}
 
 	public function get_value_submission( $field_values, $get_from_post_global_var = true ) {
@@ -140,10 +161,17 @@ class GF_Field_Address extends GF_Field {
 		$class_suffix       = $is_entry_detail ? '_admin' : '';
 
 
+<<<<<<< HEAD
 		$form_sub_label_placement = rgar( $form, 'subLabelPlacement' );
 		$field_sub_label_placement = $this->subLabelPlacement;
 		$is_sub_label_above       = $field_sub_label_placement == 'above' || ( empty( $field_sub_label_placement ) && $form_sub_label_placement == 'above' );
 		$sub_label_class          = $field_sub_label_placement == 'hidden_label' ? "hidden_sub_label screen-reader-text" : '';
+=======
+		$form_sub_label_placement  = rgar( $form, 'subLabelPlacement' );
+		$field_sub_label_placement = $this->subLabelPlacement;
+		$is_sub_label_above        = $field_sub_label_placement == 'above' || ( empty( $field_sub_label_placement ) && $form_sub_label_placement == 'above' );
+		$sub_label_class_attribute = $field_sub_label_placement == 'hidden_label' ? "class='hidden_sub_label screen-reader-text'" : '';
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 
 		$street_value  = '';
 		$street2_value = '';
@@ -236,6 +264,7 @@ class GF_Field_Address extends GF_Field {
 
 		if ( $is_admin || ! rgar( $address_street_field_input, 'isHidden' ) ) {
 			if ( $is_sub_label_above ) {
+<<<<<<< HEAD
 				$street_address = " <span class='ginput_full{$class_suffix} address_line_1 ginput_address_line_1 gform-grid-col' id='{$field_id}_1_container' {$style}>
                                         <label for='{$field_id}_1' id='{$field_id}_1_label' class='gform-field-label gform-field-label--type-sub {$sub_label_class}'>{$address_street_sub_label}</label>
                                         <input type='text' name='input_{$id}.1' id='{$field_id}_1' value='{$street_value}' {$tabindex} {$disabled_text} {$street_placeholder_attribute} {$street_aria_attributes} {$address_street_autocomplete} {$this->maybe_add_aria_describedby( $address_street_field_input, $field_id, $this['formId'] )}/>
@@ -244,6 +273,16 @@ class GF_Field_Address extends GF_Field {
 				$street_address = " <span class='ginput_full{$class_suffix} address_line_1 ginput_address_line_1 gform-grid-col' id='{$field_id}_1_container' {$style}>
                                         <input type='text' name='input_{$id}.1' id='{$field_id}_1' value='{$street_value}' {$tabindex} {$disabled_text} {$street_placeholder_attribute} {$street_aria_attributes} {$address_street_autocomplete} {$this->maybe_add_aria_describedby( $address_street_field_input, $field_id, $this['formId'] )}/>
                                         <label for='{$field_id}_1' id='{$field_id}_1_label' class='gform-field-label gform-field-label--type-sub {$sub_label_class}'>{$address_street_sub_label}</label>
+=======
+				$street_address = " <span class='ginput_full{$class_suffix} address_line_1 ginput_address_line_1' id='{$field_id}_1_container' {$style}>
+                                        <label for='{$field_id}_1' id='{$field_id}_1_label' {$sub_label_class_attribute}>{$address_street_sub_label}</label>
+                                        <input type='text' name='input_{$id}.1' id='{$field_id}_1' value='{$street_value}' {$tabindex} {$disabled_text} {$street_placeholder_attribute} {$street_aria_attributes} {$address_street_autocomplete} {$this->maybe_add_aria_describedby( $address_street_field_input, $field_id, $this['formId'] )}/>
+                                   </span>";
+			} else {
+				$street_address = " <span class='ginput_full{$class_suffix} address_line_1 ginput_address_line_1' id='{$field_id}_1_container' {$style}>
+                                        <input type='text' name='input_{$id}.1' id='{$field_id}_1' value='{$street_value}' {$tabindex} {$disabled_text} {$street_placeholder_attribute} {$street_aria_attributes} {$address_street_autocomplete} {$this->maybe_add_aria_describedby( $address_street_field_input, $field_id, $this['formId'] )}/>
+                                        <label for='{$field_id}_1' id='{$field_id}_1_label' {$sub_label_class_attribute}>{$address_street_sub_label}</label>
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
                                     </span>";
 			}
 		}
@@ -254,6 +293,7 @@ class GF_Field_Address extends GF_Field {
 		if ( $is_admin || ( ! $this->hideAddress2 && ! rgar( $address_street2_field_input, 'isHidden' ) ) ) {
 			$tabindex = $this->get_tabindex();
 			if ( $is_sub_label_above ) {
+<<<<<<< HEAD
 				$street_address2 = "<span class='ginput_full{$class_suffix} address_line_2 ginput_address_line_2 gform-grid-col' id='{$field_id}_2_container' {$style}>
                                         <label for='{$field_id}_2' id='{$field_id}_2_label' class='gform-field-label gform-field-label--type-sub {$sub_label_class}'>{$address_street2_sub_label}</label>
                                         <input type='text' name='input_{$id}.2' id='{$field_id}_2' value='{$street2_value}' {$tabindex} {$disabled_text} {$street2_placeholder_attribute} {$address_street2_autocomplete} {$street2_aria_attributes} {$this->maybe_add_aria_describedby( $address_street2_field_input, $field_id, $this['formId'] )}/>
@@ -262,6 +302,16 @@ class GF_Field_Address extends GF_Field {
 				$street_address2 = "<span class='ginput_full{$class_suffix} address_line_2 ginput_address_line_2 gform-grid-col' id='{$field_id}_2_container' {$style}>
                                         <input type='text' name='input_{$id}.2' id='{$field_id}_2' value='{$street2_value}' {$tabindex} {$disabled_text} {$street2_placeholder_attribute} {$address_street2_autocomplete} {$street2_aria_attributes} {$this->maybe_add_aria_describedby( $address_street2_field_input, $field_id, $this['formId'] )}/>
                                         <label for='{$field_id}_2' id='{$field_id}_2_label' class='gform-field-label gform-field-label--type-sub {$sub_label_class}'>{$address_street2_sub_label}</label>
+=======
+				$street_address2 = "<span class='ginput_full{$class_suffix} address_line_2 ginput_address_line_2' id='{$field_id}_2_container' {$style}>
+                                        <label for='{$field_id}_2' id='{$field_id}_2_label' {$sub_label_class_attribute}>{$address_street2_sub_label}</label>
+                                        <input type='text' name='input_{$id}.2' id='{$field_id}_2' value='{$street2_value}' {$tabindex} {$disabled_text} {$street2_placeholder_attribute} {$address_street2_autocomplete} {$street2_aria_attributes} {$this->maybe_add_aria_describedby( $address_street2_field_input, $field_id, $this['formId'] )}/>
+                                    </span>";
+			} else {
+				$street_address2 = "<span class='ginput_full{$class_suffix} address_line_2 ginput_address_line_2' id='{$field_id}_2_container' {$style}>
+                                        <input type='text' name='input_{$id}.2' id='{$field_id}_2' value='{$street2_value}' {$tabindex} {$disabled_text} {$street2_placeholder_attribute} {$address_street2_autocomplete} {$street2_aria_attributes} {$this->maybe_add_aria_describedby( $address_street2_field_input, $field_id, $this['formId'] )}/>
+                                        <label for='{$field_id}_2' id='{$field_id}_2_label' {$sub_label_class_attribute}>{$address_street2_sub_label}</label>
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
                                     </span>";
 			}
 		}
@@ -273,6 +323,7 @@ class GF_Field_Address extends GF_Field {
 			$style    = ( $is_admin && rgar( $address_zip_field_input, 'isHidden' ) ) ? "style='display:none;'" : '';
 			if ( $is_admin || ! rgar( $address_zip_field_input, 'isHidden' ) ) {
 				if ( $is_sub_label_above ) {
+<<<<<<< HEAD
 					$zip = "<span class='ginput_{$zip_location}{$class_suffix} address_zip ginput_address_zip gform-grid-col' id='{$field_id}_5_container' {$style}>
                                     <label for='{$field_id}_5' id='{$field_id}_5_label' class='gform-field-label gform-field-label--type-sub {$sub_label_class}'>{$address_zip_sub_label}</label>
                                     <input type='text' name='input_{$id}.5' id='{$field_id}_5' value='{$zip_value}' {$tabindex} {$disabled_text} {$zip_placeholder_attribute} {$zip_aria_attributes} {$address_zip_autocomplete} {$this->maybe_add_aria_describedby( $address_zip_field_input, $field_id, $this['formId'] )}/>
@@ -281,6 +332,16 @@ class GF_Field_Address extends GF_Field {
 					$zip = "<span class='ginput_{$zip_location}{$class_suffix} address_zip ginput_address_zip gform-grid-col' id='{$field_id}_5_container' {$style}>
                                     <input type='text' name='input_{$id}.5' id='{$field_id}_5' value='{$zip_value}' {$tabindex} {$disabled_text} {$zip_placeholder_attribute} {$zip_aria_attributes} {$address_zip_autocomplete} {$this->maybe_add_aria_describedby( $address_zip_field_input, $field_id, $this['formId'] )}/>
                                     <label for='{$field_id}_5' id='{$field_id}_5_label' class='gform-field-label gform-field-label--type-sub {$sub_label_class}'>{$address_zip_sub_label}</label>
+=======
+					$zip = "<span class='ginput_{$zip_location}{$class_suffix} address_zip ginput_address_zip' id='{$field_id}_5_container' {$style}>
+                                    <label for='{$field_id}_5' id='{$field_id}_5_label' {$sub_label_class_attribute}>{$address_zip_sub_label}</label>
+                                    <input type='text' name='input_{$id}.5' id='{$field_id}_5' value='{$zip_value}' {$tabindex} {$disabled_text} {$zip_placeholder_attribute} {$zip_aria_attributes} {$address_zip_autocomplete} {$this->maybe_add_aria_describedby( $address_zip_field_input, $field_id, $this['formId'] )}/>
+                                </span>";
+				} else {
+					$zip = "<span class='ginput_{$zip_location}{$class_suffix} address_zip ginput_address_zip' id='{$field_id}_5_container' {$style}>
+                                    <input type='text' name='input_{$id}.5' id='{$field_id}_5' value='{$zip_value}' {$tabindex} {$disabled_text} {$zip_placeholder_attribute} {$zip_aria_attributes} {$address_zip_autocomplete} {$this->maybe_add_aria_describedby( $address_zip_field_input, $field_id, $this['formId'] )}/>
+                                    <label for='{$field_id}_5' id='{$field_id}_5_label' {$sub_label_class_attribute}>{$address_zip_sub_label}</label>
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
                                 </span>";
 				}
 			}
@@ -291,6 +352,7 @@ class GF_Field_Address extends GF_Field {
 			$style    = ( $is_admin && rgar( $address_city_field_input, 'isHidden' ) ) ? "style='display:none;'" : '';
 			if ( $is_admin || ! rgar( $address_city_field_input, 'isHidden' ) ) {
 				if ( $is_sub_label_above ) {
+<<<<<<< HEAD
 					$city = "<span class='ginput_{$city_location}{$class_suffix} address_city ginput_address_city gform-grid-col' id='{$field_id}_3_container' {$style}>
                                     <label for='{$field_id}_3' id='{$field_id}_3_label' class='gform-field-label gform-field-label--type-sub {$sub_label_class}'>{$address_city_sub_label}</label>
                                     <input type='text' name='input_{$id}.3' id='{$field_id}_3' value='{$city_value}' {$tabindex} {$disabled_text} {$city_placeholder_attribute} {$city_aria_attributes} {$address_city_autocomplete} {$this->maybe_add_aria_describedby( $address_city_field_input, $field_id, $this['formId'] )}/>
@@ -299,6 +361,16 @@ class GF_Field_Address extends GF_Field {
 					$city = "<span class='ginput_{$city_location}{$class_suffix} address_city ginput_address_city gform-grid-col' id='{$field_id}_3_container' {$style}>
                                     <input type='text' name='input_{$id}.3' id='{$field_id}_3' value='{$city_value}' {$tabindex} {$disabled_text} {$city_placeholder_attribute} {$city_aria_attributes} {$address_city_autocomplete} {$this->maybe_add_aria_describedby( $address_city_field_input, $field_id, $this['formId'] )}/>
                                     <label for='{$field_id}_3' id='{$field_id}_3_label' class='gform-field-label gform-field-label--type-sub {$sub_label_class}'>{$address_city_sub_label}</label>
+=======
+					$city = "<span class='ginput_{$city_location}{$class_suffix} address_city ginput_address_city' id='{$field_id}_3_container' {$style}>
+                                    <label for='{$field_id}_3' id='{$field_id}_3_label' {$sub_label_class_attribute}>{$address_city_sub_label}</label>
+                                    <input type='text' name='input_{$id}.3' id='{$field_id}_3' value='{$city_value}' {$tabindex} {$disabled_text} {$city_placeholder_attribute} {$city_aria_attributes} {$address_city_autocomplete} {$this->maybe_add_aria_describedby( $address_city_field_input, $field_id, $this['formId'] )}/>
+                                 </span>";
+				} else {
+					$city = "<span class='ginput_{$city_location}{$class_suffix} address_city ginput_address_city' id='{$field_id}_3_container' {$style}>
+                                    <input type='text' name='input_{$id}.3' id='{$field_id}_3' value='{$city_value}' {$tabindex} {$disabled_text} {$city_placeholder_attribute} {$city_aria_attributes} {$address_city_autocomplete} {$this->maybe_add_aria_describedby( $address_city_field_input, $field_id, $this['formId'] )}/>
+                                    <label for='{$field_id}_3' id='{$field_id}_3_label' {$sub_label_class_attribute}>{$address_city_sub_label}</label>
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
                                  </span>";
 				}
 			}
@@ -309,6 +381,7 @@ class GF_Field_Address extends GF_Field {
 				$aria_attributes = $this->get_aria_attributes( $value, '4' );
 				$state_field = $this->get_state_field( $id, $field_id, $state_value, $disabled_text, $form_id, $aria_attributes, $address_state_field_input );
 				if ( $is_sub_label_above ) {
+<<<<<<< HEAD
 					$state = "<span class='ginput_{$state_location}{$class_suffix} address_state ginput_address_state gform-grid-col' id='{$field_id}_4_container' {$style}>
                                            <label for='{$field_id}_4' id='{$field_id}_4_label' class='gform-field-label gform-field-label--type-sub {$sub_label_class}'>{$address_state_sub_label}</label>
                                            $state_field
@@ -317,6 +390,16 @@ class GF_Field_Address extends GF_Field {
 					$state = "<span class='ginput_{$state_location}{$class_suffix} address_state ginput_address_state gform-grid-col' id='{$field_id}_4_container' {$style}>
                                            $state_field
                                            <label for='{$field_id}_4' id='{$field_id}_4_label' class='gform-field-label gform-field-label--type-sub {$sub_label_class}'>{$address_state_sub_label} </label>
+=======
+					$state = "<span class='ginput_{$state_location}{$class_suffix} address_state ginput_address_state' id='{$field_id}_4_container' {$style}>
+                                           <label for='{$field_id}_4' id='{$field_id}_4_label' {$sub_label_class_attribute}>{$address_state_sub_label}</label>
+                                           $state_field
+                                      </span>";
+				} else {
+					$state = "<span class='ginput_{$state_location}{$class_suffix} address_state ginput_address_state' id='{$field_id}_4_container' {$style}>
+                                           $state_field
+                                           <label for='{$field_id}_4' id='{$field_id}_4_label' {$sub_label_class_attribute}>{$address_state_sub_label} </label>
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
                                       </span>";
 				}
 			} else {
@@ -330,6 +413,7 @@ class GF_Field_Address extends GF_Field {
 			$style    = ( $is_admin && rgar( $address_city_field_input, 'isHidden' ) ) ? "style='display:none;'" : '';
 			if ( $is_admin || ! rgar( $address_city_field_input, 'isHidden' ) ) {
 				if ( $is_sub_label_above ) {
+<<<<<<< HEAD
 					$city = "<span class='ginput_{$city_location}{$class_suffix} address_city ginput_address_city gform-grid-col' id='{$field_id}_3_container' {$style}>
                                     <label for='{$field_id}_3' id='{$field_id}_3_label' class='gform-field-label gform-field-label--type-sub {$sub_label_class}'>{$address_city_sub_label}</label>
                                     <input type='text' name='input_{$id}.3' id='{$field_id}_3' value='{$city_value}' {$tabindex} {$disabled_text} {$city_placeholder_attribute} {$city_aria_attributes} {$address_city_autocomplete} {$this->maybe_add_aria_describedby( $address_city_field_input, $field_id, $this['formId'] )}/>
@@ -338,6 +422,16 @@ class GF_Field_Address extends GF_Field {
 					$city = "<span class='ginput_{$city_location}{$class_suffix} address_city ginput_address_city gform-grid-col' id='{$field_id}_3_container' {$style}>
                                     <input type='text' name='input_{$id}.3' id='{$field_id}_3' value='{$city_value}' {$tabindex} {$disabled_text} {$city_placeholder_attribute} {$city_aria_attributes} {$address_city_autocomplete} {$this->maybe_add_aria_describedby( $address_city_field_input, $field_id, $this['formId'] )}/>
                                     <label for='{$field_id}_3' id='{$field_id}_3_label' class='gform-field-label gform-field-label--type-sub {$sub_label_class}'>{$address_city_sub_label}</label>
+=======
+					$city = "<span class='ginput_{$city_location}{$class_suffix} address_city ginput_address_city' id='{$field_id}_3_container' {$style}>
+                                    <label for='{$field_id}_3' id='{$field_id}_3_label' {$sub_label_class_attribute}>{$address_city_sub_label}</label>
+                                    <input type='text' name='input_{$id}.3' id='{$field_id}_3' value='{$city_value}' {$tabindex} {$disabled_text} {$city_placeholder_attribute} {$city_aria_attributes} {$address_city_autocomplete} {$this->maybe_add_aria_describedby( $address_city_field_input, $field_id, $this['formId'] )}/>
+                                 </span>";
+				} else {
+					$city = "<span class='ginput_{$city_location}{$class_suffix} address_city ginput_address_city' id='{$field_id}_3_container' {$style}>
+                                    <input type='text' name='input_{$id}.3' id='{$field_id}_3' value='{$city_value}' {$tabindex} {$disabled_text} {$city_placeholder_attribute} {$city_aria_attributes} {$address_city_autocomplete} {$this->maybe_add_aria_describedby( $address_city_field_input, $field_id, $this['formId'] )}/>
+                                    <label for='{$field_id}_3' id='{$field_id}_3_label' {$sub_label_class_attribute}>{$address_city_sub_label}</label>
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
                                  </span>";
 				}
 			}
@@ -348,6 +442,7 @@ class GF_Field_Address extends GF_Field {
 				$aria_attributes = $this->get_aria_attributes( $value, '4' );
 				$state_field = $this->get_state_field( $id, $field_id, $state_value, $disabled_text, $form_id, $aria_attributes, $address_state_field_input );
 				if ( $is_sub_label_above ) {
+<<<<<<< HEAD
 					$state = "<span class='ginput_{$state_location}{$class_suffix} address_state ginput_address_state gform-grid-col' id='{$field_id}_4_container' {$style}>
                                         <label for='{$field_id}_4' id='{$field_id}_4_label' class='gform-field-label gform-field-label--type-sub {$sub_label_class}'>$address_state_sub_label</label>
                                         $state_field
@@ -356,6 +451,16 @@ class GF_Field_Address extends GF_Field {
 					$state = "<span class='ginput_{$state_location}{$class_suffix} address_state ginput_address_state gform-grid-col' id='{$field_id}_4_container' {$style}>
                                         $state_field
                                         <label for='{$field_id}_4' id='{$field_id}_4_label' class='gform-field-label gform-field-label--type-sub {$sub_label_class}'>$address_state_sub_label</label>
+=======
+					$state = "<span class='ginput_{$state_location}{$class_suffix} address_state ginput_address_state' id='{$field_id}_4_container' {$style}>
+                                        <label for='{$field_id}_4' id='{$field_id}_4_label' {$sub_label_class_attribute}>$address_state_sub_label</label>
+                                        $state_field
+                                      </span>";
+				} else {
+					$state = "<span class='ginput_{$state_location}{$class_suffix} address_state ginput_address_state' id='{$field_id}_4_container' {$style}>
+                                        $state_field
+                                        <label for='{$field_id}_4' id='{$field_id}_4_label' {$sub_label_class_attribute}>$address_state_sub_label</label>
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
                                       </span>";
 				}
 			} else {
@@ -368,6 +473,7 @@ class GF_Field_Address extends GF_Field {
 			$style    = ( $is_admin && rgar( $address_zip_field_input, 'isHidden' ) ) ? "style='display:none;'" : '';
 			if ( $is_admin || ! rgar( $address_zip_field_input, 'isHidden' ) ) {
 				if ( $is_sub_label_above ) {
+<<<<<<< HEAD
 					$zip = "<span class='ginput_{$zip_location}{$class_suffix} address_zip ginput_address_zip gform-grid-col' id='{$field_id}_5_container' {$style}>
                                     <label for='{$field_id}_5' id='{$field_id}_5_label' class='gform-field-label gform-field-label--type-sub {$sub_label_class}'>{$address_zip_sub_label}</label>
                                     <input type='text' name='input_{$id}.5' id='{$field_id}_5' value='{$zip_value}' {$tabindex} {$disabled_text} {$zip_placeholder_attribute} {$zip_aria_attributes} {$address_zip_autocomplete} {$this->maybe_add_aria_describedby( $address_zip_field_input, $field_id, $this['formId'] )}/>
@@ -376,6 +482,16 @@ class GF_Field_Address extends GF_Field {
 					$zip = "<span class='ginput_{$zip_location}{$class_suffix} address_zip ginput_address_zip gform-grid-col' id='{$field_id}_5_container' {$style}>
                                     <input type='text' name='input_{$id}.5' id='{$field_id}_5' value='{$zip_value}' {$tabindex} {$disabled_text} {$zip_placeholder_attribute} {$zip_aria_attributes} {$address_zip_autocomplete} {$this->maybe_add_aria_describedby( $address_zip_field_input, $field_id, $this['formId'] )}/>
                                     <label for='{$field_id}_5' id='{$field_id}_5_label' class='gform-field-label gform-field-label--type-sub {$sub_label_class}'>{$address_zip_sub_label}</label>
+=======
+					$zip = "<span class='ginput_{$zip_location}{$class_suffix} address_zip ginput_address_zip' id='{$field_id}_5_container' {$style}>
+                                    <label for='{$field_id}_5' id='{$field_id}_5_label' {$sub_label_class_attribute}>{$address_zip_sub_label}</label>
+                                    <input type='text' name='input_{$id}.5' id='{$field_id}_5' value='{$zip_value}' {$tabindex} {$disabled_text} {$zip_placeholder_attribute} {$zip_aria_attributes} {$this->maybe_add_aria_describedby( $address_zip_field_input, $field_id, $this['formId'] )}/>
+                                </span>";
+				} else {
+					$zip = "<span class='ginput_{$zip_location}{$class_suffix} address_zip ginput_address_zip' id='{$field_id}_5_container' {$style}>
+                                    <input type='text' name='input_{$id}.5' id='{$field_id}_5' value='{$zip_value}' {$tabindex} {$disabled_text} {$zip_placeholder_attribute} {$zip_aria_attributes} {$address_zip_autocomplete} {$this->maybe_add_aria_describedby( $address_zip_field_input, $field_id, $this['formId'] )}/>
+                                    <label for='{$field_id}_5' id='{$field_id}_5_label' {$sub_label_class_attribute}>{$address_zip_sub_label}</label>
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
                                 </span>";
 				}
 			}
@@ -385,6 +501,7 @@ class GF_Field_Address extends GF_Field {
 			$style    = $hide_country ? "style='display:none;'" : '';
 			$tabindex = $this->get_tabindex();
 			if ( $is_sub_label_above ) {
+<<<<<<< HEAD
 				$country = "<span class='ginput_{$country_location}{$class_suffix} address_country ginput_address_country gform-grid-col' id='{$field_id}_6_container' {$style}>
                                         <label for='{$field_id}_6' id='{$field_id}_6_label' class='gform-field-label gform-field-label--type-sub {$sub_label_class}'>{$address_country_sub_label}</label>
                                         <select name='input_{$id}.6' id='{$field_id}_6' {$tabindex} {$disabled_text} {$country_aria_attributes} {$address_country_autocomplete} {$this->maybe_add_aria_describedby( $address_country_field_input, $field_id, $this['formId'] )}>{$country_list} </select>
@@ -393,6 +510,16 @@ class GF_Field_Address extends GF_Field {
 				$country = "<span class='ginput_{$country_location}{$class_suffix} address_country ginput_address_country gform-grid-col' id='{$field_id}_6_container' {$style}>
                                         <select name='input_{$id}.6' id='{$field_id}_6' {$tabindex} {$disabled_text} {$country_aria_attributes} {$address_country_autocomplete} {$this->maybe_add_aria_describedby( $address_country_field_input, $field_id, $this['formId'] )}>{$country_list}</select>
                                         <label for='{$field_id}_6' id='{$field_id}_6_label' class='gform-field-label gform-field-label--type-sub {$sub_label_class}'>{$address_country_sub_label}</label>
+=======
+				$country = "<span class='ginput_{$country_location}{$class_suffix} address_country ginput_address_country' id='{$field_id}_6_container' {$style}>
+                                        <label for='{$field_id}_6' id='{$field_id}_6_label' {$sub_label_class_attribute}>{$address_country_sub_label}</label>
+                                        <select name='input_{$id}.6' id='{$field_id}_6' {$tabindex} {$disabled_text} {$country_aria_attributes} {$address_country_autocomplete} {$this->maybe_add_aria_describedby( $address_country_field_input, $field_id, $this['formId'] )}>{$country_list} </select>
+                                    </span>";
+			} else {
+				$country = "<span class='ginput_{$country_location}{$class_suffix} address_country ginput_address_country' id='{$field_id}_6_container' {$style}>
+                                        <select name='input_{$id}.6' id='{$field_id}_6' {$tabindex} {$disabled_text} {$country_aria_attributes} {$address_country_autocomplete} {$this->maybe_add_aria_describedby( $address_country_field_input, $field_id, $this['formId'] )}>{$country_list}</select>
+                                        <label for='{$field_id}_6' id='{$field_id}_6_label' {$sub_label_class_attribute}>{$address_country_sub_label}</label>
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
                                     </span>";
 			}
 		} else {
@@ -409,8 +536,13 @@ class GF_Field_Address extends GF_Field {
 			$copy_values_is_checked = isset( $value[$this->id . '_copy_values_activated'] ) ? $value[$this->id . '_copy_values_activated'] == true : $this->copyValuesOptionDefault == true;
 			$copy_values_checked    = checked( true, $copy_values_is_checked, false );
 			$copy_values_option     = "<div id='{$field_id}_copy_values_option_container' class='copy_values_option_container' {$copy_values_style}>
+<<<<<<< HEAD
                                         <input type='checkbox' id='{$field_id}_copy_values_activated' class='copy_values_activated' value='1' data-source_field_id='" . absint( $this->copyValuesOptionField ) . "' name='input_{$id}_copy_values_activated' {$disabled_text} {$copy_values_checked}/>
                                         <label for='{$field_id}_copy_values_activated' id='{$field_id}_copy_values_option_label' class='copy_values_option_label inline gform-field-label gform-field-label--type-inline'>{$copy_values_label}</label>
+=======
+                                        <input type='checkbox' id='{$field_id}_copy_values_activated' class='copy_values_activated' value='1' name='input_{$id}_copy_values_activated' {$disabled_text} {$copy_values_checked}/>
+                                        <label for='{$field_id}_copy_values_activated' id='{$field_id}_copy_values_option_label' class='copy_values_option_label inline'>{$copy_values_label}</label>
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
                                     </div>";
 			if ( $copy_values_is_checked ) {
 				$input_style = "style='display:none;'";
@@ -420,7 +552,11 @@ class GF_Field_Address extends GF_Field {
 		$css_class = $this->get_css_class();
 
 		return "    {$copy_values_option}
+<<<<<<< HEAD
                     <div class='ginput_complex{$class_suffix} ginput_container {$css_class} gform-grid-row' id='$field_id' {$input_style}>
+=======
+                    <div class='ginput_complex{$class_suffix} ginput_container {$css_class}' id='$field_id' {$input_style}>
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
                         {$inputs}
                     <div class='gf_clear gf_clear_complex'></div>
                 </div>";
@@ -652,10 +788,17 @@ class GF_Field_Address extends GF_Field {
 			'BG' => __( 'Bulgaria', 'gravityforms' ),
 			'BF' => __( 'Burkina Faso', 'gravityforms' ),
 			'BI' => __( 'Burundi', 'gravityforms' ),
+<<<<<<< HEAD
 			'CV' => __( 'Cabo Verde', 'gravityforms' ),
 			'KH' => __( 'Cambodia', 'gravityforms' ),
 			'CM' => __( 'Cameroon', 'gravityforms' ),
 			'CA' => __( 'Canada', 'gravityforms' ),
+=======
+			'KH' => __( 'Cambodia', 'gravityforms' ),
+			'CM' => __( 'Cameroon', 'gravityforms' ),
+			'CA' => __( 'Canada', 'gravityforms' ),
+			'CV' => __( 'Cape Verde', 'gravityforms' ),
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 			'KY' => __( 'Cayman Islands', 'gravityforms' ),
 			'CF' => __( 'Central African Republic', 'gravityforms' ),
 			'TD' => __( 'Chad', 'gravityforms' ),
@@ -666,7 +809,11 @@ class GF_Field_Address extends GF_Field {
 			'CO' => __( 'Colombia', 'gravityforms' ),
 			'KM' => __( 'Comoros', 'gravityforms' ),
 			'CD' => __( 'Congo, Democratic Republic of the', 'gravityforms' ),
+<<<<<<< HEAD
 			'CG' => __( 'Congo', 'gravityforms' ),
+=======
+			'CG' => __( 'Congo, Republic of the', 'gravityforms' ),
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 			'CK' => __( 'Cook Islands', 'gravityforms' ),
 			'CR' => __( 'Costa Rica', 'gravityforms' ),
 			'CI' => __( "Côte d'Ivoire", 'gravityforms' ),
@@ -674,7 +821,11 @@ class GF_Field_Address extends GF_Field {
 			'CU' => __( 'Cuba', 'gravityforms' ),
 			'CW' => __( 'Curaçao', 'gravityforms' ),
 			'CY' => __( 'Cyprus', 'gravityforms' ),
+<<<<<<< HEAD
 			'CZ' => __( 'Czechia', 'gravityforms' ),
+=======
+			'CZ' => __( 'Czech Republic', 'gravityforms' ),
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 			'DK' => __( 'Denmark', 'gravityforms' ),
 			'DJ' => __( 'Djibouti', 'gravityforms' ),
 			'DM' => __( 'Dominica', 'gravityforms' ),
@@ -685,7 +836,11 @@ class GF_Field_Address extends GF_Field {
 			'GQ' => __( 'Equatorial Guinea', 'gravityforms' ),
 			'ER' => __( 'Eritrea', 'gravityforms' ),
 			'EE' => __( 'Estonia', 'gravityforms' ),
+<<<<<<< HEAD
 			'SZ' => __( 'Eswatini', 'gravityforms' ),
+=======
+			'SZ' => __( 'Eswatini (Swaziland)', 'gravityforms' ),
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 			'ET' => __( 'Ethiopia', 'gravityforms' ),
 			'FK' => __( 'Falkland Islands', 'gravityforms' ),
 			'FO' => __( 'Faroe Islands', 'gravityforms' ),
@@ -712,7 +867,11 @@ class GF_Field_Address extends GF_Field {
 			'GW' => __( 'Guinea-Bissau', 'gravityforms' ),
 			'GY' => __( 'Guyana', 'gravityforms' ),
 			'HT' => __( 'Haiti', 'gravityforms' ),
+<<<<<<< HEAD
 			'HM' => __( 'Heard Island and McDonald Islands', 'gravityforms' ),
+=======
+			'HM' => __( 'Heard and McDonald Islands', 'gravityforms' ),
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 			'VA' => __( 'Holy See', 'gravityforms' ),
 			'HN' => __( 'Honduras', 'gravityforms' ),
 			'HK' => __( 'Hong Kong', 'gravityforms' ),
@@ -733,8 +892,11 @@ class GF_Field_Address extends GF_Field {
 			'KZ' => __( 'Kazakhstan', 'gravityforms' ),
 			'KE' => __( 'Kenya', 'gravityforms' ),
 			'KI' => __( 'Kiribati', 'gravityforms' ),
+<<<<<<< HEAD
 			'KP' => __( "Korea, Democratic People's Republic of", 'gravityforms' ),
 			'KR' => __( 'Korea, Republic of', 'gravityforms' ),
+=======
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 			'KW' => __( 'Kuwait', 'gravityforms' ),
 			'KG' => __( 'Kyrgyzstan', 'gravityforms' ),
 			'LA' => __( "Lao People's Democratic Republic", 'gravityforms' ),
@@ -746,7 +908,12 @@ class GF_Field_Address extends GF_Field {
 			'LI' => __( 'Liechtenstein', 'gravityforms' ),
 			'LT' => __( 'Lithuania', 'gravityforms' ),
 			'LU' => __( 'Luxembourg', 'gravityforms' ),
+<<<<<<< HEAD
 			'MO' => __( 'Macao', 'gravityforms' ),
+=======
+			'MO' => __( 'Macau', 'gravityforms' ),
+			'MK' => __( 'Macedonia', 'gravityforms' ),
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 			'MG' => __( 'Madagascar', 'gravityforms' ),
 			'MW' => __( 'Malawi', 'gravityforms' ),
 			'MY' => __( 'Malaysia', 'gravityforms' ),
@@ -779,7 +946,11 @@ class GF_Field_Address extends GF_Field {
 			'NG' => __( 'Nigeria', 'gravityforms' ),
 			'NU' => __( 'Niue', 'gravityforms' ),
 			'NF' => __( 'Norfolk Island', 'gravityforms' ),
+<<<<<<< HEAD
 			'MK' => __( 'North Macedonia', 'gravityforms' ),
+=======
+			'KP' => __( 'North Korea', 'gravityforms' ),
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 			'MP' => __( 'Northern Mariana Islands', 'gravityforms' ),
 			'NO' => __( 'Norway', 'gravityforms' ),
 			'OM' => __( 'Oman', 'gravityforms' ),
@@ -798,10 +969,17 @@ class GF_Field_Address extends GF_Field {
 			'QA' => __( 'Qatar', 'gravityforms' ),
 			'RE' => __( 'Réunion', 'gravityforms' ),
 			'RO' => __( 'Romania', 'gravityforms' ),
+<<<<<<< HEAD
 			'RU' => __( 'Russian Federation', 'gravityforms' ),
 			'RW' => __( 'Rwanda', 'gravityforms' ),
 			'BL' => __( 'Saint Barthélemy', 'gravityforms' ),
 			'SH' => __( 'Saint Helena, Ascension and Tristan da Cunha', 'gravityforms' ),
+=======
+			'RU' => __( 'Russia', 'gravityforms' ),
+			'RW' => __( 'Rwanda', 'gravityforms' ),
+			'BL' => __( 'Saint Barthélemy', 'gravityforms' ),
+			'SH' => __( 'Saint Helena', 'gravityforms' ),
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 			'KN' => __( 'Saint Kitts and Nevis', 'gravityforms' ),
 			'LC' => __( 'Saint Lucia', 'gravityforms' ),
 			'MF' => __( 'Saint Martin', 'gravityforms' ),
@@ -822,12 +1000,18 @@ class GF_Field_Address extends GF_Field {
 			'SB' => __( 'Solomon Islands', 'gravityforms' ),
 			'SO' => __( 'Somalia', 'gravityforms' ),
 			'ZA' => __( 'South Africa', 'gravityforms' ),
+<<<<<<< HEAD
 			'GS' => _x( 'South Georgia and the South Sandwich Islands', 'Country', 'gravityforms' ),
+=======
+			'GS' => _x( 'South Georgia', 'Country', 'gravityforms' ),
+			'KR' => __( 'South Korea', 'gravityforms' ),
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 			'SS' => __( 'South Sudan', 'gravityforms' ),
 			'ES' => __( 'Spain', 'gravityforms' ),
 			'LK' => __( 'Sri Lanka', 'gravityforms' ),
 			'SD' => __( 'Sudan', 'gravityforms' ),
 			'SR' => __( 'Suriname', 'gravityforms' ),
+<<<<<<< HEAD
 			'SJ' => __( 'Svalbard and Jan Mayen', 'gravityforms' ),
 			'SE' => __( 'Sweden', 'gravityforms' ),
 			'CH' => __( 'Switzerland', 'gravityforms' ),
@@ -835,6 +1019,15 @@ class GF_Field_Address extends GF_Field {
 			'TW' => __( 'Taiwan', 'gravityforms' ),
 			'TJ' => __( 'Tajikistan', 'gravityforms' ),
 			'TZ' => __( 'Tanzania, the United Republic of', 'gravityforms' ),
+=======
+			'SJ' => __( 'Svalbard and Jan Mayen Islands', 'gravityforms' ),
+			'SE' => __( 'Sweden', 'gravityforms' ),
+			'CH' => __( 'Switzerland', 'gravityforms' ),
+			'SY' => __( 'Syria', 'gravityforms' ),
+			'TW' => __( 'Taiwan', 'gravityforms' ),
+			'TJ' => __( 'Tajikistan', 'gravityforms' ),
+			'TZ' => __( 'Tanzania', 'gravityforms' ),
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 			'TH' => __( 'Thailand', 'gravityforms' ),
 			'TL' => __( 'Timor-Leste', 'gravityforms' ),
 			'TG' => __( 'Togo', 'gravityforms' ),
@@ -842,7 +1035,11 @@ class GF_Field_Address extends GF_Field {
 			'TO' => __( 'Tonga', 'gravityforms' ),
 			'TT' => __( 'Trinidad and Tobago', 'gravityforms' ),
 			'TN' => __( 'Tunisia', 'gravityforms' ),
+<<<<<<< HEAD
 			'TR' => __( 'Türkiye', 'gravityforms' ),
+=======
+			'TR' => __( 'Turkey', 'gravityforms' ),
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 			'TM' => __( 'Turkmenistan', 'gravityforms' ),
 			'TC' => __( 'Turks and Caicos Islands', 'gravityforms' ),
 			'TV' => __( 'Tuvalu', 'gravityforms' ),
@@ -856,7 +1053,11 @@ class GF_Field_Address extends GF_Field {
 			'UZ' => __( 'Uzbekistan', 'gravityforms' ),
 			'VU' => __( 'Vanuatu', 'gravityforms' ),
 			'VE' => __( 'Venezuela', 'gravityforms' ),
+<<<<<<< HEAD
 			'VN' => __( 'Viet Nam', 'gravityforms' ),
+=======
+			'VN' => __( 'Vietnam', 'gravityforms' ),
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 			'VG' => __( 'Virgin Islands, British', 'gravityforms' ),
 			'VI' => __( 'Virgin Islands, U.S.', 'gravityforms' ),
 			'WF' => __( 'Wallis and Futuna', 'gravityforms' ),
@@ -897,6 +1098,7 @@ class GF_Field_Address extends GF_Field {
 		return array_flip( $countries );
 	}
 
+<<<<<<< HEAD
 	/**
 	 * Returns the array of US states and territories.
 	 *
@@ -912,11 +1114,17 @@ class GF_Field_Address extends GF_Field {
 		 *
 		 * @param array The array of US states.
 		 */
+=======
+	public function get_us_states() {
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 		return apply_filters(
 			'gform_us_states', array(
 				__( 'Alabama', 'gravityforms' ),
 				__( 'Alaska', 'gravityforms' ),
+<<<<<<< HEAD
 				__( 'American Samoa', 'gravityforms' ),
+=======
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 				__( 'Arizona', 'gravityforms' ),
 				__( 'Arkansas', 'gravityforms' ),
 				__( 'California', 'gravityforms' ),
@@ -926,7 +1134,10 @@ class GF_Field_Address extends GF_Field {
 				__( 'District of Columbia', 'gravityforms' ),
 				__( 'Florida', 'gravityforms' ),
 				_x( 'Georgia', 'US State', 'gravityforms' ),
+<<<<<<< HEAD
 				__( 'Guam', 'gravityforms' ),
+=======
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 				__( 'Hawaii', 'gravityforms' ),
 				__( 'Idaho', 'gravityforms' ),
 				__( 'Illinois', 'gravityforms' ),
@@ -951,19 +1162,28 @@ class GF_Field_Address extends GF_Field {
 				__( 'New York', 'gravityforms' ),
 				__( 'North Carolina', 'gravityforms' ),
 				__( 'North Dakota', 'gravityforms' ),
+<<<<<<< HEAD
 				__( 'Northern Mariana Islands', 'gravityforms' ),
+=======
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 				__( 'Ohio', 'gravityforms' ),
 				__( 'Oklahoma', 'gravityforms' ),
 				__( 'Oregon', 'gravityforms' ),
 				__( 'Pennsylvania', 'gravityforms' ),
+<<<<<<< HEAD
 				__( 'Puerto Rico', 'gravityforms' ),
+=======
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 				__( 'Rhode Island', 'gravityforms' ),
 				__( 'South Carolina', 'gravityforms' ),
 				__( 'South Dakota', 'gravityforms' ),
 				__( 'Tennessee', 'gravityforms' ),
 				__( 'Texas', 'gravityforms' ),
 				__( 'Utah', 'gravityforms' ),
+<<<<<<< HEAD
 				__( 'U.S. Virgin Islands', 'gravityforms' ),
+=======
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 				__( 'Vermont', 'gravityforms' ),
 				__( 'Virginia', 'gravityforms' ),
 				__( 'Washington', 'gravityforms' ),
@@ -977,6 +1197,7 @@ class GF_Field_Address extends GF_Field {
 		);
 	}
 
+<<<<<<< HEAD
 	/**
 	 * Returns the two-letter US state code from the state name provided.
 	 *
@@ -1047,6 +1268,64 @@ class GF_Field_Address extends GF_Field {
 			GFCommon::safe_strtoupper( __( 'Armed Forces Americas', 'gravityforms' ) )    => 'AA',
 			GFCommon::safe_strtoupper( __( 'Armed Forces Europe', 'gravityforms' ) )      => 'AE',
 			GFCommon::safe_strtoupper( __( 'Armed Forces Pacific', 'gravityforms' ) )     => 'AP',
+=======
+	public function get_us_state_code( $state_name ) {
+		$states = array(
+			GFCommon::safe_strtoupper( __( 'Alabama', 'gravityforms' ) )               => 'AL',
+			GFCommon::safe_strtoupper( __( 'Alaska', 'gravityforms' ) )                => 'AK',
+			GFCommon::safe_strtoupper( __( 'Arizona', 'gravityforms' ) )               => 'AZ',
+			GFCommon::safe_strtoupper( __( 'Arkansas', 'gravityforms' ) )              => 'AR',
+			GFCommon::safe_strtoupper( __( 'California', 'gravityforms' ) )            => 'CA',
+			GFCommon::safe_strtoupper( __( 'Colorado', 'gravityforms' ) )              => 'CO',
+			GFCommon::safe_strtoupper( __( 'Connecticut', 'gravityforms' ) )           => 'CT',
+			GFCommon::safe_strtoupper( __( 'Delaware', 'gravityforms' ) )              => 'DE',
+			GFCommon::safe_strtoupper( __( 'District of Columbia', 'gravityforms' ) )  => 'DC',
+			GFCommon::safe_strtoupper( __( 'Florida', 'gravityforms' ) )               => 'FL',
+			GFCommon::safe_strtoupper( _x( 'Georgia', 'US State', 'gravityforms' ) )   => 'GA',
+			GFCommon::safe_strtoupper( __( 'Hawaii', 'gravityforms' ) )                => 'HI',
+			GFCommon::safe_strtoupper( __( 'Idaho', 'gravityforms' ) )                 => 'ID',
+			GFCommon::safe_strtoupper( __( 'Illinois', 'gravityforms' ) )              => 'IL',
+			GFCommon::safe_strtoupper( __( 'Indiana', 'gravityforms' ) )               => 'IN',
+			GFCommon::safe_strtoupper( __( 'Iowa', 'gravityforms' ) )                  => 'IA',
+			GFCommon::safe_strtoupper( __( 'Kansas', 'gravityforms' ) )                => 'KS',
+			GFCommon::safe_strtoupper( __( 'Kentucky', 'gravityforms' ) )              => 'KY',
+			GFCommon::safe_strtoupper( __( 'Louisiana', 'gravityforms' ) )             => 'LA',
+			GFCommon::safe_strtoupper( __( 'Maine', 'gravityforms' ) )                 => 'ME',
+			GFCommon::safe_strtoupper( __( 'Maryland', 'gravityforms' ) )              => 'MD',
+			GFCommon::safe_strtoupper( __( 'Massachusetts', 'gravityforms' ) )         => 'MA',
+			GFCommon::safe_strtoupper( __( 'Michigan', 'gravityforms' ) )              => 'MI',
+			GFCommon::safe_strtoupper( __( 'Minnesota', 'gravityforms' ) )             => 'MN',
+			GFCommon::safe_strtoupper( __( 'Mississippi', 'gravityforms' ) )           => 'MS',
+			GFCommon::safe_strtoupper( __( 'Missouri', 'gravityforms' ) )              => 'MO',
+			GFCommon::safe_strtoupper( __( 'Montana', 'gravityforms' ) )               => 'MT',
+			GFCommon::safe_strtoupper( __( 'Nebraska', 'gravityforms' ) )              => 'NE',
+			GFCommon::safe_strtoupper( __( 'Nevada', 'gravityforms' ) )                => 'NV',
+			GFCommon::safe_strtoupper( __( 'New Hampshire', 'gravityforms' ) )         => 'NH',
+			GFCommon::safe_strtoupper( __( 'New Jersey', 'gravityforms' ) )            => 'NJ',
+			GFCommon::safe_strtoupper( __( 'New Mexico', 'gravityforms' ) )            => 'NM',
+			GFCommon::safe_strtoupper( __( 'New York', 'gravityforms' ) )              => 'NY',
+			GFCommon::safe_strtoupper( __( 'North Carolina', 'gravityforms' ) )        => 'NC',
+			GFCommon::safe_strtoupper( __( 'North Dakota', 'gravityforms' ) )          => 'ND',
+			GFCommon::safe_strtoupper( __( 'Ohio', 'gravityforms' ) )                  => 'OH',
+			GFCommon::safe_strtoupper( __( 'Oklahoma', 'gravityforms' ) )              => 'OK',
+			GFCommon::safe_strtoupper( __( 'Oregon', 'gravityforms' ) )                => 'OR',
+			GFCommon::safe_strtoupper( __( 'Pennsylvania', 'gravityforms' ) )          => 'PA',
+			GFCommon::safe_strtoupper( __( 'Rhode Island', 'gravityforms' ) )          => 'RI',
+			GFCommon::safe_strtoupper( __( 'South Carolina', 'gravityforms' ) )        => 'SC',
+			GFCommon::safe_strtoupper( __( 'South Dakota', 'gravityforms' ) )          => 'SD',
+			GFCommon::safe_strtoupper( __( 'Tennessee', 'gravityforms' ) )             => 'TN',
+			GFCommon::safe_strtoupper( __( 'Texas', 'gravityforms' ) )                 => 'TX',
+			GFCommon::safe_strtoupper( __( 'Utah', 'gravityforms' ) )                  => 'UT',
+			GFCommon::safe_strtoupper( __( 'Vermont', 'gravityforms' ) )               => 'VT',
+			GFCommon::safe_strtoupper( __( 'Virginia', 'gravityforms' ) )              => 'VA',
+			GFCommon::safe_strtoupper( __( 'Washington', 'gravityforms' ) )            => 'WA',
+			GFCommon::safe_strtoupper( __( 'West Virginia', 'gravityforms' ) )         => 'WV',
+			GFCommon::safe_strtoupper( __( 'Wisconsin', 'gravityforms' ) )             => 'WI',
+			GFCommon::safe_strtoupper( __( 'Wyoming', 'gravityforms' ) )               => 'WY',
+			GFCommon::safe_strtoupper( __( 'Armed Forces Americas', 'gravityforms' ) ) => 'AA',
+			GFCommon::safe_strtoupper( __( 'Armed Forces Europe', 'gravityforms' ) )   => 'AE',
+			GFCommon::safe_strtoupper( __( 'Armed Forces Pacific', 'gravityforms' ) )  => 'AP',
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 		);
 
 		$state_name = GFCommon::safe_strtoupper( $state_name );
@@ -1152,6 +1431,7 @@ class GF_Field_Address extends GF_Field {
 		return $str;
 	}
 
+<<<<<<< HEAD
 	/**
 	 * Format the entry value for display on the entry detail page and for the {all_fields} merge tag.
 	 *
@@ -1167,6 +1447,9 @@ class GF_Field_Address extends GF_Field {
 	 * @return string
 	 */
 	public function get_value_entry_detail( $value, $entry = array(), $use_text = false, $format = 'html', $media = 'screen' ) {
+=======
+	public function get_value_entry_detail( $value, $currency = '', $use_text = false, $format = 'html', $media = 'screen' ) {
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 		if ( is_array( $value ) ) {
 			$street_value  = trim( rgget( $this->id . '.1', $value ) );
 			$street2_value = trim( rgget( $this->id . '.2', $value ) );
@@ -1247,7 +1530,11 @@ class GF_Field_Address extends GF_Field {
 			if ( ! empty( $address ) && $format == 'html' && ! $map_link_disabled ) {
 				$address_qs = str_replace( $line_break, ' ', $address ); //replacing <br/> and \n with spaces
 				$address_qs = urlencode( $address_qs );
+<<<<<<< HEAD
 				$address .= "<br/><a href='https://maps.google.com/maps?q={$address_qs}' target='_blank' class='map-it-link'>Map It</a>";
+=======
+				$address .= "<br/><a href='http://maps.google.com/maps?q={$address_qs}' target='_blank' class='map-it-link'>Map It</a>";
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 			}
 
 			return $address;

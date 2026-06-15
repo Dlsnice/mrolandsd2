@@ -250,15 +250,25 @@ class GF_Query_Condition {
 						if ( in_array( $this->operator, array( self::EQ, self::NEQ ) ) && $this->right instanceof GF_Query_Series ) {
 							$compare_conditions = array();
 							foreach ( $this->right->values as $literal ) {
+<<<<<<< HEAD
 								$subquery = $wpdb->prepare( sprintf( "SELECT 1 FROM `%s` WHERE `meta_key` LIKE %%s AND `meta_value` = %s AND `entry_id` = `%s`.`id`", // phpcs:ignore WordPress.DB.PreparedSQLPlaceholders.ReplacementsWrongNumber
 									GFFormsModel::get_entry_meta_table_name(), $literal->sql( $query ), $query->_alias( null, $this->left->source ) ), // phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared
+=======
+								$subquery = $wpdb->prepare( sprintf( "SELECT 1 FROM `%s` WHERE `meta_key` LIKE %%s AND `meta_value` = %s AND `entry_id` = `%s`.`id`",
+									GFFormsModel::get_entry_meta_table_name(), $literal->sql( $query ), $query->_alias( null, $this->left->source ) ),
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 									sprintf( '%d.%%', $this->left->field_id ) );
 								$compare_condition = new self( new GF_Query_Call( sprintf( '%sEXISTS', $this->operator == self::NEQ ? 'NOT ' : '' ), array( $subquery ) ) );
 								$compare_conditions []= $compare_condition->sql( $query );
 							}
 
+<<<<<<< HEAD
 							$subquery = $wpdb->prepare( sprintf( "SELECT COUNT(1) FROM `%s` WHERE `meta_key` LIKE %%s AND `entry_id` = `%s`.`id`", // phpcs:ignore WordPress.DB.PreparedSQLPlaceholders.ReplacementsWrongNumber
 								GFFormsModel::get_entry_meta_table_name(), $query->_alias( null, $this->left->source ) ), // phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared
+=======
+							$subquery = $wpdb->prepare( sprintf( "SELECT COUNT(1) FROM `%s` WHERE `meta_key` LIKE %%s AND `entry_id` = `%s`.`id`",
+								GFFormsModel::get_entry_meta_table_name(), $query->_alias( null, $this->left->source ) ),
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 								sprintf( '%d.%%', $this->left->field_id ) );
 
 							/**
@@ -272,8 +282,13 @@ class GF_Query_Condition {
 							 * Inverse contains.
 							 */
 						} elseif ( in_array( $this->operator, array( self::CONTAINS, self::NCONTAINS ) ) ) {
+<<<<<<< HEAD
 							$subquery = $wpdb->prepare( sprintf( "SELECT 1 FROM `%s` WHERE `meta_key` LIKE %%s AND `meta_value` = %s AND `entry_id` = `%s`.`id`", // phpcs:ignore WordPress.DB.PreparedSQLPlaceholders.ReplacementsWrongNumber
 								GFFormsModel::get_entry_meta_table_name(), $this->right->sql( $query ), $query->_alias( null, $this->left->source ) ), // phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared
+=======
+							$subquery = $wpdb->prepare( sprintf( "SELECT 1 FROM `%s` WHERE `meta_key` LIKE %%s AND `meta_value` = %s AND `entry_id` = `%s`.`id`",
+								GFFormsModel::get_entry_meta_table_name(), $this->right->sql( $query ), $query->_alias( null, $this->left->source ) ),
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 								sprintf( '%d.%%', $this->left->field_id ) );
 							$compare_condition = new self( new GF_Query_Call( sprintf( '%sEXISTS', $this->operator == self::NCONTAINS ? 'NOT ' : '' ), array( $subquery ) ) );
 							return $compare_condition->sql( $query );
@@ -282,8 +297,13 @@ class GF_Query_Condition {
 							 * One of.
 							 */
 						} elseif ( in_array( $this->operator, array( self::IN, self::NIN ) ) && $this->right instanceof GF_Query_Series ) {
+<<<<<<< HEAD
 							$subquery = $wpdb->prepare( sprintf( "SELECT 1 FROM `%s` WHERE `meta_key` LIKE %%s AND `meta_value` IN (%s) AND `entry_id` = `%s`.`id`", // phpcs:ignore WordPress.DB.PreparedSQLPlaceholders.ReplacementsWrongNumber
 								GFFormsModel::get_entry_meta_table_name(), str_replace( '%', '%%', $this->right->sql( $query, ', ' ) ), $query->_alias( null, $this->left->source ) ), // phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared
+=======
+							$subquery = $wpdb->prepare( sprintf( "SELECT 1 FROM `%s` WHERE `meta_key` LIKE %%s AND `meta_value` IN (%s) AND `entry_id` = `%s`.`id`",
+								GFFormsModel::get_entry_meta_table_name(), str_replace( '%', '%%', $this->right->sql( $query, ', ' ) ), $query->_alias( null, $this->left->source ) ),
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 								sprintf( '%d.%%', $this->left->field_id ) );
 							$compare_condition = new self( new GF_Query_Call( sprintf( '%sEXISTS', $this->operator == self::NIN ? 'NOT ' : '' ), array( $subquery ) ) );
 							return $compare_condition->sql( $query );
@@ -311,8 +331,13 @@ class GF_Query_Condition {
 								}
 							}
 
+<<<<<<< HEAD
 							$subquery = $wpdb->prepare( sprintf( "SELECT 1 FROM `%s` WHERE `meta_key` LIKE %%s AND `meta_value` %s %s AND `entry_id` = `%s`.`id`", // phpcs:ignore WordPress.DB.PreparedSQLPlaceholders.ReplacementsWrongNumber
 								GFFormsModel::get_entry_meta_table_name(), $operator, str_replace( '%', '%%', $this->right->sql( $query ) ), $query->_alias( null, $this->left->source ) ), // phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared
+=======
+							$subquery = $wpdb->prepare( sprintf( "SELECT 1 FROM `%s` WHERE `meta_key` LIKE %%s AND `meta_value` %s %s AND `entry_id` = `%s`.`id`",
+								GFFormsModel::get_entry_meta_table_name(), $operator, str_replace( '%', '%%', $this->right->sql( $query ) ), $query->_alias( null, $this->left->source ) ),
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 								sprintf( '%d.%%', $this->left->field_id ) );
 							$compare_condition = new self( new GF_Query_Call( sprintf( '%sEXISTS', $is_negative ? 'NOT ' : '' ), array( $subquery ) ) );
 							return $compare_condition->sql( $query );
@@ -341,8 +366,13 @@ class GF_Query_Condition {
 					 * Empty string comparisons and negative comparisons need a NOT EXISTS clause to grab entries that
 					 *  don't have the value set in the first place.
 					 */
+<<<<<<< HEAD
 					$subquery = $wpdb->prepare( sprintf( "SELECT 1 FROM `%s` WHERE `meta_key` = %%s AND `entry_id` = `%s`.`id`", // phpcs:ignore WordPress.DB.PreparedSQLPlaceholders.ReplacementsWrongNumber
 						GFFormsModel::get_entry_meta_table_name(), $query->_alias( null, $this->left->source ) ), $this->left->field_id ); // phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared
+=======
+					$subquery = $wpdb->prepare( sprintf( "SELECT 1 FROM `%s` WHERE `meta_key` = %%s AND `entry_id` = `%s`.`id`",
+						GFFormsModel::get_entry_meta_table_name(), $query->_alias( null, $this->left->source ) ), $this->left->field_id );
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 					$not_exists = new self( new GF_Query_Call( 'NOT EXISTS', array( $subquery ) ) );
 					return $query->_where_unwrap( self::_or( $not_exists, $compare_condition ) );
 				}

@@ -43,9 +43,15 @@ class GFSelectColumns {
 	 */
 	public static function select_columns_page() {
 
+<<<<<<< HEAD
 		$form_id = absint( rgget( 'id' ) );
 		if ( empty( $form_id ) ) {
 			echo esc_html__( 'Oops! We could not locate your form. Please try again.', 'gravityforms' );
+=======
+		$form_id = absint( $_GET['id'] );
+		if ( empty( $form_id ) ) {
+			echo __( 'Oops! We could not locate your form. Please try again.', 'gravityforms' );
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 			exit;
 		}
 		?>
@@ -154,9 +160,15 @@ class GFSelectColumns {
 					transform: translate( 0, -2px );
 				}
 
+<<<<<<< HEAD
 				.rtl {
 					direction: rtl;
 				}
+=======
+
+
+
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 			</style>
 
 			<script type="text/javascript">
@@ -185,10 +197,14 @@ class GFSelectColumns {
 			</script>
 
 		</head>
+<<<<<<< HEAD
 		<?php
 		$body_class_attr = is_rtl() ? 'class="' . esc_attr( 'rtl' ) . '"' : '';
 		?>
 		<body <?php echo $body_class_attr; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>>
+=======
+		<body>
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 		<?php
 		$columns = RGFormsModel::get_grid_columns( $form_id );
 		$field_ids = array_keys( $columns );
@@ -263,7 +279,11 @@ class GFSelectColumns {
 						}
 					} else if ( ! $field->displayOnly && ! in_array( $field->id, $field_ids ) && $display ) {
 						?>
+<<<<<<< HEAD
 						<li id="<?php echo esc_attr( $field->id ); ?>"><?php echo esc_html( GFCommon::get_label( $field ) ); ?></li>
+=======
+						<li id="<?php echo $field->id ?>"><?php echo esc_html( GFCommon::get_label( $field ) ); ?></li>
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 					<?php
 					}
 				}

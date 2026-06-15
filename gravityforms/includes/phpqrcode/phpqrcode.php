@@ -254,7 +254,11 @@ if(!class_exists('GFForms')){
             $width = count($frame);
             for($y=0;$y<$width;$y++) {
                 for($x=0;$x<$width;$x++) {
+<<<<<<< HEAD
                     echo ord($frame[$y][$x]).',';  // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+=======
+                    echo ord($frame[$y][$x]).',';
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
                 }
             }
         }
@@ -286,7 +290,11 @@ if(!class_exists('GFForms')){
 
             foreach($GLOBALS['qr_time_bench'] as $markerId=>$thisTime) {
                 if ($p > 0) {
+<<<<<<< HEAD
                     echo '<tr><th style="text-align:right">till '.$markerId.': </th><td>'.number_format($thisTime-$lastTime, 6).'s</td></tr>';  // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+=======
+                    echo '<tr><th style="text-align:right">till '.$markerId.': </th><td>'.number_format($thisTime-$lastTime, 6).'s</td></tr>';
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
                 } else {
                     $startTime = $thisTime;
                 }
@@ -816,7 +824,11 @@ if(!class_exists('GFForms')){
                 </style>
                 <?php
                     echo '<pre><tt><br/ ><br/ ><br/ >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;';
+<<<<<<< HEAD
                     echo join("<br/ >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;", $frame);  // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+=======
+                    echo join("<br/ >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;", $frame);
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
                     echo '</tt></pre><br/ ><br/ ><br/ ><br/ ><br/ ><br/ >';
 
             } else {
@@ -848,7 +860,11 @@ if(!class_exists('GFForms')){
                 </style>
                 <?php
                 echo "<pre><tt>";
+<<<<<<< HEAD
                 echo join("<br/ >", $frame);  // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+=======
+                echo join("<br/ >", $frame);
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
                 echo "</tt></pre>";
 
             }
@@ -1061,7 +1077,11 @@ if(!class_exists('GFForms')){
             }
 
             if(!QRinput::check($mode, $size, $setData)) {
+<<<<<<< HEAD
                 throw new Exception('Error m:'.$mode.',s:'.$size.',d:'.join(',',$setData)); // phpcs:ignore WordPress.Security.EscapeOutput.ExceptionNotEscaped
+=======
+                throw new Exception('Error m:'.$mode.',s:'.$size.',d:'.join(',',$setData));
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
                 return null;
             }
 

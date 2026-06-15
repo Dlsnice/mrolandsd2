@@ -101,18 +101,35 @@ class WPSEO_Meta {
 	public static $meta_fields = [
 		'general'         => [
 			'focuskw' => [
+<<<<<<< HEAD
 				'type'  => 'hidden',
 				'title' => '',
+=======
+				'type'         => 'hidden',
+				'title'        => '',
+				'show_in_rest' => true,
+				'single'       => true,
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 			],
 			'title' => [
 				'type'          => 'hidden',
 				'default_value' => '',
+<<<<<<< HEAD
+=======
+				'show_in_rest'  => true,
+				'single'        => true,
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 			],
 			'metadesc' => [
 				'type'          => 'hidden',
 				'default_value' => '',
 				'class'         => 'metadesc',
 				'rows'          => 2,
+<<<<<<< HEAD
+=======
+				'show_in_rest'  => true,
+				'single'        => true,
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 			],
 			'linkdex' => [
 				'type'          => 'hidden',
@@ -274,12 +291,37 @@ class WPSEO_Meta {
 		foreach ( self::$meta_fields as $subset => $field_group ) {
 			foreach ( $field_group as $key => $field_def ) {
 
+<<<<<<< HEAD
+=======
+				// Register for all post types: sanitise callback only, REST disabled.
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 				register_meta(
 					'post',
 					self::$meta_prefix . $key,
 					[ 'sanitize_callback' => [ self::class, 'sanitize_post_meta' ] ],
 				);
 
+<<<<<<< HEAD
+=======
+				// Re-register for the 'post' subtype with REST exposure and auth callback when show_in_rest is enabled.
+				if ( ! empty( $field_def['show_in_rest'] ) ) {
+					register_meta(
+						'post',
+						self::$meta_prefix . $key,
+						[
+							'show_in_rest'      => true,
+							'single'            => ( $field_def['single'] ?? false ),
+							'type'              => 'string',
+							'object_subtype'    => 'post',
+							'sanitize_callback' => [ self::class, 'sanitize_post_meta' ],
+							'auth_callback'     => static function ( $allowed, $meta_key, $object_id ) {
+								return current_user_can( 'edit_post', $object_id );
+							},
+						],
+					);
+				}
+
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 				// Set the $fields_index property for efficiency.
 				self::$fields_index[ self::$meta_prefix . $key ] = [
 					'subset' => $subset,
@@ -298,6 +340,15 @@ class WPSEO_Meta {
 		}
 		unset( $subset, $field_group, $key, $field_def );
 
+<<<<<<< HEAD
+=======
+		// Strip meta fields that have show_in_rest enabled from REST responses for users
+		// without edit_post capability. register_meta's auth_callback only covers writes,
+		// so read access must be restricted separately via this filter.
+		// Register only for 'post' post type. Other post types don't expose these fields.
+		add_filter( 'rest_prepare_post', [ self::class, 'hide_meta_from_unauthorized_rest_response' ], 10, 2 );
+
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 		self::filter_schema_article_types();
 
 		add_filter( 'update_post_metadata', [ self::class, 'remove_meta_if_default' ], 10, 5 );
@@ -1044,6 +1095,33 @@ class WPSEO_Meta {
 	}
 
 	/**
+<<<<<<< HEAD
+=======
+	 * Strips REST-exposed Yoast meta fields from the response for users without edit_post capability on the post.
+	 *
+	 * @param WP_REST_Response $response The REST response.
+	 * @param WP_Post          $post     The post object.
+	 *
+	 * @return WP_REST_Response The (possibly modified) response.
+	 */
+	public static function hide_meta_from_unauthorized_rest_response( $response, $post ) {
+		if ( current_user_can( 'edit_post', $post->ID ) ) {
+			return $response;
+		}
+		$data = $response->get_data();
+		foreach ( self::$meta_fields as $field_group ) {
+			foreach ( $field_group as $key => $field_def ) {
+				if ( ! empty( $field_def['show_in_rest'] ) ) {
+					unset( $data['meta'][ self::$meta_prefix . $key ] );
+				}
+			}
+		}
+		$response->set_data( $data );
+		return $response;
+	}
+
+	/**
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 	 * Filter the schema article types.
 	 *
 	 * @return void

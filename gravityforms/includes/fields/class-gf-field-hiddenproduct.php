@@ -9,6 +9,7 @@ class GF_Field_HiddenProduct extends GF_Field {
 
 	public $type = 'hiddenproduct';
 
+<<<<<<< HEAD
 	/**
 	 * Indicates if this field supports state validation.
 	 *
@@ -31,6 +32,8 @@ class GF_Field_HiddenProduct extends GF_Field {
 		return 'gform-icon--hidden';
 	}
 
+=======
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 	function get_form_editor_field_settings() {
 		return array(
 			'base_price_setting',
@@ -53,7 +56,11 @@ class GF_Field_HiddenProduct extends GF_Field {
 			$this->validation_message = esc_html__( 'Please enter a valid quantity', 'gravityforms' );
 		}
 	}
+<<<<<<< HEAD
 
+=======
+	
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 	public function get_value_default() {
 		$value = array();
 		if ( is_array( $this->inputs ) ) {
@@ -101,6 +108,7 @@ class GF_Field_HiddenProduct extends GF_Field {
 
 		$field_type = $is_entry_detail || $is_form_editor ? 'text' : 'hidden';
 
+<<<<<<< HEAD
 		return "<div class='ginput_container ginput_container_product_price_hidden'>" . $quantity_field . $product_name_field . "<input name='input_{$id}.2' id='ginput_base_price_{$form_id}_{$this->id}' type='{$field_type}' value='{$price}' class='gform_hidden ginput_amount' {$disabled_text}/></div>";
 	}
 
@@ -119,11 +127,18 @@ class GF_Field_HiddenProduct extends GF_Field {
 	 * @return string
 	 */
 	public function get_value_entry_detail( $value, $entry = array(), $use_text = false, $format = 'html', $media = 'screen' ) {
+=======
+		return $quantity_field . $product_name_field . "<input name='input_{$id}.2' id='ginput_base_price_{$form_id}_{$this->id}' type='{$field_type}' value='{$price}' class='gform_hidden ginput_amount' {$disabled_text}/>";
+	}
+
+	public function get_value_entry_detail( $value, $currency = '', $use_text = false, $format = 'html', $media = 'screen' ) {
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 		if ( is_array( $value ) && ! empty( $value ) ) {
 			$product_name = trim( $value[ $this->id . '.1' ] );
 			$price        = trim( $value[ $this->id . '.2' ] );
 			$quantity     = trim( $value[ $this->id . '.3' ] );
 
+<<<<<<< HEAD
 			$product_details = wp_kses( $product_name, wp_kses_allowed_html( 'data' ) );
 
 			if ( ! rgblank( $quantity ) ) {
@@ -132,6 +147,16 @@ class GF_Field_HiddenProduct extends GF_Field {
 
 			if ( ! rgblank( $price ) ) {
 				$product_details .= ', ' . esc_html__( 'Price: ', 'gravityforms' ) . wp_kses( GFCommon::format_number( $price, 'currency', rgar( $entry, 'currency' ) ), wp_kses_allowed_html( 'data' ) );
+=======
+			$product_details = $product_name;
+
+			if ( ! rgblank( $quantity ) ) {
+				$product_details .= ', ' . esc_html__( 'Qty: ', 'gravityforms' ) . $quantity;
+			}
+
+			if ( ! rgblank( $price ) ) {
+				$product_details .= ', ' . esc_html__( 'Price: ', 'gravityforms' ) . GFCommon::format_number( $price, 'currency', $currency );
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 			}
 
 			return $product_details;
@@ -149,4 +174,8 @@ class GF_Field_HiddenProduct extends GF_Field {
 
 }
 
+<<<<<<< HEAD
 GF_Fields::register( new GF_Field_HiddenProduct() );
+=======
+GF_Fields::register( new GF_Field_HiddenProduct() );
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6

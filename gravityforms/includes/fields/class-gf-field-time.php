@@ -110,6 +110,7 @@ class GF_Field_Time extends GF_Field {
 	}
 
 	/**
+<<<<<<< HEAD
 	 * Get the default properties.
 	 *
 	 * Inputs are required for the field to function correctly, so this ensures that the inputs exist.
@@ -146,6 +147,11 @@ class GF_Field_Time extends GF_Field {
 	 *
 	 * @since 1.9
 	 * @since 2.5.6 Updated to use set_required_error().
+=======
+	 * Validates the field inputs.
+	 *
+	 * @since  Unknown
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 	 * @access public
 	 *
 	 * @used-by GFFormDisplay::validate()
@@ -169,7 +175,19 @@ class GF_Field_Time extends GF_Field {
 		}
 
 		if ( is_array( $value ) && $this->isRequired ) {
+<<<<<<< HEAD
 			$this->set_required_error( $value, true );
+=======
+			$required_inputs = array( 0, 1 );
+
+			$message = $this->complex_validation_message( $value, $required_inputs );
+
+			if ( $message ) {
+				$this->failed_validation  = true;
+				$message_intro            = empty( $this->errorMessage ) ? __( 'This field is required.', 'gravityforms' ) : $this->errorMessage;
+				$this->validation_message = $message_intro . ' ' . $message;
+			}
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 		}
 
 		$hour   = rgar( $value, 0 );
@@ -192,6 +210,7 @@ class GF_Field_Time extends GF_Field {
 	}
 
 	/**
+<<<<<<< HEAD
 	 * Updates the value to use the input ids as the keys before it's used to generate the complex validation message.
 	 *
 	 * @since 2.6.5
@@ -206,6 +225,37 @@ class GF_Field_Time extends GF_Field {
 			"{$this->id}.2" => rgar( $value, 1 ),
 			"{$this->id}.3" => rgar( $value, 2 ),
 		);
+=======
+	 * Create a validation message for a required field with multiple inputs.
+	 *
+	 * The validation message will specify which inputs need to be filled out.
+	 *
+	 * @since 2.5
+	 *
+	 * @param array $value            The value entered by the user.
+	 * @param array $required_inputs  The required inputs to validate.
+	 *
+	 * @return string|void
+	 */
+	public function complex_validation_message( $value, $required_inputs ) {
+		$error_inputs = array();
+
+		foreach ( $required_inputs as $input ) {
+			if ( '' == $value[ $input ] ) {
+				$input_id       = $input + 1;
+				$error_inputs[] = $this->get_input_property( $input_id, 'label' );
+			}
+		}
+
+		if ( ! empty( $error_inputs ) ) {
+			$field_list = implode( ', ', $error_inputs );
+
+			// Translators: comma-separated list of the labels of missing fields.
+			return sprintf( __( 'Please complete the following fields: %s.', 'gravityforms' ), $field_list );
+		}
+
+		return false;
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 	}
 
 	/**
@@ -240,6 +290,10 @@ class GF_Field_Time extends GF_Field {
 	 * @uses    GFFormsModel::get_input()
 	 * @uses    GF_Field::get_input_placeholder_attribute()
 	 * @uses    GF_Field::get_tabindex()
+<<<<<<< HEAD
+=======
+	 * @uses    GFFormsModel::is_html5_enabled()
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 	 *
 	 * @param array      $form  The Form Object.
 	 * @param string     $value The field default value. Defaults to empty string.
@@ -260,6 +314,10 @@ class GF_Field_Time extends GF_Field {
 		$field_sub_label_placement = $this->subLabelPlacement;
 		$colon_pmam_placement      = empty( $field_sub_label_placement ) || $field_sub_label_placement == 'hidden_label' ? 'below' : $field_sub_label_placement;
 		$is_sub_label_above        = $field_sub_label_placement == 'above' || ( empty( $field_sub_label_placement ) && $form_sub_label_placement == 'above' );
+<<<<<<< HEAD
+=======
+		$sub_label_class_attribute = $field_sub_label_placement == 'hidden_label' ? "class='hidden_sub_label screen-reader-text'" : '';
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 
 		$disabled_text = $is_form_editor ? "disabled='disabled'" : '';
 
@@ -290,11 +348,20 @@ class GF_Field_Time extends GF_Field {
 		$minute_tabindex = $this->get_tabindex();
 		$ampm_tabindex   = $this->get_tabindex();
 
+<<<<<<< HEAD
 		$input_type = 'number';
 
 		$max_hour = $this->timeFormat == '24' ? 24 : 12;
 		$hour_html5_attributes   = "min='0' max='{$max_hour}' step='1'";
 		$minute_html5_attributes = "min='0' max='59' step='1'";
+=======
+		$is_html5   = RGFormsModel::is_html5_enabled();
+		$input_type = $is_html5 ? 'number' : 'text';
+
+		$max_hour = $this->timeFormat == '24' ? 24 : 12;
+		$hour_html5_attributes   = $is_html5 ? "min='0' max='{$max_hour}' step='1'" : '';
+		$minute_html5_attributes = $is_html5 ? "min='0' max='59' step='1'" : '';
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 
 		$clear_multi_div_open = GFCommon::is_legacy_markup_enabled( $form ) ? '<div class="clear-multi">' : '';
 		$clear_multi_div_close = GFCommon::is_legacy_markup_enabled( $form ) ? '</div>' : '';
@@ -305,6 +372,7 @@ class GF_Field_Time extends GF_Field {
 		if ( $is_form_editor || $this->timeFormat != '24' ) {
 			$am_text = esc_html__( 'AM', 'gravityforms' );
 			$pm_text = esc_html__( 'PM', 'gravityforms' );
+<<<<<<< HEAD
 			$ampm_field = "<div class='gfield_time_ampm ginput_container ginput_container_time {$colon_pmam_placement} gform-grid-col' {$ampm_field_style}>
                                 " . ( $output_shim ? "<div class='gfield_time_ampm_shim' aria-hidden='true'>&nbsp;</div>" : "" ) . "
                                 <select name='input_{$id}[]' id='{$field_id}_3' $ampm_tabindex {$disabled_text}>
@@ -312,6 +380,15 @@ class GF_Field_Time extends GF_Field {
                                     <option value='pm' {$pm_selected}>{$pm_text}</option>
                                 </select> 
                                 <label class='gform-field-label gform-field-label--type-sub am_pm_label screen-reader-text' for='{$field_id}_3'>" . esc_html__( 'AM/PM', 'gravityforms' ) . "</label>                                
+=======
+			$aria_label = esc_attr( 'AM/PM', 'gravityforms' );
+			$ampm_field = "<div class='gfield_time_ampm ginput_container ginput_container_time {$colon_pmam_placement}' {$ampm_field_style}>
+                                " . ( $output_shim ? "<div class='gfield_time_ampm_shim' aria-hidden='true'>&nbsp;</div>" : "" ) . "
+                                <select name='input_{$id}[]' id='{$field_id}_3' $ampm_tabindex {$disabled_text} aria-label='{$aria_label}'>
+                                    <option value='am' {$am_selected}>{$am_text}</option>
+                                    <option value='pm' {$pm_selected}>{$pm_text}</option>
+                                </select> 
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
                            </div>";
 		} else {
 			$ampm_field = '';
@@ -337,11 +414,14 @@ class GF_Field_Time extends GF_Field {
 			$minute_label_class = " screen-reader-text";
 		}
 
+<<<<<<< HEAD
 		if ( $field_sub_label_placement === 'hidden_label' ) {
 			$hour_label_class   = ' hidden_sub_label screen-reader-text';
 			$minute_label_class = ' hidden_sub_label screen-reader-text';
 		}
 
+=======
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 		$input_values = array(
 			$this->id . '.1' => $hour,
 			$this->id . '.2' => $minute,
@@ -352,6 +432,7 @@ class GF_Field_Time extends GF_Field {
 		$aria_describedby       = $this->get_aria_describedby();
 
 		$legacy_markup_colon = GFCommon::is_legacy_markup_enabled( $form ) ? '<i>:</i>' : '';
+<<<<<<< HEAD
 		$new_markup_colon    = GFCommon::is_legacy_markup_enabled( $form ) ? '' : '<div class="' . $colon_pmam_placement . ' hour_minute_colon gform-grid-col">:</div>';
 
 		if ( $is_sub_label_above ) {
@@ -364,11 +445,26 @@ class GF_Field_Time extends GF_Field {
                         <div class='gfield_time_minute ginput_container ginput_container_time gform-grid-col'>
                             <label class='gform-field-label gform-field-label--type-sub minute_label{$minute_label_class}' for='{$field_id}_2'>{$minute_label}</label>
                             <input type='{$input_type}' name='input_{$id}[]' id='{$field_id}_2' value='{$minute}' {$minute_tabindex} {$minute_html5_attributes} {$disabled_text} {$minute_placeholder_attribute} {$minute_aria_attributes}/>
+=======
+		$new_markup_colon    = GFCommon::is_legacy_markup_enabled( $form ) ? '' : '<div class="' . $colon_pmam_placement . ' hour_minute_colon">:</div>';
+
+		if ( $is_sub_label_above ) {
+			$markup = "{$clear_multi_div_open}
+                        <div class='gfield_time_hour ginput_container ginput_container_time' id='{$field_id}'>
+                            <label class='hour_label{$hour_label_class}' for='{$field_id}_1' {$sub_label_class_attribute}>{$hour_label}</label>
+                            <input type='{$input_type}' maxlength='2' name='input_{$id}[]' id='{$field_id}_1' value='{$hour}' {$hour_tabindex} {$hour_html5_attributes} {$disabled_text} {$hour_placeholder_attribute} {$hour_aria_attributes} {$aria_describedby}/> {$legacy_markup_colon}
+                        </div>
+                        {$new_markup_colon}
+                        <div class='gfield_time_minute ginput_container ginput_container_time'>
+                            <label class='minute_label{$minute_label_class}' for='{$field_id}_2' {$sub_label_class_attribute}>{$minute_label}</label>
+                            <input type='{$input_type}' maxlength='2' name='input_{$id}[]' id='{$field_id}_2' value='{$minute}' {$minute_tabindex} {$minute_html5_attributes} {$disabled_text} {$minute_placeholder_attribute} {$minute_aria_attributes}/>
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
                         </div>
                         {$ampm_field}
                     {$clear_multi_div_close}";
 		} else {
 			$markup = "{$clear_multi_div_open}
+<<<<<<< HEAD
                         <div class='gfield_time_hour ginput_container ginput_container_time gform-grid-col' id='{$field_id}'>
                             <input type='{$input_type}' name='input_{$id}[]' id='{$field_id}_1' value='{$hour}' {$hour_tabindex} {$hour_html5_attributes} {$disabled_text} {$hour_placeholder_attribute} {$hour_aria_attributes} {$aria_describedby}/> {$legacy_markup_colon}
                             <label class='gform-field-label gform-field-label--type-sub hour_label{$hour_label_class}' for='{$field_id}_1'>{$hour_label}</label>
@@ -377,13 +473,27 @@ class GF_Field_Time extends GF_Field {
                         <div class='gfield_time_minute ginput_container ginput_container_time gform-grid-col'>
                             <input type='{$input_type}' name='input_{$id}[]' id='{$field_id}_2' value='{$minute}' {$minute_tabindex} {$minute_html5_attributes} {$disabled_text} {$minute_placeholder_attribute} {$minute_aria_attributes}/>
                             <label class='gform-field-label gform-field-label--type-sub minute_label{$minute_label_class}' for='{$field_id}_2'>{$minute_label}</label>
+=======
+                        <div class='gfield_time_hour ginput_container ginput_container_time' id='{$field_id}'>
+                            <input type='{$input_type}' maxlength='2' name='input_{$id}[]' id='{$field_id}_1' value='{$hour}' {$hour_tabindex} {$hour_html5_attributes} {$disabled_text} {$hour_placeholder_attribute} {$hour_aria_attributes} {$aria_describedby}/> {$legacy_markup_colon}
+                            <label class='hour_label{$hour_label_class}' for='{$field_id}_1' {$sub_label_class_attribute}>{$hour_label}</label>
+                        </div>
+                        {$new_markup_colon}
+                        <div class='gfield_time_minute ginput_container ginput_container_time'>
+                            <input type='{$input_type}' maxlength='2' name='input_{$id}[]' id='{$field_id}_2' value='{$minute}' {$minute_tabindex} {$minute_html5_attributes} {$disabled_text} {$minute_placeholder_attribute} {$minute_aria_attributes}/>
+                            <label class='minute_label{$minute_label_class}' for='{$field_id}_2' {$sub_label_class_attribute}>{$minute_label}</label>
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
                         </div>
                         {$ampm_field}
                     {$clear_multi_div_close}";
 		}
 
 
+<<<<<<< HEAD
 		return sprintf( '<div class="ginput_container ginput_complex gform-grid-row">%s</div>', $markup );
+=======
+		return sprintf( '<div class="ginput_complex">%s</div>', $markup );
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 	}
 
 	/**
@@ -411,6 +521,7 @@ class GF_Field_Time extends GF_Field {
 	 */
 	public function is_value_submission_empty( $form_id ) {
 		$value = rgpost( 'input_' . $this->id );
+<<<<<<< HEAD
 
 		if ( ! is_array( $value ) ) {
 			return strlen( trim( $value ) ) <= 0;
@@ -420,6 +531,14 @@ class GF_Field_Time extends GF_Field {
 		unset( $value[2] );
 
 		return GFCommon::is_empty_array( $value );
+=======
+		if ( is_array( $value ) ) {
+			// If some but not all inputs are empty, return false so that this field's validation method will be triggered.
+			return empty( array_filter( $value ) );
+		} else {
+			return strlen( trim( $value ) ) <= 0;
+		}
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 	}
 
 	/**
@@ -473,6 +592,7 @@ class GF_Field_Time extends GF_Field {
 		}
 
 		if ( ! is_array( $value ) && ! empty( $value ) ) {
+<<<<<<< HEAD
 			if ( $this->is_administrative() && str_starts_with( $value, '{' ) ) {
 				$value = json_decode( $value, true );
 				if ( empty( $value ) ) {
@@ -489,6 +609,17 @@ class GF_Field_Time extends GF_Field {
 		}
 		$hour   = wp_strip_all_tags( rgar( $value, 0 ) );
 		$minute = wp_strip_all_tags( rgar( $value, 1 ) );
+=======
+			preg_match( '/^(\d*):(\d*) ?(.*)$/', $value, $matches );
+			$value    = array();
+			$value[0] = $matches[1];
+			$value[1] = $matches[2];
+			$value[2] = rgar( $matches, 3 );
+		}
+
+		$hour   = wp_strip_all_tags( $value[0] );
+		$minute = wp_strip_all_tags( $value[1] );
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 		$ampm   = wp_strip_all_tags( rgar( $value, 2 ) );
 		if ( ! empty( $ampm ) ) {
 			$ampm = " $ampm";
@@ -522,6 +653,7 @@ class GF_Field_Time extends GF_Field {
 	}
 
 	/**
+<<<<<<< HEAD
 	 * Returns the scripts to be included for this field type in the form editor.
 	 *
 	 * @since 2.6
@@ -534,6 +666,8 @@ class GF_Field_Time extends GF_Field {
 	}
 
 	/**
+=======
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 	 * Overrides GF_Field to prevent the standard input ID from being used.
 	 *
 	 * @since  Unknown

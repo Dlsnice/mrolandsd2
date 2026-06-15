@@ -55,6 +55,13 @@ class GF_Field_Post_Category extends GF_Field {
 			'conditional_logic_field_setting',
 		);
 	}
+<<<<<<< HEAD
 }
 
 GF_Fields::register( new GF_Field_Post_Category() );
+=======
+
+}
+
+GF_Fields::register( new GF_Field_Post_Category() );
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6

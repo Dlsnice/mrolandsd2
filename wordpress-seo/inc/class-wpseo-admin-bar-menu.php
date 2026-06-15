@@ -284,6 +284,10 @@ class WPSEO_Admin_Bar_Menu implements WPSEO_WordPress_Integration {
 			$this->add_network_settings_submenu( $wp_admin_bar );
 		}
 
+<<<<<<< HEAD
+=======
+		$this->add_academy_link( $wp_admin_bar );
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 		$this->add_premium_link( $wp_admin_bar );
 		$this->add_brand_insights_link( $wp_admin_bar );
 	}
@@ -578,7 +582,32 @@ class WPSEO_Admin_Bar_Menu implements WPSEO_WordPress_Integration {
 	}
 
 	/**
+<<<<<<< HEAD
 	 * Adds the admin bar How To submenu.
+=======
+	 * Adds the Academy link to the admin bar.
+	 *
+	 * @param WP_Admin_Bar $wp_admin_bar Admin bar instance to add the menu to.
+	 *
+	 * @return void
+	 */
+	protected function add_academy_link( WP_Admin_Bar $wp_admin_bar ) {
+		$wp_admin_bar->add_menu(
+			[
+				'parent' => self::MENU_IDENTIFIER,
+				'id'     => 'wpseo-academy',
+				'title'  => __( 'Academy', 'wordpress-seo' ),
+				'href'   => admin_url( 'admin.php?page=wpseo_page_academy' ),
+				'meta'   => [
+					'tabindex' => '0',
+				],
+			],
+		);
+	}
+
+	/**
+	 * Adds the Upgrade link to the admin bar.
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 	 *
 	 * @param WP_Admin_Bar $wp_admin_bar Admin bar instance to add the menu to.
 	 *
@@ -691,6 +720,14 @@ class WPSEO_Admin_Bar_Menu implements WPSEO_WordPress_Integration {
 				continue;
 			}
 
+<<<<<<< HEAD
+=======
+			// Don't add the Academy menu item (it's now in the main menu).
+			if ( $submenu_page[4] === 'wpseo_page_academy' ) {
+				continue;
+			}
+
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 			// Don't add the Brand Insights menu items (they're now in the main menu).
 			if ( $submenu_page[4] === 'wpseo_brand_insights' || $submenu_page[4] === 'wpseo_brand_insights_premium' ) {
 				continue;

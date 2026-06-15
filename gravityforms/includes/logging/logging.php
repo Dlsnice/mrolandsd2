@@ -181,8 +181,11 @@ class GFLogging extends GFAddOn {
 		remove_filter( 'ure_capabilities_groups_tree', array( $this, 'filter_ure_capabilities_groups_tree' ), 11 );
 		remove_filter( 'ure_custom_capability_groups', array( $this, 'filter_ure_custom_capability_groups' ), 10 );
 
+<<<<<<< HEAD
         // Registering config for client side logger
         $this->register_config();
+=======
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 	}
 
 	/**
@@ -439,7 +442,11 @@ class GFLogging extends GFAddOn {
 			if ( $this->log_file_exists( $plugin_slug ) ) {
 				$delete_url = add_query_arg( array( 'delete_log' => $plugin_slug, $this->_nonce_action => $nonce ), admin_url( 'admin.php?page=gf_settings&subview=gravityformslogging' ) );
 				$after_select  = '<br />';
+<<<<<<< HEAD
 				$after_select .= '<span style="font-size:85%"><a href="' . esc_attr( $this->get_log_file_url( $plugin_slug ) ) . '" target="_blank">' . esc_html__( 'view log', 'gravityforms' ) . '<span class="screen-reader-text">' . esc_html__( '(opens in a new tab)', 'gravityforms' ) . '</span>&nbsp;<span class="gform-icon gform-icon--external-link" aria-hidden="true"></span></a>';
+=======
+				$after_select .= '<span style="font-size:85%"><a href="' . esc_attr( $this->get_log_file_url( $plugin_slug ) ) . '" target="_blank">' . esc_html__( 'view log', 'gravityforms' ) . '</a>';
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 				$after_select .= '&nbsp;&nbsp;<a href="' . $delete_url . '">' . esc_html__( 'delete log', 'gravityforms' ) . '</a>';
 				$after_select .= '&nbsp;&nbsp;(' . $this->get_log_file_size( $plugin_slug ) . ')</span>';
 			}
@@ -548,6 +555,7 @@ class GFLogging extends GFAddOn {
 	 */
 	public static function log_message( $plugin, $message = null, $message_type = KLogger::DEBUG ) {
 
+<<<<<<< HEAD
 		$enabled = self::is_enabled( $plugin );
 
 		/**
@@ -563,6 +571,8 @@ class GFLogging extends GFAddOn {
 		 */
 		do_action( 'gform_pre_log_message', $plugin, $message, $message_type, $enabled );
 
+=======
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 		// If message is empty, exit.
 		if ( rgblank( $message ) || ! class_exists( 'GFForms' ) || ! get_option( 'gform_enable_logging' ) ) {
 			return;
@@ -576,12 +586,20 @@ class GFLogging extends GFAddOn {
 		$plugin_setting = $instance->get_plugin_setting( $plugin );
 
 		// If logging is turned off, exit.
+<<<<<<< HEAD
 		if ( ! rgar( $plugin_setting, 'enable' ) ) {
+=======
+		if ( rgempty( 'enable', $plugin_setting ) ) {
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 			return;
 		}
 
 		// Log message.
+<<<<<<< HEAD
 		$log = $instance->get_logger( $plugin, rgar( $plugin_setting, 'log_level', KLogger::DEBUG ) );
+=======
+		$log = $instance->get_logger( $plugin, $plugin_setting['log_level'] );
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 
 		/**
 		* Filters the logging message.
@@ -603,6 +621,7 @@ class GFLogging extends GFAddOn {
 	}
 
 	/**
+<<<<<<< HEAD
 	 * Determines if logging is enabled for a plugin.
 	 *
 	 * @since 2.9.26
@@ -630,6 +649,8 @@ class GFLogging extends GFAddOn {
 	}
 
 	/**
+=======
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 	 * Delete log file for plugin.
 	 *
 	 * @since  2.2
@@ -716,7 +737,11 @@ class GFLogging extends GFAddOn {
 
 		$plugin_setting = $this->get_plugin_setting( $plugin_name );
 
+<<<<<<< HEAD
 		if ( ! rgar( $plugin_setting, 'file_name' ) ) {
+=======
+		if ( rgempty( 'file_name', $plugin_setting ) ) {
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 			return '';
 		}
 
@@ -766,6 +791,7 @@ class GFLogging extends GFAddOn {
 	}
 
 	/**
+<<<<<<< HEAD
 	 * Get log file size by plugin slug or file path.
 	 *
 	 * @since 1.2.1
@@ -780,6 +806,20 @@ class GFLogging extends GFAddOn {
 
 		// Get log file name.
 		$file = $is_path ? $plugin_name_or_path : $this->get_log_file_name( $plugin_name_or_path );
+=======
+	 * Get log file size for plugin
+	 *
+	 * @since 1.2.1
+	 * @access public
+	 * @param  string $plugin_name Plugin slug.
+	 *
+	 * @return string File size with unit of measurement.
+	 */
+	public function get_log_file_size( $plugin_name ) {
+
+		// Get log file name.
+		$file = $this->get_log_file_name( $plugin_name );
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 
 		// Get log file size.
 		$size = filesize( $file );
@@ -792,6 +832,7 @@ class GFLogging extends GFAddOn {
 		return $size;
 
 	}
+<<<<<<< HEAD
     /**
      * Register config for client side logger
      *
@@ -803,6 +844,8 @@ class GFLogging extends GFAddOn {
         $config_collection = $container->get( Gravity_Forms\Gravity_Forms\Config\GF_Config_Service_Provider::CONFIG_COLLECTION );
         $config_collection->add_config( new Gravity_Forms\Gravity_Forms\Logging\Config\GF_Logging_Config( $container->get( Gravity_Forms\Gravity_Forms\Config\GF_Config_Service_Provider::DATA_PARSER ) ) );
 	}
+=======
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 
 	/**
 	 * Include KLogger library.
@@ -1054,7 +1097,11 @@ class GFLogging extends GFAddOn {
 				}
 
 				// Save new settings.
+<<<<<<< HEAD
 				update_blog_option( $blog_id, 'gravityformsaddon_' . $this->get_slug() . '_settings', $new_settings );
+=======
+				update_blog_option( $blog_id, 'gravityformsaddon_' . $this->_slug . '_settings', $new_settings );
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 
 				// Delete old settings.
 				delete_blog_option( $blog_id, 'gf_logging_settings' );
@@ -1132,7 +1179,11 @@ class GFLogging extends GFAddOn {
 
 	public function delete_settings() {
 		delete_option( 'gform_enable_logging' );
+<<<<<<< HEAD
 		delete_option( 'gravityformsaddon_' . $this->get_slug() . '_settings' );
+=======
+		delete_option( 'gravityformsaddon_' . $this->_slug . '_settings' );
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 	}
 
 	/**

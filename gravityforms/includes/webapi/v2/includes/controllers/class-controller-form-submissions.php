@@ -45,10 +45,13 @@ class GF_REST_Form_Submissions_Controller extends GF_REST_Controller {
 	 * @return WP_Error|WP_REST_Response
 	 */
 	public function create_item( $request ) {
+<<<<<<< HEAD
 		if ( rgar( $request->get_query_params(), '_validate_only' ) ) {
 			return ( new GF_REST_Form_Submissions_Validation_Controller() )->validate_form( $request );
 		}
 
+=======
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 		$form_id = $request['form_id'];
 
 		$params = $request->get_json_params();
@@ -71,8 +74,11 @@ class GF_REST_Form_Submissions_Controller extends GF_REST_Controller {
 			return new WP_Error( $result->get_error_code(), $result->get_error_message(), array( 'status' => 400 ) );
 		}
 
+<<<<<<< HEAD
 		unset( $result['form'] );
 
+=======
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 		if ( ! current_user_can( 'gravityforms_view_entries' ) && ! current_user_can( 'gravityforms_edit_entries' ) ) {
 			unset( $result['entry_id'] );
 		}
@@ -149,7 +155,11 @@ class GF_REST_Form_Submissions_Controller extends GF_REST_Controller {
 				),
 				'field_values' => array(
 					'description' => __( 'The field values.', 'gravityforms' ),
+<<<<<<< HEAD
 					'type'        => array( 'string', 'array' ),
+=======
+					'type'        => 'string',
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 				),
 				'target_page'  => array(
 					'description' => 'The target page number.',

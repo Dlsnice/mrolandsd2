@@ -51,8 +51,11 @@ if ( ! class_exists( 'GFResults' ) ) {
 				require_once( GFCommon::get_base_path() . '/tooltips.php' );
 				add_filter( 'gform_tooltips', array( $this, 'add_tooltips' ) );
 
+<<<<<<< HEAD
 				add_filter( 'admin_title', array( $this, 'set_unique_page_title' ), 100, 2 );
 
+=======
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 			}
 
 		}
@@ -106,10 +109,16 @@ if ( ! class_exists( 'GFResults' ) ) {
 			if ( false === empty( $results_fields ) ) {
 				$form_id    = $form_meta['id'];
 				$link_class = '';
+<<<<<<< HEAD
 				$page       = GFForms::get_page_query_arg();
 				if ( $page == 'gf_new_form' ) {
 					$link_class = 'gf_toolbar_disabled';
 				} elseif ( $page == 'gf_entries' && rgget( 'view' ) == 'gf_results_' . $this->_slug ) {
+=======
+				if ( rgget( 'page' ) == 'gf_new_form' ) {
+					$link_class = 'gf_toolbar_disabled';
+				} elseif ( rgget( 'page' ) == 'gf_entries' && rgget( 'view' ) == 'gf_results_' . $this->_slug ) {
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 					$link_class = 'gf_toolbar_active';
 				}
 
@@ -180,7 +189,11 @@ if ( ! class_exists( 'GFResults' ) ) {
 			}
 		}
 
+<<<<<<< HEAD
 		public function results_page($form_id, $page_title, $gf_page, $gf_view ) {
+=======
+		public function results_page( $form_id, $page_title, $gf_page, $gf_view ) {
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 			$form_id = absint( $form_id );
 			if ( empty( $form_id ) ) {
 				$forms = RGFormsModel::get_forms();
@@ -216,17 +229,33 @@ if ( ! class_exists( 'GFResults' ) ) {
 				}
 				$init_vars['filters'] = $filters;
 			}
+<<<<<<< HEAD
+=======
+			$min = defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG || isset( $_GET['gform_debug'] ) ? '' : '.min';
+			$admin_css_url = GFCommon::get_base_url() . "/css/admin{$min}.css?ver=" . GFForms::$version;
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 			?>
 			<script type="text/javascript">
 				var gresultsFields = <?php echo json_encode( $all_fields ); ?>;
 				var gresultsFilterSettings = <?php echo json_encode( $filter_settings ); ?>;
+<<<<<<< HEAD
 				var gresultsInitVars = <?php echo json_encode( $init_vars ); // nosemgrep scanner.php.lang.security.xss.direct-reflected ?>;
+=======
+				var gresultsInitVars = <?php echo json_encode( $init_vars ); ?>;
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 
 				<?php GFCommon::gf_global() ?>
 				<?php GFCommon::gf_vars() ?>
 			</script>
 
+<<<<<<< HEAD
 			<div class="wrap gforms_edit_form <?php echo esc_attr( GFCommon::get_browser_class() ); ?>">
+=======
+			<link rel="stylesheet"
+			      href="<?php echo esc_url( $admin_css_url ); ?>"
+			      type="text/css"/>
+			<div class="wrap gforms_edit_form <?php echo GFCommon::get_browser_class() ?>">
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 
 				<?php //GFCommon::form_page_title( $form ); ?>
 				<?php //GFCommon::display_dismissible_message(); ?>
@@ -237,7 +266,11 @@ if ( ! class_exists( 'GFResults' ) ) {
 					<div id="poststuff" class="metabox-holder has-right-sidebar">
 						<div id="side-info-column" class="inner-sidebar">
 							<div id="gresults-results-filter" class="gform-settings-panel__content postbox">
+<<<<<<< HEAD
 								<h2><?php echo esc_html( $this->_search_title ); ?></h2>
+=======
+								<h2><?php echo $this->_search_title ?></h2>
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 
 								<div id="gresults-results-filter-content">
 									<form id="gresults-results-filter-form" action="" method="GET">
@@ -261,13 +294,21 @@ if ( ! class_exists( 'GFResults' ) ) {
 											'start_date' => array(
 												'label'   => esc_attr__( 'Start date', 'gravityforms' ),
 												'markup'  => '<div class="gform-settings-field gform-settings-field__date_time">
+<<<<<<< HEAD
 																	<span class="gform-settings-input__container"><input type="text" id="gresults-results-filter-date-start" name="start" value="' . esc_attr( $start_date ) . '"/><button type="button" class="ui-datepicker-trigger"><span class="screen-reader-text">'.esc_html__( 'Open Date Picker', 'gravityforms' ).'</span><svg width="18" height="18" role="presentation" focusable="false" fill="#9092B2" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M13.0909 1.6364V1.231C13.0909.5513 13.6357 0 14.3182 0c.6778 0 1.2273.5468 1.2273 1.2311v.4053h.8254c.8997 0 1.6291.7349 1.6291 1.6288v13.106C18 17.2707 17.2721 18 16.3709 18H1.6291C.7294 18 0 17.2651 0 16.3712V3.2652c0-.8996.728-1.6288 1.6291-1.6288h.8254V1.231C2.4545.5513 2.9993 0 3.6818 0c.6778 0 1.2273.5468 1.2273 1.2311v.4053h2.4545V1.231C7.3636.5513 7.9084 0 8.591 0c.6778 0 1.2273.5468 1.2273 1.2311v.4053h3.2727zM1.6364 7.3636v9h14.7272v-9H1.6364z"></path></svg></button></span>
+=======
+																	<span class="gform-settings-input__container"><input type="text" id="gresults-results-filter-date-start" name="start" value="' . esc_attr( $start_date ) . '"/><button type="button" class="ui-datepicker-trigger"><span class="screen-reader-text">'.esc_html__( 'Open Date Picker', 'gravityforms' ).'</span><svg width="18" height="18" fill="#9092B2" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M13.0909 1.6364V1.231C13.0909.5513 13.6357 0 14.3182 0c.6778 0 1.2273.5468 1.2273 1.2311v.4053h.8254c.8997 0 1.6291.7349 1.6291 1.6288v13.106C18 17.2707 17.2721 18 16.3709 18H1.6291C.7294 18 0 17.2651 0 16.3712V3.2652c0-.8996.728-1.6288 1.6291-1.6288h.8254V1.231C2.4545.5513 2.9993 0 3.6818 0c.6778 0 1.2273.5468 1.2273 1.2311v.4053h2.4545V1.231C7.3636.5513 7.9084 0 8.591 0c.6778 0 1.2273.5468 1.2273 1.2311v.4053h3.2727zM1.6364 7.3636v9h14.7272v-9H1.6364z"></path></svg></button></span>
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 																</div>',
 											),
 											'end_date'   => array(
 												'label'   => esc_attr__( 'End date', 'gravityforms' ),
 												'markup'  => '<div class="gform-settings-field gform-settings-field__date_time" >
+<<<<<<< HEAD
 																	<span class="gform-settings-input__container"><input type="text" id="gresults-results-filter-date-end" name="end" value="' . esc_attr( $end_date ) . '"/><button type="button" class="ui-datepicker-trigger"><span class="screen-reader-text">'.esc_html__( 'Open Date Picker', 'gravityforms' ).'</span><svg width="18" height="18" role="presentation" focusable="false"  fill="#9092B2" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M13.0909 1.6364V1.231C13.0909.5513 13.6357 0 14.3182 0c.6778 0 1.2273.5468 1.2273 1.2311v.4053h.8254c.8997 0 1.6291.7349 1.6291 1.6288v13.106C18 17.2707 17.2721 18 16.3709 18H1.6291C.7294 18 0 17.2651 0 16.3712V3.2652c0-.8996.728-1.6288 1.6291-1.6288h.8254V1.231C2.4545.5513 2.9993 0 3.6818 0c.6778 0 1.2273.5468 1.2273 1.2311v.4053h2.4545V1.231C7.3636.5513 7.9084 0 8.591 0c.6778 0 1.2273.5468 1.2273 1.2311v.4053h3.2727zM1.6364 7.3636v9h14.7272v-9H1.6364z"></path></svg></button></span>
+=======
+																	<span class="gform-settings-input__container"><input type="text" id="gresults-results-filter-date-end" name="end" value="' . esc_attr( $end_date ) . '"/><button type="button" class="ui-datepicker-trigger"><span class="screen-reader-text">'.esc_html__( 'Open Date Picker', 'gravityforms' ).'</span><svg width="18" height="18" fill="#9092B2" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M13.0909 1.6364V1.231C13.0909.5513 13.6357 0 14.3182 0c.6778 0 1.2273.5468 1.2273 1.2311v.4053h.8254c.8997 0 1.6291.7349 1.6291 1.6288v13.106C18 17.2707 17.2721 18 16.3709 18H1.6291C.7294 18 0 17.2651 0 16.3712V3.2652c0-.8996.728-1.6288 1.6291-1.6288h.8254V1.231C2.4545.5513 2.9993 0 3.6818 0c.6778 0 1.2273.5468 1.2273 1.2311v.4053h2.4545V1.231C7.3636.5513 7.9084 0 8.591 0c.6778 0 1.2273.5468 1.2273 1.2311v.4053h3.2727zM1.6364 7.3636v9h14.7272v-9H1.6364z"></path></svg></button></span>
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 																</div>',
 											),
 										);
@@ -275,9 +316,15 @@ if ( ! class_exists( 'GFResults' ) ) {
 
 										foreach ( $filter_ui as $name => $filter ) {
 											?>
+<<<<<<< HEAD
 											<div class="gform-settings-field__header"><label class='gform-settings-label'><?php echo esc_html( $filter['label'] ); ?><?php gform_tooltip( rgar( $filter, 'tooltip' ), 'tooltip_bottomleft' ) ?></label></div>
 											<?php
 											echo $filter['markup']; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+=======
+											<div class="gform-settings-field__header"><label class='gform-settings-label'><?php echo $filter['label'] ?><?php gform_tooltip( rgar( $filter, 'tooltip' ), 'tooltip_bottomleft' ) ?></label></div>
+											<?php
+											echo $filter['markup'];
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 										}
 
 										?>
@@ -315,7 +362,11 @@ if ( ! class_exists( 'GFResults' ) ) {
 
 				<?php
 				else :
+<<<<<<< HEAD
 					esc_html_e( 'This form does not have any fields that can be used for results', 'gravityforms' );
+=======
+					_e( 'This form does not have any fields that can be used for results', 'gravityforms' );
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 				endif ?>
 			</div>
 
@@ -379,7 +430,11 @@ if ( ! class_exists( 'GFResults' ) ) {
 				$output['s']               = http_build_query( $search_criteria );
 				$state_array               = null;
 				if ( isset( $_POST['state'] ) ) {
+<<<<<<< HEAD
 					$state               = rgpost( 'state' );
+=======
+					$state               = $_POST['state'];
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 					$posted_check_sum    = rgpost( 'checkSum' );
 					$generated_check_sum = self::generate_checksum( $state );
 					$state_array         = json_decode( base64_decode( $state ), true );
@@ -457,7 +512,11 @@ if ( ! class_exists( 'GFResults' ) ) {
 			$response['html']           = $html;
 			$response['offset']         = $offset;
 
+<<<<<<< HEAD
 			echo json_encode( $response ); // nosemgrep scanner.php.lang.security.xss.direct-reflected
+=======
+			echo json_encode( $response );
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 			die();
 		}
 
@@ -535,10 +594,15 @@ if ( ! class_exists( 'GFResults' ) ) {
 							'viewWindowMode' => 'explicit',
 							'viewWindow'     => array( 'min' => 0 ),
 							'title'          => esc_html__( 'Frequency', 'gravityforms' ),
+<<<<<<< HEAD
 						),
 						'tooltip'   => array(
 							'isHtml' => true,
 						),
+=======
+						)
+
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 					);
 
 					$data_table_json = htmlentities( json_encode( $data_table ), ENT_QUOTES, 'UTF-8', true );
@@ -891,6 +955,7 @@ if ( ! class_exists( 'GFResults' ) ) {
 			) ) ? GFSurvey::get_field_score( $field, $entry ) : 0;
 		}
 
+<<<<<<< HEAD
 		/**
 		 * Sets a unique page title to the results page based on the title
 		 * and the form the user is viewing.
@@ -917,6 +982,8 @@ if ( ! class_exists( 'GFResults' ) ) {
 			
 			return $admin_title; 
 		}
+=======
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 
 		public static function get_default_field_results( $form_id, $field, $search_criteria, &$offset, $page_size, &$more_remaining = false ) {
 			$field_results = '';

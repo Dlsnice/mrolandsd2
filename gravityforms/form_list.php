@@ -9,6 +9,13 @@ class GFFormList {
 	public static function form_list_page() {
 		global $wpdb;
 
+<<<<<<< HEAD
+=======
+		// todo: hook up bulk action confirmation js
+		// todo: apply button filter
+
+
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 		if ( ! GFCommon::ensure_wp_version() ) {
 			return;
 		}
@@ -17,7 +24,11 @@ class GFFormList {
 
 		add_action( 'admin_print_footer_scripts', array( __class__, 'output_form_list_script_block' ), 20 );
 
+<<<<<<< HEAD
 		$min = defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG || isset( $_GET['gform_debug'] ) ? '' : '.min'; // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+=======
+		$min = defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG || isset( $_GET['gform_debug'] ) ? '' : '.min';
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 
 		?>
 
@@ -33,6 +44,10 @@ class GFFormList {
 		</style>
 
 		<?php if ( GFCommon::current_user_can_any( 'gravityforms_create_form' ) ) { ?>
+<<<<<<< HEAD
+=======
+
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 		<div id="gf_new_form_modal" style="display:none;">
 				<div class="gform-settings__wrapper ">
 					<div class="gform-settings-panel__content">
@@ -57,7 +72,11 @@ class GFFormList {
 								 *
 								 * @param string The HTML rendered for the "New Form" button.
 								 */
+<<<<<<< HEAD
 								echo apply_filters( 'gform_new_form_button', '<button type="submit" value="save" id="save_new_form" class="button large primary" tabindex="9002">' . esc_html__( 'Create Form', 'gravityforms' ) . '</button>' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
+=======
+								echo apply_filters( 'gform_new_form_button', '<button type="submit" value="save" id="save_new_form" class="button large primary" tabindex="9002">' . esc_html__( 'Create Form', 'gravityforms' ) . '</button>' ); ?>
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 							</div>
 						</form>
 					</div>
@@ -107,12 +126,20 @@ class GFFormList {
 
 				jQuery.ajax(
 					{
+<<<<<<< HEAD
 						url:      '<?php echo esc_js( esc_url_raw( admin_url( 'admin-ajax.php' ) ) ); ?>',
+=======
+						url:      '<?php echo admin_url( 'admin-ajax.php' ); ?>',
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 						method:   'POST',
 						dataType: 'json',
 						data: {
 							action: 'rg_update_form_active',
+<<<<<<< HEAD
 							rg_update_form_active: '<?php echo esc_js( wp_create_nonce( 'rg_update_form_active' ) ); ?>',
+=======
+							rg_update_form_active: '<?php echo wp_create_nonce( 'rg_update_form_active' ); ?>',
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 							form_id: form_id,
 							is_active: is_active ? 0 : 1,
 						},
@@ -173,12 +200,19 @@ class GFFormList {
                 $table = new GF_Form_List_Table();
                 $table->process_action();
 		?>
+<<<<<<< HEAD
 
+=======
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
                 <div class="gform-settings-panel__content form-list">
                     <div class="form-list-head">
                     <h2> <?php esc_html_e( 'Forms', 'gravityforms' ); ?> </h2>
                         <?php if ( GFCommon::current_user_can_any( 'gravityforms_create_form' ) ) {
+<<<<<<< HEAD
                             echo '<button class="button gform-add-new-form primary add-new-h2" data-js="gform-add-new-form">' . esc_html__( 'Add New', 'gravityforms' ) . '</button>';
+=======
+                            echo '<button class="button gform-add-new-form primary add-new-h2" onclick="return loadNewFormModal();" onkeypress="return loadNewFormModal();">' . esc_html__( 'Add New', 'gravityforms' ) . '</button>';
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
                         } ?>
                     </div>
                     <div class="form-list-nav">
@@ -243,12 +277,24 @@ class GFFormList {
 
 	public static function output_form_list_script_block() {
 		?>
+<<<<<<< HEAD
 		<script type="text/javascript">
 			jQuery( document ).ready( function( $ ) {
 				$( 'body' ).addClass( 'gform_new_form' );
 				// load new form modal on New Form page
 				<?php if ( GFForms::get_page_query_arg() == 'gf_new_form' && ! rgget( 'paged' ) ) :    ?>
 					loadNewFormModal();
+=======
+
+		<script type="text/javascript">
+
+			jQuery( document ).ready( function( $ ) {
+
+				$( 'body' ).addClass( 'gform_new_form' );
+				// load new form modal on New Form page
+				<?php if ( rgget( 'page' ) == 'gf_new_form' && ! rgget( 'paged' ) ) :    ?>
+				loadNewFormModal();
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 				<?php endif; ?>
 
 				// form settings submenu support
@@ -291,7 +337,10 @@ class GFFormList {
 			} );
 
 			function loadNewFormModal() {
+<<<<<<< HEAD
 				return;
+=======
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 				resetNewFormModal();
 				tb_show(<?php echo json_encode( '<div class="tb-title"><div class="tb-title__logo"></div><div class="tb-title__text"><div class="tb-title__main">'.esc_html__( 'Create a New Form', 'gravityforms' ).'</div><div class="tb-title__sub">'.esc_html__('Provide a title and a description for this form', 'gravityforms').'</div></div></div>' ); ?>, '#TB_inline?width=490&amp;height=auto&amp;inlineId=gf_new_form_modal');
 				jQuery('#new_form_title').focus();
@@ -316,7 +365,10 @@ class GFFormList {
 					description: jQuery('#new_form_description').val(),
 					labelPlacement:'top_label',
 					descriptionPlacement:'below',
+<<<<<<< HEAD
 					validationPlacement:'below',
+=======
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 					button: {
 						type: 'text',
 						text: <?php echo json_encode( esc_html__( 'Submit', 'gravityforms' ) ); ?>,
@@ -374,6 +426,7 @@ class GFFormList {
 
 	<?php
 	}
+<<<<<<< HEAD
 
 	/**
 	 * Returns the markup for the screen options.
@@ -511,6 +564,8 @@ class GFFormList {
 
 		return array_merge( $default_values, $option_values );
 	}
+=======
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 }
 
 if ( ! class_exists( 'WP_List_Table' ) ) {
@@ -556,10 +611,15 @@ class GF_Form_List_Table extends WP_List_Table {
 		 * @param array $form_count The form count by filter name.
 		 */
 		$form_count = apply_filters( 'gform_form_list_count', $form_count );
+<<<<<<< HEAD
   
 		$imported_forms = rgget( 'id' ) ? array_map( 'intval' ,explode( ',', rgget( 'id' )) ) : [];
 
 		$all_class = $imported_forms ? '' : ( $this->filter == '' ? 'current' : '' );
+=======
+
+		$all_class = ( $this->filter == '' ) ? 'current' : '';
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 
 		$active_class = ( $this->filter == 'active' ) ? 'current' : '';
 
@@ -573,27 +633,39 @@ class GF_Form_List_Table extends WP_List_Table {
 			'inactive' => '<a class="' . $inactive_class . '" href="?page=gf_edit_forms&filter=inactive">' . esc_html( _x( 'Inactive', 'Form List', 'gravityforms' ) ) . ' <span class="count">(<span id="inactive_count">' . $form_count['inactive'] . '</span>)</span></a>',
 			'trash' => '<a class="' . $trash_class . '" href="?page=gf_edit_forms&filter=trash">' . esc_html( _x( 'Trash', 'Form List', 'gravityforms' ) ) . ' <span class="count">(<span id="trash_count">' . $form_count['trash'] . '</span>)</span></a>',
 		);
+<<<<<<< HEAD
   
+=======
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 		return $views;
 	}
 
 	function prepare_items() {
 
+<<<<<<< HEAD
 		$sort_options = GFFormList::get_screen_options_values();
 
 		$sort_column  = empty( $_GET['orderby'] ) ? $sort_options['order_by'] : $_GET['orderby']; // phpcs:ignore WordPress.Security.NonceVerification.Recommended, WordPress.Security.ValidatedSanitizedInput.MissingUnslash, WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
+=======
+		$sort_column  = empty( $_GET['orderby'] ) ? 'title' : $_GET['orderby'];
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 		$sort_columns = array_keys( $this->get_sortable_columns() );
 
 		if ( ! in_array( strtolower( $sort_column ), $sort_columns ) ) {
 			$sort_column = 'title';
 		}
 
+<<<<<<< HEAD
 		$sort_direction = empty( $_GET['order'] ) ? $sort_options['sort_order'] : strtoupper( $_GET['order'] ); // phpcs:ignore WordPress.Security.NonceVerification.Recommended, WordPress.Security.ValidatedSanitizedInput.MissingUnslash, WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
 		$sort_direction = $sort_direction == 'ASC' ? 'ASC' : 'DESC';
 		// Retrieve IDs from Query Parameters
 		$imported_forms = rgget( 'id' ) ? explode( ',', rgget( 'id' ) ) : [];
 		$ids            = array_map( 'intval', $imported_forms );
 
+=======
+		$sort_direction = empty( $_GET['order'] ) ? 'ASC' : strtoupper( $_GET['order'] );
+		$sort_direction = $sort_direction == 'ASC' ? 'ASC' : 'DESC';
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 		$search_query   = rgget( 's' );
 		$trash = false;
 		switch ( $this->filter ) {
@@ -618,6 +690,7 @@ class GF_Form_List_Table extends WP_List_Table {
 			$forms = GFFormsModel::search_forms( $search_query, $active, $sort_column, $sort_direction, $trash );
 		}
 
+<<<<<<< HEAD
 		// Filter imported forms by IDs if there is any.
 		if ( ! rgempty( $ids ) ) {
 			$forms = array_filter( $forms, function ($form) use ($ids) {
@@ -625,6 +698,8 @@ class GF_Form_List_Table extends WP_List_Table {
 			});
 		}
 
+=======
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 		/**
 		 * Allow form list filtering.
 		 *
@@ -639,7 +714,11 @@ class GF_Form_List_Table extends WP_List_Table {
 		 */
 		$forms = apply_filters( 'gform_form_list_forms', $forms, $search_query, $active, $sort_column, $sort_direction, $trash );
 
+<<<<<<< HEAD
 		$per_page = $sort_options['per_page'];
+=======
+		$per_page = $this->get_items_per_page( 'gform_forms_per_page', 20 );
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 
 		$per_page = apply_filters( 'gform_page_size_form_list', $per_page );
 
@@ -713,6 +792,7 @@ class GF_Form_List_Table extends WP_List_Table {
 			$attributes = "class='$classes' $data";
 
 			if ( 'cb' === $column_name ) {
+<<<<<<< HEAD
 				echo '<th class="check-column">';
 				echo $this->column_cb( $item ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 				echo '</th>';
@@ -723,6 +803,18 @@ class GF_Form_List_Table extends WP_List_Table {
 				echo '</td>';
 			} elseif ( method_exists( $this, '_column_' . $column_name ) ) {
 				echo call_user_func( // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+=======
+				echo '<th scope="row" class="check-column">';
+				echo $this->column_cb( $item );
+				echo '</th>';
+			} elseif ( has_action( 'gform_form_list_column_' . $column_name ) ) {
+				echo "<td $attributes>";
+				do_action( 'gform_form_list_column_' . $column_name, $item );
+				echo $this->handle_row_actions( $item, $column_name, $primary );
+				echo '</td>';
+			} elseif ( method_exists( $this, '_column_' . $column_name ) ) {
+				echo call_user_func(
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 					array( $this, '_column_' . $column_name ),
 					$item,
 					$classes,
@@ -730,6 +822,7 @@ class GF_Form_List_Table extends WP_List_Table {
 					$primary
 				);
 			} elseif ( method_exists( $this, 'column_' . $column_name ) ) {
+<<<<<<< HEAD
 				echo "<td $attributes>"; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 				echo call_user_func( array( $this, 'column_' . $column_name ), $item ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 				echo $this->handle_row_actions( $item, $column_name, $primary ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
@@ -738,6 +831,16 @@ class GF_Form_List_Table extends WP_List_Table {
 				echo "<td $attributes>"; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 				echo $this->column_default( $item, $column_name ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 				echo $this->handle_row_actions( $item, $column_name, $primary ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+=======
+				echo "<td $attributes>";
+				echo call_user_func( array( $this, 'column_' . $column_name ), $item );
+				echo $this->handle_row_actions( $item, $column_name, $primary );
+				echo "</td>";
+			} else {
+				echo "<td $attributes>";
+				echo $this->column_default( $item, $column_name );
+				echo $this->handle_row_actions( $item, $column_name, $primary );
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 				echo "</td>";
 			}
 		}
@@ -749,7 +852,11 @@ class GF_Form_List_Table extends WP_List_Table {
 	}
 
 	function _column_is_active( $form, $classes, $data, $primary ) {
+<<<<<<< HEAD
 		echo '<td class="manage-column column-is_active">';
+=======
+		echo '<th scope="row" class="manage-column column-is_active">';
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 		if ( $this->filter !== 'trash' ) {
 			if ( $form->is_active ) {
 				$class = 'gform-status--active';
@@ -759,6 +866,7 @@ class GF_Form_List_Table extends WP_List_Table {
 				$text  = esc_html__( 'Inactive', 'gravityforms' );
 			}
 			?>
+<<<<<<< HEAD
 			<button
 				type="button"
 				class="gform-status-indicator gform-status-indicator--size-sm gform-status-indicator--theme-cosmos <?php echo esc_attr( $class ); ?>"
@@ -776,6 +884,19 @@ class GF_Form_List_Table extends WP_List_Table {
 
 	function column_title( $form ) {
 		echo '<strong><a href="?page=gf_edit_forms&id='. absint( $form->id ) .'" aria-label="' . esc_attr( $form->title ) . ' ' . esc_attr( '(Edit)', 'gravityforms' ) . '">' . esc_html( $form->title ) . '</a></strong>';
+=======
+			<button type="button" class="gform-status-indicator <?php echo esc_attr( $class ); ?>" onclick="ToggleActive( this, <?php echo absint( $form->id ); ?> );" onkeypress="ToggleActive( this, <?php echo absint( $form->id ); ?> );">
+				<svg viewBox="0 0 6 6" xmlns="http://www.w3.org/2000/svg"><circle cx="3" cy="2" r="1" stroke-width="2"/></svg>
+				<span class="gform-status-indicator-status"><?php echo esc_html( $text ); ?></span>
+			</button>
+			<?php
+		}
+		echo '</th>';
+	}
+
+	function column_title( $form ) {
+		echo '<strong><a href="?page=gf_edit_forms&id='. absint( $form->id ) .'">' . esc_html( $form->title ) . '</a></strong>';
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 	}
 
 	function column_id( $form ) {
@@ -795,13 +916,21 @@ class GF_Form_List_Table extends WP_List_Table {
 		if ( $form->view_count > 0 ) {
 			$conversion = ( (float) number_format( $form->entry_count / $form->view_count, 3 ) * 100 ) . '%';
 		}
+<<<<<<< HEAD
 		echo $conversion; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+=======
+		echo $conversion;
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 	}
 
 	function column_cb( $form ) {
 		$form_id = $form->id;
 		?>
+<<<<<<< HEAD
 		<label class="screen-reader-text" for="cb-select-<?php echo esc_attr( $form_id ); ?>"><?php esc_html_e( 'Select form' ); ?></label>
+=======
+		<label class="screen-reader-text" for="cb-select-<?php echo esc_attr( $form_id ); ?>"><?php _e( 'Select form' ); ?></label>
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 		<input type="checkbox" class="gform_list_checkbox" name="form[]" value="<?php echo esc_attr( $form_id ); ?>" />
 		<?php
 		$this->locking_info->lock_indicator();
@@ -868,7 +997,11 @@ class GF_Form_List_Table extends WP_List_Table {
 
 			$form_actions = apply_filters( 'gform_form_actions', $form_actions, $form->id );
 
+<<<<<<< HEAD
 			echo GFForms::format_toolbar_menu_items( $form_actions, true ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+=======
+			echo GFForms::format_toolbar_menu_items( $form_actions, true );
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 
 			?>
 
@@ -881,7 +1014,11 @@ class GF_Form_List_Table extends WP_List_Table {
 		if ( rgget( 's' ) ) {
 			printf(
 				esc_html__( "No forms were found for your search query. %sView all forms%s.", 'gravityforms' ),
+<<<<<<< HEAD
 				'<a href="' . esc_url( remove_query_arg( 's' ) ) . '">',
+=======
+				'<a href="' . remove_query_arg( 's' ) . '">',
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 				'</a>'
 			);
 		} else if ( $this->filter == 'trash' ) {
@@ -1055,8 +1192,13 @@ class GF_Form_List_Table extends WP_List_Table {
 
 		if ( ! empty( $message ) ) {
 
+<<<<<<< HEAD
 			echo '<div id="message" class="alert ' . ( isset( $message_class ) ? esc_attr( $message_class ) : 'success' ) . '  "><p>' . esc_html( $message ) . '</p></div>';
 		}
+=======
+			echo '<div id="message" class="alert ' . ( isset( $message_class ) ? $message_class : 'success' ) . '  "><p>' . $message . '</p></div>';
+		};
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 	}
 
 	function extra_tablenav( $which ) {
@@ -1071,7 +1213,11 @@ class GF_Form_List_Table extends WP_List_Table {
 	}
 
 	public function single_row( $form ) {
+<<<<<<< HEAD
 		echo '<tr class="' . esc_attr( $this->locking_info->list_row_class( $form->id, false ) ) . '">';
+=======
+		echo '<tr class="' . $this->locking_info->list_row_class( $form->id, false ) . '">';
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 		$this->single_row_columns( $form );
 		echo '</tr>';
 	}

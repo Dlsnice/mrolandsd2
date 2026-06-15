@@ -4,12 +4,16 @@ if ( ! class_exists( 'GFForms' ) ) {
 	die();
 }
 
+<<<<<<< HEAD
 require_once( plugin_dir_path( __FILE__ ) . 'field-decorator-choice/class-gf-field-decorator-choice-radio-markup.php' );
+=======
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 
 class GF_Field_Radio extends GF_Field {
 
 	public $type = 'radio';
 
+<<<<<<< HEAD
 	/**
 	 * Indicates if this field supports state validation.
 	 *
@@ -19,6 +23,8 @@ class GF_Field_Radio extends GF_Field {
 	 */
 	protected $_supports_state_validation = true;
 
+=======
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 	public function get_form_editor_field_title() {
 		return esc_attr__( 'Radio Buttons', 'gravityforms' );
 	}
@@ -62,7 +68,10 @@ class GF_Field_Radio extends GF_Field {
 			'description_setting',
 			'css_class_setting',
 			'other_choice_setting',
+<<<<<<< HEAD
 			'display_choices_columns_setting',
+=======
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 		);
 	}
 
@@ -70,6 +79,7 @@ class GF_Field_Radio extends GF_Field {
 		return true;
 	}
 
+<<<<<<< HEAD
 	/**
 	 * Determines if this field will be processed by the state validation.
 	 *
@@ -85,6 +95,8 @@ class GF_Field_Radio extends GF_Field {
 		return parent::is_state_validation_supported();
 	}
 
+=======
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 	public function validate( $value, $form ) {
 		if ( $this->isRequired && $this->enableOtherChoice && rgpost( "input_{$this->id}" ) == 'gf_other_choice' ) {
 			if ( empty( $value ) || strtolower( $value ) == strtolower( GFCommon::get_other_choice_value( $this ) ) ) {
@@ -119,11 +131,14 @@ class GF_Field_Radio extends GF_Field {
 
 	public function get_field_input( $form, $value = '', $entry = null ) {
 
+<<<<<<< HEAD
 		if ( $this->type == 'image_choice' ) {
 			$this->image_markup = new GF_Field_Decorator_Choice_Radio_Markup( $this );
 			return $this->image_markup->get_field_input( $form, $value, $entry );
 		}
 
+=======
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 		$form_id         = $form['id'];
 		$is_entry_detail = $this->is_entry_detail();
 		$is_form_editor  = $this->is_form_editor();
@@ -131,7 +146,11 @@ class GF_Field_Radio extends GF_Field {
 		$id            = $this->id;
 		$field_id      = $is_entry_detail || $is_form_editor || $form_id == 0 ? "input_$id" : 'input_' . $form_id . "_$id";
 		$disabled_text = $is_form_editor ? 'disabled="disabled"' : '';
+<<<<<<< HEAD
 		$tag           = GFCommon::is_legacy_markup_enabled( $form ) ? 'ul' : 'div';
+=======
+		$tag           = GFCommon::is_legacy_markup_enabled( $form_id ) ? 'ul' : 'div';
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 
 		return sprintf( "<div class='ginput_container ginput_container_radio'><{$tag} class='gfield_radio' id='%s'>%s</{$tag}></div>", $field_id, $this->get_radio_choices( $value, $disabled_text, $form_id ) );
 
@@ -151,6 +170,7 @@ class GF_Field_Radio extends GF_Field {
 
 			$choice_id = 0;
 			$count     = 1;
+<<<<<<< HEAD
 			// Determine max choices to show in the form editor if Display in columns setting is enabled.
 			$max_choices = $this->enableDisplayInColumns === true ? 10 : 5;
 
@@ -164,6 +184,8 @@ class GF_Field_Radio extends GF_Field {
 			 * @param object $field                     The current field object.
 			 */
 			$max_choices_count = gf_apply_filters( array( 'gform_field_choices_max_count_visible', $form_id ), $max_choices, $this );
+=======
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 
 			$tag = GFCommon::is_legacy_markup_enabled( $form_id ) ? 'li' : 'div';
 
@@ -177,7 +199,11 @@ class GF_Field_Radio extends GF_Field {
 
 				$choices .= $this->get_choice_html( $choice, $choice_id, $value, $disabled_text, $is_admin );
 
+<<<<<<< HEAD
 				if ( $is_form_editor && $count >= $max_choices_count ) {
+=======
+				if ( $is_form_editor && $count >= 5 ) {
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 					$editor_limited = true;
 					break;
 				}
@@ -202,7 +228,11 @@ class GF_Field_Radio extends GF_Field {
 
 			$total = sizeof( $field_choices );
 			if ( $is_form_editor && ( $count < $total ) ) {
+<<<<<<< HEAD
 				$choices .= "<{$tag} class='gchoice_total'><span>" . sprintf( esc_html__( '%d of %d items shown. Edit choices to view all.', 'gravityforms' ), $count, $total ) . "</span></{$tag}>";
+=======
+				$choices .= "<{$tag} class='gchoice_total'>" . sprintf( esc_html__( '%d of %d items shown. Edit field to view all', 'gravityforms' ), $count, $total ) . "</{$tag}>";
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 			}
 		}
 
@@ -211,8 +241,13 @@ class GF_Field_Radio extends GF_Field {
 		 *
 		 * @since unknown
 		 *
+<<<<<<< HEAD
 		 * @param string $choices The choices HTML.
 		 * @param object $field   The current field object.
+=======
+		 * @param string         $choices The choices HTML.
+		 * @param GF_Field_Radio $field   The current field object.
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 		 */
 		return gf_apply_filters( array( 'gform_field_choices', $this->formId ), $choices, $this );
 	}
@@ -246,7 +281,10 @@ class GF_Field_Radio extends GF_Field {
 	 * Returns the choice HTML.
 	 *
 	 * @since 2.4.17
+<<<<<<< HEAD
 	 * @since 2.7 Added `gchoice_other_control` class to Other choice text input.
+=======
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 	 *
 	 * @param array  $choice        The choice properties.
 	 * @param int    &$choice_id    The choice number.
@@ -285,6 +323,7 @@ class GF_Field_Radio extends GF_Field {
 		$aria_describedby = $this->add_aria_description( $checked, $choice_id ) ? $this->get_aria_describedby() : '';
 
 		$tabindex = $this->get_tabindex();
+<<<<<<< HEAD
 		$label    = sprintf( "<label for='choice_%s' id='label_%s' class='gform-field-label gform-field-label--type-inline'>%s</label>", $id, $id, $choice['text'] );
 
 		// Handle 'other' choice.
@@ -294,10 +333,25 @@ class GF_Field_Radio extends GF_Field {
 			if ( $value == 'gf_other_choice' && rgpost( "input_{$this->id}_other" ) ) {
 				$other_value = rgpost( "input_{$this->id}_other" );
 			} elseif ( ! empty( $value ) && ! GFFormsModel::choices_value_match( $this, $this->choices, $value ) ) {
+=======
+		$label    = sprintf( "<label for='choice_%s' id='label_%s'>%s</label>", $id, $id, $choice['text'] );
+
+		// Handle 'other' choice.
+		if ( $this->enableOtherChoice && rgar( $choice, 'isOtherChoice' ) ) {
+			$other_default_value = empty( $choice['text'] ) ? GFCommon::get_other_choice_value( $this ) : $choice['text'];
+			$input_disabled_text = $value === 'gf_other_choice' || rgpost( "input_{$this->id}" ) === 'gf_other_choice' ? '' : " disabled='disabled'";
+
+			$value_exists = GFFormsModel::choices_value_match( $this, $this->choices, $value );
+
+			if ( $value == 'gf_other_choice' && rgpost( "input_{$this->id}_other" ) ) {
+				$other_value = rgpost( "input_{$this->id}_other" );
+			} elseif ( ! $value_exists && ! empty( $value ) ) {
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 				$other_value = $value;
 				$value       = 'gf_other_choice';
 				$checked     = "checked='checked'";
 			} else {
+<<<<<<< HEAD
 				if ( ! $input_disabled_text ) {
 					$input_disabled_text = "disabled='disabled'";
 				}
@@ -305,6 +359,12 @@ class GF_Field_Radio extends GF_Field {
 			}
 
 			$label .= "<br /><input id='input_{$this->formId}_{$this->id}_other' class='gchoice_other_control' name='input_{$this->id}_other' type='text' value='" . esc_attr( $other_value ) . "' aria-label='" . esc_attr__( 'Other Choice, please specify', 'gravityforms' ) . "' $tabindex $input_disabled_text />";
+=======
+				$other_value = $other_default_value;
+			}
+
+			$label .= "<br /><input id='input_{$this->formId}_{$this->id}_other' name='input_{$this->id}_other' type='text' value='" . esc_attr( $other_value ) . "' aria-label='" . esc_attr__( 'Other Choice, please specify', 'gravityforms' ) . "' $tabindex $input_disabled_text />";
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 		}
 
 		$choice_markup = sprintf( "
@@ -366,7 +426,11 @@ class GF_Field_Radio extends GF_Field {
 		}
 
 		$tabindex    = $this->get_tabindex();
+<<<<<<< HEAD
 		$label       = sprintf( "<label for='choice_%s' id='label_%s' class='gform-field-label gform-field-label--type-inline'>%s</label>", $id, $id, $choice['text'] );
+=======
+		$label       = sprintf( "<label for='choice_%s' id='label_%s'>%s</label>", $id, $id, $choice['text'] );
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 		$input_focus = '';
 
 		// Handle 'other' choice.
@@ -431,6 +495,7 @@ class GF_Field_Radio extends GF_Field {
 	}
 
 	public function get_value_entry_list( $value, $entry, $field_id, $columns, $form ) {
+<<<<<<< HEAD
 		return $this->get_selected_choice_output( $value, rgar( $entry, 'currency' ) );
 	}
 
@@ -454,6 +519,14 @@ class GF_Field_Radio extends GF_Field {
 		}
 
 		return $this->get_selected_choice_output( $value, rgar( $entry, 'currency' ), $use_text );
+=======
+		return wp_kses_post( GFCommon::selection_display( $value, $this, $entry['currency'] ) );
+	}
+
+	public function get_value_entry_detail( $value, $currency = '', $use_text = false, $format = 'html', $media = 'screen' ) {
+
+		return wp_kses_post( GFCommon::selection_display( $value, $this, $currency, $use_text ) );
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 	}
 
 	/**
@@ -487,7 +560,10 @@ class GF_Field_Radio extends GF_Field {
 		$use_value       = in_array( 'value', $modifiers );
 		$format_currency = ! $use_value && in_array( 'currency', $modifiers );
 		$use_price       = $format_currency || ( ! $use_value && in_array( 'price', $modifiers ) );
+<<<<<<< HEAD
 		$image_url 	     = in_array( 'img_url', $modifiers );
+=======
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 
 		if ( is_array( $raw_value ) && (string) intval( $input_id ) != $input_id ) {
 			$items = array( $input_id => $value ); // Float input Ids. (i.e. 4.1 ). Used when targeting specific checkbox items.
@@ -500,6 +576,7 @@ class GF_Field_Radio extends GF_Field {
 		$ary = array();
 
 		foreach ( $items as $input_id => $item ) {
+<<<<<<< HEAD
 			switch (true) {
 				case $use_value:
 					list( $val, $price ) = rgexplode( '|', $item, 2, true );
@@ -526,6 +603,22 @@ class GF_Field_Radio extends GF_Field {
 				default:
 					$val = RGFormsModel::is_field_hidden( $form, $this, array(), $entry ) ? '' : RGFormsModel::get_choice_text( $this, $raw_value, $input_id );
 					break;
+=======
+			if ( $use_value ) {
+				list( $val, $price ) = rgexplode( '|', $item, 2 );
+			} elseif ( $use_price ) {
+				list( $name, $val ) = rgexplode( '|', $item, 2 );
+				if ( $format_currency ) {
+					$val = GFCommon::to_money( $val, rgar( $entry, 'currency' ) );
+				}
+			} elseif ( $this->type == 'post_category' ) {
+				$use_id     = strtolower( $modifier ) == 'id';
+				$item_value = GFCommon::format_post_category( $item, $use_id );
+
+				$val = RGFormsModel::is_field_hidden( $form, $this, array(), $entry ) ? '' : $item_value;
+			} else {
+				$val = RGFormsModel::is_field_hidden( $form, $this, array(), $entry ) ? '' : RGFormsModel::get_choice_text( $this, $raw_value, $input_id );
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 			}
 
 			$ary[] = GFCommon::format_variable_value( $val, $url_encode, $esc_html, $format );
@@ -602,6 +695,7 @@ class GF_Field_Radio extends GF_Field {
 		return $operators;
 	}
 
+<<<<<<< HEAD
 	/**
 	 * Override to return null instead of the array of inputs in case this is a choice field.
 	 *
@@ -613,6 +707,8 @@ class GF_Field_Radio extends GF_Field {
 		return null;
 	}
 
+=======
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 }
 
 GF_Fields::register( new GF_Field_Radio() );

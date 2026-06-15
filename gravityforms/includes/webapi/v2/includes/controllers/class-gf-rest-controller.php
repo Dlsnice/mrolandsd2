@@ -204,10 +204,16 @@ abstract class GF_REST_Controller extends WP_REST_Controller {
 
 				$entry[ $field->id ] = $field->to_array( $entry[ $field->id ] );
 
+<<<<<<< HEAD
 			} elseif ( $field instanceof GF_Field_FileUpload ) {
 				$files = $field->to_array( $entry[ $field->id ] );
 
 				$entry[ $field->id ] = $field->multipleFiles ? $files : rgar( $files, 0 );
+=======
+			} elseif ( $field instanceof GF_Field_FileUpload && $field->multipleFiles ) {
+
+				$entry[ $field->id ] = json_decode( $entry[ $field->id ] );
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 
 			} elseif ( $field instanceof GF_Field_List ) {
 
@@ -237,7 +243,11 @@ abstract class GF_REST_Controller extends WP_REST_Controller {
 			return true;
 		}
 
+<<<<<<< HEAD
 		if ( $field->storageType === 'json' || ( $input_type === 'fileupload' && $field->multipleFiles ) ) {
+=======
+		if ( $input_type == 'fileupload' && $field->multipleFiles ) {
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 			return true;
 		}
 
@@ -295,9 +305,22 @@ abstract class GF_REST_Controller extends WP_REST_Controller {
 				continue;
 			}
 
+<<<<<<< HEAD
 			if ( $field instanceof GF_Field_FileUpload || $field instanceof GF_Field_MultiSelect ) {
 				$entry[ $field->id ] = $field->to_string( $entry[ $field->id ] );
 			}
+=======
+			if ( $field->get_input_type() === 'fileupload' && $field->multipleFiles ) {
+
+				$entry[ $field->id ] = json_encode( $entry[ $field->id ] );
+
+			} elseif ( $field instanceof GF_Field_MultiSelect ) {
+
+				$entry[ $field->id ] = $field->to_string( $entry[ $field->id ] );
+
+			}
+
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 		}
 
 		return $entry;

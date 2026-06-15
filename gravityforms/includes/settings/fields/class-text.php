@@ -26,6 +26,7 @@ class Text extends Base {
 	 */
 	public $input_type = 'text';
 
+<<<<<<< HEAD
 	/**
 	 * Step attribute for number inputs. Originally set to protected as a dynamic property.
 	 *
@@ -36,6 +37,9 @@ class Text extends Base {
 	public $step;
 
 	protected $append;
+=======
+
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 
 
 
@@ -69,7 +73,11 @@ class Text extends Base {
 			esc_attr( $this->input_type ),
 			esc_attr( $this->settings->get_input_name_prefix() ),
 			esc_attr( $this->name ),
+<<<<<<< HEAD
 			! rgblank( $value ) ? esc_attr( htmlspecialchars( $value, ENT_QUOTES ) ) : '',
+=======
+			esc_attr( htmlspecialchars( $value, ENT_QUOTES ) ),
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 			$this->get_describer() ? sprintf( 'aria-describedby="%s"', $this->get_describer() ) : '',
 			implode( ' ', $this->get_attributes() ),
 			isset( $this->append ) ? sprintf( '<span class="gform-settings-field__text-append">%s</span>', esc_html( $this->append ) ) : '',

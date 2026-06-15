@@ -33,7 +33,11 @@ trait Redirects_On_Save {
 		$url = get_admin_url();
 		$url = add_query_arg(
 			array(
+<<<<<<< HEAD
 				'page'     => GFForms::get_page_query_arg(),
+=======
+				'page'     => rgget( 'page' ),
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 				'view'     => rgget( 'view' ),
 				'subview'  => rgget( 'subview' ),
 				'id'       => rgget( 'id' ),
@@ -44,7 +48,11 @@ trait Redirects_On_Save {
 
 		self::save_flash_message();
 
+<<<<<<< HEAD
 		wp_safe_redirect( esc_url_raw( $url ) );
+=======
+		wp_safe_redirect( $url );
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 	}
 
 	/**
@@ -116,4 +124,8 @@ trait Redirects_On_Save {
 
 		return true;
 	}
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6

@@ -66,7 +66,11 @@ var GF_Settings_Dependencies = function ( args ) {
 		}
 
 		if ( passedLogic ) {
+<<<<<<< HEAD
 			self.getTargetObject().style.display = '';
+=======
+			self.getTargetObject().style.display = self.getTargetObject().tagName === 'A' ? 'inline-block' : 'block';
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 		} else {
 			self.getTargetObject().style.display = 'none';
 		}

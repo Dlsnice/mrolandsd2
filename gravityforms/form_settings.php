@@ -97,9 +97,12 @@ class GFFormSettings {
 	 * Prepare form settings fields.
 	 *
 	 * @since 2.5
+<<<<<<< HEAD
 	 * @since 2.9.8  Updated honeypotAction default to spam.
 	 * @since 2.9.21 Moved the honeypot fields to a new spam section and added submission speed check fields.
 	 * @since 2.10.0   Added the enableSpamConfirmation toggle to the spam section.
+=======
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 	 *
 	 * @param array $form Form being edited.
 	 *
@@ -107,6 +110,7 @@ class GFFormSettings {
 	 */
 	public static function form_settings_fields( $form ) {
 
+<<<<<<< HEAD
 		// Handles the deprecation notice for the confirmation ready classes in the CSS class field of form settings.
 		$deprecated_confirmation_classes_field_notice = function ( $value, $field ) use ( $form ) {
 			if ( GFCommon::is_legacy_markup_enabled_og( $form ) ) {
@@ -138,6 +142,10 @@ class GFFormSettings {
 
 		$fields = array(
 			'form_basics'       => array(
+=======
+		$fields = array(
+			'form_basics' => array(
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 				'title'  => esc_html__( 'Form Basics', 'gravityforms' ),
 				'fields' => array(
 					array(
@@ -146,12 +154,19 @@ class GFFormSettings {
 						'label'               => esc_html__( 'Form Title', 'gravityforms' ),
 						'tooltip'             => gform_tooltip( 'form_title', '', true ),
 						'required'            => true,
+<<<<<<< HEAD
 						'validation_callback' => function ( $field, $value ) use ( $form ) {
+=======
+						'validation_callback' => function( $field, $value ) use ( $form ) {
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 
 							// If value is empty, set error.
 							if ( rgblank( $value ) ) {
 								$field->set_error( rgobj( $field, 'error_message' ) );
+<<<<<<< HEAD
 
+=======
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 								return;
 							}
 
@@ -190,7 +205,11 @@ class GFFormSettings {
 					),
 				),
 			),
+<<<<<<< HEAD
 			'form_layout'       => array(
+=======
+			'form_layout' => array(
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 				'title'  => esc_html__( 'Form Layout', 'gravityforms' ),
 				'fields' => array(
 					array(
@@ -241,6 +260,7 @@ class GFFormSettings {
 						),
 					),
 					array(
+<<<<<<< HEAD
 						'name'          => 'validationPlacement',
 						'type'          => 'select',
 						'label'         => esc_html__( 'Validation Message Placement', 'gravityforms' ),
@@ -258,6 +278,8 @@ class GFFormSettings {
 						),
 					),
 					array(
+=======
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 						'name'    => 'subLabelPlacement',
 						'type'    => 'select',
 						'label'   => esc_html__( 'Sub-Label Placement', 'gravityforms' ),
@@ -308,8 +330,13 @@ class GFFormSettings {
 						'label'         => esc_html__( 'Custom Required Indicator', 'gravityforms' ),
 						'default_value' => esc_html__( '(Required)', 'gravityforms' ),
 						'dependency'    => array(
+<<<<<<< HEAD
 							'live'   => true,
 							'fields' => array(
+=======
+							'live'      => true,
+							'fields'    => array(
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 								array(
 									'field'  => 'requiredIndicator',
 									'values' => array( 'custom' ),
@@ -318,6 +345,7 @@ class GFFormSettings {
 						),
 					),
 					array(
+<<<<<<< HEAD
 						'name'        => 'cssClass',
 						'type'        => 'text',
 						'after_input' => $deprecated_confirmation_classes_field_notice,
@@ -333,6 +361,74 @@ class GFFormSettings {
 						'name' => 'deprecated',
 						'type' => 'html',
 						'html' => esc_html__( 'Form button settings are now located in the form editor! To edit the button settings, go to the form editor and click on the submit button.', 'gravityforms' ),
+=======
+						'name'    => 'cssClass',
+						'type'    => 'text',
+						'label'   => esc_html__( 'CSS Class Name', 'gravityforms' ),
+						'tooltip' => gform_tooltip( 'form_css_class', '', true ),
+					),
+				),
+			),
+			'form_button' => array(
+				'title'  => esc_html__( 'Form Button', 'gravityforms' ),
+				'fields' => array(
+					array(
+						'name'          => 'buttonType',
+						'label'         => esc_html__( 'Input Type', 'gravityforms' ),
+						'type'          => 'radio',
+						'default_value' => 'text',
+						'horizontal'    => true,
+						'choices'       => array(
+							array(
+								'label' => esc_html__( 'Text', 'gravityforms' ),
+								'value' => 'text',
+							),
+							array(
+								'label' => esc_html__( 'Image', 'gravityforms' ),
+								'value' => 'image',
+							),
+						),
+					),
+					array(
+						'name'       => 'buttonText',
+						'type'       => 'text',
+						'label'      => esc_html__( 'Button Text', 'gravityforms' ),
+						'tooltip'    => gform_tooltip( 'form_button_text', '', true ),
+						'dependency' => array(
+							'live'   => true,
+							'fields' => array(
+								array(
+									'field'  => 'buttonType',
+									'values' => array( 'text' ),
+								),
+							),
+						),
+					),
+					array(
+						'name'       => 'buttonImageURL',
+						'type'       => 'text',
+						'label'      => esc_html__( 'Button Image URL', 'gravityforms' ),
+						'tooltip'    => gform_tooltip( 'form_button_image', '', true ),
+						'dependency' => array(
+							'live'   => true,
+							'fields' => array(
+								array(
+									'field'  => 'buttonType',
+									'values' => array( 'image' ),
+								),
+							),
+						),
+					),
+					array(
+						'name'        => 'form_button_conditional_logic',
+						'label'       => esc_html__( 'Conditional Logic', 'gravityforms ' ),
+						'type'        => 'conditional_logic',
+						'object_type' => 'form_button',
+						'checkbox'    => array(
+							'label'  => esc_html__( 'Enable conditional logic', 'gravityforms' ),
+							'hidden' => false,
+						),
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 					),
 				),
 			),
@@ -348,7 +444,11 @@ class GFFormSettings {
 						'name'          => 'saveButtonText',
 						'type'          => 'text',
 						'label'         => esc_html__( 'Link Text', 'gravityforms' ),
+<<<<<<< HEAD
 						'default_value' => __( 'Save & Continue', 'gravityforms' ),
+=======
+						'default_value' => __( 'Save and Continue Later', 'gravityforms' ),
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 						'dependency'    => array(
 							'live'   => true,
 							'fields' => array(
@@ -365,7 +465,11 @@ class GFFormSettings {
 					),
 				),
 			),
+<<<<<<< HEAD
 			'restrictions'      => array(
+=======
+			'restrictions' => array(
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 				'title'  => esc_html__( 'Restrictions', 'gravityforms' ),
 				'fields' => array(
 					array(
@@ -540,12 +644,18 @@ class GFFormSettings {
 					),
 				),
 			),
+<<<<<<< HEAD
 			'spam'              => array(
 				'title'  => esc_html__( 'Spam Detection', 'gravityforms' ),
+=======
+			'form_options' => array(
+				'title'  => esc_html__( 'Form Options', 'gravityforms' ),
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 				'fields' => array(
 					array(
 						'name'    => 'enableHoneypot',
 						'type'    => 'toggle',
+<<<<<<< HEAD
 						'label'   => esc_html__( 'Honeypot', 'gravityforms' ),
 						'tooltip' => gform_tooltip( 'form_honeypot', '', true ),
 					),
@@ -654,15 +764,32 @@ class GFFormSettings {
 				'title'  => esc_html__( 'Form Options', 'gravityforms' ),
 				'fields' => array(
 					array(
+=======
+						'label'   => __( 'Anti-spam honeypot', 'gravityforms' ),
+						'tooltip' => gform_tooltip( 'form_honeypot', '', true ),
+					),
+					array(
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 						'name'    => 'enableAnimation',
 						'type'    => 'toggle',
 						'label'   => __( 'Animated transitions', 'gravityforms' ),
 						'tooltip' => gform_tooltip( 'form_animation', '', true ),
 					),
+<<<<<<< HEAD
+=======
+					array(
+						'name'          => 'markupVersion',
+						'type'          => 'toggle',
+						'label'         => __( 'Enable legacy markup', 'gravityforms' ),
+						'default_value' => rgar( $form, 'markupVersion' ) ? $form['markupVersion'] : 1,
+						'tooltip'       => gform_tooltip( 'form_legacy_markup', '', true ),
+					),
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 				),
 			),
 		);
 
+<<<<<<< HEAD
 		if ( self::legacy_markup_enabled_or_posted( $form ) ) {
 			$fields['form_options']['fields'][] = array(
 				'name'          => 'markupVersion',
@@ -674,20 +801,28 @@ class GFFormSettings {
 			);
 		}
 
+=======
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 		/**
 		 * Filters the form settings before they are displayed.
 		 *
 		 * @deprecated
+<<<<<<< HEAD
 		 * @remove-in 3.0
+=======
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 		 * @since 1.7
 		 *
 		 * @param array $form_settings The form settings.
 		 * @param array $form          The Form Object.
 		 */
+<<<<<<< HEAD
 
 		if ( has_filter( 'gform_form_settings' ) ) {
 			trigger_error( 'gform_form_settings is deprecated and will be removed in version 3.0.', E_USER_DEPRECATED ); // phpcs:ignore QITStandard.PHP.DebugCode.DebugFunctionFound
 		}
+=======
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 		$legacy_settings = apply_filters( 'gform_form_settings', array(), $form );
 
 		// If legacy settings exist, add to fields.
@@ -737,6 +872,7 @@ class GFFormSettings {
 
 	}
 
+<<<<<<< HEAD
 	/**
 	 * The Settings API runs the settings field method before processing the postback,
 	 * so we have to run this hack to ensure we're respecting the posted value on initial load.
@@ -869,6 +1005,10 @@ class GFFormSettings {
 		}
 		return '';
 	}
+=======
+
+
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 
 
 	// # SETTINGS RENDERER ---------------------------------------------------------------------------------------------
@@ -877,23 +1017,40 @@ class GFFormSettings {
 	 * Initialize Plugin Settings fields renderer.
 	 *
 	 * @since 2.5
+<<<<<<< HEAD
 	 * @since 2.9.8  Updated honeypotAction default to spam.
 	 * @since 2.9.21 Updated to save the submission speed check fields.
 	 * @since 2.10.0   Updated to handle the enableSpamConfirmation toggle.
+=======
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 	 */
 	public static function initialize_settings_renderer() {
 
 		require_once( GFCommon::get_base_path() . '/form_detail.php' );
 
+<<<<<<< HEAD
 		$form_id = rgget( 'id' );
 		$form    = GFCommon::gform_admin_pre_render( GFFormsModel::get_form_meta( $form_id ) );
+=======
+		$form_id       = rgget( 'id' );
+		$form          = GFFormsModel::get_form_meta( $form_id );
+		$form          = gf_apply_filters( array( 'gform_admin_pre_render', $form_id ), $form );
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 
 		// Initialize new settings renderer.
 		$renderer = new Settings(
 			array(
 				'fields'         => array_values( self::form_settings_fields( $form ) ),
 				'initial_values' => self::get_initial_values( $form ),
+<<<<<<< HEAD
 				'save_callback'  => function( $values ) use ( &$form, $form_id ) {
+=======
+				'save_callback'  => function( $values ) use ( &$form ) {
+
+					// Get form object.
+					$form_id = rgget( 'id' );
+					$form    = GFFormsModel::get_form_meta( $form_id );
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 
 					// Set form version.
 					$form['version'] = GFForms::$version;
@@ -908,13 +1065,25 @@ class GFFormSettings {
 					// Form Layout
 					$form['labelPlacement']          = GFCommon::whitelist( rgar( $values, 'labelPlacement' ), array( 'top_label', 'left_label', 'right_label' ) );
 					$form['descriptionPlacement']    = GFCommon::whitelist( rgar( $values, 'descriptionPlacement' ), array( 'below', 'above' ) );
+<<<<<<< HEAD
 					$form['validationPlacement']     = GFCommon::whitelist( rgar( $values, 'validationPlacement' ), array( 'below', 'above' ) );
+=======
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 					$form['subLabelPlacement']       = GFCommon::whitelist( rgar( $values, 'subLabelPlacement' ), array( 'below', 'above' ) );
 					$form['validationSummary']       = rgar( $values, 'validationSummary', false );
 					$form['requiredIndicator']       = GFCommon::whitelist( rgar( $values, 'requiredIndicator' ), array( 'text', 'asterisk', 'custom' ) );
 					$form['customRequiredIndicator'] = rgar( $values, 'customRequiredIndicator' );
 					$form['cssClass']                = rgar( $values, 'cssClass' );
 
+<<<<<<< HEAD
+=======
+					// Form Button
+					$form['button']['type']             = GFCommon::whitelist( rgar( $values, 'buttonType' ), array( 'text', 'image' ) );
+					$form['button']['text']             = rgar( $values, 'buttonText' );
+					$form['button']['imageUrl']         = rgar( $values, 'buttonImageURL' );
+					$form['button']['conditionalLogic'] = rgar( $values, 'form_button_conditional_logic' ) ? rgar( $values, 'form_button_conditional_logic_object' ) : null;
+
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 					// Save and Continue
 					$form['save']['enabled']        = (bool) rgar( $values, 'saveEnabled' );
 					$form['save']['button']['type'] = 'link';
@@ -943,6 +1112,7 @@ class GFFormSettings {
 					$form['schedulePendingMessage'] = rgar( $values, 'schedulePendingMessage' );
 					$form['scheduleMessage']        = rgar( $values, 'scheduleMessage' );
 
+<<<<<<< HEAD
 					// Spam Detection.
 					$form['enableHoneypot'] = (bool) rgar( $values, 'enableHoneypot' );
 					$form['honeypotAction'] = GFCommon::whitelist(
@@ -967,6 +1137,10 @@ class GFFormSettings {
 					$form = self::toggle_spam_confirmation( $form );
 
 					// Form Options.
+=======
+					// Form Options
+					$form['enableHoneypot']  = (bool) rgar( $values, 'enableHoneypot' );
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 					$form['enableAnimation'] = (bool) rgar( $values, 'enableAnimation' );
 					$form['markupVersion']   = rgar( $values, 'markupVersion' ) ? 1 : 2;
 
@@ -992,12 +1166,15 @@ class GFFormSettings {
 				},
 				'before_fields' => function() use ( &$form ) {
 
+<<<<<<< HEAD
 					// Ensure form is not empty and display form settings warning accordingly.
 					$notice = self::deprecated_classes_warning( $form );
 					if ( ! empty( $notice ) ) {
 						echo $notice; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 					}
 
+=======
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 					?>
 
 					<script type="text/javascript">
@@ -1054,9 +1231,12 @@ class GFFormSettings {
 
 		// Get all of the current values.
 		foreach ( $form as $key => $value ) {
+<<<<<<< HEAD
 			if ( in_array( $key, array( 'fields', 'notifications', 'confirmations' ) ) ) {
 				continue;
 			}
+=======
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 			if ( is_array( $value ) ) {
 				foreach ( $value as $sub_key => $sub_value ) {
 					if ( is_array( $sub_value ) ) {
@@ -1069,8 +1249,14 @@ class GFFormSettings {
 
 					}
 				}
+<<<<<<< HEAD
 			}
 			$initial_values[ $key ] = $value;
+=======
+			} else {
+				$initial_values[ $key ] = $value;
+			}
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 		}
 
 		// Start and end times are formatted differently than other fields.
@@ -1197,6 +1383,10 @@ class GFFormSettings {
 	 * @uses    SCRIPT_DEBUG
 	 * @uses    GFFormsModel::get_form_meta()
 	 * @uses    GFFormSettings::get_tabs()
+<<<<<<< HEAD
+=======
+	 * @uses    GFCommon::form_page_title()
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 	 * @uses    GFCommon::display_dismissible_message()
 	 * @uses    GFCommon::display_admin_message()
 	 * @uses    GFForms::top_toolbar()
@@ -1212,6 +1402,7 @@ class GFFormSettings {
 		wp_print_styles( array( 'jquery-ui-styles', 'gform_admin', 'gform_settings', 'wp-pointer' ) );
 
 		$form         = GFFormsModel::get_form_meta( rgget( 'id' ) );
+<<<<<<< HEAD
 		$current_tab  = rgempty( 'subview', $_GET ) ? 'settings' : rgget( 'subview' ); // phpcs:ignore WordPress.Security.NonceVerification.Recommended
 		$setting_tabs = GFFormSettings::get_tabs( $form['id'] );
 
@@ -1220,6 +1411,11 @@ class GFFormSettings {
 			$current_tab = rgget( 'theme_layer' );
 		}
 
+=======
+		$current_tab  = rgempty( 'subview', $_GET ) ? 'settings' : rgget( 'subview' );
+		$setting_tabs = GFFormSettings::get_tabs( $form['id'] );
+
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 		// Kind of boring having to pass the title, optionally get it from the settings tab
 		if ( ! $title ) {
 			foreach ( $setting_tabs as $tab ) {
@@ -1231,12 +1427,20 @@ class GFFormSettings {
 
 		?>
 
+<<<<<<< HEAD
 		<div class="wrap gforms_edit_form gforms_form_settings_wrap <?php echo esc_attr( GFCommon::get_browser_class() ) ?>">
+=======
+		<div class="wrap gforms_edit_form gforms_form_settings_wrap <?php echo GFCommon::get_browser_class() ?>">
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 
 			<?php
 				GFSettings::page_header_bar();
 				GFForms::top_toolbar();
+<<<<<<< HEAD
 				echo GFCommon::get_remote_message(); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+=======
+				echo GFCommon::get_remote_message();
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 				GFCommon::notices_section();
 			?>
 
@@ -1249,25 +1453,37 @@ class GFFormSettings {
 
 				<nav class="gform-settings__navigation">
 				<?php
+<<<<<<< HEAD
 
 				    foreach ( $setting_tabs as $tab ) {
+=======
+					foreach ( $setting_tabs as $tab ) {
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 
 						if ( rgar( $tab, 'capabilities' ) && ! GFCommon::current_user_can_any( $tab['capabilities'] ) ) {
 							continue;
 						}
 
+<<<<<<< HEAD
 						$query = array(
 							'subview' => $tab['name'],
 							'page'    => GFForms::get_page_query_arg(),
 							'id'      => rgget( 'id' ),
 							'view'    => rgget( 'view' ),
 						);
+=======
+						$query = array( 'subview' => $tab['name'] );
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 
 						if ( isset( $tab['query'] ) ) {
 							$query = array_merge( $query, $tab['query'] );
 						}
 
+<<<<<<< HEAD
 						$url = add_query_arg( $query, admin_url( 'admin.php' ) );
+=======
+						$url = add_query_arg( $query );
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 
 						// Get tab icon.
 						$icon_markup = GFCommon::get_icon_markup( $tab, 'gform-icon--cog' );
@@ -1276,7 +1492,11 @@ class GFFormSettings {
 							'<a href="%s"%s><span class="icon">%s</span> <span class="label">%s</span></a>',
 							esc_url( $url ),
 							$current_tab === $tab['name'] ? ' class="active"' : '',
+<<<<<<< HEAD
 							$icon_markup, // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+=======
+							$icon_markup,
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 							esc_html( $tab['label'] )
 						);
 					}
@@ -1354,6 +1574,7 @@ class GFFormSettings {
 		 * @param int   $form_id      The ID of the form being accessed.
 		 */
 		$setting_tabs = apply_filters( 'gform_form_settings_menu', $setting_tabs, $form_id );
+<<<<<<< HEAD
 
 		$primary_settings_tab_keys = array(
 			'confirmation',
@@ -1396,6 +1617,11 @@ class GFFormSettings {
 		});
 
 		return $settings_tab;
+=======
+		ksort( $setting_tabs, SORT_NUMERIC );
+
+		return $setting_tabs;
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 	}
 
 	/**
@@ -1461,7 +1687,11 @@ class GFFormSettings {
 	 * @return void
 	 */
 	public static function output( $a ) {
+<<<<<<< HEAD
 		echo $a; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+=======
+		echo $a;
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 	}
 
 	/**
@@ -1490,7 +1720,11 @@ class GFFormSettings {
 		$script_str .= sprintf( 'function GetConditionalLogicFields(){return %s;}', json_encode( $conditional_logic_fields ) ) . PHP_EOL;
 
 		if ( ! empty( $script_str ) && $echo ) {
+<<<<<<< HEAD
 			echo $script_str; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+=======
+			echo $script_str;
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 		}
 
 		return $script_str;
@@ -1597,6 +1831,7 @@ class GFFormSettings {
 	}
 
 	/**
+<<<<<<< HEAD
 	 * Adds or removes the custom spam confirmation based on the value of the enableSpamConfirmation toggle.
 	 *
 	 * @since 2.10.0
@@ -1638,6 +1873,8 @@ class GFFormSettings {
 	}
 
 	/**
+=======
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 	 * Handles the saving of form titles.
 	 *
 	 * @since  Unknown

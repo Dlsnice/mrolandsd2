@@ -3,7 +3,11 @@ jQuery( document ).ready(function() {
   // toggle the helper classes that show the form structure
   jQuery( '.toggle_helpers input[type=checkbox]' ).prop( 'checked',false );
 
+<<<<<<< HEAD
   jQuery('#showgrid').on( 'click', function(){
+=======
+  jQuery('#showgrid').click(function(){
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
     if(jQuery(this).is(":checked")) {
       jQuery('#preview_form_container').addClass("showgrid");
     } else {
@@ -11,7 +15,11 @@ jQuery( document ).ready(function() {
     }
   });
 
+<<<<<<< HEAD
   jQuery('#showme').on( 'click', function(){
+=======
+  jQuery('#showme').click(function(){
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
     if(jQuery(this).is(":checked")) {
       jQuery('.gform_wrapper form').addClass("gf_showme");
       jQuery('#helper_legend_container').css("display", "inline-block");
@@ -26,7 +34,11 @@ jQuery( document ).ready(function() {
   if (GetCookie("dismissed-notifications")) {
     jQuery(GetCookie("dismissed-notifications")).hide();
   }
+<<<<<<< HEAD
   jQuery(".hidenotice").on( 'click', function () {
+=======
+  jQuery(".hidenotice").click(function () {
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
     var alertId = jQuery(this).closest(".preview_notice").attr("id");
     var dismissedNotifications = GetCookie("dismissed-notifications") + ",#" + alertId;
     jQuery(this).closest(".preview_notice").slideToggle('slow');
@@ -61,7 +73,11 @@ jQuery( document ).ready(function() {
   jQuery('#browser_size_info').text('Viewport ( Width : '
     + jQuery(window).width() + 'px , Height :' + jQuery(window).height() + 'px )');
 
+<<<<<<< HEAD
   jQuery(window).on( 'resize', function () {
+=======
+  jQuery(window).resize(function () {
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
     jQuery('#browser_size_info').text('Viewport ( Width : ' + jQuery(window).width()
       + 'px , Height :' + jQuery(window).height() + 'px )');
   });

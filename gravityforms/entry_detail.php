@@ -1,11 +1,18 @@
 <?php
+<<<<<<< HEAD
+=======
+
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 if ( ! class_exists( 'GFForms' ) ) {
 	die();
 }
 
+<<<<<<< HEAD
 use  Gravity_Forms\Gravity_Forms\Orders\Summaries\GF_Order_Summary;
 use  Gravity_Forms\Gravity_Forms\Orders\Factories\GF_Order_Factory;
 
+=======
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 class GFEntryDetail {
 
 	/**
@@ -35,7 +42,11 @@ class GFEntryDetail {
 	public static function add_meta_boxes() {
 
 		$entry = self::get_current_entry();
+<<<<<<< HEAD
 		if ( is_wp_error( $entry ) || ! $entry ) {
+=======
+		if ( is_wp_error( $entry ) ) {
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 			return;
 		}
 
@@ -105,6 +116,7 @@ class GFEntryDetail {
 	}
 
 	public static function get_current_form() {
+<<<<<<< HEAD
 		if ( isset( self::$_form ) ) {
 			return self::$_form;
 		}
@@ -124,6 +136,19 @@ class GFEntryDetail {
 		}
 
 		$form = GFCommon::gform_admin_pre_render( $form );
+=======
+
+		if ( isset( self::$_form ) ) {
+			return  self::$_form;
+		}
+
+		$form = GFFormsModel::get_form_meta( absint( $_GET['id'] ) );
+
+		$form_id = absint( $form['id'] );
+
+		$form    = apply_filters( 'gform_admin_pre_render', $form );
+		$form    = apply_filters( 'gform_admin_pre_render_' . $form_id, $form );
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 
 		self::set_current_form( $form );
 
@@ -146,6 +171,7 @@ class GFEntryDetail {
 			return self::$_entry;
 		}
 		$form    = self::get_current_form();
+<<<<<<< HEAD
 		$form_id = absint( rgar( $form, 'id' ) );
 
 		self::set_current_entry( false );
@@ -189,6 +215,10 @@ class GFEntryDetail {
 				}
 			}
 		}
+=======
+		$form_id = absint( $form['id'] );
+		$lead_id = rgpost( 'entry_id' ) ? absint( rgpost( 'entry_id' ) ) : absint( rgget( 'lid' ) );
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 
 		$filter = rgget( 'filter' );
 		$status = in_array( $filter, array( 'trash', 'spam' ) ) ? $filter : 'active';
@@ -196,9 +226,15 @@ class GFEntryDetail {
 		$position       = rgget( 'pos' ) ? rgget( 'pos' ) : 0;
 		$sort_direction = rgget( 'order' ) ? rgget( 'order' ) : 'DESC';
 
+<<<<<<< HEAD
 		$sort_field      = empty( $_GET['orderby'] ) ? 0 : sanitize_text_field( wp_unslash( $_GET['orderby'] ) ); // phpcs:ignore WordPress.Security.NonceVerification.Recommended
 		$sort_field_meta = GFFormsModel::get_field( $form, $sort_field );
 		$is_numeric      = $sort_field_meta && $sort_field_meta->get_input_type() === 'number';
+=======
+		$sort_field      = empty( $_GET['orderby'] ) ? 0 : $_GET['orderby'];
+		$sort_field_meta = RGFormsModel::get_field( $form, $sort_field );
+		$is_numeric      = rgar( $sort_field_meta, 'type' ) == 'number';
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 
 		$search_criteria['status'] = $status;
 
@@ -214,7 +250,11 @@ class GFEntryDetail {
 
 		$search_field_id = rgget( 'field_id' );
 
+<<<<<<< HEAD
 		if ( isset( $_GET['field_id'] ) && $_GET['field_id'] !== '' ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+=======
+		if ( isset( $_GET['field_id'] ) && $_GET['field_id'] !== '' ) {
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 			$key            = $search_field_id;
 			$val            = rgget( 's' );
 			$strpos_row_key = strpos( $search_field_id, '|' );
@@ -226,7 +266,11 @@ class GFEntryDetail {
 
 			$search_criteria['field_filters'][] = array(
 				'key'      => $key,
+<<<<<<< HEAD
 				'operator' => rgempty( 'operator', $_GET ) ? 'is' : rgget( 'operator' ), // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+=======
+				'operator' => rgempty( 'operator', $_GET ) ? 'is' : rgget( 'operator' ),
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 				'value'    => $val,
 			);
 
@@ -256,6 +300,7 @@ class GFEntryDetail {
 			$sorting = array();
 		}
 
+<<<<<<< HEAD
 		if ( empty( $entry ) ) {
 			$entries = GFAPI::get_entries( $form_id, $search_criteria, $sorting, $paging, self::$_total_count );
 			$entry   = rgar( $entries, 0, false );
@@ -266,6 +311,19 @@ class GFEntryDetail {
 		self::set_current_entry( $entry );
 
 		return $entry;
+=======
+		$leads = GFAPI::get_entries( $form['id'], $search_criteria, $sorting, $paging, self::$_total_count );
+
+		if ( ! $lead_id ) {
+			$lead = ! empty( $leads ) ? $leads[0] : false;
+		} else {
+			$lead = GFAPI::get_entry( $lead_id );
+		}
+
+		self::set_current_entry( $lead );
+
+		return $lead;
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 	}
 
 	public static function set_current_entry( $entry ) {
@@ -283,17 +341,23 @@ class GFEntryDetail {
 			return;
 		}
 
+<<<<<<< HEAD
 		$form    = self::get_current_form();
 		$form_id = absint( rgar( $form, 'id' ) );
 		if ( empty( $form_id ) ) {
 			GFCommon::add_error_message( esc_html__( "Oops! We couldn't find your form. Please try again.", 'gravityforms' ) );
 			GFForms::admin_header();
 
+=======
+		$requested_form_id = absint( $_GET['id'] );
+		if ( empty( $requested_form_id ) ) {
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 			return;
 		}
 
 		$lead = self::get_current_entry();
 		if ( is_wp_error( $lead ) || ! $lead ) {
+<<<<<<< HEAD
 			GFCommon::add_error_message( esc_html__( "Oops! We couldn't find your entry. Please try again.", 'gravityforms' ) );
 			GFForms::admin_header();
 
@@ -315,6 +379,17 @@ class GFEntryDetail {
 		GFForms::admin_header();
 
 		$lead_id = rgar( $lead, 'id' );
+=======
+			esc_html_e( "Oops! We couldn't find your entry. Please try again", 'gravityforms' );
+
+			return;
+		}
+        GFForms::admin_header();
+
+		$lead_id  = $lead['id'];
+		$form     = self::get_current_form();
+		$form_id  = absint( $form['id'] );
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 
 		/**
 		 * Fires before the entry detail page is shown or any processing is handled.
@@ -324,7 +399,11 @@ class GFEntryDetail {
 		 *
 		 * @since 2.3.3.9
 		 */
+<<<<<<< HEAD
 		gf_do_action( array( 'gform_pre_entry_detail', $form_id ), $form, $lead );
+=======
+		gf_do_action( array( 'gform_pre_entry_detail', $form['id'] ), $form, $lead );
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 
 		$total_count = self::get_total_count();
 		$position    = rgget( 'pos' ) ? rgget( 'pos' ) : 0;
@@ -350,9 +429,12 @@ class GFEntryDetail {
 
 				$original_entry = $lead;
 
+<<<<<<< HEAD
 				// Some field types won't access their submitted values if this is not set.
 				$_POST[ 'is_submit_' . $form_id ] = '1';
 
+=======
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 				// Set files that have been uploaded to temp folder
 				GFFormsModel::set_uploaded_files( $form_id );
 
@@ -369,7 +451,10 @@ class GFEntryDetail {
 
 				$lead = GFFormsModel::get_entry( $lead['id'] );
 				$lead = GFFormsModel::set_entry_meta( $lead, $form );
+<<<<<<< HEAD
 
+=======
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 				self::set_current_entry( $lead );
 
 				// Check if there's consent field, and values updated.
@@ -403,15 +488,26 @@ class GFEntryDetail {
 			case 'add_note' :
 				check_admin_referer( 'gforms_update_note', 'gforms_update_note' );
 				$user_data = get_userdata( $current_user->ID );
+<<<<<<< HEAD
 				GFFormsModel::add_note( $lead['id'], $current_user->ID, $user_data->display_name, isset( $_POST['new_note'] ) ? wp_unslash( $_POST['new_note'] ) : '' ); //  phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
+=======
+				GFFormsModel::add_note( $lead['id'], $current_user->ID, $user_data->display_name, stripslashes( $_POST['new_note'] ) );
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 
 				//emailing notes if configured
 				if ( rgpost( 'gentry_email_notes_to' ) ) {
 					GFCommon::log_debug( 'GFEntryDetail::lead_detail_page(): Preparing to email entry notes.' );
+<<<<<<< HEAD
 					$email_to      = isset( $_POST['gentry_email_notes_to'] ) ? sanitize_email( wp_unslash( $_POST['gentry_email_notes_to'] ) ) : '';
 					$email_from    = $current_user->user_email;
 					$email_subject = isset( $_POST['gentry_email_subject'] ) ? sanitize_text_field( wp_unslash( $_POST['gentry_email_subject'] ) ) : '';
 					$body          = isset( $_POST['new_note'] ) ? wp_unslash( $_POST['new_note'] ) : ''; // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
+=======
+					$email_to      = $_POST['gentry_email_notes_to'];
+					$email_from    = $current_user->user_email;
+					$email_subject = stripslashes( $_POST['gentry_email_subject'] );
+					$body = stripslashes( $_POST['new_note'] );
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 
 					$headers = "From: \"$email_from\" <$email_from> \r\n";
 					GFCommon::log_debug( "GFEntryDetail::lead_detail_page(): Emailing notes - TO: $email_to SUBJECT: $email_subject BODY: $body HEADERS: $headers" );
@@ -446,16 +542,28 @@ class GFEntryDetail {
 			case 'add_quick_note' :
 				check_admin_referer( 'gforms_save_entry', 'gforms_save_entry' );
 				$user_data = get_userdata( $current_user->ID );
+<<<<<<< HEAD
 				GFFormsModel::add_note( $lead['id'], $current_user->ID, $user_data->display_name, isset( $_POST['quick_note'] ) ? wp_unslash( $_POST['quick_note'] ) : '' ); // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
+=======
+				GFFormsModel::add_note( $lead['id'], $current_user->ID, $user_data->display_name, stripslashes( $_POST['quick_note'] ) );
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 				break;
 
 			case 'bulk' :
 				check_admin_referer( 'gforms_update_note', 'gforms_update_note' );
+<<<<<<< HEAD
 				if ( rgpost( 'bulk_action' ) == 'delete' ) {
 					if ( ! GFCommon::current_user_can_any( 'gravityforms_edit_entry_notes' ) ) {
 						wp_die( esc_html__( "You don't have adequate permission to delete notes.", 'gravityforms' ) );
 					}
 					GFFormsModel::delete_notes( rgpost( 'note' ) );
+=======
+				if ( $_POST['bulk_action'] == 'delete' ) {
+					if ( ! GFCommon::current_user_can_any( 'gravityforms_edit_entry_notes' ) ) {
+						wp_die( esc_html__( "You don't have adequate permission to delete notes.", 'gravityforms' ) );
+					}
+					GFFormsModel::delete_notes( $_POST['note'] );
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 				}
 				break;
 
@@ -512,11 +620,26 @@ class GFEntryDetail {
 				break;
 		} // End switch().
 
+<<<<<<< HEAD
 		$screen = get_current_screen();
 
 		?>
 		<script type="text/javascript">
 			var formId = <?php echo absint( $form_id ); ?>;
+=======
+		$mode = empty( $_POST['screen_mode'] ) ? 'view' : $_POST['screen_mode'];
+
+		if ( $mode === 'edit' ) {
+			wp_print_styles( 'gform_admin_theme' );
+		}
+
+		$screen = get_current_screen();
+
+		$min = defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG || isset( $_GET['gform_debug'] ) ? '' : '.min';
+
+		?>
+		<script type="text/javascript">
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 
 			jQuery(document).ready(function () {
 				toggleNotificationOverride(true);
@@ -530,11 +653,19 @@ class GFEntryDetail {
 			function DeleteFile(leadId, fieldId, deleteButton) {
 				if (confirm(<?php echo json_encode( __( "Would you like to delete this file? 'Cancel' to stop. 'OK' to delete", 'gravityforms' ) ); ?>)) {
 					var fileIndex = jQuery(deleteButton).parent().index();
+<<<<<<< HEAD
 					var mysack = new sack("<?php echo esc_url( admin_url( 'admin-ajax.php' ) ); ?>");
 					mysack.execute = 1;
 					mysack.method = 'POST';
 					mysack.setVar("action", "rg_delete_file");
 					mysack.setVar("rg_delete_file", "<?php echo esc_js( wp_create_nonce( 'rg_delete_file' ) ); ?>");
+=======
+					var mysack = new sack("<?php echo admin_url( 'admin-ajax.php' )?>");
+					mysack.execute = 1;
+					mysack.method = 'POST';
+					mysack.setVar("action", "rg_delete_file");
+					mysack.setVar("rg_delete_file", "<?php echo wp_create_nonce( 'rg_delete_file' ) ?>");
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 					mysack.setVar("lead_id", leadId);
 					mysack.setVar("field_id", fieldId);
 					mysack.setVar("file_index", fileIndex);
@@ -558,11 +689,14 @@ class GFEntryDetail {
 					jQuery('#upload_' + fieldId).show('slow');
 				}
 
+<<<<<<< HEAD
 				var $multiFileContainer = jQuery( '#gform_multifile_upload_' + formId + '_' + fieldId );
 				if ( ! $multiFileContainer.hasClass( 'gform_fileupload_multifile' ) ) {
 					return;
 				}
 
+=======
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 				var $input = jQuery( 'input[name="input_' + fieldId + '"]' );
 				var rawFiles  = JSON.parse( $input.val() );
 				var files = rawFiles.filter( function( url ) { return url !== null; } );
@@ -618,14 +752,21 @@ class GFEntryDetail {
 
 				jQuery.post(ajaxurl, {
 						action                 : "gf_resend_notifications",
+<<<<<<< HEAD
 						gf_resend_notifications: '<?php echo esc_js( wp_create_nonce( 'gf_resend_notifications' ) ); ?>',
+=======
+						gf_resend_notifications: '<?php echo wp_create_nonce( 'gf_resend_notifications' ); ?>',
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 						notifications          : jQuery.toJSON(selectedNotifications),
 						sendTo                 : sendTo,
 						leadIds                : '<?php echo absint( $lead['id'] ); ?>',
 						formId                 : '<?php echo absint( $form['id'] ); ?>'
 					},
 					function (response) {
+<<<<<<< HEAD
 						response = response.trim();
+=======
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 						if (response) {
 							displayMessage(response, "error", "#notifications");
 						} else {
@@ -679,10 +820,17 @@ class GFEntryDetail {
 		}
 
 		?>
+<<<<<<< HEAD
 		<form method="post" id="entry_form" enctype='multipart/form-data' action="<?php echo esc_url( remove_query_arg( 'screen_mode' ) ) ?>">
 			<?php wp_nonce_field( 'gforms_save_entry', 'gforms_save_entry' ) ?>
 			<input type="hidden" name="action" id="action" value="" />
 			<input type="hidden" name="screen_mode" id="screen_mode" value="<?php echo esc_attr( $mode ) ?>" />
+=======
+		<form method="post" id="entry_form" enctype='multipart/form-data'>
+			<?php wp_nonce_field( 'gforms_save_entry', 'gforms_save_entry' ) ?>
+			<input type="hidden" name="action" id="action" value="" />
+			<input type="hidden" name="screen_mode" id="screen_mode" value="<?php echo esc_attr( rgpost( 'screen_mode' ) ) ?>" />
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 
 			<input type="hidden" name="entry_id" id="entry_id" value="<?php echo absint( $lead['id'] ) ?>" />
 
@@ -696,10 +844,17 @@ class GFEntryDetail {
 				<?php if ( isset( $_GET['pos'] ) ) { ?>
 				<div class="gf_entry_detail_pagination">
 					<div class="gf_entry_count">
+<<<<<<< HEAD
 						<?php esc_html_e('Entry', 'gravityforms' );?>&nbsp;<strong><?php echo esc_html( $position + 1 ); ?></strong> of <strong><?php echo esc_html( $total_count ); ?></strong>
 					</div>
 					<div class="gf_entry_prev gf_entry_pagination"><?php echo GFEntryDetail::entry_detail_pagination_link( $prev_pos, 'Previous Entry', 'gf_entry_prev_link', 'dashicons-arrow-left-alt' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?></div>
 					<div class="gf_entry_next gf_entry_pagination"><?php echo GFEntryDetail::entry_detail_pagination_link( $next_pos, 'Next Entry', 'gf_entry_next_link', 'dashicons-arrow-right-alt' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?></div>
+=======
+						<?php esc_html_e('Entry', 'gravityforms' );?>&nbsp;<strong><?php echo $position + 1; ?></strong> of <strong><?php echo $total_count; ?></strong>
+					</div>
+					<div class="gf_entry_prev gf_entry_pagination"><?php echo GFEntryDetail::entry_detail_pagination_link( $prev_pos, 'Previous Entry', 'gf_entry_prev_link', 'dashicons-arrow-left-alt' ); ?></div>
+					<div class="gf_entry_next gf_entry_pagination"><?php echo GFEntryDetail::entry_detail_pagination_link( $next_pos, 'Next Entry', 'gf_entry_next_link', 'dashicons-arrow-right-alt' ); ?></div>
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 				</div>
 				<?php } ?>
 				<div id="poststuff">
@@ -801,7 +956,11 @@ class GFEntryDetail {
 				<label for="name"><?php esc_html_e( 'Details', 'gravityforms' ); ?></label>
 			</h3>
 
+<<<<<<< HEAD
 			<div class="inside gform_wrapper gravity-theme gform_wrapper_edit_form_entry">
+=======
+			<div class="inside gform_wrapper gravity-theme">
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 				<table class="form-table entry-details">
 					<tbody>
 					<?php
@@ -863,7 +1022,11 @@ class GFEntryDetail {
 						 */
 						$content = gf_apply_filters( array( 'gform_field_content', $form['id'], $field->id ), $content, $field, $value, $lead['id'], $form['id'] );
 
+<<<<<<< HEAD
 						echo $content; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+=======
+						echo $content;
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 					}
 					?>
 					</tbody>
@@ -895,7 +1058,11 @@ class GFEntryDetail {
 				 *
 				 * @param string $apply_button The Apply Button HTML
 				 */
+<<<<<<< HEAD
 				echo apply_filters( 'gform_notes_apply_button', $apply_button ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+=======
+				echo apply_filters( 'gform_notes_apply_button', $apply_button );
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 				?>
 			</div>
 			<?php
@@ -934,7 +1101,11 @@ class GFEntryDetail {
                     <div class="note-details">
 	                    <?php if ( $is_editable && GFCommon::current_user_can_any( 'gravityforms_edit_entry_notes' ) ) { ?>
                         <div class="note-check" >
+<<<<<<< HEAD
                             <input type="checkbox" value="<?php echo esc_attr( $note->id ); ?>" name="note[]" />
+=======
+                            <input type="checkbox" value="<?php echo $note->id ?>" name="note[]" />
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
                         </div>
 	                    <?php } ?>
 
@@ -955,8 +1126,12 @@ class GFEntryDetail {
                                  *
                                  * @param array $note The Note object that is being filtered when modifying the avatar
                                  */
+<<<<<<< HEAD
                                 echo apply_filters( 'gform_notes_avatar', $avatar, $note );  // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped 
 								?>
+=======
+                                echo apply_filters( 'gform_notes_avatar', $avatar, $note ); ?>
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
                             </div>
                             <div class="text">
                                 <h6><?php echo esc_html( $note->user_name ) ?>&nbsp;<?php if ( $note->user_email ): ?><?php echo esc_html( $note->user_email ) ?><?php endif; ?></h6>
@@ -966,7 +1141,11 @@ class GFEntryDetail {
 
                     </div>
 
+<<<<<<< HEAD
                     <div class="note-content <?php echo esc_attr( implode( ' ', $classes ) ); ?>"><?php echo nl2br( wp_kses_post( $note->value ) ) ?></div>
+=======
+                    <div class="note-content <?php echo implode( ' ', $classes ); ?>"><?php echo nl2br( esc_html( $note->value ) ) ?></div>
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 
                 </div>
 		        <?php
@@ -984,7 +1163,11 @@ class GFEntryDetail {
 	                     *
 	                     * @param string $note_button The HTML for the "Add Note" Button
 	                     */
+<<<<<<< HEAD
 	                    echo apply_filters( 'gform_addnote_button', $note_button );  // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+=======
+	                    echo apply_filters( 'gform_addnote_button', $note_button );
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 
 	                    if ( ! empty( $emails ) ) {
 		                    ?>
@@ -1039,7 +1222,11 @@ class GFEntryDetail {
 					 * @param array  $form  The Form Object.
 					 * @param array  $entry The Entry Object.
 					 */
+<<<<<<< HEAD
 					echo apply_filters( 'gform_entry_detail_title', $title, $form, $lead ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+=======
+					echo apply_filters( 'gform_entry_detail_title', $title, $form, $lead );
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 					?>
 				</th>
 				<th style="width:auto; font-size:10px; text-align: right;">
@@ -1097,7 +1284,11 @@ class GFEntryDetail {
 							$field->nestingLevel = 0;
 						}
 
+<<<<<<< HEAD
 						$display_value = $field->get_value_entry_detail( $value, $lead, false, 'html', 'screen' );
+=======
+						$display_value = GFCommon::get_lead_field_display( $field, $value, $lead['currency'] );
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 
 						/**
 						 * Filters a field value displayed within an entry.
@@ -1142,11 +1333,16 @@ class GFEntryDetail {
 				 */
 				$content = gf_apply_filters( array( 'gform_field_content', $form['id'], $field->id ), $content, $field, $value, $lead['id'], $form['id'] );
 
+<<<<<<< HEAD
 				echo $content; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+=======
+				echo $content;
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 			}
 
 			$products = array();
 			if ( $has_product_fields ) {
+<<<<<<< HEAD
 				$products             = GFCommon::get_product_fields( $form, $lead, false, true );
 				$order_summary_markup = GF_Order_Summary::render( $form, $lead, 'order-summary', false, true );
 				if ( $order_summary_markup ) {
@@ -1155,6 +1351,103 @@ class GFEntryDetail {
 					 *
 					 * @since 2.1.2.5
 					 * @see   https://docs.gravityforms.com/gform_order_summary/
+=======
+				$products = GFCommon::get_product_fields( $form, $lead, false, true );
+				if ( ! empty( $products['products'] ) ) {
+				    ob_start();
+					?>
+					<tr>
+						<td colspan="2" class="entry-view-field-name"><?php echo esc_html( gf_apply_filters( array( 'gform_order_label', $form_id ), __( 'Order', 'gravityforms' ), $form_id ) ); ?></td>
+					</tr>
+					<tr>
+						<td colspan="2" class="entry-view-field-value lastrow">
+							<table class="entry-products" cellspacing="0" width="97%">
+								<colgroup>
+									<col class="entry-products-col1" />
+									<col class="entry-products-col2" />
+									<col class="entry-products-col3" />
+									<col class="entry-products-col4" />
+								</colgroup>
+								<thead>
+								<th scope="col"><?php echo gf_apply_filters( array( 'gform_product', $form_id ), __( 'Product', 'gravityforms' ), $form_id ); ?></th>
+								<th scope="col" class="textcenter"><?php echo esc_html( gf_apply_filters( array( 'gform_product_qty', $form_id ), __( 'Qty', 'gravityforms' ), $form_id ) ); ?></th>
+								<th scope="col"><?php echo esc_html( gf_apply_filters( array( 'gform_product_unitprice', $form_id ), __( 'Unit Price', 'gravityforms' ), $form_id ) ); ?></th>
+								<th scope="col"><?php echo esc_html( gf_apply_filters( array( 'gform_product_price', $form_id ), __( 'Price', 'gravityforms' ), $form_id ) ); ?></th>
+								</thead>
+								<tbody>
+								<?php
+
+								$total = 0;
+								foreach ( $products['products'] as $product ) {
+									?>
+									<tr>
+										<td>
+											<div class="product_name"><?php echo esc_html( $product['name'] ); ?></div>
+											<ul class="product_options">
+												<?php
+												$price = GFCommon::to_number( $product['price'], $lead['currency'] );
+												if ( is_array( rgar( $product, 'options' ) ) ) {
+													$count = sizeof( $product['options'] );
+													$index = 1;
+													foreach ( $product['options'] as $option ) {
+														$price += GFCommon::to_number( $option['price'], $lead['currency'] );
+														$class = $index == $count ? " class='lastitem'" : '';
+														$index ++;
+														?>
+														<li<?php echo $class ?>><?php echo $option['option_label'] ?></li>
+														<?php
+													}
+												}
+												$quantity = GFCommon::to_number( $product['quantity'], $lead['currency'] );
+
+												$subtotal = $quantity * $price;
+												$total += $subtotal;
+												?>
+											</ul>
+										</td>
+										<td class="textcenter"><?php echo esc_html( $product['quantity'] ); ?></td>
+										<td><?php echo GFCommon::to_money( $price, $lead['currency'] ) ?></td>
+										<td><?php echo GFCommon::to_money( $subtotal, $lead['currency'] ) ?></td>
+									</tr>
+									<?php
+								}
+								$total += floatval( $products['shipping']['price'] );
+								?>
+								</tbody>
+								<tfoot>
+								<?php
+								if ( ! empty( $products['shipping']['name'] ) ) {
+									?>
+									<tr>
+										<td colspan="2" rowspan="2" class="emptycell">&nbsp;</td>
+										<td class="textright shipping"><?php echo esc_html( $products['shipping']['name'] ); ?></td>
+										<td class="shipping_amount"><?php echo GFCommon::to_money( $products['shipping']['price'], $lead['currency'] ) ?>&nbsp;</td>
+									</tr>
+									<?php
+								}
+								?>
+								<tr>
+									<?php
+									if ( empty( $products['shipping']['name'] ) ) {
+										?>
+										<td colspan="2" class="emptycell">&nbsp;</td>
+										<?php
+									}
+									?>
+									<td class="textright grandtotal"><?php esc_html_e( 'Total', 'gravityforms' ) ?></td>
+									<td class="grandtotal_amount"><?php echo GFCommon::to_money( $total, $lead['currency'] ) ?></td>
+								</tr>
+								</tfoot>
+							</table>
+						</td>
+					</tr>
+					<?php
+					/**
+					 * Filter the markup of the order summary which appears on the Entry Detail, the {all_fields} merge tag and the {pricing_fields} merge tag.
+                     *
+                     * @since 2.1.2.5
+                     * @see   https://docs.gravityforms.com/gform_order_summary/
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 					 *
 					 * @var string $markup          The order summary markup.
 					 * @var array  $form            Current form object.
@@ -1162,9 +1455,14 @@ class GFEntryDetail {
 					 * @var array  $products        Current order summary object.
 					 * @var string $format          Format that should be used to display the summary ('html' or 'text').
 					 */
+<<<<<<< HEAD
 					$order_summary_markup = gf_apply_filters( array( 'gform_order_summary', $form['id'] ), trim( $order_summary_markup ), $form, $lead, $products, 'html' );
 
 					echo $order_summary_markup; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+=======
+                    $order_summary = gf_apply_filters( array( 'gform_order_summary', $form['id'] ), trim( ob_get_clean() ), $form, $lead, $products, 'html' );
+                    echo $order_summary;
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 				}
 			}
 			?>
@@ -1174,7 +1472,11 @@ class GFEntryDetail {
 	}
 
 	public static function entry_detail_pagination_link( $pos, $label = '', $class = '', $icon = '' ) {
+<<<<<<< HEAD
 		$url = add_query_arg( array( 'pos' => $pos ), remove_query_arg( array( 'pos', 'lid', 'screen_mode' ) ) );
+=======
+		$url = add_query_arg( array( 'pos' => $pos ), remove_query_arg( array( 'pos', 'lid' ) ) );
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 
 		$href = ! rgblank( $pos ) ? 'href="' . esc_url( $url ) . '"' : '';
 		$class .= ' gf_entry_pagination_link';
@@ -1217,7 +1519,11 @@ class GFEntryDetail {
 					?>
 					<div id="gf_payment_status" class="gf_payment_detail">
 						<?php esc_html_e( 'Status', 'gravityforms' ) ?>:
+<<<<<<< HEAD
 						<span id="gform_payment_status"><?php echo $payment_status; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- May contain HTML ?></span>
+=======
+						<span id="gform_payment_status"><?php echo $payment_status; // May contain HTML ?></span>
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 					</div>
 
 					<?php
@@ -1233,7 +1539,11 @@ class GFEntryDetail {
 						?>
 						<div id="gf_payment_date" class="gf_payment_detail">
 							<?php echo $entry['transaction_type'] == 2 ? esc_html__( 'Start Date', 'gravityforms' ) : esc_html__( 'Date', 'gravityforms' ) ?>:
+<<<<<<< HEAD
 							<span id='gform_payment_date'><?php echo $payment_date; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- May contain HTML ?></span>
+=======
+							<span id='gform_payment_date'><?php echo $payment_date; // May contain HTML ?></span>
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 						</div>
 						<?php
 					}
@@ -1250,7 +1560,11 @@ class GFEntryDetail {
 						?>
 						<div id="gf_payment_transaction_id" class="gf_payment_detail">
 							<?php echo $entry['transaction_type'] == 2 ? esc_html__( 'Subscription Id', 'gravityforms' ) : esc_html__( 'Transaction Id', 'gravityforms' ); ?>:
+<<<<<<< HEAD
 							<span id='gform_payment_transaction_id'><?php echo $transaction_id; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- May contain HTML ?></span>
+=======
+							<span id='gform_payment_transaction_id'><?php echo $transaction_id; // May contain HTML ?></span>
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 						</div>
 						<?php
 					}
@@ -1268,6 +1582,7 @@ class GFEntryDetail {
 						?>
 						<div id="gf_payment_amount" class="gf_payment_detail">
 							<?php echo $entry['transaction_type'] == 2 ? esc_html__( 'Recurring Amount', 'gravityforms' ) : esc_html__( 'Amount', 'gravityforms' ); ?>:
+<<<<<<< HEAD
 							<span id='gform_payment_amount'><?php echo $payment_amount; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- May contain HTML ?></span>
 						</div>
 						<?php
@@ -1294,6 +1609,12 @@ class GFEntryDetail {
 							<?php
 						}
 					}
+=======
+							<span id='gform_payment_amount'><?php echo $payment_amount; // May contain HTML ?></span>
+						</div>
+						<?php
+					}
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 				}
 
 				/**
@@ -1333,7 +1654,11 @@ class GFEntryDetail {
 
 			<?php } ?>
 			<br><br>
+<<<<<<< HEAD
 			<a href="javascript:;" onclick="var notes_qs = jQuery('#gform_print_notes').is(':checked') ? '&notes=1' : ''; var url='<?php echo esc_url( trailingslashit( site_url() ) ); ?>?gf_page=print-entry&fid=<?php echo absint( $form['id'] ); ?>&lid=<?php echo absint( $lead['id'] ); ?>' + notes_qs; window.open (url,'printwindow');" class="button"><?php esc_html_e( 'Print', 'gravityforms' ); ?></a>
+=======
+			<a href="javascript:;" onclick="var notes_qs = jQuery('#gform_print_notes').is(':checked') ? '&notes=1' : ''; var url='<?php echo trailingslashit( site_url() ); ?>?gf_page=print-entry&fid=<?php echo absint( $form['id'] ); ?>&lid=<?php echo absint( $lead['id'] ); ?>' + notes_qs; window.open (url,'printwindow');" class="button"><?php esc_html_e( 'Print', 'gravityforms' ); ?></a>
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 		</div>
 		<!-- end print button -->
 		<?php
@@ -1395,7 +1720,11 @@ class GFEntryDetail {
 				}
 
 				esc_html_e( 'Embed Url', 'gravityforms' ); ?>:
+<<<<<<< HEAD
 				<a href="<?php echo esc_url( $entry['source_url'] ) ?>" target="_blank">.../<?php echo esc_html( GFCommon::truncate_url( $entry['source_url'] ) ) ?><span class="screen-reader-text"><?php echo esc_html__('(opens in a new tab)', 'gravityforms'); ?></span>&nbsp;<span class="gform-icon gform-icon--external-link" aria-hidden="true"></span></a>
+=======
+				<a href="<?php echo esc_url( $entry['source_url'] ) ?>" target="_blank">.../<?php echo esc_html( GFCommon::truncate_url( $entry['source_url'] ) ) ?></a>
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 				<br /><br />
 				<?php
 				if ( ! empty( $entry['post_id'] ) ) {
@@ -1422,12 +1751,19 @@ class GFEntryDetail {
 					<?php
 					switch ( $entry['status'] ) {
 						case 'spam' :
+<<<<<<< HEAD
 							if ( GFCommon::current_user_can_any( 'gravityforms_edit_entries' ) ) {
 								?>
 								<a onclick="jQuery('#action').val('unspam'); jQuery('#entry_form').submit()" href="#"><?php esc_html_e( 'Not Spam', 'gravityforms' ) ?></a>
 								<?php
 								echo GFCommon::current_user_can_any( 'gravityforms_delete_entries' ) ? '|' : '';
 							}
+=======
+							?>
+							<a onclick="jQuery('#action').val('unspam'); jQuery('#entry_form').submit()" href="#"><?php esc_html_e( 'Not Spam', 'gravityforms' ) ?></a>
+							<?php
+							echo GFCommon::current_user_can_any( 'gravityforms_delete_entries' ) ? '|' : '';
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 							if ( GFCommon::current_user_can_any( 'gravityforms_delete_entries' ) ) {
 								?>
 								<a class="submitdelete deletion" onclick="if ( confirm('<?php echo esc_js( __( "You are about to delete this entry. 'Cancel' to stop, 'OK' to delete.", 'gravityforms' ) ); ?>') ) {jQuery('#action').val('delete'); jQuery('#entry_form').submit(); return true;} return false;" href="#"><?php esc_html_e( 'Delete Permanently', 'gravityforms' ) ?></a>
@@ -1452,9 +1788,15 @@ class GFEntryDetail {
 								?>
 								<a class="submitdelete deletion" onclick="jQuery('#action').val('trash'); jQuery('#entry_form').submit()" href="#"><?php esc_html_e( 'Move to Trash', 'gravityforms' ) ?></a>
 								<?php
+<<<<<<< HEAD
 								echo GFCommon::spam_enabled( $form['id'] ) && GFCommon::current_user_can_any( 'gravityforms_edit_entries' ) ? '|' : '';
 							}
 							if ( GFCommon::spam_enabled( $form['id'] ) && GFCommon::current_user_can_any( 'gravityforms_edit_entries' ) ) {
+=======
+								echo GFCommon::spam_enabled( $form['id'] ) ? '|' : '';
+							}
+							if ( GFCommon::spam_enabled( $form['id'] ) ) {
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 								?>
 								<a class="submitdelete deletion" onclick="jQuery('#action').val('spam'); jQuery('#entry_form').submit()" href="#"><?php esc_html_e( 'Mark as Spam', 'gravityforms' ) ?></a>
 								<?php
@@ -1478,7 +1820,11 @@ class GFEntryDetail {
 						 *
 						 * @param string $update_button The HTML Rendered for the Entry Detail update button
 						 */
+<<<<<<< HEAD
 						echo apply_filters( 'gform_entrydetail_update_button', $update_button ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+=======
+						echo apply_filters( 'gform_entrydetail_update_button', $update_button );
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 						if ( $mode == 'edit' ) {
 							echo '&nbsp;&nbsp;<input class="button button-large" type="submit" tabindex="5" value="' . esc_attr__( 'Cancel', 'gravityforms' ) . '" name="cancel" onclick="jQuery(\'#screen_mode\').val(\'view\');"/>';
 						}
@@ -1510,7 +1856,11 @@ class GFEntryDetail {
 				?>
 				<p class="description"><?php esc_html_e( 'You cannot resend notifications for this entry because this form does not currently have any notifications configured.', 'gravityforms' ); ?></p>
 
+<<<<<<< HEAD
 				<a href="<?php echo esc_url_raw( admin_url( "admin.php?page=gf_edit_forms&view=settings&subview=notification&id={$form_id}" ) ) ?>" class="button"><?php esc_html_e( 'Configure Notifications', 'gravityforms' ) ?></a>
+=======
+				<a href="<?php echo admin_url( "admin.php?page=gf_edit_forms&view=settings&subview=notification&id={$form_id}" ) ?>" class="button"><?php esc_html_e( 'Configure Notifications', 'gravityforms' ) ?></a>
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 				<?php
 			} else {
 				foreach ( $notifications as $notification ) {

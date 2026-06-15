@@ -5,12 +5,16 @@ namespace Gravity_Forms\Gravity_Forms\Util;
 use Gravity_Forms\Gravity_Forms\GF_Service_Container;
 use Gravity_Forms\Gravity_Forms\GF_Service_Provider;
 use Gravity_Forms\Gravity_Forms\Transients\GF_WP_Transient_Strategy;
+<<<<<<< HEAD
 use Gravity_Forms\Gravity_Forms\Util\Colors\Color_Modifier;
+=======
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 
 class GF_Util_Service_Provider extends GF_Service_Provider {
 
 	const GF_CACHE        = 'gf_cache';
 	const TRANSIENT_STRAT = 'gf_license_transient_strat';
+<<<<<<< HEAD
 	const GF_COMMON       = 'gf_common';
 	const GF_FORMS_MODEL  = 'gf_forms_model';
 	const RG_FORMS_MODEL  = 'rg_forms_model';
@@ -84,3 +88,16 @@ class GF_Util_Service_Provider extends GF_Service_Provider {
 		} );
 	}
 }
+=======
+
+	public function register( GF_Service_Container $container ) {
+		$container->add( self::GF_CACHE, function () {
+			return new \GFCache();
+		} );
+
+		$container->add( self::TRANSIENT_STRAT, function () {
+			return new GF_WP_Transient_Strategy();
+		} );
+	}
+}
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6

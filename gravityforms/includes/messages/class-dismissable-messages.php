@@ -4,6 +4,11 @@ namespace Gravity_Forms\Gravity_Forms\Messages;
 
 class Dismissable_Messages {
 
+<<<<<<< HEAD
+=======
+	const UPGRADE_MESSAGE_2_5 = 'gravityforms_update_2_5';
+
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 	private static $dismissible_messages = array();
 
 	/**
@@ -47,11 +52,15 @@ class Dismissable_Messages {
 		$message['page']         = $page;
 
 		if ( $sticky ) {
+<<<<<<< HEAD
 			$sticky_messages = get_option( 'gform_sticky_admin_messages', array() );
 			if ( ! is_array( $sticky_messages ) ) {
 				$sticky_messages = array();
 			}
 
+=======
+			$sticky_messages         = get_option( 'gform_sticky_admin_messages', array() );
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 			$sticky_messages[ $key ] = $message;
 			update_option( 'gform_sticky_admin_messages', $sticky_messages );
 		} else {
@@ -67,6 +76,7 @@ class Dismissable_Messages {
 	 * @since 2.5.7
 	 */
 	public function remove( $key ) {
+<<<<<<< HEAD
 		$sticky_messages = get_option( 'gform_sticky_admin_messages', array() );
 		if ( ! is_array( $sticky_messages ) ) {
 			delete_option( 'gform_sticky_admin_messages' );
@@ -76,6 +86,10 @@ class Dismissable_Messages {
 
 		$key = sanitize_key( $key );
 
+=======
+		$key             = sanitize_key( $key );
+		$sticky_messages = get_option( 'gform_sticky_admin_messages', array() );
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 		foreach ( $sticky_messages as $sticky_key => $sticky_message ) {
 			if ( $key == sanitize_key( $sticky_message['key'] ) ) {
 				unset( $sticky_messages[ $sticky_key ] );
@@ -96,8 +110,13 @@ class Dismissable_Messages {
 		$messages = get_option( 'gform_sticky_admin_messages', array() );
 		$map      = $this->internal_messages_map();
 
+<<<<<<< HEAD
 		if ( empty( $messages ) || ! is_array( $messages ) ) {
 			return array();
+=======
+		if ( empty( $messages ) ) {
+			return $messages;
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 		}
 
 		return array_map( function ( $message ) use ( $map ) {
@@ -126,10 +145,15 @@ class Dismissable_Messages {
 		if ( ! $messages ) {
 			$messages        = self::$dismissible_messages;
 			$sticky_messages = $this->get_sticky_messages();
+<<<<<<< HEAD
 			if ( ! empty( $sticky_messages ) ) {
 				$messages = array_merge( $messages, $sticky_messages );
 				$messages = array_values( $messages );
 			}
+=======
+			$messages        = array_merge( $messages, $sticky_messages );
+			$messages        = array_values( $messages );
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 		}
 
 		if ( empty( $page ) ) {
@@ -166,11 +190,19 @@ class Dismissable_Messages {
 
 				$need_script = true;
 				?>
+<<<<<<< HEAD
 				<div class="notice below-h1 notice-<?php echo esc_attr( $class ); ?> is-dismissible gf-notice"
 				     data-gf_dismissible_key="<?php echo esc_attr( $message['key'] ) ?>"
 				     data-gf_dismissible_nonce="<?php echo esc_attr( wp_create_nonce( 'gf_dismissible_nonce' ) ) ?>">
 					<p>
 						<?php echo $message['text']; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
+=======
+				<div class="notice below-h1 notice-<?php echo $class; ?> is-dismissible gf-notice"
+				     data-gf_dismissible_key="<?php echo $message['key'] ?>"
+				     data-gf_dismissible_nonce="<?php echo wp_create_nonce( 'gf_dismissible_nonce' ) ?>">
+					<p>
+						<?php echo $message['text']; ?>
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 					</p>
 				</div>
 				<?php
@@ -269,7 +301,13 @@ class Dismissable_Messages {
 	 * @return array[]
 	 */
 	private function internal_messages_map() {
+<<<<<<< HEAD
 		return array();
+=======
+		return array(
+			self::UPGRADE_MESSAGE_2_5 => array( $this, 'update_2_5_message' ),
+		);
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 	}
 
 	/**
@@ -290,4 +328,26 @@ class Dismissable_Messages {
 
 		return call_user_func( $map[ $key ] );
 	}
+<<<<<<< HEAD
 }
+=======
+
+	/**
+	 * Retrieve formatted message for updating to 2.5.
+	 *
+	 * @since 2.5.7
+	 *
+	 * @return string
+	 */
+	public function update_2_5_message() {
+		$message = sprintf(
+			'%s <a href="https://www.gravityforms.com/two-five/" target="_blank" rel="noopener noreferrer">%s</a> %s',
+			esc_html__( 'Welcome to Gravity Forms 2.5!', 'gravityforms' ),
+			esc_html__( 'Learn more', 'gravityforms' ),
+			esc_html__( 'about all the new features and updates included in this version.', 'gravityforms' )
+		);
+
+		return $message;
+	}
+}
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6

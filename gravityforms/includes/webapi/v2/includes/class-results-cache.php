@@ -289,7 +289,13 @@ class GF_Results_Cache {
 
 		$key = '%' . GFCommon::esc_like( $key ) . '%';
 
+<<<<<<< HEAD
 		$result = $wpdb->get_var( $wpdb->prepare( "SELECT count(option_id) FROM $wpdb->options WHERE option_name LIKE %s", $key ) ); // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
+=======
+		$sql = $wpdb->prepare( "SELECT count(option_id) FROM $wpdb->options WHERE option_name LIKE %s", $key );
+
+		$result = $wpdb->get_var( $sql );
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 
 		return $result > 0;
 
@@ -316,7 +322,13 @@ class GF_Results_Cache {
 
 		$key = '%' . GFCommon::esc_like( $key ) . '%';
 
+<<<<<<< HEAD
 		$result = $wpdb->query( $wpdb->prepare( "DELETE FROM $wpdb->options WHERE option_name LIKE %s", $key ) ); // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
+=======
+		$sql = $wpdb->prepare( "DELETE FROM $wpdb->options WHERE option_name LIKE %s", $key );
+
+		$result = $wpdb->query( $sql );
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 
 		return $result;
 	}

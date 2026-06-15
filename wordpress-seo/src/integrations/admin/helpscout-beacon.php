@@ -7,6 +7,10 @@ use WPSEO_Admin_Asset_Manager;
 use WPSEO_Tracking_Server_Data;
 use WPSEO_Utils;
 use Yoast\WP\SEO\Conditionals\Admin_Conditional;
+<<<<<<< HEAD
+=======
+use Yoast\WP\SEO\Conditionals\User_Can_Manage_Wpseo_Options_Conditional;
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 use Yoast\WP\SEO\Config\Migration_Status;
 use Yoast\WP\SEO\Helpers\Options_Helper;
 use Yoast\WP\SEO\Integrations\Academy_Integration;
@@ -464,7 +468,11 @@ class HelpScout_Beacon implements Integration_Interface {
 	 * @return array<string> The array of conditionals.
 	 */
 	public static function get_conditionals() {
+<<<<<<< HEAD
 		return [ Admin_Conditional::class ];
+=======
+		return [ Admin_Conditional::class, User_Can_Manage_Wpseo_Options_Conditional::class ];
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 	}
 
 	/**

@@ -29,6 +29,7 @@ window.addEventListener( 'load' , function() {
 
 			// Hide input, show drop down.
 			$inputField.style.display = 'none';
+<<<<<<< HEAD
 			jQuery( this )
 				.closest('div.gform-settings-field__select_custom')
 				.find( 'select' )
@@ -37,6 +38,13 @@ window.addEventListener( 'load' , function() {
 					element.style.display = 'block';
 				}
 			);
+=======
+
+			$selectOptions.forEach( function( $select ) {
+				$select.value         = '';
+				$select.style.display = 'block';
+			} );
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 
 		} );
 

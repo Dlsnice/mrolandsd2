@@ -16,6 +16,7 @@ class Dom_Parser {
 	public $content;
 
 	/**
+<<<<<<< HEAD
 	 * The content with the hooks script removed.
 	 *
 	 * @since 2.9.19
@@ -25,11 +26,17 @@ class Dom_Parser {
 	private $content_modified;
 
 	/**
+=======
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 	 * A DOMDocument object made by calling loadXML().
 	 *
 	 * @since 2.5.6
 	 *
+<<<<<<< HEAD
 	 * @var \DOMDocument $dom_xml
+=======
+	 * @var DOMDocument $dom_xml
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 	 */
 	public $dom_xml;
 
@@ -38,7 +45,11 @@ class Dom_Parser {
 	 *
 	 * @since 2.5.6
 	 *
+<<<<<<< HEAD
 	 * @var \DOMDocument $dom_html
+=======
+	 * @var DOMDocument $dom_html
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 	 */
 	public $dom_html;
 
@@ -73,7 +84,10 @@ class Dom_Parser {
 			return;
 		}
 
+<<<<<<< HEAD
 		$this->remove_script();
+=======
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 		$this->parse_dom();
 	}
 
@@ -127,6 +141,7 @@ class Dom_Parser {
 	}
 
 	/**
+<<<<<<< HEAD
 	 * Returns the scripts to be removed from the content or the script tag for output.
 	 *
 	 * @since 2.9.19
@@ -162,11 +177,14 @@ class Dom_Parser {
 	}
 
 	/**
+=======
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 	 * Take the given DOM Content and inject the Hooks JS code in the correct position.
 	 *
 	 * @return string
 	 */
 	private function inject_hooks_js() {
+<<<<<<< HEAD
 		$pieces          = preg_split( "/\r\n|\n|\r/", $this->content_modified );
 		$insert_position = $this->get_insert_position();
 		$script          = $this->get_scripts( true );
@@ -176,6 +194,20 @@ class Dom_Parser {
 			$content = implode( "\n", $pieces );
 		} else {
 			$content = preg_replace( '/(<[\s]*head(?!e)[^>]*>)/', '$0 ' . $script, $this->content_modified, 1 );
+=======
+		$insert_position  = $this->get_insert_position();
+		$hooks_javascript = \GFCommon::get_hooks_javascript_code();
+
+		$content = str_replace( $hooks_javascript, '', $this->content );
+		$string  = \GFCommon::get_inline_script_tag( $hooks_javascript );
+		$pieces  = preg_split( "/\r\n|\n|\r/", $content );
+
+		if ( count( $pieces ) > 1 && $insert_position > 0 ) {
+			array_splice( $pieces, $insert_position, 0, $string );
+			$content = implode( "\n", $pieces );
+		} else {
+			$content = preg_replace( '/(<[\s]*head(?!e)[^>]*>)/', '$0 ' . $string, $this->content, 1 );
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 		}
 
 		return $content;
@@ -214,16 +246,27 @@ class Dom_Parser {
 	 *
 	 * @since 2.5.6
 	 *
+<<<<<<< HEAD
 	 * @return \DOMDocument|false
 	 */
 	private function get_dom_xml() {
 		if ( empty( $this->content_modified ) ) {
+=======
+	 * @return DOMDocument|false
+	 */
+	private function get_dom_xml() {
+		if ( empty( $this->content ) ) {
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 			return false;
 		}
 
 		try {
 			$xdom = new \DOMDocument();
+<<<<<<< HEAD
 			$xdom->loadXML( $this->content_modified );
+=======
+			$xdom->loadXML( $this->content );
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 
 			return $xdom;
 		} catch ( \Exception $e ) {
@@ -236,16 +279,27 @@ class Dom_Parser {
 	 *
 	 * @since 2.5.6
 	 *
+<<<<<<< HEAD
 	 * @return \DOMDocument|false
 	 */
 	private function get_dom_html() {
 		if ( empty( $this->content_modified ) ) {
+=======
+	 * @return DOMDocument|false
+	 */
+	private function get_dom_html() {
+		if ( empty( $this->content ) ) {
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 			return false;
 		}
 
 		try {
 			$dom = new \DOMDocument();
+<<<<<<< HEAD
 			$dom->loadHTML( $this->content_modified );
+=======
+			$dom->loadHTML( $this->content );
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 
 			return $dom;
 		} catch ( \Exception $e ) {
@@ -265,6 +319,10 @@ class Dom_Parser {
 	private function get_insert_position() {
 		// Default to 0 to inject right after head.
 		$insert_position = 0;
+<<<<<<< HEAD
+=======
+		$insert_el       = false;
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 
 		if ( ! $this->has_domdocument ) {
 			return 0;
@@ -281,6 +339,7 @@ class Dom_Parser {
 				// Some charsets are defined via a charset attribute
 				$meta_el->hasAttribute( 'charset' ) ||
 
+<<<<<<< HEAD
 				// Other charsets are defined via a combo of http-equiv and content attributes
 				(
 					$meta_el->hasAttribute( 'http-equiv' ) &&
@@ -290,6 +349,16 @@ class Dom_Parser {
 			) {
 				$insert_position = $meta_el->getLineNo();
 				break;
+=======
+				// Other charsets are defined via a combo of http-equiv and content attritbutes
+				(
+					$meta_el->hasAttribute( 'http-equiv' ) &&
+					$meta_el->hasAttribute( 'content' )
+				)
+			) {
+				$insert_position = $meta_el->getLineNo();
+				$insert_el       = $meta_el;
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 			}
 		}
 
@@ -297,7 +366,11 @@ class Dom_Parser {
 			return $insert_position;
 		}
 
+<<<<<<< HEAD
 		$pieces   = preg_split( "/\r\n|\n|\r/", $this->content_modified );
+=======
+		$pieces   = preg_split( "/\r\n|\n|\r/", $this->content );
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 		$previous = $pieces[ $insert_position - 1 ];
 
 		// Only use injection position if the detected line # actually falls after the meta tag.
@@ -314,6 +387,7 @@ class Dom_Parser {
 	 * Determine if the current server request is one which requires us to add our hooks scripts.
 	 *
 	 * @since 2.5.6
+<<<<<<< HEAD
 	 * @since 2.5.13 - Added $check_empty param
 	 *
 	 * @param bool $check_empty Whether or not to validate that the DOM content isn't empty.
@@ -321,6 +395,12 @@ class Dom_Parser {
 	 * @return bool
 	 */
 	public function is_parseable_request( $check_empty = true ) {
+=======
+	 *
+	 * @return bool
+	 */
+	public function is_parseable_request() {
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 		if ( defined( 'DOING_AJAX' ) && DOING_AJAX ) {
 			return false;
 		}
@@ -329,7 +409,11 @@ class Dom_Parser {
 			return false;
 		}
 
+<<<<<<< HEAD
 		if ( ! empty( $_POST['gform_ajax'] ) ) { // phpcs:ignore WordPress.Security.NonceVerification.Missing
+=======
+		if ( ! empty( $_POST['gform_ajax'] ) ) {
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 			return false;
 		}
 
@@ -339,6 +423,7 @@ class Dom_Parser {
 			return false;
 		}
 
+<<<<<<< HEAD
 		if ( $check_empty && empty( $this->content ) ) {
 			return false;
 		}
@@ -355,6 +440,13 @@ class Dom_Parser {
 		 */
  		$is_disabled = apply_filters( 'gform_disable_dom_parser', false );
 		return ! $is_disabled;
+=======
+		if ( empty( $this->content ) ) {
+			return false;
+		}
+
+		return true;
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 	}
 
 	/**
@@ -417,7 +509,11 @@ class Dom_Parser {
 	 * @return bool
 	 */
 	private function has_head_regex() {
+<<<<<<< HEAD
 		preg_match( '/(<[\s]*head(?!e)[^>]*>)/', $this->content_modified, $hmatches );
+=======
+		preg_match( '/(<[\s]*head(?!e)[^>]*>)/', $content, $hmatches );
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 
 		if ( empty( $hmatches ) ) {
 			return false;
@@ -454,7 +550,11 @@ class Dom_Parser {
 		           . "\xE2\x9A\xA1\xEF\xB8\x8F"
 		           . ')[^>]*?)>/i';
 
+<<<<<<< HEAD
 		preg_match( $pattern, $this->content_modified, $emoji_matches );
+=======
+		preg_match( $pattern, $this->content, $emoji_matches );
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 
 		// Markup is AMP using the ⚡ symbol - bail.
 		if ( ! empty( $emoji_matches ) ) {
@@ -473,12 +573,21 @@ class Dom_Parser {
 	 */
 	private function is_amp_regex() {
 		// Bail if this markup is AMP'd
+<<<<<<< HEAD
 		preg_match( '/^<!DOCTYPE html>[\r\n]*<[\s]*html[\s]+[^>]*amp[=\s>]+/i', trim( $this->content_modified ), $amatches );
+=======
+		preg_match( '/^<!DOCTYPE html>[\r\n]*<[\s]*html[\s]+[^>]*amp[=\s>]+/i', trim( $content ), $amatches );
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 
 		if ( ! empty( $amatches ) ) {
 			return true;
 		}
+<<<<<<< HEAD
 
 		return false;
 	}
 }
+=======
+	}
+}
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6

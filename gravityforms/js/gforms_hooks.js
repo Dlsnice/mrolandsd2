@@ -5,12 +5,16 @@
 
 if ( ! gform ) {
 	document.addEventListener( 'gform_main_scripts_loaded', function() { gform.scriptsLoaded = true; } );
+<<<<<<< HEAD
 	document.addEventListener( 'gform/theme/scripts_loaded', function() { gform.themeScriptsLoaded = true; } );
+=======
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 	window.addEventListener( 'DOMContentLoaded', function() { gform.domLoaded = true; } );
 
 	var gform = {
 		domLoaded: false,
 		scriptsLoaded: false,
+<<<<<<< HEAD
 		themeScriptsLoaded: false,
 		isFormEditor: () => typeof InitializeEditor === 'function',
 
@@ -44,6 +48,17 @@ if ( ! gform ) {
 			}
 		},
 
+=======
+		initializeOnLoaded: function( fn ) {
+			if ( gform.domLoaded && gform.scriptsLoaded ) {
+				fn();
+			} else if( ! gform.domLoaded && gform.scriptsLoaded ) {
+				window.addEventListener( 'DOMContentLoaded', fn );
+			} else {
+				document.addEventListener( 'gform_main_scripts_loaded', fn );
+			}
+		},
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 		hooks: { action: {}, filter: {} },
 		addAction: function( action, callable, priority, tag ) {
 			gform.addHook( 'action', action, callable, priority, tag );
@@ -86,10 +101,15 @@ if ( ! gform ) {
 				var hooks = gform.hooks[hookType][action], hook;
 				//sort by priority
 				hooks.sort(function(a,b){return a["priority"]-b["priority"]});
+<<<<<<< HEAD
 
 				hooks.forEach( function( hookItem ) {
 					hook = hookItem.callable;
 
+=======
+				for( var i=0; i<hooks.length; i++) {
+					hook = hooks[i].callable;
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 					if(typeof hook != 'function')
 						hook = window[hook];
 					if ( 'action' == hookType ) {
@@ -97,7 +117,11 @@ if ( ! gform ) {
 					} else {
 						args[0] = hook.apply(null, args);
 					}
+<<<<<<< HEAD
 				} );
+=======
+				}
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 			}
 			if ( 'filter'==hookType ) {
 				return args[0];
@@ -106,11 +130,19 @@ if ( ! gform ) {
 		removeHook: function( hookType, action, priority, tag ) {
 			if ( undefined != gform.hooks[hookType][action] ) {
 				var hooks = gform.hooks[hookType][action];
+<<<<<<< HEAD
 				hooks = hooks.filter( function(hook, index, arr) {
 					var removeHook = (undefined==tag||tag==hook.tag) && (undefined==priority||priority==hook.priority);
 					return !removeHook;
 				} );
 				gform.hooks[hookType][action] = hooks;
+=======
+				for( var i=hooks.length-1; i>=0; i--) {
+					if ((undefined==tag||tag==hooks[i].tag) && (undefined==priority||priority==hooks[i].priority)){
+						hooks.splice(i,1);
+					}
+				}
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 			}
 		}
 	};

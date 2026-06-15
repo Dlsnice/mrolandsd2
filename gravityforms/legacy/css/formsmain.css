@@ -6,7 +6,11 @@ http: //www.gravityforms.com
 updated: May 22, 2018 03:17 PM US Eastern Time
 
 Gravity Forms is a Rocketgenius project
+<<<<<<< HEAD
 copyright 2008-2026 Rocketgenius Inc.
+=======
+copyright 2008-2018 Rocketgenius Inc.
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 http: //www.rocketgenius.com
 this may not be redistributed without the
 express written permission of the author.
@@ -442,8 +446,13 @@ body .gform_legacy_markup_wrapper ul li.field_description_below div.ginput_conta
     overflow: hidden;
 }
 
+<<<<<<< HEAD
 .gform_legacy_markup_wrapper .gfield.right_label,
 .gform_legacy_markup_wrapper .gfield.left_label {
+=======
+.gfield.right_label,
+.gfield.left_label {
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
     padding-top: 10px;
 }
 
@@ -636,7 +645,11 @@ body .gform_legacy_markup_wrapper ul li.field_description_below div.ginput_conta
     padding: 0 0 10px 0;
 }
 
+<<<<<<< HEAD
 .gform_legacy_markup_wrapper .gfield_date_year+.gfield_description {
+=======
+.gfield_date_year+.gfield_description {
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
     padding: 0;
 }
 
@@ -707,7 +720,11 @@ body .gform_legacy_markup_wrapper ul li.field_description_below div.ginput_conta
     padding: 16px 16px 14px 16px;
 }
 
+<<<<<<< HEAD
 .gform_legacy_markup_wrapper li.gfield + li.gfield.gfield_creditcard_warning {
+=======
+li.gfield + li.gfield.gfield_creditcard_warning {
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
     margin-top: 16px !important;
 }
 
@@ -761,7 +778,11 @@ body .gform_legacy_markup_wrapper ul li.field_description_below div.ginput_conta
  * Validation
  */
 
+<<<<<<< HEAD
 .gform_legacy_markup_wrapper .gform_validation_errors {
+=======
+.gform_validation_errors {
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 	width: 100%;
 	border: 1px solid #790000;
 	box-shadow: 0px 0px 0px #FF6D6D;
@@ -771,18 +792,30 @@ body .gform_legacy_markup_wrapper ul li.field_description_below div.ginput_conta
 	margin-bottom: 0.5rem;
 }
 
+<<<<<<< HEAD
 .gform_legacy_markup_wrapper .gform_validation_errors > h2 {
+=======
+.gform_validation_errors > h2 {
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 	font-size: 16px;
 	font-weight: 700;
 	color: #790000;
 	margin: 0 0 0.9375rem 0;
 }
 
+<<<<<<< HEAD
 .gform_legacy_markup_wrapper .gform_validation_errors > h2.hide_summary {
 	margin: 0 ;
 }
 
 .gform_legacy_markup_wrapper .gform_validation_errors > h2:before {
+=======
+.gform_validation_errors > h2.hide_summary {
+	margin: 0 ;
+}
+
+.gform_validation_errors > h2:before {
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 	background-image: url(data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjIiIGhlaWdodD0iMjIiIHZpZXdCb3g9IjAgMCAyMiAyMiIgZmlsbD0iIzc5MDAwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHBhdGggZD0iTTExIDE5QzE1LjQxODMgMTkgMTkgMTUuNDE4MyAxOSAxMUMxOSA2LjU4MTcyIDE1LjQxODMgMyAxMSAzQzYuNTgxNzIgMyAzIDYuNTgxNzIgMyAxMUMzIDE1LjQxODMgNi41ODE3MiAxOSAxMSAxOVoiIHN0cm9rZT0iI0ZGRkZGRiIgc3Ryb2tlLXdpZHRoPSIxLjUiLz4KPHBhdGggZD0iTTEyIDZIMTBWMTJIMTJWNloiIGZpbGw9IiNGRkZGRkYiLz4KPHBhdGggZD0iTTEyIDE0SDEwVjE2SDEyVjE0WiIgZmlsbD0iI0ZGRkZGRiIvPgo8L3N2Zz4=);
 	content: '';
 	width: 22px;
@@ -795,7 +828,11 @@ body .gform_legacy_markup_wrapper ul li.field_description_below div.ginput_conta
 	background-color: transparent;
 }
 
+<<<<<<< HEAD
 .gform_legacy_markup_wrapper .gform_validation_errors > ol {
+=======
+.gform_validation_errors > ol {
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 	list-style-type: none !important;
 	padding-block-start: 0;
 	padding-inline-start: 0;
@@ -803,18 +840,31 @@ body .gform_legacy_markup_wrapper ul li.field_description_below div.ginput_conta
 	margin: 0;
 }
 
+<<<<<<< HEAD
 .gform_legacy_markup_wrapper .gform_validation_errors > ol a {
+=======
+.gform_validation_errors > ol a {
+	text-decoration: none;
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 	color: #790000;
 	font-size: 1rem;
 }
 
+<<<<<<< HEAD
 .gform_legacy_markup_wrapper .gform_validation_errors > ol li {
+=======
+.gform_validation_errors > ol li {
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 	margin: 0 0 0.9375rem 0;
 	font-size: 1rem;
 	list-style-type: none !important;
 }
 
+<<<<<<< HEAD
 .gform_legacy_markup_wrapper .gform_validation_errors > ol li:last-of-type {
+=======
+.gform_validation_errors > ol li:last-of-type {
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 	margin-bottom: 0;
 }
 
@@ -858,11 +908,14 @@ body .gform_legacy_markup_wrapper ul li.field_description_below div.ginput_conta
     vertical-align: middle !important;
 }
 
+<<<<<<< HEAD
 .gform_legacy_markup_wrapper table.gfield_list tr td.gfield_list_icons a {
     display: inline-block;
     line-height: 0;
 }
 
+=======
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 .gform_legacy_markup_wrapper li.gfield fieldset {
     margin: 0px;
     padding: 0px;
@@ -877,7 +930,11 @@ body .gform_legacy_markup_wrapper ul li.field_description_below div.ginput_conta
     line-height: 32px;
 }
 
+<<<<<<< HEAD
 .gform_legacy_markup_wrapper div.gf_page_steps+div.validation_error {
+=======
+div.gf_page_steps+div.validation_error {
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
     margin-top: 16px;
 }
 
@@ -895,10 +952,13 @@ body .gform_legacy_markup_wrapper ul li.field_description_below div.ginput_conta
     letter-spacing: normal;
 }
 
+<<<<<<< HEAD
 .gform_legacy_markup_wrapper .validation_message--hidden-on-empty:empty {
     display: none;
 }
 
+=======
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 .gform_legacy_markup_wrapper li.gfield_error input:not([type='radio']):not([type='checkbox']):not([type='submit']):not([type='button']):not([type='image']):not([type='file']),
 .gform_legacy_markup_wrapper li.gfield_error textarea {
     border: 1px solid #790000;
@@ -1046,6 +1106,10 @@ body .gform_legacy_markup_wrapper ul li.gfield.gfield_html img {
     padding-left: 10px;
 }
 
+<<<<<<< HEAD
+=======
+.gform_validation_container,
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 .gform_legacy_markup_wrapper .gform_validation_container,
 body .gform_legacy_markup_wrapper li.gform_validation_container,
 body .gform_legacy_markup_wrapper .gform_body ul.gform_fields li.gfield.gform_validation_container,
@@ -1447,12 +1511,21 @@ body .gform_legacy_markup_wrapper ul.gform_fields li.gfield.gform_validation_con
     border-bottom: 3px solid #8DFF1C;
 }
 
+<<<<<<< HEAD
 .gform_legacy_markup_wrapper .ginput_container_password,
 .gform_legacy_markup_wrapper .ginput_container_password span {
     position: relative;
 }
 
 .gform_legacy_markup_wrapper .ginput_container_password button {
+=======
+.ginput_container_password,
+.ginput_container_password span {
+    position: relative;
+}
+
+.ginput_container_password button {
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
     -webkit-appearance: none;
     appearance: none;
     background: transparent;
@@ -1465,15 +1538,24 @@ body .gform_legacy_markup_wrapper ul.gform_fields li.gfield.gform_validation_con
     width: 40px;
 }
 
+<<<<<<< HEAD
 .gform_legacy_markup_wrapper .ginput_container_password span.ginput_left button {
     right: 9px;
 }
 
 .gform_legacy_markup_wrapper .ginput_container_password:not(.ginput_complex) span {
+=======
+.ginput_container_password span.ginput_left button {
+    right: 9px;
+}
+
+.ginput_container_password:not(.ginput_complex) span {
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
     display: inline-block;
     width: 100%;
 }
 
+<<<<<<< HEAD
 .gform_legacy_markup_wrapper .ginput_container_password:not(.ginput_complex) span input {
     width: 100%;
 }
@@ -1483,6 +1565,17 @@ body .gform_legacy_markup_wrapper ul.gform_fields li.gfield.gform_validation_con
 }
 
 .gform_legacy_markup_wrapper .ginput_container_password span.small {
+=======
+.ginput_container_password:not(.ginput_complex) span input {
+    width: 100%;
+}
+
+.ginput_container_password span.medium {
+    width: calc(50% - 8px);
+}
+
+.ginput_container_password span.small {
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
     width: 25%;
 }
 
@@ -1507,7 +1600,11 @@ body .gform_legacy_markup_wrapper ul.gform_fields li.gfield.gform_validation_con
     border-collapse: collapse;
 }
 
+<<<<<<< HEAD
 .gform_legacy_markup_wrapper .gfield_repeater_buttons{
+=======
+.gfield_repeater_buttons{
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
     padding-top: 15px;
 }
 
@@ -1559,7 +1656,11 @@ body .gform_legacy_markup_wrapper ul.gform_fields li.gfield.gform_validation_con
     width: 100%;
 }
 
+<<<<<<< HEAD
 .gform_legacy_markup_wrapper .gfield_icon_disabled {
+=======
+.gfield_icon_disabled {
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
     cursor: default !important;
     filter: alpha(opacity=60);
     -moz-opacity: .6;
@@ -1579,13 +1680,21 @@ body .gform_legacy_markup_wrapper ul.gform_fields li.gfield.gform_validation_con
     vertical-align: middle;
 }
 
+<<<<<<< HEAD
 .gform_legacy_markup_wrapper .gform_card_icon_container {
+=======
+.gform_card_icon_container {
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
     display: flex;
     height: 32px;
     margin: 8px 0 6px 0;
 }
 
+<<<<<<< HEAD
 .gform_legacy_markup_wrapper .gform_card_icon_container div.gform_card_icon {
+=======
+.gform_card_icon_container div.gform_card_icon {
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
     background-image: url(../../images/gf-creditcards.svg);
     background-repeat: no-repeat;
     height: 32px;
@@ -1594,6 +1703,7 @@ body .gform_legacy_markup_wrapper ul.gform_fields li.gfield.gform_validation_con
     width: 40px;
 }
 
+<<<<<<< HEAD
 .gform_legacy_markup_wrapper .gform_card_icon_container div.gform_card_icon.gform_card_icon_amex {
     background-position: -167px 0;
 }
@@ -1623,6 +1733,37 @@ body .gform_legacy_markup_wrapper ul.gform_fields li.gfield.gform_validation_con
 }
 
 .gform_legacy_markup_wrapper .gform_card_icon_container div.gform_card_icon.gform_card_icon_selected:after {
+=======
+.gform_card_icon_container div.gform_card_icon.gform_card_icon_amex {
+    background-position: -167px 0;
+}
+
+.gform_card_icon_container div.gform_card_icon.gform_card_icon_discover {
+    background-position: -221px 0;
+}
+
+.gform_card_icon_container div.gform_card_icon.gform_card_icon_mastercard {
+    background-position: -275px 0;
+}
+
+.gform_card_icon_container div.gform_card_icon.gform_card_icon_visa {
+    background-position: -59px 0;
+}
+
+.gform_card_icon_container div.gform_card_icon.gform_card_icon_jcb {
+    background-position: -329px 0;
+}
+
+.gform_card_icon_container div.gform_card_icon.gform_card_icon_maestro {
+    background-position: -5px 0;
+}
+
+.gform_card_icon_container div.gform_card_icon.gform_card_icon_selected {
+    position: relative;
+}
+
+.gform_card_icon_container div.gform_card_icon.gform_card_icon_selected:after {
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
     display: block;
     content: '';
     position: absolute;
@@ -1633,7 +1774,11 @@ body .gform_legacy_markup_wrapper ul.gform_fields li.gfield.gform_validation_con
     right: -2px;
 }
 
+<<<<<<< HEAD
 .gform_legacy_markup_wrapper .ginput_container_creditcard .ginput_card_security_code_icon {
+=======
+.ginput_container_creditcard .ginput_card_security_code_icon {
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
     width: 40px;
     height: 32px;
     display: inline-block;
@@ -1661,7 +1806,11 @@ body .gform_legacy_markup_wrapper ul.gform_fields li.gfield.gform_validation_con
     margin-bottom: 8px;
 }
 
+<<<<<<< HEAD
 .gform_legacy_markup_wrapper .gform_delete {
+=======
+.gform_delete {
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
     vertical-align: middle;
     cursor: pointer;
 }
@@ -1689,7 +1838,11 @@ body .gform_legacy_markup_wrapper ul.gform_fields li.gfield.gform_validation_con
   border-radius: 2px;
 }
 
+<<<<<<< HEAD
 .gform_legacy_markup_wrapper .form_saved_message p.resume_form_link_wrapper {
+=======
+.form_saved_message p.resume_form_link_wrapper {
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
   background-color: rgba(255, 255, 255, 1);
   display: inline-block;
   padding: 1em;
@@ -1703,36 +1856,64 @@ body .gform_legacy_markup_wrapper ul.gform_fields li.gfield.gform_validation_con
     box-shadow: 0px 3px 2px 0px rgba(66,103,126,.2);
 }
 
+<<<<<<< HEAD
 .gform_legacy_markup_wrapper .form_saved_message a.resume_form_link {
+=======
+.form_saved_message a.resume_form_link {
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
   word-wrap: break-word;
   text-decoration: none;
   color: rgba(47, 99, 126, 1);
 }
 
+<<<<<<< HEAD
 .gform_legacy_markup_wrapper .form_saved_message .form_saved_message_emailform {
   margin: 1em 0 0 0;
 }
 
 .gform_legacy_markup_wrapper .form_saved_message label.form_saved_label {
+=======
+.form_saved_message .form_saved_message_emailform {
+  margin: 1em 0 0 0;
+}
+
+.form_saved_message label.form_saved_label {
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
     position: absolute;
     left: -9000px;
 }
 
+<<<<<<< HEAD
 .gform_legacy_markup_wrapper div.form_saved_message div.form_saved_message_emailform form input[type=text] {
   margin-bottom: .25em;
 }
 
 .gform_legacy_markup_wrapper div.form_saved_message div.form_saved_message_emailform form label.gform_resume_email_label {
+=======
+div.form_saved_message div.form_saved_message_emailform form input[type=text] {
+  margin-bottom: .25em;
+}
+
+div.form_saved_message div.form_saved_message_emailform form label.gform_resume_email_label {
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
     font-size: 1em;
     display: block;
 }
 
+<<<<<<< HEAD
 .gform_legacy_markup_wrapper div.form_saved_message div.form_saved_message_emailform form input {
+=======
+div.form_saved_message div.form_saved_message_emailform form input {
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
   margin: 0 auto;
   display: inline-block;
 }
 
+<<<<<<< HEAD
 .gform_legacy_markup_wrapper div.form_saved_message div.form_saved_message_emailform form input[type=email] {
+=======
+div.form_saved_message div.form_saved_message_emailform form input[type=email] {
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
   padding: calc(.75em - 1px) !important;
   width: 24em;
   max-width: 98% !important;
@@ -1750,7 +1931,11 @@ body .gform_legacy_markup_wrapper ul.gform_fields li.gfield.gform_validation_con
 box-shadow: inset 0px 0px 5px 0px rgba(238,238,238,1);
 }
 
+<<<<<<< HEAD
 .gform_legacy_markup_wrapper div.form_saved_message div.form_saved_message_emailform form input[type=submit] {
+=======
+div.form_saved_message div.form_saved_message_emailform form input[type=submit] {
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
   padding: .75em 1em;
   font-size: 1em;
   line-height: 1;
@@ -1766,20 +1951,33 @@ box-shadow: inset 0px 0px 5px 0px rgba(238,238,238,1);
 }
 
 @media only screen and (max-width: 640px) {
+<<<<<<< HEAD
     .gform_legacy_markup_wrapper div.form_saved_message div.form_saved_message_emailform form input[type=email],
     .gform_legacy_markup_wrapper div.form_saved_message div.form_saved_message_emailform form input[type=submit] {
+=======
+  div.form_saved_message div.form_saved_message_emailform form input[type=email],
+  div.form_saved_message div.form_saved_message_emailform form input[type=submit] {
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
     display: block;
     width: 98%;
   }
 }
 
+<<<<<<< HEAD
 .gform_legacy_markup_wrapper .form_saved_message .form_saved_message_emailform .validation_message {
+=======
+.form_saved_message .form_saved_message_emailform .validation_message {
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
   color: #790000;
   font-weight: 700;
   padding: 2em;
 }
 
+<<<<<<< HEAD
 .gform_legacy_markup_wrapper .form_saved_message_sent {
+=======
+.form_saved_message_sent {
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
   margin: 1em auto;
   padding: 3em 2em;
   width: 99%;
@@ -1793,14 +1991,23 @@ box-shadow: inset 0px 0px 5px 0px rgba(238,238,238,1);
   box-sizing: border-box;
 }
 
+<<<<<<< HEAD
 .gform_legacy_markup_wrapper .form_saved_message_sent .saved_message_email,
 .gform_legacy_markup_wrapper .form_saved_message_sent .saved_message_success {
+=======
+.form_saved_message_sent .saved_message_email,
+.form_saved_message_sent .saved_message_success {
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
   font-weight: 700;
   display: block;
   line-height: 2;
 }
 
+<<<<<<< HEAD
 .gform_legacy_markup_wrapper .form_saved_message_sent .saved_message_email {
+=======
+.form_saved_message_sent .saved_message_email {
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
   word-wrap: break-word;
   text-decoration: underline;
 }
@@ -1844,6 +2051,7 @@ body .gform_legacy_markup_wrapper img.delete_list_item {
 
 /* rich text editor */
 
+<<<<<<< HEAD
 .gform_legacy_markup_wrapper .gfield .wp-editor-container {
     border: 1px solid #ddd;
 }
@@ -1858,6 +2066,22 @@ body .gform_legacy_markup_wrapper img.delete_list_item {
 }
 
 .gform_legacy_markup_wrapper .gfield .mce-edit-area iframe {
+=======
+.gfield .wp-editor-container {
+    border: 1px solid #ddd;
+}
+
+.gfield .wp-switch-editor {
+    border-color: #ddd;
+}
+
+.gfield .tmce-active .switch-tmce,
+.gfield .html-active .switch-html {
+    border-bottom-color: #f5f5f5;
+}
+
+.gfield .mce-edit-area iframe {
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
     width: 99.9% !important;
     margin: 0 !important;
 }
@@ -2521,7 +2745,11 @@ body .gform_legacy_markup_wrapper ul.chosen-results li {
       border: 0;
     }
 
+<<<<<<< HEAD
     .gform_legacy_markup_wrapper table.gfield_list thead {
+=======
+    .gform_legacy_markup_wrapper table.gfield_list thead  {
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
         position: absolute;
         top: -9999px;
         left: -9999px;
@@ -2586,6 +2814,7 @@ body .gform_legacy_markup_wrapper ul.chosen-results li {
 
     .gform_legacy_markup_wrapper table.gfield_list tr td.gfield_list_icons {
         width: 100% !important;
+<<<<<<< HEAD
         padding: 5px 4px 1px 4px !important;
         background-color: #EEE;
         text-align: center;
@@ -2596,6 +2825,17 @@ body .gform_legacy_markup_wrapper ul.chosen-results li {
     }
 
     .gform_legacy_markup_wrapper table.gfield_list tr td.gfield_list_icons img.delete_list_item {
+=======
+        padding: 0 4px 4px 4px !important;
+        background-color: #EEE;
+    }
+
+    .gform_legacy_markup_wrapper table.gfield_list tr td.gfield_list_icons img.add_list_item  {
+        margin: 12px 0 0 16px !important;
+    }
+
+    .gform_legacy_markup_wrapper table.gfield_list tr td.gfield_list_icons img.delete_list_item  {
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
         margin: 12px 0 0 8px !important;
     }
 
@@ -2817,7 +3057,11 @@ body .gform_legacy_markup_wrapper ul.chosen-results li {
         float: left;
     }
 
+<<<<<<< HEAD
     .gform_legacy_markup_wrapper .ginput_complex .ginput_cardinfo_right input {
+=======
+    .ginput_complex .ginput_cardinfo_right input {
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
         display: inline-block;
         width: 30%;
         max-width: 7rem;
@@ -2941,13 +3185,20 @@ body .gform_legacy_markup_wrapper ul.chosen-results li {
 
     /* a little better specificty to avoid problems with forms in widgets */
 
+<<<<<<< HEAD
     .gform_legacy_markup_wrapper ul.gform_fields:not(.top_label) div.ginput_complex.ginput_container.gf_name_has_1,
     .gform_legacy_markup_wrapper ul.gform_fields:not(.top_label) div.ginput_complex.ginput_container.gf_name_has_2,
     .gform_legacy_markup_wrapper ul.gform_fields:not(.top_label) div.ginput_complex.ginput_container.gf_name_has_3 {
+=======
+    ul.gform_fields:not(.top_label) div.ginput_complex.ginput_container.gf_name_has_1,
+    ul.gform_fields:not(.top_label) div.ginput_complex.ginput_container.gf_name_has_2,
+    ul.gform_fields:not(.top_label) div.ginput_complex.ginput_container.gf_name_has_3 {
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
         width: calc(70% + 15px);
         margin-left: 29%;
     }
 
+<<<<<<< HEAD
     .gform_legacy_markup_wrapper ul.gform_fields:not(.top_label) li.gfield.gfield_error div.ginput_complex.ginput_container.gf_name_has_1,
     .gform_legacy_markup_wrapper ul.gform_fields:not(.top_label) li.gfield.gfield_error div.ginput_complex.ginput_container.gf_name_has_2,
     .gform_legacy_markup_wrapper ul.gform_fields:not(.top_label) li.gfield.gfield_error div.ginput_complex.ginput_container.gf_name_has_3 {
@@ -2955,11 +3206,24 @@ body .gform_legacy_markup_wrapper ul.chosen-results li {
     }
 
     .gform_legacy_markup_wrapper ul.gform_fields:not(.top_label) div.ginput_complex.ginput_container.gf_name_has_4 {
+=======
+    ul.gform_fields:not(.top_label) li.gfield.gfield_error div.ginput_complex.ginput_container.gf_name_has_1,
+    ul.gform_fields:not(.top_label) li.gfield.gfield_error div.ginput_complex.ginput_container.gf_name_has_2,
+    ul.gform_fields:not(.top_label) li.gfield.gfield_error div.ginput_complex.ginput_container.gf_name_has_3 {
+        width: calc(70% + 24px);
+    }
+
+    ul.gform_fields:not(.top_label) div.ginput_complex.ginput_container.gf_name_has_4 {
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
         width: calc(70% + 13px);
         margin-left: 29%;
     }
 
+<<<<<<< HEAD
     .gform_legacy_markup_wrapper ul.gform_fields:not(.top_label) div.ginput_complex.ginput_container.gf_name_has_5 {
+=======
+    ul.gform_fields:not(.top_label) div.ginput_complex.ginput_container.gf_name_has_5 {
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
         width: calc(70% + 14px);
         margin-left: 29%;
     }
@@ -3033,6 +3297,11 @@ body .gform_legacy_markup_wrapper ul.chosen-results li {
         width: calc(70% + 17px);
     }
 
+<<<<<<< HEAD
+=======
+    li.gfield.gfield_error
+
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
     .gform_legacy_markup_wrapper ul.gform_fields:not(.top_label) li.gfield.gfield_error .ginput_complex.ginput_container.ginput_container_email {
         width: calc(70% + 8px) !important;
     }
@@ -3118,7 +3387,11 @@ body .gform_legacy_markup_wrapper ul.chosen-results li {
 
 
 /* Padding, Left Border, background color for nested repeaters */
+<<<<<<< HEAD
 .gform_legacy_markup_wrapper .gfield_repeater_cell  > .gfield_repeater_wrapper   {
+=======
+.gfield_repeater_cell  > .gfield_repeater_wrapper   {
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
     border-left: 8px solid rgba(54, 86, 102, 0.1);
     background-color: rgba(1,1,1,0.02);
     padding: 10px 20px;
@@ -3129,18 +3402,31 @@ body .gform_legacy_markup_wrapper ul.chosen-results li {
 
 
 /* Targeting the border color of the repeater inputs */
+<<<<<<< HEAD
 .gform_legacy_markup_wrapper .gfield_repeater_wrapper input  {
+=======
+.gfield_repeater_wrapper input  {
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
     border:1px solid rgba(197, 198, 197, 1.000);
     border-radius: 4px;
 }
 
 /* Spacing between the wrappers */
+<<<<<<< HEAD
 .gform_legacy_markup_wrapper .gfield_repeater_wrapper .gfield_repeater_wrapper{
     margin-top: 10px;
 }
 
 .gform_legacy_markup_wrapper .gfield_repeater_buttons .add_repeater_item_text,
 .gform_legacy_markup_wrapper .gfield_repeater_buttons .remove_repeater_item_text{
+=======
+.gfield_repeater_wrapper .gfield_repeater_wrapper{
+    margin-top: 10px;
+}
+
+.gfield_repeater_buttons .add_repeater_item_text,
+.gfield_repeater_buttons .remove_repeater_item_text{
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
     min-width: 100px;
     height: 30px;
     background: rgba(242, 242, 242, 0.5);
@@ -3155,8 +3441,13 @@ body .gform_legacy_markup_wrapper ul.chosen-results li {
 }
 
 
+<<<<<<< HEAD
 .gform_legacy_markup_wrapper .gfield_repeater_buttons .add_repeater_item_plus,
 .gform_legacy_markup_wrapper .gfield_repeater_buttons .remove_repeater_item_minus{
+=======
+.gfield_repeater_buttons .add_repeater_item_plus,
+.gfield_repeater_buttons .remove_repeater_item_minus{
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
     width: 22px;
     height: 22px;
     background: rgba(242, 242, 242, 0.5);
@@ -3171,7 +3462,11 @@ body .gform_legacy_markup_wrapper ul.chosen-results li {
     padding-bottom: 5px;
 }
 
+<<<<<<< HEAD
 .gform_legacy_markup_wrapper .gfield_repeater_buttons button.gfield_icon_disabled {
+=======
+.gfield_repeater_buttons button.gfield_icon_disabled {
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
     cursor: default;
     filter: alpha(opacity=30);
     -moz-opacity: .3;
@@ -3179,14 +3474,22 @@ body .gform_legacy_markup_wrapper ul.chosen-results li {
     opacity: .3;
 }
 
+<<<<<<< HEAD
 .gform_legacy_markup_wrapper .gfield_repeater_buttons button.gfield_icon_disabled:hover {
+=======
+.gfield_repeater_buttons button.gfield_icon_disabled:hover {
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
     background: rgba(242, 242, 242, 0.5);
     color: rgba(117, 117, 117, 1);
     border: 1px solid rgba(117, 117, 117, 0.4);
 }
 
 /* Hover style for Add buttons */
+<<<<<<< HEAD
 .gform_legacy_markup_wrapper .gfield_repeater_buttons button:hover {
+=======
+.gfield_repeater_buttons button:hover {
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
     background: rgba(250, 250, 250, 1.000);
     color: #374750;
     border:1px solid rgba(117, 117, 117, 1);
@@ -3194,13 +3497,21 @@ body .gform_legacy_markup_wrapper ul.chosen-results li {
 
 
 /* Adding the separation border and padding in between items */
+<<<<<<< HEAD
 .gform_legacy_markup_wrapper .gfield_repeater .gfield_repeater_items  .gfield_repeater_item:not(:last-child)  {
+=======
+.gfield_repeater .gfield_repeater_items  .gfield_repeater_item:not(:last-child)  {
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
     border-bottom: 2px solid #e0e0e6;
     padding-bottom: 20px;
 }
 
 /* Repeater - Left Border Color */
+<<<<<<< HEAD
 .gform_legacy_markup_wrapper .gfield_repeater_cell  > .gfield_repeater_wrapper   {
+=======
+.gfield_repeater_cell  > .gfield_repeater_wrapper   {
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
     border-left: 8px solid rgba(241, 241, 241, 1.000);
     box-shadow: 0 1px 1px 0 rgba(0,0,0,0.06), 0 2px 1px -1px rgba(0,0,0,0.06), 0 1px 5px 0 rgba(0,0,0,0.06);
 
@@ -3214,14 +3525,23 @@ body .gform_legacy_markup_wrapper ul.chosen-results li {
 /* //////////////////////////////////////////////////////////////*/
 
 
+<<<<<<< HEAD
 .gform_legacy_markup_wrapper .gfield_repeater_buttons .add_repeater_item_text:focus,
 .gform_legacy_markup_wrapper .gfield_repeater_buttons .remove_repeater_item_text:focus {
+=======
+.gfield_repeater_buttons .add_repeater_item_text:focus,
+.gfield_repeater_buttons .remove_repeater_item_text:focus {
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
       outline:0;
 }
 
 
  /*Coloring for the required asterisk*/
+<<<<<<< HEAD
 .gform_legacy_markup_wrapper .gfield_repeater_item .gfield_repeater_cell .gfield_required {
+=======
+.gfield_repeater_item .gfield_repeater_cell .gfield_required {
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
     color: #c32121;
 }
 
@@ -3241,18 +3561,30 @@ body .gform_legacy_markup_wrapper ul.chosen-results li {
 
 
 /* Third Level Repeater Spacing */
+<<<<<<< HEAD
 .gform_legacy_markup_wrapper .gfield_repeater_value .gfield_repeater_value .gfield_repeater_cell{
+=======
+.gfield_repeater_value .gfield_repeater_value .gfield_repeater_cell{
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
     padding-bottom: 20px;
     padding-top: 0px;
 }
 
 /*Spacing between adjancent cells in the same repeater*/
+<<<<<<< HEAD
 .gform_legacy_markup_wrapper div .gfield_repeater_cell {
+=======
+div .gfield_repeater_cell {
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
     margin-top: 5px;
 }
 
 /* Repeater styling line divider */
+<<<<<<< HEAD
 .gform_legacy_markup_wrapper .gfield_repeater .gfield_repeater_items .gfield_repeater_item:not(:last-child)  {
+=======
+.gfield_repeater .gfield_repeater_items .gfield_repeater_item:not(:last-child)  {
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
     border-bottom: 2px solid #e0e0e6;
     padding-bottom: 20px;
     margin-bottom: 20px;
@@ -3261,7 +3593,11 @@ body .gform_legacy_markup_wrapper ul.chosen-results li {
 
 
 /* Repeater containers */
+<<<<<<< HEAD
 .gform_legacy_markup_wrapper .gfield_repeater_value > .gfield_repeater {
+=======
+.gfield_repeater_value > .gfield_repeater {
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
     border-left: 8px solid rgba(54, 86, 102, 0.1);
     background-color: rgba(1, 1, 1, 0.02);
     padding: 10px 20px;
@@ -3271,7 +3607,11 @@ body .gform_legacy_markup_wrapper ul.chosen-results li {
 }
 
 /* Styling for Fake disabled input containers */
+<<<<<<< HEAD
 .gform_legacy_markup_wrapper .gfield_repeater_cell  .gfield_repeater_value:not(:first-child)  {
+=======
+.gfield_repeater_cell  .gfield_repeater_value:not(:first-child)  {
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
     color: rgba(117, 117, 117,0.7);
     border:1px solid rgba(197, 198, 197, 1.000);
     border-radius: 4px;
@@ -3283,24 +3623,41 @@ body .gform_legacy_markup_wrapper ul.chosen-results li {
 
 
 /* Consistent Padding in between cells and items */
+<<<<<<< HEAD
 .gform_legacy_markup_wrapper .gfield_repeater_items .gfield_repeater_cell:not(:first-child),
 .gform_legacy_markup_wrapper .gfield_repeater .gfield_repeater_items{
+=======
+.gfield_repeater_items .gfield_repeater_cell:not(:first-child),
+.gfield_repeater .gfield_repeater_items{
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
     padding-top: 5px;
 }
 
 /* Repeaters Labels styling */
+<<<<<<< HEAD
 .gform_legacy_markup_wrapper .gfield_repeater .gfield_label {
+=======
+.gfield_repeater .gfield_label {
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
     color: rgba(35, 40, 45, 1.000);
     font-size: 16px;
     font-weight: 600;
 }
 
 /* Decreasing the space below the label */
+<<<<<<< HEAD
 .gform_legacy_markup_wrapper .gfield_repeater_value .gfield_label {
+=======
+.gfield_repeater_value .gfield_label {
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
     padding-bottom: 0px;
 }
 
 /* Removing additional 20px padding when more repeaters are added on third level repeater */
+<<<<<<< HEAD
 .gform_legacy_markup_wrapper .gfield_repeater_value .gfield_repeater_value .gfield_repeater_item:first-child {
+=======
+.gfield_repeater_value .gfield_repeater_value .gfield_repeater_item:first-child {
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
     padding-bottom: 0px;
 }

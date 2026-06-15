@@ -26,6 +26,7 @@ class Checkbox extends Base {
 	 */
 	public $choices = array();
 
+<<<<<<< HEAD
 	/**
 	 * Data Format.
 	 *
@@ -42,6 +43,8 @@ class Checkbox extends Base {
 	protected $horizontal;
 	protected $enabledLabel;
 	protected $onkeypress;
+=======
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 
 
 
@@ -57,10 +60,13 @@ class Checkbox extends Base {
 	 */
 	public function markup() {
 
+<<<<<<< HEAD
 		if ( $this->data_format === 'array' ) {
 			return $this->array_markup();
 		}
 
+=======
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 		// Get choices, determine if choices have icon, display direction, default choice attributes.
 		$choices                   = $this->get_choices();
 		$have_icon                 = self::has_icons( $choices );
@@ -143,6 +149,7 @@ class Checkbox extends Base {
 	}
 
 	/**
+<<<<<<< HEAD
 	 * Get the markup for array-style checkbox inputs.
 	 *
 	 * @since 2.6
@@ -238,6 +245,20 @@ class Checkbox extends Base {
 	 * @return string
 	 */
 	public static function render_input( $choice, $attributes = array(), $value = null, $tooltip = '', $data_as_array = false ) {
+=======
+	 * Returns markup for an individual checkbox input and its label.
+	 *
+	 * @since 2.5
+	 *
+	 * @param array  $choice     Choice array with all configured properties.
+	 * @param array  $attributes Array containing all the attributes for the input tag.
+	 * @param string $value      Currently selection (1 if field has been checked. 0 or null otherwise).
+	 * @param string $tooltip    Tooltip for this checkbox item.
+	 *
+	 * @return string
+	 */
+	public static function render_input( $choice, $attributes = array(), $value = null, $tooltip = '' ) {
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 
 		// Initialize icon, label strings.
 		$icon_string = $label_string = '';
@@ -259,20 +280,28 @@ class Checkbox extends Base {
 
 		// Prepare label markup.
 		if ( rgar( $choice, 'label' ) ) {
+<<<<<<< HEAD
 			$sanitized_label = wp_kses( $choice['label'], array(
 				'a'    => array( 'href' => true, 'target' => true ),
 				'span' => array( 'class' => true ),
 			) );
 
+=======
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 			$label_string = sprintf(
 				'<label for="%s"><span>%s%s%s</span></label>',
 				esc_attr( $choice['id'] ),
 				$icon_string,
+<<<<<<< HEAD
 				$sanitized_label,
+=======
+				esc_html( $choice['label'] ),
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 				$tooltip
 			);
 		}
 
+<<<<<<< HEAD
 		if ( $data_as_array ) {
 			$checked = is_array( $value ) && in_array( $choice['name'], $value ) ? 'checked="checked"' : '';
 		} else {
@@ -283,6 +312,12 @@ class Checkbox extends Base {
 		return sprintf(
 			'<input type="checkbox" %s %s />%s',
 			$checked,
+=======
+		// Prepare checkbox markup.
+		return sprintf(
+			'<input type="checkbox" %s %s />%s',
+			checked( $value, '1', false ),
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 			implode( ' ', $attributes ),
 			$label_string
 		);
@@ -305,10 +340,13 @@ class Checkbox extends Base {
 	 */
 	public function do_validation( $value ) {
 
+<<<<<<< HEAD
 		if ( $this->data_format === 'array' ) {
 			return $this->do_array_validation( $value );
 		}
 
+=======
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 		// Get choices.
 		$choices = $this->get_choices();
 
@@ -344,6 +382,7 @@ class Checkbox extends Base {
 
 	}
 
+<<<<<<< HEAD
 	/**
 	 * Validate posted array field value.
 	 *
@@ -388,6 +427,8 @@ class Checkbox extends Base {
 		}
 	}
 
+=======
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 }
 
 Fields::register( 'checkbox', '\Gravity_Forms\Gravity_Forms\Settings\Fields\Checkbox' );

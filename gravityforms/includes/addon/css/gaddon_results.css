@@ -36,9 +36,14 @@ table#gquiz-results-summary td.gquiz-results-summary-data {
 }
 
 .gquiz-field-precentages-correct {
+<<<<<<< HEAD
 	float: inline-start;
 	margin-block-start: 8px;
 	margin-inline-start: 64px;
+=======
+    float: left;
+    margin: 8px 0 0 64px;
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 }
 
 /* -------------------------------------*/
@@ -109,12 +114,20 @@ table#gaddon-results-summary td.gaddon-results-summary-data {
 
     .gf-results .gf-result-box {
         flex: 1 1 0px;
+<<<<<<< HEAD
         margin-inline-end: 1.25rem;
+=======
+        margin-right: 1.25rem;
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
         margin-bottom: 0;
     }
 
     .gf-results .gf-result-box:last-child {
+<<<<<<< HEAD
         margin-inline-end: 0;
+=======
+        margin-right: 0;
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
     }
 }
 

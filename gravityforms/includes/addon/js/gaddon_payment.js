@@ -4,16 +4,29 @@ function loadBillingLength(setting_name){
         return;
 
     var unit = jQuery("#" + setting_name + "_unit").val();
+<<<<<<< HEAD
     var min =  gform.utils.escapeHtml( intervals[unit]["min"] );
     var max =  gform.utils.escapeHtml( intervals[unit]["max"] );
     var lengthField = jQuery("#" + setting_name + "_length");
     var length = lengthField.val();
+=======
+    var min = intervals[unit]["min"];
+    var max = intervals[unit]["max"];
+
+    var lengthField = jQuery("#" + setting_name + "_length");
+    var length = lengthField.val();
+
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
     var str = "";
     for(var i=min; i<=max; i++){
         var selected = length == i ? "selected='selected'" : "";
         str += "<option value='" + i + "' " + selected + ">" + i + "</option>";
     }
+<<<<<<< HEAD
     lengthField.html( str );
+=======
+    lengthField.html(str);
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 }
 
 function cancel_subscription( entryId ) {
@@ -33,7 +46,11 @@ function cancel_subscription( entryId ) {
 		function ( response ) {
 			jQuery( "#subscription_cancel_spinner" ).hide();
 			if ( response.success === true ) {
+<<<<<<< HEAD
 				jQuery( "#gform_payment_status" ).html( gform.utils.escapeHtml( gaddon_payment_strings.subscriptionCanceled ) );
+=======
+				jQuery( "#gform_payment_status" ).html( gaddon_payment_strings.subscriptionCanceled );
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 				jQuery( "#cancelsub" ).hide();
 			} else {
 				jQuery( "#cancelsub" ).prop( "disabled", false );

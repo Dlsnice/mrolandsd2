@@ -25,9 +25,12 @@ class Conditional_Logic extends Base {
 
 	public $object_type;
 
+<<<<<<< HEAD
 	protected $checkbox_label;
 	protected $instructions;
 
+=======
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 	/**
 	 * Initialize Conditional Logic field.
 	 *
@@ -41,7 +44,11 @@ class Conditional_Logic extends Base {
 		parent::__construct( $props, $settings );
 
 		// Populate default instructions.
+<<<<<<< HEAD
 		if ( $this->object_type === 'feed_condition' && ! isset( $this->instructions ) ) {
+=======
+		if ( $this->object_type === 'feed_condition' && ! rgobj( $this, 'instructions' ) ) {
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 			$this->instructions = esc_html__( 'Process this feed if', 'gravityforms' );
 		}
 
@@ -130,8 +137,11 @@ class Conditional_Logic extends Base {
 
 		$html .= $this->get_error_icon();
 
+<<<<<<< HEAD
 		$html .= $this->after_input;
 
+=======
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 		return $html;
 
 	}

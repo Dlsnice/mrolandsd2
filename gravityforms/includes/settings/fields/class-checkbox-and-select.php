@@ -31,7 +31,11 @@ class Checkbox_And_Select extends Base {
 	public $inputs = array();
 
 	/**
+<<<<<<< HEAD
 	 * Initialize Checkbox and Select field.
+=======
+	 * Initialize Checbox and Select field.
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 	 *
 	 * @since 2.5
 	 *

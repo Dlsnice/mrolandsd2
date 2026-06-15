@@ -104,10 +104,17 @@ class GF_REST_Authentication {
 		$rest_prefix = trailingslashit( rest_get_url_prefix() );
 
 		// Check if our endpoint.
+<<<<<<< HEAD
 		$is_gf_endpoint = ( strpos( $_SERVER['REQUEST_URI'], $rest_prefix . 'gf/' ) !== false ); // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.MissingUnslash, WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
 
 		// Allow third party plugins use our authentication methods.
 		$third_party = ( false !== strpos( $_SERVER['REQUEST_URI'], $rest_prefix . 'gf-' ) );  // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.MissingUnslash, WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
+=======
+		$is_gf_endpoint = ( strpos( $_SERVER['REQUEST_URI'], $rest_prefix . 'gf/' ) !== false );
+
+		// Allow third party plugins use our authentication methods.
+		$third_party = ( false !== strpos( $_SERVER['REQUEST_URI'], $rest_prefix . 'gf-' ) );
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 
 		if ( has_filter( 'gform_is_request_to_rest_api' ) ) {
 			$this->log_debug( __METHOD__ . '(): Executing functions hooked to gform_is_request_to_rest_api.' );
@@ -179,7 +186,11 @@ class GF_REST_Authentication {
 			// Authentication hasn't occurred during `determine_current_user`, so check auth.
 			$user_id = $this->authenticate( false );
 			if ( $user_id ) {
+<<<<<<< HEAD
 				wp_set_current_user( $user_id ); // phpcs:ignore Generic.PHP.ForbiddenFunctions.Discouraged
+=======
+				wp_set_current_user( $user_id );
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 
 				return true;
 			}
@@ -198,16 +209,24 @@ class GF_REST_Authentication {
 	 * @return WP_Error|null|bool
 	 */
 	public function check_authentication_error( $error ) {
+<<<<<<< HEAD
 		if ( ! $this->is_request_to_rest_api() || $_SERVER['REQUEST_METHOD'] === 'OPTIONS' ) {  // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotValidated
 			// Pass through OPTIONS requests or those to non-GF endpoints.
+=======
+		if ( ! $this->is_request_to_rest_api() ) {
+			// Pass through other errors.
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 			return $error;
 		}
 
 		$error = $this->get_error();
 		if ( empty( $error ) ) {
+<<<<<<< HEAD
 			// rest_handle_options_request() will be called by $this->check_user_permissions().
 			remove_filter( 'rest_pre_dispatch', 'rest_handle_options_request' );
 
+=======
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 			// Indicate auth succeeded.
 			return true;
 		}
@@ -323,15 +342,26 @@ class GF_REST_Authentication {
 		$consumer_secret   = '';
 
 		// If the $_GET parameters are present, use those first.
+<<<<<<< HEAD
 		if ( ! empty( $_GET['consumer_key'] ) && ! empty( $_GET['consumer_secret'] ) ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended
 			$consumer_key    = $_GET['consumer_key']; // phpcs:ignore WordPress.Security.NonceVerification.Recommended, WordPress.Security.ValidatedSanitizedInput.MissingUnslash, WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
 			$consumer_secret = $_GET['consumer_secret']; // phpcs:ignore WordPress.Security.NonceVerification.Recommended, WordPress.Security.ValidatedSanitizedInput.MissingUnslash, WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
+=======
+		if ( ! empty( $_GET['consumer_key'] ) && ! empty( $_GET['consumer_secret'] ) ) {
+			$consumer_key    = $_GET['consumer_key']; // WPCS: sanitization ok.
+			$consumer_secret = $_GET['consumer_secret']; // WPCS: sanitization ok.
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 		}
 
 		// If the above is not present, we will do full basic auth.
 		if ( ! $consumer_key && ! empty( $_SERVER['PHP_AUTH_USER'] ) && ! empty( $_SERVER['PHP_AUTH_PW'] ) ) {
+<<<<<<< HEAD
 			$consumer_key    = $_SERVER['PHP_AUTH_USER']; // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.MissingUnslash, WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
 			$consumer_secret = $_SERVER['PHP_AUTH_PW']; // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.MissingUnslash, WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
+=======
+			$consumer_key    = $_SERVER['PHP_AUTH_USER']; // WPCS: sanitization ok.
+			$consumer_secret = $_SERVER['PHP_AUTH_PW']; // WPCS: sanitization ok.
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 		}
 
 		// Stop if don't have any key.
@@ -403,7 +433,11 @@ class GF_REST_Authentication {
 	 */
 	public function get_authorization_header() {
 		if ( ! empty( $_SERVER['HTTP_AUTHORIZATION'] ) ) {
+<<<<<<< HEAD
 			return wp_unslash( $_SERVER['HTTP_AUTHORIZATION'] ); // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
+=======
+			return wp_unslash( $_SERVER['HTTP_AUTHORIZATION'] ); // WPCS: sanitization ok.
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 		}
 
 		if ( function_exists( 'getallheaders' ) ) {
@@ -427,7 +461,11 @@ class GF_REST_Authentication {
 	 * @return array|WP_Error
 	 */
 	public function get_oauth_parameters() {
+<<<<<<< HEAD
 		$params = array_merge( $_GET, $_POST ); // phpcs:ignore WordPress.Security.NonceVerification.Missing, WordPress.Security.NonceVerification.Recommended
+=======
+		$params = array_merge( $_GET, $_POST ); // WPCS: CSRF ok.
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 		$params = wp_unslash( $params );
 		$header = $this->get_authorization_header();
 
@@ -551,8 +589,13 @@ class GF_REST_Authentication {
 	 * @return true|WP_Error
 	 */
 	private function check_oauth_signature( $user, $params ) {
+<<<<<<< HEAD
 		$http_method  = isset( $_SERVER['REQUEST_METHOD'] ) ? strtoupper( $_SERVER['REQUEST_METHOD'] ) : ''; // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized, WordPress.Security.ValidatedSanitizedInput.MissingUnslash
 		$request_path = isset( $_SERVER['REQUEST_URI'] ) ? parse_url( $_SERVER['REQUEST_URI'], PHP_URL_PATH ) : ''; // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized, WordPress.Security.ValidatedSanitizedInput.MissingUnslash
+=======
+		$http_method  = isset( $_SERVER['REQUEST_METHOD'] ) ? strtoupper( $_SERVER['REQUEST_METHOD'] ) : ''; // WPCS: sanitization ok.
+		$request_path = isset( $_SERVER['REQUEST_URI'] ) ? parse_url( $_SERVER['REQUEST_URI'], PHP_URL_PATH ) : ''; // WPCS: sanitization ok.
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 		$wp_base      = get_home_url( null, '/', 'relative' );
 		if ( substr( $request_path, 0, strlen( $wp_base ) ) === $wp_base ) {
 			$request_path = substr( $request_path, strlen( $wp_base ) );
@@ -690,7 +733,11 @@ class GF_REST_Authentication {
 
 		$used_nonces = maybe_serialize( $used_nonces );
 
+<<<<<<< HEAD
 		$wpdb->update( // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
+=======
+		$wpdb->update(
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 			$wpdb->prefix . 'gf_rest_api_keys',
 			array( 'nonces' => $used_nonces ),
 			array( 'key_id' => $user->key_id ),
@@ -713,7 +760,11 @@ class GF_REST_Authentication {
 		global $wpdb;
 
 		$consumer_key = GFWebAPI::api_hash( sanitize_text_field( $consumer_key ) );
+<<<<<<< HEAD
 		$user         = $wpdb->get_row( // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
+=======
+		$user         = $wpdb->get_row(
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 			$wpdb->prepare(
 				"
 			SELECT key_id, user_id, permissions, consumer_key, consumer_secret, nonces
@@ -780,7 +831,11 @@ class GF_REST_Authentication {
 
 		global $wpdb;
 
+<<<<<<< HEAD
 		$wpdb->update( // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
+=======
+		$wpdb->update(
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 			$wpdb->prefix . 'gf_rest_api_keys',
 			array( 'last_access' => current_time( 'mysql' ) ),
 			array( 'key_id' => $this->user->key_id ),
@@ -837,7 +892,11 @@ class GF_REST_Authentication {
 		$this->update_last_access();
 		$this->log_debug( __METHOD__ . '(): Permissions valid.' );
 
+<<<<<<< HEAD
 		return rest_handle_options_request( null, $server, $request );
+=======
+		return null;
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 	}
 
 

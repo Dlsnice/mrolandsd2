@@ -28,7 +28,11 @@ to no.
 ----------------------------------------------------------------
 */
 
+<<<<<<< HEAD
 .gform-legacy-datepicker.ui-datepicker {
+=======
+.ui-datepicker {
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 	height: auto;
 	margin: 5px auto 0;
 	font: 9pt Arial, sans-serif;
@@ -38,6 +42,7 @@ to no.
 	box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, .5);
 }
 
+<<<<<<< HEAD
 .gform-legacy-datepicker.ui-datepicker a {
 	text-decoration: none;
 }
@@ -49,6 +54,19 @@ to no.
 
 .gform-legacy-datepicker.ui-datepicker .ui-datepicker-header .ui-datepicker-header,
 .gform-legacy-datepicker.ui-datepicker .ui-datepicker-header {
+=======
+.ui-datepicker a {
+	text-decoration: none;
+}
+
+.ui-datepicker table {
+	width: 100%;
+	border-collapse: collapse;
+}
+
+.ui-datepicker-header .ui-datepicker-header,
+.ui-datepicker-header {
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 	background-color: #666; /* set the header background color */
 	border-color: #666;
 	border-style: solid;
@@ -64,6 +82,7 @@ to no.
 	text-shadow: 1px -1px 0px #000;
 }
 
+<<<<<<< HEAD
 .gform-legacy-datepicker.ui-datepicker .ui-datepicker-header .ui-icon {
 	display: none;
 }
@@ -78,6 +97,22 @@ to no.
 
 .gform-legacy-datepicker.ui-datepicker .ui-datepicker-prev,
 .gform-legacy-datepicker.ui-datepicker .ui-datepicker-next {
+=======
+.ui-datepicker-header .ui-icon {
+	display: none;
+}
+
+.ui-datepicker-title {
+	text-align: center;
+}
+
+.ui-datepicker-title select {
+	margin-top: 2.5%;
+}
+
+.ui-datepicker-prev,
+.ui-datepicker-next {
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 	display: inline-block;
 	width: 30px;
 	height: 30px;
@@ -89,17 +124,29 @@ to no.
 	overflow: hidden;
 }
 
+<<<<<<< HEAD
 .gform-legacy-datepicker.ui-datepicker .ui-datepicker-prev {
+=======
+.ui-datepicker-prev {
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 	float: left;
 	background-position: center -30px;
 }
 
+<<<<<<< HEAD
 .gform-legacy-datepicker.ui-datepicker .ui-datepicker-next {
+=======
+.ui-datepicker-next {
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 	float: right;
 	background-position: center 0px;
 }
 
+<<<<<<< HEAD
 .gform-legacy-datepicker.ui-datepicker thead {
+=======
+.ui-datepicker thead {
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 	background: #f7f7f7;
 	background: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/Pgo8c3ZnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgdmlld0JveD0iMCAwIDEgMSIgcHJlc2VydmVBc3BlY3RSYXRpbz0ibm9uZSI+CiAgPGxpbmVhckdyYWRpZW50IGlkPSJncmFkLXVjZ2ctZ2VuZXJhdGVkIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgeDE9IjAlIiB5MT0iMCUiIHgyPSIwJSIgeTI9IjEwMCUiPgogICAgPHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iI2Y3ZjdmNyIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjEwMCUiIHN0b3AtY29sb3I9IiNmMWYxZjEiIHN0b3Atb3BhY2l0eT0iMSIvPgogIDwvbGluZWFyR3JhZGllbnQ+CiAgPHJlY3QgeD0iMCIgeT0iMCIgd2lkdGg9IjEiIGhlaWdodD0iMSIgZmlsbD0idXJsKCNncmFkLXVjZ2ctZ2VuZXJhdGVkKSIgLz4KPC9zdmc+);
 	background: -moz-linear-gradient(top,  #f7f7f7 0%, #f1f1f1 100%);
@@ -112,7 +159,11 @@ to no.
 	border-bottom: 1px solid #bbb;
 }
 
+<<<<<<< HEAD
 .gform-legacy-datepicker.ui-datepicker th {
+=======
+.ui-datepicker th {
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 	text-transform: uppercase;
 	text-align: center;
 	font-size: 6pt;
@@ -122,12 +173,17 @@ to no.
 	filter: dropshadow(color=#fff, offx=1, offy=0);
 }
 
+<<<<<<< HEAD
 .gform-legacy-datepicker.ui-datepicker tbody td {
+=======
+.ui-datepicker tbody td {
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 	padding: 0;
 	border-top: 1px solid #bbb;
 	border-right: 1px solid #bbb;
 }
 
+<<<<<<< HEAD
 .gform-legacy-datepicker.ui-datepicker tbody td:last-child {
 	border-right: 0px;
 }
@@ -142,6 +198,22 @@ to no.
 
 .gform-legacy-datepicker.ui-datepicker td span,
 .gform-legacy-datepicker.ui-datepicker td a {
+=======
+.ui-datepicker tbody td:last-child {
+	border-right: 0px;
+}
+
+.ui-datepicker tbody tr {
+	border-bottom: 1px solid #bbb;
+}
+
+.ui-datepicker tbody tr:last-child {
+	border-bottom: 0px;
+}
+
+.ui-datepicker td span,
+.ui-datepicker td a {
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 	display: inline-block;
 	font-weight: bold;
 	text-align: center;
@@ -149,11 +221,19 @@ to no.
 	height: 30px;
 	line-height: 30px;
 	color: #666666;
+<<<<<<< HEAD
 	text-shadow: 1px 1px 0 #fff;
 	filter: dropshadow(color=#fff, offx=1, offy=1);
 }
 
 .gform-legacy-datepicker.ui-datepicker .ui-datepicker-calendar .ui-state-default {
+=======
+	text-shadow: 1px 1px 0px #fff;
+	filter: dropshadow(color=#fff, offx=1, offy=1);
+}
+
+.ui-datepicker-calendar .ui-state-default {
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 	background: #ededed;
 	background: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/Pgo8c3ZnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgdmlld0JveD0iMCAwIDEgMSIgcHJlc2VydmVBc3BlY3RSYXRpbz0ibm9uZSI+CiAgPGxpbmVhckdyYWRpZW50IGlkPSJncmFkLXVjZ2ctZ2VuZXJhdGVkIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgeDE9IjAlIiB5MT0iMCUiIHgyPSIwJSIgeTI9IjEwMCUiPgogICAgPHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iI2VkZWRlZCIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjEwMCUiIHN0b3AtY29sb3I9IiNkZWRlZGUiIHN0b3Atb3BhY2l0eT0iMSIvPgogIDwvbGluZWFyR3JhZGllbnQ+CiAgPHJlY3QgeD0iMCIgeT0iMCIgd2lkdGg9IjEiIGhlaWdodD0iMSIgZmlsbD0idXJsKCNncmFkLXVjZ2ctZ2VuZXJhdGVkKSIgLz4KPC9zdmc+);
 	background: -moz-linear-gradient(top,  #ededed 0%, #dedede 100%);
@@ -168,11 +248,19 @@ to no.
 	box-shadow: inset 1px 1px 0px 0px rgba(250, 250, 250, .5);
 }
 
+<<<<<<< HEAD
 .gform-legacy-datepicker.ui-datepicker .ui-datepicker-calendar .ui-state-hover {
 	background: #f7f7f7;
 }
 
 .gform-legacy-datepicker.ui-datepicker .ui-datepicker-calendar .ui-state-active {
+=======
+.ui-datepicker-calendar .ui-state-hover {
+	background: #f7f7f7;
+}
+
+.ui-datepicker-calendar .ui-state-active {
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 	background: #FFF2AA; /* set the active date background color */
 	border: 1px solid #c19163; /* set the active date border color */
 	color: #666; /* set the active date font color */
@@ -185,26 +273,43 @@ to no.
 	margin: -1px;
 }
 
+<<<<<<< HEAD
 .gform-legacy-datepicker.ui-datepicker .ui-datepicker-unselectable .ui-state-default {
+=======
+.ui-datepicker-unselectable .ui-state-default {
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 	background: #f4f4f4;
 	color: #b4b3b3;
 }
 
+<<<<<<< HEAD
 .gform-legacy-datepicker.ui-datepicker .ui-datepicker-calendar td:first-child .ui-state-active {
+=======
+.ui-datepicker-calendar td:first-child .ui-state-active {
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 	width: 29px;
 	margin-left: 0;
 }
 
+<<<<<<< HEAD
 .gform-legacy-datepicker.ui-datepicker .ui-datepicker-calendar td:last-child .ui-state-active {
+=======
+.ui-datepicker-calendar td:last-child .ui-state-active {
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 	width: 29px;
 	margin-right: 0;
 }
 
+<<<<<<< HEAD
 .gform-legacy-datepicker.ui-datepicker .ui-datepicker-calendar tr:last-child .ui-state-active {
+=======
+.ui-datepicker-calendar tr:last-child .ui-state-active {
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 	height: 29px;
 	margin-bottom: 0;
 }
 
+<<<<<<< HEAD
 .gform-legacy-datepicker.ui-datepicker td.ui-datepicker-unselectable.ui-state-disabled {
 	background-color: #d7d7d7;
 }
@@ -214,6 +319,17 @@ to no.
 }
 
 body #ui-datepicker-div.gform-legacy-datepicker[style] {
+=======
+td.ui-datepicker-unselectable.ui-state-disabled {
+	background-color: #d7d7d7;
+}
+
+table.ui-datepicker-calendar {
+	margin: 0 0 0 0 !important;
+}
+
+body div#ui-datepicker-div[style] {
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 	z-index: 9999 !important;
 }
 
@@ -228,12 +344,20 @@ body #ui-datepicker-div.gform-legacy-datepicker[style] {
 	padding-top: 3px;
 }
 
+<<<<<<< HEAD
 .gform-legacy-datepicker.ui-datepicker .ui-datepicker-header .ui-datepicker-month {
+=======
+.ui-datepicker .ui-datepicker-header .ui-datepicker-month {
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 	max-height: 25px;
 	max-width: 40%;
 }
 
+<<<<<<< HEAD
 .gform-legacy-datepicker.ui-datepicker .ui-datepicker-header .ui-datepicker-year {
+=======
+.ui-datepicker .ui-datepicker-header .ui-datepicker-year {
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 	max-height: 25px;
 	max-width: 30%;
 }

@@ -22,6 +22,7 @@ var gresults = {
             }
             chart.draw(data, options);
         });
+<<<<<<< HEAD
 
 		// For RTL languages, set the text-anchor of bar chart labels to "start" to keep proper alignment.
 		const isRTL   = document.documentElement.dir === 'rtl';
@@ -31,6 +32,8 @@ var gresults = {
 				el.setAttribute('text-anchor', 'start');
 			})
 		}
+=======
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
     },
 
     renderStateData: function (state) {
@@ -59,6 +62,10 @@ var gresults = {
     sendRequest: function (gresultsData, serverStateObject, checkSum) {
         var results = jQuery("#gresults-results");
         var filterButtons = jQuery("#gresults-results-filter-buttons input");
+<<<<<<< HEAD
+=======
+        var loading = jQuery(".gresults-filter-loading");
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
         var viewSlug = jQuery("#gresults-view-slug").val();
 		var nonce = jQuery("#_gf_results_nonce").val()
         var data_str = "action=gresults_get_results_" + viewSlug + "&" + gresultsData + '&_gf_results_nonce' + nonce ;
@@ -73,18 +80,30 @@ var gresults = {
             beforeSend: function (xhr, opts) {
                 results.fadeTo("slow", 0.33);
                 results.html('');
+<<<<<<< HEAD
                 gform.utils.trigger( { event: 'gform/page_loader/show' } );
+=======
+                loading.show();
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
                 filterButtons.attr('disabled', 'disabled');
             }
         })
         .done(function (response) {
             if (!response || response === -1) {
+<<<<<<< HEAD
                 gform.utils.trigger( { event: 'gform/page_loader/hide' } );
+=======
+                loading.hide();
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
                 results.html(gresultsStrings.ajaxError);
             } else {
                 if (response.status === "complete") {
                     filterButtons.removeAttr('disabled');
+<<<<<<< HEAD
                     gform.utils.trigger( { event: 'gform/page_loader/hide' } );
+=======
+                    loading.hide();
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
                     results.html(response.html);
                     jQuery("#gresults-results").data('searchcriteria', response.searchCriteria); //used in 'more' links
 
@@ -107,7 +126,11 @@ var gresults = {
                     gresults.sendRequest(gresultsData, serverStateObject, response.checkSum);
                     results.html(response.html);
                 } else {
+<<<<<<< HEAD
                     gform.utils.trigger( { event: 'gform/page_loader/hide' } );
+=======
+                    loading.hide();
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
                     results.html(gresultsStrings.ajaxError);
                 }
             }
@@ -116,7 +139,11 @@ var gresults = {
             filterButtons.removeAttr('disabled');
             results.fadeTo("fast", 1);
             var msg = error.statusText;
+<<<<<<< HEAD
             gform.utils.trigger( { event: 'gform/page_loader/hide' } );
+=======
+            loading.hide();
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
             if (msg == "abort") {
                 msg = "Request cancelled";
             } else {
@@ -248,6 +275,7 @@ jQuery( window ).on( 'load', function () {
             return false;
         });
 
+<<<<<<< HEAD
         // Ensure we only treat a state as valid if it contains our expected data.
         const initialState = history.state;
         const hasGResultsState = initialState && typeof initialState === 'object' && ( 'html' in initialState ) && ( 'searchCriteria' in initialState );
@@ -258,6 +286,13 @@ jQuery( window ).on( 'load', function () {
             gresults.getResults();
         }
 
+=======
+        if (history.state) {
+            gresults.renderStateData(history.state)
+        } else {
+            gresults.getResults();
+        }
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
         if (window["gform_initialize_tooltips"])
             gform_initialize_tooltips();
 

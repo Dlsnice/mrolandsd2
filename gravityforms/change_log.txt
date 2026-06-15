@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 ### 2.10.2 | 2026-05-13
 - Added security enhancements.
 - Added background processing for entry bulk actions.
@@ -1104,6 +1105,8 @@
 - Fixed an issue for thickbox where RTL is not being respected, but only within the context of Gravity Forms admin pages.
 - API: Updated the logic that determines when to show custom form settings fields.
 
+=======
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 ### 2.5.10 | 2021-09-08
 - Added alt text and title attribute for accessibility to the date field datepicker field icon.
 - Fixed an issue where the form button text doesn't properly update for page conditional logic.
@@ -1123,7 +1126,10 @@
 - Updated the feed settings to run on admin_init instead of init to ensure they never trigger on the front end.
 - Updated some instances of strings not being translatable for the System Status view.
 - API: Fixed an issue where field map fields don't auto populate with default options.
+<<<<<<< HEAD
 - AF: Added the ability to overwrite the uninstall message.
+=======
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 
 ### 2.5.9 | 2021-08-10
 - Added security enhancements.
@@ -3336,7 +3342,11 @@ Description Filter which checks whether the operator is valid. Allows …)* filt
 - AF: Added handling of the date_created merge tag to the get_field_value function for instances where this function is used before the entry has been created.
 - AF: Added ability to set a limit on the number of fields that may be added for fields of type dynamic_field_map.
 - AF: Added support for displaying validation errors set for fields created as type dynamic_field_map.
+<<<<<<< HEAD
 - AF: Change "get_field_value" to use "get_full_name" and "get_full_address" functions to prevent access level conflict with Mailchimp Add-On.
+=======
+- AF: Change "get_field_value" to use "get_full_name" and "get_full_address" functions to prevent access level conflict with MailChimp Add-On.
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 - AF: Fixed a bug where an error would be thrown if the function plugin_settings_page was not included in the add-on.
 - AF: Added the ability to exclude certain field types from field mapping in the get_field_map_choices function.
 - AF: Added "get_field_value" helper function to get value of a selected field.
@@ -4548,7 +4558,11 @@ Description Use this filter to prevent the thousand separator being …)* filter
 - AF: Added support for labels, tooltips and default values to text and textarea settings.
 - AF: Added support for tooltips in checkbox choices.
 - AF: Added settings_radio().
+<<<<<<< HEAD
 - AF: Moved some Mailchimp specific functions back into Mailchimp.
+=======
+- AF: Moved some MailChimp specific functions back into MailChimp.
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 - Fixed issue with admin_title filter return false instead of original title when not on form settings page.
 
 

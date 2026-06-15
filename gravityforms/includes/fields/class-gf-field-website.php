@@ -53,7 +53,10 @@ class GF_Field_Website extends GF_Field {
 			'placeholder_setting',
 			'description_setting',
 			'css_class_setting',
+<<<<<<< HEAD
 			'autocomplete_setting',
+=======
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 		);
 	}
 
@@ -89,19 +92,28 @@ class GF_Field_Website extends GF_Field {
 		$class_suffix    = $is_entry_detail ? '_admin' : '';
 		$class           = $size . $class_suffix;
 		$class           = esc_attr( $class );
+<<<<<<< HEAD
 		$html_input_type = 'url';
+=======
+		$is_html5        = RGFormsModel::is_html5_enabled();
+		$html_input_type = $is_html5 ? 'url' : 'text';
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 
 		$placeholder_attribute = $this->get_field_placeholder_attribute();
 		$required_attribute    = $this->isRequired ? 'aria-required="true"' : '';
 		$invalid_attribute     = $this->failed_validation ? 'aria-invalid="true"' : 'aria-invalid="false"';
 		$aria_describedby      = $this->get_aria_describedby();
+<<<<<<< HEAD
 		$autocomplete          = $this->enableAutocomplete ? $this->get_field_autocomplete_attribute() : '';
+=======
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 
 		$tabindex = $this->get_tabindex();
 		$value    = esc_attr( $value );
 		$class    = esc_attr( $class );
 
 		return "<div class='ginput_container ginput_container_website'>
+<<<<<<< HEAD
                     <input name='input_{$id}' id='{$field_id}' type='$html_input_type' value='{$value}' class='{$class}' {$tabindex} {$aria_describedby} {$disabled_text} {$placeholder_attribute} {$required_attribute} {$invalid_attribute} {$autocomplete}/>
                 </div>";
 	}
@@ -122,6 +134,14 @@ class GF_Field_Website extends GF_Field {
 	 */
 	public function get_value_entry_detail( $value, $entry = array(), $use_text = false, $format = 'html', $media = 'screen' ) {
 		$safe_value = esc_url( (string) $value );
+=======
+                    <input name='input_{$id}' id='{$field_id}' type='$html_input_type' value='{$value}' class='{$class}' {$tabindex} {$aria_describedby} {$disabled_text} {$placeholder_attribute} {$required_attribute} {$invalid_attribute}/>
+                </div>";
+	}
+
+	public function get_value_entry_detail( $value, $currency = '', $use_text = false, $format = 'html', $media = 'screen' ) {
+		$safe_value = esc_url( $value );
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 		return GFCommon::is_valid_url( $value ) && $format == 'html' ? "<a href='$safe_value' target='_blank'>$safe_value</a>" : $safe_value;
 	}
 
@@ -152,6 +172,7 @@ class GF_Field_Website extends GF_Field {
 		return $operators;
 	}
 
+<<<<<<< HEAD
 	/**
 	 * Performs actions after the field has been converted to an object.
 	 *
@@ -169,6 +190,8 @@ class GF_Field_Website extends GF_Field {
 
 	}
 
+=======
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 }
 
 GF_Fields::register( new GF_Field_Website() );

@@ -33,6 +33,7 @@ class GF_Field_CAPTCHA extends GF_Field {
 	 */
 	private $secret_key;
 
+<<<<<<< HEAD
 	/**
 	 * The reCAPTCHA field constructor.
 	 *
@@ -78,6 +79,9 @@ class GF_Field_CAPTCHA extends GF_Field {
     }
 
     public function get_form_editor_field_title() {
+=======
+	public function get_form_editor_field_title() {
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 		return esc_attr__( 'CAPTCHA', 'gravityforms' );
 	}
 
@@ -124,6 +128,7 @@ class GF_Field_CAPTCHA extends GF_Field {
 	}
 
 	/**
+<<<<<<< HEAD
 	 * Returns the warning message to be displayed in the form editor sidebar.
 	 *
 	 * @since 2.8
@@ -196,6 +201,8 @@ class GF_Field_CAPTCHA extends GF_Field {
 	}
 
 	/**
+=======
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 	 * Validate the reCAPTCHA field.
 	 *
 	 * This method always gets called on the last page of a form, as well as on the page where the field is assigned.
@@ -209,7 +216,11 @@ class GF_Field_CAPTCHA extends GF_Field {
 		switch ( $this->captchaType ) {
 			case 'simple_captcha' :
 				if ( class_exists( 'ReallySimpleCaptcha' ) ) {
+<<<<<<< HEAD
 					$prefix      = rgpost( "input_captcha_prefix_{$this->id}" ); 
+=======
+					$prefix      = $_POST[ "input_captcha_prefix_{$this->id}" ];
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 					$captcha_obj = $this->get_simple_captcha();
 
 					if ( ! $captcha_obj->check( $prefix, str_replace( ' ', '', $value ) ) ) {
@@ -222,7 +233,11 @@ class GF_Field_CAPTCHA extends GF_Field {
 				break;
 
 			case 'math' :
+<<<<<<< HEAD
 				$prefixes    = explode( ',', rgpost( "input_captcha_prefix_{$this->id}" ) );
+=======
+				$prefixes    = explode( ',', $_POST[ "input_captcha_prefix_{$this->id}" ] );
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 				$captcha_obj = $this->get_simple_captcha();
 
 				//finding first number
@@ -279,6 +294,7 @@ class GF_Field_CAPTCHA extends GF_Field {
 	 * @return bool
 	 */
 	public function validate_recaptcha( $form ) {
+<<<<<<< HEAD
 		if ( rgpost( 'gform_conversational_form' ) ) {
 			$hash = md5( $form['title'] . $form['id'] );
 			if ( $hash === rgpost( 'gform_conversational_form' ) && is_plugin_active( 'gravityformsconversationalforms/conversationalforms.php' ) ) {
@@ -287,6 +303,8 @@ class GF_Field_CAPTCHA extends GF_Field {
 			}
 		}
 
+=======
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 		$response = $this->get_posted_recaptcha_response();
 
 		if ( ! ( $this->verify_decoded_response( $form, $response ) || $this->verify_recaptcha_response( $response ) ) ) {
@@ -310,7 +328,11 @@ class GF_Field_CAPTCHA extends GF_Field {
 	 *
 	 * @return bool
 	 */
+<<<<<<< HEAD
 	public function verify_decoded_response( $form, $response ) {
+=======
+	private function verify_decoded_response( $form, $response ) {
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 		$decoded_response = $this->get_decoded_recaptcha_response( $response );
 
 		// No decoded object.
@@ -318,6 +340,14 @@ class GF_Field_CAPTCHA extends GF_Field {
 			return false;
 		}
 
+<<<<<<< HEAD
+=======
+		// Not a time that we need to verify the decoded object.
+		if ( ! GFFormDisplay::is_last_page( $form ) || $this->is_on_last_page( $form ) ) {
+			return false;
+		}
+
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 		return (
 			$decoded_response->success === true
 			&& ! empty( $decoded_response->token )
@@ -346,7 +376,11 @@ class GF_Field_CAPTCHA extends GF_Field {
 	 */
 	public function get_site_key() {
 		if ( ! $this->site_key ) {
+<<<<<<< HEAD
 			$this->site_key = get_option( 'rg_gforms_captcha_public_key', '' );
+=======
+			$this->site_key   = get_option( 'rg_gforms_captcha_public_key', '' );
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 		}
 
 		return $this->site_key;
@@ -381,7 +415,11 @@ class GF_Field_CAPTCHA extends GF_Field {
 	 *
 	 * @return string
 	 */
+<<<<<<< HEAD
 	public function get_posted_recaptcha_response() {
+=======
+	private function get_posted_recaptcha_response() {
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 		return sanitize_text_field( rgpost( 'g-recaptcha-response' ) );
 	}
 
@@ -465,6 +503,7 @@ class GF_Field_CAPTCHA extends GF_Field {
 				$type 		= get_option( 'rg_gforms_captcha_type' );
 				if ( $is_entry_detail || $is_form_editor ){
 
+<<<<<<< HEAD
 					if ( empty( $this->site_key ) || empty( $this->secret_key ) ) {
 						return '<div class="ginput_container ginput_container_addon_message ginput_container_addon_message_captcha">
 							<div class="gform-alert gform-alert--info gform-alert--theme-cosmos gform-spacing gform-spacing--bottom-0 gform-theme__disable">
@@ -487,11 +526,22 @@ class GF_Field_CAPTCHA extends GF_Field {
 							</div>
 						</div>';
                     }
+=======
+					//for admin, show a thumbnail depending on chosen theme
+					if ( empty( $this->site_key ) || empty( $this->secret_key ) ) {
+
+						return "<div class='captcha_message'>" . __( 'To use the reCAPTCHA field you must do the following:', 'gravityforms' ) . "</div><div class='captcha_message'>1 - <a href='https://www.google.com/recaptcha/admin' target='_blank'>" . sprintf( __( 'Sign up%s for an API key pair for your site.', 'gravityforms' ), '</a>' ) . "</div><div class='captcha_message'>2 - " . sprintf( __( 'Enter your reCAPTCHA site and secret keys in the %sreCAPTCHA Settings%s.', 'gravityforms' ), "<a href='?page=gf_settings&subview=recaptcha' target='_blank'>", '</a>' ) . '</div>';
+					}
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 
 					$type_suffix = $type == 'invisible' ? 'invisible_' : '';
 					$alt         = esc_attr__( 'An example of reCAPTCHA', 'gravityforms' );
 
+<<<<<<< HEAD
 					return "<div class='ginput_container'><img class='gfield_captcha' src='" . GFCommon::get_base_url() . "/images/captcha_{$type_suffix}{$theme}.svg' alt='{$alt}' /></div>";
+=======
+					return "<div class='ginput_container'><img class='gfield_captcha' src='" . GFCommon::get_base_url() . "/images/captcha_{$type_suffix}{$theme}.jpg' alt='{$alt}' /></div>";
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 				}
 
 				if ( empty( $this->site_key ) || empty( $this->secret_key ) ) {
@@ -548,7 +598,11 @@ class GF_Field_CAPTCHA extends GF_Field {
 	 *
 	 * @return string
 	 */
+<<<<<<< HEAD
 	public function get_encoded_recaptcha_response( $form, $response ) {
+=======
+	private function get_encoded_recaptcha_response( $form, $response ) {
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 		if ( ! $this->response ) {
 			return $response;
 		}
@@ -657,9 +711,19 @@ class GF_Field_CAPTCHA extends GF_Field {
 		$word     = $captcha->generate_random_word();
 		$prefix   = mt_rand();
 		$filename = $captcha->generate_image( $prefix, $word );
+<<<<<<< HEAD
 		$url      = $this->get_image_url( $filename );
 		$path     = $captcha->tmp_dir . $filename;
 
+=======
+		$url      = RGFormsModel::get_upload_url( 'captcha' ) . '/' . $filename;
+		$path     = $captcha->tmp_dir . $filename;
+
+		if ( GFCommon::is_ssl() && strpos( $url, 'http:' ) !== false ) {
+			$url = str_replace( 'http:', 'https:', $url );
+		}
+
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 		return array( 'path' => $path, 'url' => $url, 'height' => $captcha->img_size[1], 'width' => $captcha->img_size[0], 'prefix' => $prefix );
 	}
 
@@ -723,9 +787,19 @@ class GF_Field_CAPTCHA extends GF_Field {
 		$word     = $captcha->generate_random_word();
 		$prefix   = mt_rand();
 		$filename = $captcha->generate_image( $prefix, $word );
+<<<<<<< HEAD
 		$url      = $this->get_image_url( $filename );
 		$path     = $captcha->tmp_dir . $filename;
 
+=======
+		$url      = RGFormsModel::get_upload_url( 'captcha' ) . '/' . $filename;
+		$path     = $captcha->tmp_dir . $filename;
+
+		if ( GFCommon::is_ssl() && strpos( $url, 'http:' ) !== false ) {
+			$url = str_replace( 'http:', 'https:', $url );
+		}
+
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 		return array( 'path' => $path, 'url' => $url, 'height' => $captcha->img_size[1], 'width' => $captcha->img_size[0], 'prefix' => $prefix );
 	}
 
@@ -776,7 +850,11 @@ class GF_Field_CAPTCHA extends GF_Field {
 		$padded = $plaintext . str_repeat( chr( $pad ), $pad );
 
 		//encrypt as 128
+<<<<<<< HEAD
 		$encrypted = GFCommon::openssl_encrypt( $padded, $secret_key, MCRYPT_RIJNDAEL_128 ); // gitleaks:allow
+=======
+		$encrypted = GFCommon::openssl_encrypt( $padded, $secret_key, MCRYPT_RIJNDAEL_128 );
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 
 		$token = str_replace( array( '+', '/', '=' ), array( '-', '_', '' ), $encrypted );
 		GFCommon::log_debug( ' token being used is: ' . $token );
@@ -789,6 +867,7 @@ class GF_Field_CAPTCHA extends GF_Field {
 		return ! get_option( 'gform_recaptcha_keys_status', false );
 	}
 
+<<<<<<< HEAD
 	/**
 	 * Returns the gf-download URL for the given image filename.
 	 *
@@ -810,6 +889,8 @@ class GF_Field_CAPTCHA extends GF_Field {
 		);
 	}
 
+=======
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 }
 
 GF_Fields::register( new GF_Field_CAPTCHA() );

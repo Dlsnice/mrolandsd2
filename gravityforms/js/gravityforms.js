@@ -7,8 +7,33 @@ if( typeof jQuery.fn.prop === 'undefined' ) {
     jQuery.fn.prop = jQuery.fn.attr;
 }
 
+<<<<<<< HEAD
 //Formatting free form currency fields to currency
 jQuery( document ).on( 'gform_post_render', gformBindFormatPricingFields );
+=======
+// Announcing validation errors after form render.
+jQuery( document ).on( 'gform_post_render', announceAJAXValidationErrors );
+
+/**
+ * Announce validation errors after form has been rendered.
+ *
+ * @since 2.5.1
+ */
+function announceAJAXValidationErrors() {
+	// Announce validation errors.
+	if ( ! jQuery('.gform_validation_errors').length ) {
+		return;
+	}
+	jQuery( '#gf_form_focus' ).focus();
+	setTimeout( function() {
+	  wp.a11y.speak( jQuery( '.gform_validation_errors > h2' ).text() );
+	}, 1000 );
+
+}
+
+//Formatting free form currency fields to currency
+jQuery( document ).bind( 'gform_post_render', gformBindFormatPricingFields );
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 
 function gformBindFormatPricingFields(){
 	// Namespace the event and remove before adding to prevent double binding.
@@ -29,7 +54,11 @@ function gformBindFormatPricingFields(){
  * Namespace to store our JavaScript class instances
  */
 
+<<<<<<< HEAD
 gform.instances = gform.instances || {};
+=======
+gform.instances = {};
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 
 //----------------------------------------
 //------ CONSOLE FUNCTIONS ---------------
@@ -92,7 +121,11 @@ gform.adminUtils = {
 
 		// Standalone logic for the web api settings page. Trigger unsaved changes if the setting doesn't match the checkbox state.
 		if ( this.getUrlParameter( 'subview' ) === 'gravityformswebapi' ) {
+<<<<<<< HEAD
 			if ( window.gf_webapi_vars && window.gf_webapi_vars.api_enabled !== window.gf_webapi_vars.enable_api_checkbox_checked ) {
+=======
+			if ( gf_webapi_vars.api_enabled !== gf_webapi_vars.enable_api_checkbox_checked ) {
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 				hasUnsavedChanges = true;
 			}
 		}
@@ -117,6 +150,36 @@ gform.adminUtils = {
 			}
 		}
 	},
+<<<<<<< HEAD
+=======
+
+	handleIEDisplay: function() {
+		var isIE = ! gform.tools.isIE();
+
+		var ieShow    = gform.tools.getNodes( 'show-if-ie', true );
+		var ieHide    = gform.tools.getNodes( 'hide-if-ie', true );
+		var otherShow = gform.tools.getNodes( 'show-if-not-ie', true );
+		var otherHide = gform.tools.getNodes( 'hide-if-not-ie', true );
+
+		if ( isIE ) {
+			ieShow.forEach( function( el ) {
+				el.classList.add( 'active' );
+			});
+
+			ieHide.forEach( function( el ) {
+				el.classList.remove( 'active' );
+			});
+		} else {
+			otherShow.forEach( function( el ) {
+				el.classList.add( 'active' );
+			});
+
+			otherHide.forEach( function( el ) {
+				el.classList.remove( 'active' );
+			});
+		}
+	},
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 }
 
 window.HandleUnsavedChanges = gform.adminUtils.handleUnsavedChanges;
@@ -435,6 +498,19 @@ gform.tools = {
 	},
 
 	/**
+<<<<<<< HEAD
+=======
+	 * @function gform.tools.isIE
+	 * @description Determine if the current client browser is IE.
+	 *
+	 * @return {bool}
+	 */
+	isIE: function() {
+		return window.document.documentMode;
+	},
+
+	/**
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 	 * @function gform.tools.trigger
 	 * @description Trigger custom or native events on any element in a cross browser way, and pass along optional data.
 	 *
@@ -452,6 +528,10 @@ gform.tools = {
 		el =  this.defaultFor( el, document );
 		native =  this.defaultFor( native, false );
 		data =  this.defaultFor( data, {} );
+<<<<<<< HEAD
+=======
+
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 		if ( native ) {
 			event = document.createEvent( 'HTMLEvents' );
 			event.initEvent( eventName, true, false );
@@ -597,7 +677,11 @@ gform.a11y = {};
 //------------------------------------------------
 
 /**
+<<<<<<< HEAD
  * Options namespace to house common plugin and custom options objects for reuse across our JavaScript.
+=======
+ * Options namespace to house common plugin and custom options objects for reuse across out JavaScript.
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
  */
 
 gform.options = {
@@ -608,7 +692,10 @@ gform.options = {
      */
 
     jqEditorAccordions: {
+<<<<<<< HEAD
     	header: 'button.panel-block-tabs__toggle',
+=======
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
         heightStyle: 'content',
         collapsible: true,
         animate: false,
@@ -618,6 +705,7 @@ gform.options = {
         activate: function( event ) {
             gform.tools.setAttr( '.ui-accordion-header', 'tabindex', '0', event.target, 100 );
         },
+<<<<<<< HEAD
 	    beforeActivate: function( event ) {
 			// handle advanced tab operations as needed before the tab is revealed in a fields settings
 			if ( event.currentTarget.id === 'advanced_tab_toggle' ) {
@@ -641,6 +729,9 @@ gform.options = {
 			gform.tools.setAttr( '.ui-accordion-header', 'tabindex', '0', event.target, 100 );
 		},
 	},
+=======
+    }
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 };
 
 //------------------------------------------------
@@ -648,8 +739,152 @@ gform.options = {
 //------------------------------------------------
 
 function Currency(currency){
+<<<<<<< HEAD
 	console.warn( 'Currency has been deprecated since Gravity Forms 2.9. Use gform.Currency instead.' );
 	return new gform.Currency( currency );
+=======
+    this.currency = currency;
+
+    this.toNumber = function(text){
+
+        if(this.isNumeric(text)) {
+			return parseFloat(text);
+		}
+
+        return gformCleanNumber(text, this.currency["symbol_right"], this.currency["symbol_left"], this.currency["decimal_separator"]);
+    };
+
+	/**
+	 * Attempts to clean the specified number and formats it as currency.
+	 *
+	 * @since 2.1.1.16 Allow the overriding of numerical checks.
+	 *
+	 * @param number    int  Number to be formatted. It can be a clean number, or an already formatted number.
+	 * @param isNumeric bool Whether or not the number is guaranteed to be a clean, unformatted number.
+	 *                       When false the function will attempt to clean the number. Defaults to false.
+	 *
+	 * @return string A number formatted as currency.
+	 */
+	this.toMoney = function(number, isNumeric){
+
+		isNumeric = isNumeric || false; //isNumeric is an optional parameter. Defaults to false
+
+		if( ! isNumeric ) {
+			//Cleaning number, removing all formatting
+			number = gformCleanNumber(number, this.currency["symbol_right"], this.currency["symbol_left"], this.currency["decimal_separator"]);
+		}
+
+		if(number === false) {
+			return "";
+		}
+
+        number = number + "";
+        negative = "";
+        if(number[0] == "-"){
+
+            number = parseFloat(number.substr(1));
+			negative = '-';
+		}
+
+        money = this.numberFormat(number, this.currency["decimals"], this.currency["decimal_separator"], this.currency["thousand_separator"]);
+
+		if ( money == '0.00' ){
+			negative = '';
+		}
+
+        var symbol_left = this.currency["symbol_left"] ? this.currency["symbol_left"] + this.currency["symbol_padding"] : "";
+        var symbol_right = this.currency["symbol_right"] ? this.currency["symbol_padding"] + this.currency["symbol_right"] : "";
+
+		money =  negative + this.htmlDecode(symbol_left) + money + this.htmlDecode(symbol_right);
+
+		return money;
+    };
+
+
+	/**
+	 * Formats a number given the specified parameters.
+	 *
+	 * @since Unknown
+	 *
+	 * @param number        int    Number to be formatted. Must be a clean, unformatted  format.
+	 * @param decimals      int    Number of decimals that the output should contain.
+	 * @param dec_point     string Character to use as the decimal separator. Defaults to ".".
+	 * @param thousands_sep string Character to use as the thousand separator. Defaults to ",".
+	 * @param padded        bool   Pads output with zeroes if the number is exact. For example, 1.200.
+	 *
+	 * @return string The formatted number.
+	 */
+    this.numberFormat = function(number, decimals, dec_point, thousands_sep, padded){
+
+    	padded = typeof padded == 'undefined' ? true : padded;
+        number = (number+'').replace(',', '').replace(' ', '');
+        var n = !isFinite(+number) ? 0 : +number,
+        prec = !isFinite(+decimals) ? 0 : Math.abs(decimals),
+        sep = (typeof thousands_sep === 'undefined') ? ',' : thousands_sep, dec = (typeof dec_point === 'undefined') ? '.' : dec_point,
+        s = '',
+
+        toFixedFix = function (n, prec) {
+            var k = Math.pow(10, prec);
+            return '' + Math.round(n * k) / k;
+        };
+
+        if(decimals == '0') {
+
+            n = n + 0.0000000001; // getting around floating point arithmetic issue when rounding. ( i.e. 4.005 is represented as 4.004999999999 and gets rounded to 4.00 instead of 4.01 )
+
+            s = ('' + Math.round(n)).split('.');
+        } else
+        if(decimals == -1) {
+            s = ('' + n).split('.');
+        } else {
+
+            n = n + 0.0000000001; // getting around floating point arithmetic issue when rounding. ( i.e. 4.005 is represented as 4.004999999999 and gets rounded to 4.00 instead of 4.01 )
+
+            // Fix for IE parseFloat(0.55).toFixed(0) = 0;
+            s = toFixedFix(n, prec).split('.');
+        }
+
+        if (s[0].length > 3) {
+            s[0] = s[0].replace(/\B(?=(?:\d{3})+(?!\d))/g, sep);
+        }
+
+        if(padded) {
+            if ((s[1] || '').length < prec) {
+                s[1] = s[1] || '';
+                s[1] += new Array(prec - s[1].length + 1).join('0');
+            }
+        }
+
+        return s.join(dec);
+    }
+
+    this.isNumeric = function(number){
+        return gformIsNumber(number);
+    };
+
+    this.htmlDecode = function(text) {
+        var c,m,d = text;
+
+        // look for numerical entities &#34;
+        var arr=d.match(/&#[0-9]{1,5};/g);
+
+        // if no matches found in string then skip
+        if(arr!=null){
+            for(var x=0;x<arr.length;x++){
+                m = arr[x];
+                c = m.substring(2,m.length-1); //get numeric part which is refernce to unicode character
+                // if its a valid number we can decode
+                if(c >= -32768 && c <= 65535){
+                    // decode every single match within string
+                    d = d.replace(m, String.fromCharCode(c));
+                }else{
+                    d = d.replace(m, ""); //invalid so replace with nada
+                }
+            }
+        }
+        return d;
+    };
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 }
 
 /**
@@ -668,6 +903,7 @@ function Currency(currency){
  * @return float The unformatted numerical value.
  */
 function gformCleanNumber(text, symbol_right, symbol_left, decimal_separator){
+<<<<<<< HEAD
 	console.warn( 'gformCleanNumber() has been deprecated since Gravity Forms 2.9. Use gform.Currency.cleanNumber() instead.' );
 	return gform.Currency.cleanNumber( text, symbol_right, symbol_left, decimal_separator );
 }
@@ -680,6 +916,66 @@ function gformGetDecimalSeparator(numberFormat){
 function gformIsNumber(n) {
 	console.warn( 'gformIsNumber() has been deprecated since Gravity Forms 2.9. Use gform.utils.isNumber() instead.' );
 	return gform.utils.isNumber( n );
+=======
+    var clean_number = '',
+        float_number = '',
+        digit = '',
+        is_negative = false;
+
+    //converting to a string if a number as passed
+    text = text + " ";
+
+    //Removing symbol in unicode format (i.e. &#4444;)
+    text = text.replace(/&.*?;/g, "");
+
+    //Removing symbol from text
+    text = text.replace(symbol_right, "");
+    text = text.replace(symbol_left, "");
+
+    //Removing all non-numeric characters
+    for(var i=0; i<text.length; i++){
+        digit = text.substr(i,1);
+        if( (parseInt(digit,10) >= 0 && parseInt(digit,10) <= 9) || digit == decimal_separator )
+            clean_number += digit;
+        else if(digit == '-')
+            is_negative = true;
+    }
+
+    //Removing thousand separators but keeping decimal point
+    for(var i=0; i<clean_number.length; i++) {
+        digit = clean_number.substr(i,1);
+        if (digit >= '0' && digit <= '9')
+            float_number += digit;
+        else if(digit == decimal_separator){
+            float_number += ".";
+        }
+    }
+
+    if(is_negative)
+        float_number = "-" + float_number;
+
+    return gformIsNumber(float_number) ? parseFloat(float_number) : false;
+}
+
+function gformGetDecimalSeparator(numberFormat){
+    var s;
+    switch (numberFormat){
+        case 'currency' :
+            var currency = new Currency(gf_global.gf_currency_config);
+            s = currency.currency["decimal_separator"];
+            break;
+        case 'decimal_comma' :
+            s = ',';
+            break;
+        default :
+            s = "."
+     }
+    return s;
+}
+
+function gformIsNumber(n) {
+  return !isNaN(parseFloat(n)) && isFinite(n);
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 }
 
 function gformIsNumeric(value, number_format){
@@ -706,12 +1002,19 @@ function gformDeleteUploadedFile(formId, fieldId, deleteButton){
 
     var fileIndex = jQuery(deleteButton).parent().index();
 
+<<<<<<< HEAD
     var filePreview = jQuery( deleteButton ).closest( '.ginput_preview' )[0];
     var fileId = filePreview.id;
     filePreview.remove();
 
     //removing the gform_hidden class
     parent.find('.validation_message,#extensions_message_' + formId + '_' + fieldId).removeClass("gform_hidden");
+=======
+    parent.find(".ginput_preview").eq(fileIndex).remove();
+
+    //displaying single file upload field
+    parent.find('input[type="file"],.validation_message,#extensions_message_' + formId + '_' + fieldId).removeClass("gform_hidden");
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 
     //displaying post image label
     parent.find(".ginput_post_image_file").show();
@@ -730,6 +1033,7 @@ function gformDeleteUploadedFile(formId, fieldId, deleteButton){
             if( $multfile.length > 0 ) {
                 files[inputName].splice(fileIndex, 1);
                 var settings = $multfile.data('settings');
+<<<<<<< HEAD
                 var count = files[ inputName ].length;
                 if ( count === 0 ) {
                     jQuery( '#' + settings.gf_vars.message_id ).html('');
@@ -740,6 +1044,12 @@ function gformDeleteUploadedFile(formId, fieldId, deleteButton){
                     if ( count < max )
                         gfMultiFileUploader.toggleDisabled( settings, false );
                 }
+=======
+                var max = settings.gf_vars.max_files;
+                jQuery("#" + settings.gf_vars.message_id).html('');
+                if(files[inputName].length < max)
+                    gfMultiFileUploader.toggleDisabled(settings, false);
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 
             } else {
                 files[inputName] = null;
@@ -758,6 +1068,7 @@ var _gformPriceFields = new Array();
 var _anyProductSelected;
 
 function gformIsHidden(element){
+<<<<<<< HEAD
 	isHidden = element.parents('.gfield').not(".gfield_hidden_product").css("display") == "none";
 
 	/**
@@ -770,6 +1081,9 @@ function gformIsHidden(element){
 	 */
 	return gform.applyFilters('gform_is_hidden', isHidden, element);
 
+=======
+    return element.parents('.gfield').not(".gfield_hidden_product").css("display") == "none";
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 }
 
 /**
@@ -782,6 +1096,10 @@ var gformCalculateTotalPrice =  gform.tools.debounce(function(formId){
 	if(!_gformPriceFields[formId]) {
 		return;
 	}
+<<<<<<< HEAD
+=======
+
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 	var price = 0;
 
 	_anyProductSelected = false; //Will be used by gformCalculateProductPrice().
@@ -971,6 +1289,10 @@ function gformCalculateProductPrice(form_id, productFieldId){
 
 
 function gformGetProductQuantity(formId, productFieldId) {
+<<<<<<< HEAD
+=======
+
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
     //If product is not selected
     if (!gformIsProductSelected(formId, productFieldId)) {
         return 0;
@@ -1012,9 +1334,15 @@ function gformGetProductQuantity(formId, productFieldId) {
     if (!numberFormat)
         numberFormat = 'currency';
 
+<<<<<<< HEAD
     var decimalSeparator = gform.Currency.getDecimalSeparator(numberFormat);
 
     quantity = gform.Currency.cleanNumber(quantity, '', '', decimalSeparator);
+=======
+    var decimalSeparator = gformGetDecimalSeparator(numberFormat);
+
+    quantity = gformCleanNumber(quantity, '', '', decimalSeparator);
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
     if (!quantity)
         quantity = 0;
 
@@ -1058,9 +1386,14 @@ function gformGetBasePrice(formId, productFieldId){
         productField = jQuery(".gfield_product" + suffix + " select, .gfield_product" + suffix + " input:checked, .gfield_donation" + suffix + " select, .gfield_donation" + suffix + " input:checked");
         var val = productField.val();
         if(val){
+<<<<<<< HEAD
             const value = gformParseChoiceValue( val );
             val = value.name;
             price = value.price || 0;
+=======
+            val = val.split("|");
+            price = val.length > 1 ? val[1] : 0;
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
         }
 
         //If field is hidden by conditional logic, don't count it for the total
@@ -1069,11 +1402,16 @@ function gformGetBasePrice(formId, productFieldId){
 
     }
 
+<<<<<<< HEAD
     var c = new gform.Currency(gf_global.gf_currency_config);
+=======
+    var c = new Currency(gf_global.gf_currency_config);
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
     price = c.toNumber(price);
     return price === false ? 0 : price;
 }
 
+<<<<<<< HEAD
 /**
  * @function gformParseChoiceValue
  * @description Parse a choice value into its name and price components.
@@ -1104,24 +1442,38 @@ function gformParseChoiceValue( value ) {
 	return { name, price };
 }
 
+=======
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 function gformFormatMoney(text, isNumeric){
     if(!gf_global.gf_currency_config)
         return text;
 
+<<<<<<< HEAD
     var currency = new gform.Currency(gf_global.gf_currency_config);
+=======
+    var currency = new Currency(gf_global.gf_currency_config);
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
     return currency.toMoney(text, isNumeric);
 }
 
 function gformFormatPricingField(element){
     if(gf_global.gf_currency_config){
+<<<<<<< HEAD
         var currency = new gform.Currency(gf_global.gf_currency_config);
+=======
+        var currency = new Currency(gf_global.gf_currency_config);
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
         var price = currency.toMoney(jQuery(element).val());
         jQuery(element).val(price);
     }
 }
 
 function gformToNumber(text){
+<<<<<<< HEAD
     var currency = new gform.Currency(gf_global.gf_currency_config);
+=======
+    var currency = new Currency(gf_global.gf_currency_config);
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
     return currency.toNumber(text);
 }
 
@@ -1147,7 +1499,11 @@ function gformGetOptionLabel(element, selected_value, current_price, form_id, fi
     element.attr('price', diff);
 
     //don't add <span> for drop down items (not supported)
+<<<<<<< HEAD
     var price_label = element[0].tagName.toLowerCase() == "option" ? diff : "<span class='ginput_price'>" + diff + "</span>";
+=======
+    var price_label = element[0].tagName.toLowerCase() == "option" ? " " + diff : "<span class='ginput_price'>" + diff + "</span>";
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
     var label = original_label + price_label;
 
     //calling hook to allow for custom option formatting
@@ -1167,17 +1523,29 @@ function gformGetProductIds(parent_class, element){
 }
 
 function gformGetPrice(text){
+<<<<<<< HEAD
     var val = gformParseChoiceValue( text );
 
     if(val.price)
          return val.price;
+=======
+    var val = text.split("|");
+    var currency = new Currency(gf_global.gf_currency_config);
+
+    if(val.length > 1 && currency.toNumber(val[1]) !== false)
+         return currency.toNumber(val[1]);
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 
     return 0;
 }
 
 function gformRoundPrice(price){
 
+<<<<<<< HEAD
 	var currency = new gform.Currency(gf_global.gf_currency_config);
+=======
+	var currency = new Currency(gf_global.gf_currency_config);
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
     var roundedPrice = currency.numberFormat( price, currency.currency['decimals'], '.', '' );
 
     return parseFloat( roundedPrice );
@@ -1185,6 +1553,7 @@ function gformRoundPrice(price){
 
 function gformRegisterPriceField(item){
 
+<<<<<<< HEAD
 	if( ! item.formId ) {
 		return;
 	}
@@ -1192,6 +1561,10 @@ function gformRegisterPriceField(item){
     if(!_gformPriceFields[item.formId]) {
 		_gformPriceFields[item.formId] = new Array();
 	}
+=======
+    if(!_gformPriceFields[item.formId])
+        _gformPriceFields[item.formId] = new Array();
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 
     //ignore price fields that have already been registered
     for(var i=0; i<_gformPriceFields[item.formId].length; i++)
@@ -1204,6 +1577,7 @@ function gformRegisterPriceField(item){
 
 function gformInitPriceFields(){
 
+<<<<<<< HEAD
 	// Getting all product fields and registering them.
     const priceFields = gform.tools.getNodes('.gfield_price', true, document, true );
 	priceFields.forEach( ( field ) => {
@@ -1236,6 +1610,46 @@ function bindProductChangeEvent() {
 function gformHandleProductChange( formId, key, data ) {
 	gformCalculateTotalPrice( formId );
 }
+=======
+    jQuery(".gfield_price").each(function(){
+
+        var productIds = gformGetProductIds("gfield_price", this);
+        gformRegisterPriceField(productIds);
+
+       jQuery( this ).on( 'input change', 'input[type="text"], input[type="number"], select', function() {
+
+           var productIds = gformGetProductIds("gfield_price", this);
+           if(productIds.formId == 0)
+                productIds = gformGetProductIds("gfield_shipping", this);
+
+           jQuery(document).trigger('gform_price_change', [productIds, this]);
+           gformCalculateTotalPrice(productIds.formId);
+       });
+
+       jQuery( this ).on( 'click', 'input[type="radio"], input[type="checkbox"]', function() {
+
+           var productIds = gformGetProductIds("gfield_price", this);
+           if(productIds.formId == 0)
+                productIds = gformGetProductIds("gfield_shipping", this);
+
+           jQuery(document).trigger('gform_price_change', [productIds, this]);
+           gformCalculateTotalPrice(productIds.formId);
+       });
+
+    });
+
+    for(formId in _gformPriceFields){
+
+        //needed when implementing for in loops
+        if(!_gformPriceFields.hasOwnProperty(formId))
+            continue;
+
+        gformCalculateTotalPrice(formId);
+    }
+
+}
+
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 
 //-------------------------------------------
 //---------- PASSWORD -----------------------
@@ -1295,12 +1709,20 @@ function gformToggleShowPassword( fieldId ) {
     switch ( currentType ) {
         case 'password':
             $password.attr( 'type', 'text' );
+<<<<<<< HEAD
             $button.attr( 'aria-label', $button.attr( 'data-label-hide' ) );
+=======
+            $button.attr( 'label', $button.attr( 'data-label-hide' ) );
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
             $icon.removeClass( 'dashicons-hidden' ).addClass( 'dashicons-visibility' );
             break;
         case 'text':
             $password.attr( 'type', 'password' );
+<<<<<<< HEAD
             $button.attr( 'aria-label', $button.attr( 'data-label-show' ) );
+=======
+            $button.attr( 'label', $button.attr( 'data-label-show' ) );
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
             $icon.removeClass( 'dashicons-visibility' ).addClass( 'dashicons-hidden' );
             break;
     }
@@ -1313,6 +1735,7 @@ function gformToggleShowPassword( fieldId ) {
 function gformToggleCheckboxes( toggleElement ) {
 
 	var checked,
+<<<<<<< HEAD
         $toggleElement        = jQuery( toggleElement ),
         toggleElementCheckbox = $toggleElement.is( 'input[type="checkbox"]' ),
         $toggle               = $toggleElement.parent(),
@@ -1323,6 +1746,18 @@ function gformToggleCheckboxes( toggleElement ) {
 
     // Determine checked state.
     if ( toggleElementCheckbox ) {
+=======
+        $toggleElement = jQuery( toggleElement ),
+        legacy         = $toggleElement.is( 'input[type="checkbox"]' ),
+        $toggle        = legacy ? $toggleElement.parent() : $toggleElement.prev(),
+	    $toggleLabel   = $toggle.find( 'label' ),
+	    $checkboxes    = $toggle.parent().find( '.gchoice:not( .gchoice_select_all )' ),
+	    formId         = gf_get_form_id_by_html_id( $toggle.parents( '.gfield' ).attr( 'id' ) ),
+	    calcObj        = rgars( window, 'gf_global/gfcalc/' + formId );
+
+    // Determine checked state.
+    if ( legacy ) {
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 
         checked = toggleElement.checked;
 
@@ -1353,7 +1788,20 @@ function gformToggleCheckboxes( toggleElement ) {
 	} );
 
 	// Change toggle label, checked state.
+<<<<<<< HEAD
 	gformToggleSelectAll( toggleElement, checked ? 'deselect' : 'select' );
+=======
+    if ( legacy ) {
+
+        $toggleLabel.html( checked ? $toggleLabel.data( 'label-deselect' ) : $toggleLabel.data( 'label-select' ) );
+
+    } else {
+
+        $toggleElement.html( checked ? $toggleElement.data( 'label-deselect' ) : $toggleElement.data( 'label-select' ) );
+        $toggleElement.data( 'checked', checked );
+
+    }
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 
     // Announce change.
     wp.a11y.speak( checked ? gf_field_checkbox.strings.selected : gf_field_checkbox.strings.deselected );
@@ -1364,6 +1812,7 @@ function gformToggleCheckboxes( toggleElement ) {
 
 }
 
+<<<<<<< HEAD
 function gformToggleSelectAll( selectAllElement, action ) {
 	var $selectAllElement = jQuery( selectAllElement ),
 		toggleElementCheckbox = $selectAllElement.is( 'input[type="checkbox"]' ),
@@ -1405,6 +1854,8 @@ jQuery(document).on('click', '.gfield_choice--select_all_enabled *', function() 
 
 });
 
+=======
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 //----------------------------
 //------ RADIO FIELD ------
 //----------------------------
@@ -1412,7 +1863,11 @@ jQuery(document).on('click', '.gfield_choice--select_all_enabled *', function() 
 function gformToggleRadioOther( radioElement ) {
 
     // Get Other input element.
+<<<<<<< HEAD
     var $other = gform.tools.getClosest( radioElement, '.ginput_container_radio' ).querySelector( 'input.gchoice_other_control' );
+=======
+    var $other = radioElement.parentElement.parentElement.parentElement.lastChild.querySelector( 'input[type="text"]' );
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 
     if ( $other ) {
         $other.disabled = radioElement.value !== 'gf_other_choice';
@@ -1440,7 +1895,11 @@ function gformAddListItem( addButton, max ) {
     // reset all inputs to empty state
     $clone
         .find( 'input, select, textarea' ).attr( 'tabindex', tabindex )
+<<<<<<< HEAD
         .not( ':checkbox, :radio' ).val( '' ).attr( 'value', '' );
+=======
+        .not( ':checkbox, :radio' ).val( '' );
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
     $clone.find( ':checkbox, :radio' ).prop( 'checked', false );
 
     $clone = gform.applyFilters( 'gform_list_item_pre_add', $clone, $group );
@@ -1459,6 +1918,7 @@ function gformAddListItem( addButton, max ) {
 
 function gformDeleteListItem( deleteButton, max ) {
 
+<<<<<<< HEAD
 	var $deleteButton = jQuery( deleteButton );
 	if ( $deleteButton.prop( 'disabled' ) ) {
 		return;
@@ -1468,12 +1928,20 @@ function gformDeleteListItem( deleteButton, max ) {
 
 	var $group     = $deleteButton.parents( '.gfield_list_group' ),
 		$container = $group.parents( '.gfield_list_container' );
+=======
+    var $deleteButton = jQuery( deleteButton ),
+        $group        = $deleteButton.parents( '.gfield_list_group' ),
+        $container    = $group.parents( '.gfield_list_container' );
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 
     $group.remove();
 
     gformToggleIcons( $container, max );
     gformAdjustClasses( $container );
+<<<<<<< HEAD
     gformAdjustRowAttributes( $container );
+=======
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 
     gform.doAction( 'gform_list_post_item_delete', $container );
 
@@ -1505,6 +1973,7 @@ function gformAdjustRowAttributes( $container ) {
     $container.find( '.gfield_list_group' ).each( function( i ) {
 
         var $input = jQuery( this ).find( 'input, select, textarea' );
+<<<<<<< HEAD
         $input.each( function( index, input ) {
             var $this = jQuery( input );
             $this.attr( 'aria-label', $this.data( 'aria-label-template' ).gformFormat( i + 1 ) );
@@ -1512,6 +1981,12 @@ function gformAdjustRowAttributes( $container ) {
 
         var $remove = jQuery( this ).find( '.delete_list_item' );
         $remove.attr( 'aria-label', $remove.data( 'aria-label-template' ).gformFormat( i + 1 ) );
+=======
+        $input.attr( 'aria-label', $input.data( 'aria-label-template' ).format( i + 1 ) );
+
+        var $remove = jQuery( this ).find( '.delete_list_item' );
+        $remove.attr( 'aria-label', $remove.data( 'aria-label-template' ).format( i + 1 ) );
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 
     } );
 
@@ -1520,6 +1995,7 @@ function gformAdjustRowAttributes( $container ) {
 function gformToggleIcons( $container, max ) {
 
     var groupCount  = $container.find( '.gfield_list_group' ).length,
+<<<<<<< HEAD
         $addButtons = $container.find( '.add_list_item' ),
         isLegacy    =  typeof gf_legacy !== 'undefined' && gf_legacy.is_legacy;
 
@@ -1528,6 +2004,11 @@ function gformToggleIcons( $container, max ) {
 	} else {
 		$container.find( '.delete_list_item' ).prop( 'disabled', false ).css( 'visibility', 'visible' );
 	}
+=======
+        $addButtons = $container.find( '.add_list_item' );
+
+    $container.find( '.delete_list_item' ).css( 'visibility', groupCount == 1 ? 'hidden' : 'visible' );
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 
     if ( max > 0 && groupCount >= max ) {
 
@@ -1535,18 +2016,24 @@ function gformToggleIcons( $container, max ) {
         $addButtons.data( 'title', $container.find( '.add_list_item' ).attr( 'title' ) );
         $addButtons.addClass( 'gfield_icon_disabled' ).attr( 'title', '' );
 
+<<<<<<< HEAD
 		if ( ! isLegacy ) {
 			$addButtons.prop( 'disabled', true );
 		}
 
+=======
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
     } else if( max > 0 ) {
 
         $addButtons.removeClass( 'gfield_icon_disabled' );
 
+<<<<<<< HEAD
 	    if ( ! isLegacy ) {
 		    $addButtons.prop( 'disabled', false );
 	    }
 
+=======
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
         if( $addButtons.data( 'title' ) )   {
             $addButtons.attr( 'title', $addButtons.data( 'title' ) );
         }
@@ -1574,6 +2061,7 @@ function gformAddRepeaterItem( addButton, max ) {
 	// reset all inputs to empty state
 	$clone
 		.find( 'input[type!="hidden"], select, textarea' ).attr( 'tabindex', tabindex )
+<<<<<<< HEAD
 		.not( ':checkbox, :radio' ).each( function( index ){
 			// if the field has a value pre-populated, use that value in the cloned field
 			if( jQuery( this ).attr( 'value' ) ) {
@@ -1587,6 +2075,11 @@ function gformAddRepeaterItem( addButton, max ) {
 	$clone.find( ':checkbox, :radio' ).prop( 'checked', false );
 	$clone.find('.validation_message').remove();
 	$clone.find('.gform-datepicker.initialized').removeClass('initialized');
+=======
+		.not( ':checkbox, :radio' ).val( '' );
+	$clone.find( ':checkbox, :radio' ).prop( 'checked', false );
+	$clone.find('.validation_message').remove();
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 
 	$clone = gform.applyFilters( 'gform_repeater_item_pre_add', $clone, $item );
 
@@ -1840,10 +2333,17 @@ function gformToggleCreditCard(){
 //------ CHOSEN DROP DOWN FIELD ----------
 //----------------------------------------
 
+<<<<<<< HEAD
 function gformInitChosenFields( fieldList, noResultsText ) {
     return jQuery( fieldList ).each( function(){
 		var element = jQuery( this );
 	    var isConvoForm = typeof gfcf_theme_config !== 'undefined' ? ( gfcf_theme_config !== null && typeof gfcf_theme_config.data !== 'undefined' ? gfcf_theme_config.data.is_conversational_form : undefined ) : false;
+=======
+function gformInitChosenFields(fieldList, noResultsText){
+    return jQuery(fieldList).each(function(){
+
+        var element = jQuery( this );
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 
         // RTL support
         if( jQuery( 'html' ).attr( 'dir' ) == 'rtl' ) {
@@ -1851,6 +2351,7 @@ function gformInitChosenFields( fieldList, noResultsText ) {
         }
 
         // only initialize once
+<<<<<<< HEAD
         if( ( element.is( ':visible' ) || isConvoForm ) && element.siblings( '.chosen-container' ).length == 0 ) {
 			var chosenOptions = { no_results_text: noResultsText };
 			if ( isConvoForm ) {
@@ -1859,6 +2360,13 @@ function gformInitChosenFields( fieldList, noResultsText ) {
             var options = gform.applyFilters( 'gform_chosen_options', chosenOptions, element );
             element.chosen( options );
         }
+=======
+        if( element.is(":visible") && element.siblings(".chosen-container").length == 0 ){
+            var options = gform.applyFilters( 'gform_chosen_options', { no_results_text: noResultsText }, element );
+            element.chosen( options );
+        }
+
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
     });
 }
 
@@ -1881,6 +2389,7 @@ function gformInitCurrencyFormatFields(fieldList){
 //------ JS MERGE TAGS -------------------
 //----------------------------------------
 
+<<<<<<< HEAD
 /**
  * @var {Object} GFMergeTag Handles MergeTag Operations.
  * @remove-in 4.0
@@ -1911,6 +2420,127 @@ var GFMergeTag = function() {
 		}
 
 		return gform.mergeTags.getFieldValue( formId, inputId, modifier, mergeTagInfo );
+=======
+var GFMergeTag = function() {
+
+	/**
+     * Gets the merge tag value for the specified input Id
+	 * @param formId    The current form Id
+	 * @param inputId   The input Id to get the merge tag from. This could be a field id (i.e. 1) or a specific input Id for multi-input fields (i.e. 1.2)
+	 * @param modifier  The merge tag modifier to be used. i.e. value, currency, price, etc...
+	 * @returns         Returns a string containg the merge tag value for the spcified input Id
+	 */
+	GFMergeTag.getMergeTagValue = function( formId, inputId, modifier ) {
+
+		if ( modifier === undefined ) {
+			modifier = '';
+		}
+		modifier = modifier.replace(":", "");
+
+		var fieldId = parseInt(inputId,10);
+		var field = jQuery('#field_' + formId + '_' + fieldId);
+
+		var inputSelector = fieldId == inputId ? 'input[name^="input_' + fieldId + '"]' : 'input[name="input_' + inputId + '"]';
+		var input = field.find( inputSelector + ', select[name^="input_' + inputId + '"], textarea[name="input_' + inputId + '"]');
+
+		// checking conditional logic
+		var isVisible = window['gf_check_field_rule'] ? gf_check_field_rule( formId, fieldId, true, '' ) == 'show' : true,
+			val;
+
+		if ( ! isVisible ) {
+			return '';
+		}
+
+		// Filtering out the email field confirmation input to prevent the values from both inputs being returned.
+		if ( field.find( '.ginput_container_email' ).hasClass( 'ginput_complex' ) ) {
+			input = input.first();
+		}
+
+		//If value has been filtered, use it. Otherwise use default logic
+		var value = gform.applyFilters( 'gform_value_merge_tag_' + formId + '_' + fieldId, false, input, modifier );
+		if ( value !== false ){
+			return value;
+		}
+
+		value = ''; //Reset value to blank
+
+		switch ( modifier ) {
+			case 'label':
+				var label = field.find('.gfield_label').text();
+				return label;
+			    break;
+			case 'qty':
+				if ( field.hasClass('gfield_price') ){
+					val = gformGetProductQuantity( formId, fieldId );
+					return val === false || val === '' ? 0 : val;
+				}
+				break;
+
+		}
+
+		// Filter out unselected checkboxes and radio buttons
+		if ( input.prop('type') === 'checkbox' || input.prop('type') === 'radio' ) {
+			input = input.filter(':checked');
+		}
+
+		if ( input.length === 1 ) {
+			if ( ( input.is('select') || input.prop('type') === 'radio' || input.prop('type') === 'checkbox' ) && modifier === '' ) {
+
+				if ( input.is( 'select' ) ) {
+					val = input.find( 'option:selected' );
+				} else if ( input.prop( 'type' ) === 'radio' && input.parent().hasClass( 'gchoice_button' ) ) {
+					val = input.parent().siblings( '.gchoice_label' ).find( 'label' ).clone();
+				} else {
+					val = input.next('label').clone();
+				}
+				val.find('span').remove();
+
+				if ( val.length === 1 ) {
+					val = val.text();
+				} else {
+					var option = [];
+					for(var i=0; i<val.length; i++) {
+						option[i] = jQuery(val[i]).text();
+					}
+
+					val = option;
+				}
+			} else if ( val === undefined ) {
+				val = input.val();
+			}
+
+			if ( jQuery.isArray( val ) ) {
+				// multiple select
+				value = val.join(', ');
+			} else if ( typeof val === 'string' ) {
+
+			    value = GFMergeTag.formatValue( val, modifier );
+
+			} else {
+				// empty multiple select returns null, set it to ''
+				value = '';
+            }
+		} else if ( input.length > 1 ) {
+			val = [];
+			for(var i=0; i<input.length; i++) {
+				if( ( input.prop('type') === 'checkbox' ) && modifier === '' ) {
+
+				    var clone = jQuery(input[i]).next('label').clone();
+					clone.find('span').remove()
+					val[i] = GFMergeTag.formatValue( clone.text(), modifier );
+
+					clone.remove();
+
+				} else {
+					val[i] = GFMergeTag.formatValue( jQuery(input[i]).val(), modifier );
+				}
+			}
+
+			value = val.join(', ');
+		}
+
+		return value;
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 	}
 
 	/**
@@ -1918,6 +2548,7 @@ var GFMergeTag = function() {
 	 * @param formId    The current form Id
 	 * @param text      The text containing merge tags
 	 * @returns         Retuns the original "text" strings with all merge tags replaced with the appropriate merge tag values
+<<<<<<< HEAD
      * @remove-in 4.0
 	 * @deprecated Use gform.mergeTags.replaceMergeTags() instead.
 	 */
@@ -1931,6 +2562,64 @@ var GFMergeTag = function() {
 	 */
 	GFMergeTag.formatValue = function( value, modifier ) {
 		return gform.mergeTags.formatValue( value, modifier );
+=======
+	 */
+	GFMergeTag.replaceMergeTags = function( formId, text ) {
+
+		var mergeTags = GFMergeTag.parseMergeTags( text );
+
+		for(i in mergeTags) {
+
+			if(! mergeTags.hasOwnProperty(i)) {
+				continue;
+			}
+
+			var inputId = mergeTags[i][1];
+			var fieldId = parseInt(inputId,10);
+			var modifier = mergeTags[i][3] == undefined ? '' : mergeTags[i][3].replace(":", "");
+
+			var value = GFMergeTag.getMergeTagValue( formId, inputId, modifier );
+
+			text = text.replace( mergeTags[i][0], value );
+		}
+
+		return text;
+	}
+
+	GFMergeTag.formatValue = function( value, modifier ) {
+
+		value = value.split( '|' );
+		var val = '';
+		if( value.length > 1 ) {
+			val = modifier === 'price' || modifier === 'currency' ? gformToNumber( value[1] ) : value[0];
+		} else {
+			val = value[0];
+		}
+
+		switch ( modifier ) {
+
+			case 'price':
+				val = gformToNumber( val );
+				val = val === false ? '' : val;
+				break;
+
+			case 'currency':
+				val = gformFormatMoney( val, false );
+				val = val === false ? '' : val;
+				break;
+
+			case 'numeric':
+				val = gformToNumber( val );
+				return val === false ? 0 : val;
+				break;
+
+			default:
+				val = val.trim();
+				break;
+		}
+
+		return val;
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 	}
 
 	/**
@@ -1940,11 +2629,30 @@ var GFMergeTag = function() {
 	 * @param regEx The regular expression to be used to parse for merge tags.
 	 *
 	 * @returns Returns an array with all the merge tags that were matched in the original text
+<<<<<<< HEAD
 	 * @deprecated Use gform.mergeTags.parseMergeTags() instead.
      * @remove-in 4.0
 	 */
 	GFMergeTag.parseMergeTags = function( text, regEx ) {
 		return gform.mergeTags.parseMergeTags( text, regEx );
+=======
+	 */
+	GFMergeTag.parseMergeTags = function( text, regEx ) {
+
+		if( typeof regEx === 'undefined' ) {
+			regEx = /{[^{]*?:(\d+(\.\d+)?)(:(.*?))?}/i;
+		}
+
+		var matches = [];
+
+		while( regEx.test( text ) ) {
+			var i = matches.length;
+			matches[i] = regEx.exec( text );
+			text = text.replace( '' + matches[i][0], '' );
+		}
+
+		return matches;
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 	}
 }
 
@@ -1969,8 +2677,13 @@ var GFCalc = function(formId, formulaFields){
 
         // @since 2.5.10 - namespace event to avoid multiple bindings.
 	    jQuery(document)
+<<<<<<< HEAD
 		    .off("gform_post_conditional_logic.gfCalc_{0}".gformFormat(formId))
 		    .on("gform_post_conditional_logic.gfCalc_{0}".gformFormat(formId), function(){
+=======
+		    .off("gform_post_conditional_logic.gfCalc_{0}".format(formId))
+		    .on("gform_post_conditional_logic.gfCalc_{0}".format(formId), function(){
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 			    calc.runCalcs( formId, formulaFields );
 	    } );
 
@@ -2039,7 +2752,11 @@ var GFCalc = function(formId, formulaFields){
                 thousandSeparator = ".";
             }
 
+<<<<<<< HEAD
             result = gformFormatNumber(result, !gform.utils.isNumber(formulaField.rounding) ? -1 : formulaField.rounding, decimalSeparator, thousandSeparator);
+=======
+            result = gformFormatNumber(result, !gformIsNumber(formulaField.rounding) ? -1 : formulaField.rounding, decimalSeparator, thousandSeparator);
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
         }
 
         //If value doesn't change, abort.
@@ -2050,6 +2767,7 @@ var GFCalc = function(formId, formulaFields){
         // if this is a calculation product, handle differently
         if(field.hasClass('gfield_price')) {
             jQuery('#input_' + formId + '_' + formulaField.field_id).text(result);
+<<<<<<< HEAD
 
 			// Firing jQuery change event for backwards compatibility with legacy code.
 			formulaInput.val(result).trigger('change');
@@ -2058,12 +2776,20 @@ var GFCalc = function(formId, formulaFields){
 			if ( formulaInput && formulaInput.length > 0 ) {
 				window.gform.utils.trigger( { event: 'change', el: formulaInput[0], native: true } );
 			}
+=======
+            formulaInput.val(result).trigger('change');
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 
             // Announce the price change of the product only if there's no Total field.
             if ( jQuery( '.gfield_label_product' ).length && ! jQuery( '.ginput_total' ).length ) {
                 result = jQuery( 'label[ for=input_' + formId + '_' + formulaField.field_id + '_1 ]' ).find( '.gfield_label_product' ).text() + ' ' + result;
                 wp.a11y.speak( result );
             }
+<<<<<<< HEAD
+=======
+
+            gformCalculateTotalPrice(formId);
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
         } else {
             formulaInput.val(result).trigger('change');
         }
@@ -2098,6 +2824,7 @@ var GFCalc = function(formId, formulaFields){
                 jQuery(input).click(function(){
                     calcObj.bindCalcEvent(inputId, formulaField, formId, 0);
                 });
+<<<<<<< HEAD
                 // Bind calc event to the image in an image choice field.
                 var imageChoice = input.closest('.gfield--type-image_choice .gchoice');
                 if ( imageChoice.length > 0 ) {
@@ -2106,6 +2833,10 @@ var GFCalc = function(formId, formulaFields){
                     });
                 }
             } else if(input.is('select') || input.prop('type') == 'hidden') {
+=======
+            } else
+            if(input.is('select') || input.prop('type') == 'hidden') {
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
                 jQuery(input).change(function(){
                     calcObj.bindCalcEvent(inputId, formulaField, formId, 0);
                 });
@@ -2193,9 +2924,15 @@ var GFCalc = function(formId, formulaFields){
 			numberFormat = gf_get_field_number_format(formulaField.field_id, formId);
 		}
 
+<<<<<<< HEAD
 		var decimalSeparator = gform.Currency.getDecimalSeparator(numberFormat);
 
 		value = gform.Currency.cleanNumber( value, '', '', decimalSeparator );
+=======
+		var decimalSeparator = gformGetDecimalSeparator(numberFormat);
+
+		value = gformCleanNumber( value, '', '', decimalSeparator );
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 		if( ! value )
 			value = 0;
 
@@ -2211,7 +2948,11 @@ function gformFormatNumber(number, rounding, decimalSeparator, thousandSeparator
 
     if(typeof decimalSeparator == "undefined"){
         if(window['gf_global']){
+<<<<<<< HEAD
             var currency = new gform.Currency(gf_global.gf_currency_config);
+=======
+            var currency = new Currency(gf_global.gf_currency_config);
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
             decimalSeparator = currency.currency["decimal_separator"];
         }
         else{
@@ -2221,7 +2962,11 @@ function gformFormatNumber(number, rounding, decimalSeparator, thousandSeparator
 
     if(typeof thousandSeparator == "undefined"){
         if(window['gf_global']){
+<<<<<<< HEAD
             var currency = new gform.Currency(gf_global.gf_currency_config);
+=======
+            var currency = new Currency(gf_global.gf_currency_config);
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
             thousandSeparator = currency.currency["thousand_separator"];
         }
         else{
@@ -2229,12 +2974,17 @@ function gformFormatNumber(number, rounding, decimalSeparator, thousandSeparator
         }
     }
 
+<<<<<<< HEAD
     var currency = new gform.Currency();
+=======
+    var currency = new Currency();
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
     return currency.numberFormat(number, rounding, decimalSeparator, thousandSeparator, false)
 }
 
 /**
  * @deprecated. Use GFMergeTags.parseMergeTag() instead
+<<<<<<< HEAD
  * @remove-in 3.0
  */
 function getMatchGroups(expr, patt) {
@@ -2242,6 +2992,12 @@ function getMatchGroups(expr, patt) {
 	console.log('getMatchGroups() has been deprecated and will be removed in version 3.0. Use GFMergeTags.parseMergeTag() instead.');
 
 	var matches = new Array();
+=======
+ */
+function getMatchGroups(expr, patt) {
+
+    var matches = new Array();
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 
     while(patt.test(expr)) {
 
@@ -2256,7 +3012,11 @@ function getMatchGroups(expr, patt) {
 
 function gf_get_field_number_format(fieldId, formId, context) {
 
+<<<<<<< HEAD
     var fieldNumberFormats = rgars(window, 'gf_global/number_formats/{0}/{1}'.gformFormat(formId, fieldId)),
+=======
+    var fieldNumberFormats = rgars(window, 'gf_global/number_formats/{0}/{1}'.format(formId, fieldId)),
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
         format = false;
 
     if (fieldNumberFormats === '') {
@@ -2284,6 +3044,7 @@ gform.recaptcha = {
 	 */
 	renderRecaptcha: function() {
 		jQuery( '.ginput_recaptcha:not(.gform-initialized)' ).each( function() {
+<<<<<<< HEAD
 			let $elem      = jQuery( this ),
 				parameters = {
 					'sitekey':        $elem.data( 'sitekey' ),
@@ -2293,12 +3054,32 @@ gform.recaptcha = {
 						console.error( 'Gravity Forms: There was an error initializing reCAPTCHA v2. Please ensure your reCAPTCHA API keys are valid.' );
 						$elem.attr( 'data-recaptcha-error', '1' );
 					}
+=======
+			var $elem      = jQuery( this ),
+				parameters = {
+					'sitekey':  $elem.data( 'sitekey' ),
+					'theme':    $elem.data( 'theme' ),
+					'tabindex': $elem.data( 'tabindex' )
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 				};
 
 			if ( $elem.data( 'stoken' ) ) {
 				parameters.stoken = $elem.data( 'stoken' );
 			}
 
+<<<<<<< HEAD
+=======
+			var callback = false;
+
+			if ( $elem.data( 'size' ) == 'invisible' ) {
+				callback = function( token ) {
+					if ( token ) {
+						$elem.closest('form').submit();
+					}
+				}
+			}
+
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 			/**
 			 * Allows a custom callback function to be executed when the user successfully submits the captcha.
 			 *
@@ -2308,14 +3089,22 @@ gform.recaptcha = {
 			 * @param string|false|object   The name of the callback function or the function object itself to be executed when the user successfully submits the captcha.
 			 * @param object       $elem    The jQuery object containing the div element with the ginput_recaptcha class for the current reCaptcha field.
 			 */
+<<<<<<< HEAD
 			const callback = gform.applyFilters( 'gform_recaptcha_callback', false, $elem );
+=======
+			callback = gform.applyFilters( 'gform_recaptcha_callback', callback, $elem );
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 			if ( callback ) {
 				parameters.callback = callback;
 			}
 
+<<<<<<< HEAD
 			// Rendering recaptcha and saving the widget id as an attribute.
 			const widgetId = grecaptcha.render( this.id, parameters );
 			$elem[0].setAttribute( 'data-widget-id', widgetId );
+=======
+			$elem.data( 'widget-id', grecaptcha.render( this.id, parameters ) );
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 
 			if ( parameters.tabindex ) {
 				$elem.find( 'iframe' ).attr( 'tabindex', parameters.tabindex );
@@ -2324,6 +3113,7 @@ gform.recaptcha = {
 			$elem.addClass( 'gform-initialized' );
 
 			gform.doAction( 'gform_post_recaptcha_render', $elem );
+<<<<<<< HEAD
 		} );
 
 		gform.recaptcha.bindRecaptchaSubmissionEvents();
@@ -2466,6 +3256,11 @@ gform.recaptcha = {
 			recaptchaInput = recaptchaInput[0];
 		}
 		recaptchaInput.value = recaptchaResponse;
+=======
+
+
+		} );
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 	},
 
 	/**
@@ -2476,6 +3271,7 @@ gform.recaptcha = {
 	 * @param {Object} form jQuery form object.
 	 * @returns {boolean}
 	 */
+<<<<<<< HEAD
 	gformIsRecaptchaPending: function( form ) {
 		const recaptcha = form.find( '.ginput_recaptcha' );
 
@@ -2484,16 +3280,36 @@ gform.recaptcha = {
 		}
 
 		const recaptchaResponse = recaptcha.find( '.g-recaptcha-response' );
+=======
+
+	gformIsRecaptchaPending: function( form ) {
+		var recaptcha = form.find( '.ginput_recaptcha' ),
+			recaptchaResponse;
+
+		if ( !recaptcha.length || recaptcha.data( 'size' ) !== 'invisible' ) {
+			return false;
+		}
+
+		recaptchaResponse = recaptcha.find( '.g-recaptcha-response' );
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 
 		return !( recaptchaResponse.length && recaptchaResponse.val() );
 	},
 
 	/**
 	 * @function gform.recaptcha.needsRender
+<<<<<<< HEAD
 	 * @description Is there a non-rendered Recaptcha field on the page?
 	 *
 	 * @since 2.5.6
 	 */
+=======
+	 * @description Is there an non rendered Recaptcha field on the page?
+	 *
+	 * @since 2.5.6
+	 */
+
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 	needsRender: function() {
 		return document.querySelectorAll( '.ginput_recaptcha:not(.gform-initialized)' )[ 0 ];
 	},
@@ -2504,6 +3320,10 @@ gform.recaptcha = {
 	 *
 	 * @since 2.5.6
 	 */
+<<<<<<< HEAD
+=======
+
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 	renderOnRecaptchaLoaded: function() {
 		// if nothing to render, exit
 		if ( ! gform.recaptcha.needsRender() ) {
@@ -2519,12 +3339,19 @@ gform.recaptcha = {
 	}
 };
 
+<<<<<<< HEAD
+=======
+gform.initializeOnLoaded( gform.recaptcha.renderOnRecaptchaLoaded );
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 jQuery( document ).on( 'gform_post_render', gform.recaptcha.renderOnRecaptchaLoaded );
 
 window.renderRecaptcha = gform.recaptcha.renderRecaptcha;
 window.gformIsRecaptchaPending = gform.recaptcha.gformIsRecaptchaPending;
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 //----------------------------------------
 //----- SINGLE FILE UPLOAD FUNCTIONS -----
 //----------------------------------------
@@ -2539,6 +3366,10 @@ function gformValidateFileSize( field, max_file_size ) {
 		validation_element = jQuery( field ).siblings( '.validation_message' );
 	}
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 	// If file API is not supported within browser, return.
 	if ( ! window.FileReader || ! window.File || ! window.FileList || ! window.Blob ) {
 		return;
@@ -2573,6 +3404,7 @@ function gformValidateFileSize( field, max_file_size ) {
     var strings = typeof gform_gravityforms != 'undefined' ? gform_gravityforms.strings : {};
     var imagesUrl = typeof gform_gravityforms != 'undefined' ? gform_gravityforms.vars.images_url : "";
 
+<<<<<<< HEAD
 	$(document).on('gform_post_render', function(e, formID){
 		$( "form#gform_" + formID + " .gform_fileupload_multifile" ).each( function(){
 			setup( this );
@@ -2582,6 +3414,36 @@ function gformValidateFileSize( field, max_file_size ) {
 	});
 
 	$(document).on("gform_post_conditional_logic", function(e,formID, fields, isInit){
+=======
+
+	$(document).bind('gform_post_render', function(e, formID){
+
+		$("form#gform_" + formID + " .gform_fileupload_multifile").each(function(){
+			setup(this);
+		});
+		var $form = $("form#gform_" + formID);
+		if($form.length > 0){
+			$form.submit(function(){
+				var pendingUploads = false;
+				$.each(gfMultiFileUploader.uploaders, function(i, uploader){
+					if(uploader.total.queued>0){
+						pendingUploads = true;
+						return false;
+					}
+				});
+				if(pendingUploads){
+					alert(strings.currently_uploading);
+					window["gf_submitting_" + formID] = false;
+					$('#gform_ajax_spinner_' + formID).remove();
+					return false;
+				}
+			});
+		}
+
+	});
+
+	$(document).bind("gform_post_conditional_logic", function(e,formID, fields, isInit){
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 		if(!isInit){
 			$.each(gfMultiFileUploader.uploaders, function(i, uploader){
 				uploader.refresh();
@@ -2603,6 +3465,7 @@ function gformValidateFileSize( field, max_file_size ) {
         setup( uploadElement );
     };
 
+<<<<<<< HEAD
 	let isInitialized = false;
 
 	/**
@@ -2647,6 +3510,8 @@ function gformValidateFileSize( field, max_file_size ) {
 		return pendingUploads;
 	}
 
+=======
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
     function setup(uploadElement){
         var settings = $(uploadElement).data('settings');
 
@@ -2695,7 +3560,11 @@ function gformValidateFileSize( field, max_file_size ) {
 	    }
 
 		function addMessage( messagesID, message) {
+<<<<<<< HEAD
 			$( "#" + messagesID ).prepend( "<li class='gfield_description gfield_validation_message'>" + htmlEncode( message ) + "</li>" );
+=======
+			$( "#" + messagesID ).prepend( "<li>" + htmlEncode( message ) + "</li>" );
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 			// Announce errors.
 			setTimeout(function () {
 				wp.a11y.speak( $( "#" + messagesID ).text() );
@@ -2756,7 +3625,11 @@ function gformValidateFileSize( field, max_file_size ) {
 
                 var size         = typeof file.size !== 'undefined' ? plupload.formatSize(file.size) : strings.in_progress,
                     removeFileJs = '$this=jQuery(this); var uploader = gfMultiFileUploader.uploaders.' + up.settings.container.id + ';uploader.stop();uploader.removeFile(uploader.getFile(\'' + file.id +'\'));$this.after(\'' + strings.cancelled + '\'); uploader.start();$this.remove();',
+<<<<<<< HEAD
                     statusMarkup = '<div id="{0}" class="ginput_preview"><span class="gfield_fileupload_filename">{1}</span><span class="gfield_fileupload_filesize">{2}</span><span class="gfield_fileupload_progress"><span class="gfield_fileupload_progressbar"><span class="gfield_fileupload_progressbar_progress"></span></span><span class="gfield_fileupload_percent"></span></span><a class="gfield_fileupload_cancel gform-theme-button gform-theme-button--simple" href="javascript:void(0)" title="{3}" onclick="{4}" onkeypress="{4}">{5}</a>';
+=======
+                    statusMarkup = '<div id="{0}" class="ginput_preview">{1} ({2}) <b></b> <a href="javascript:void(0)" title="{3}" onclick="{4}" onkeypress="{4}">{5}</a></div>';
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 
                 /**
                  *  Filer the file upload markup as it is being uploaded.
@@ -2769,7 +3642,11 @@ function gformValidateFileSize( field, max_file_size ) {
                  *  @param {plupload.Uploader} up           Instance of Uploader responsible for uploading current file. See: https://www.plupload.com/docs/v2/Uploader.
                  */
                 statusMarkup = gform.applyFilters( 'gform_file_upload_status_markup', statusMarkup, file, size, strings, removeFileJs, up )
+<<<<<<< HEAD
 	                .gformFormat( file.id, htmlEncode( file.name ), size, strings.cancel_upload, removeFileJs, strings.cancel );
+=======
+                    .format( file.id, htmlEncode( file.name ), size, strings.cancel_upload, removeFileJs, strings.cancel );
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 
                 $( '#' + up.settings.filelist ).prepend( statusMarkup );
 
@@ -2807,8 +3684,12 @@ function gformValidateFileSize( field, max_file_size ) {
 
         uploader.bind('UploadProgress', function(up, file) {
             var html = file.percent + "%";
+<<<<<<< HEAD
             $('#' + file.id + ' span.gfield_fileupload_percent').html(html);
 			$('#' + file.id + ' span.gfield_fileupload_progressbar_progress').css('width', file.percent + '%');
+=======
+            $('#' + file.id + " b").html(html);
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
         });
 
         uploader.bind('Error', function(up, err) {
@@ -2818,16 +3699,26 @@ function gformValidateFileSize( field, max_file_size ) {
             } else if (err.code === plupload.FILE_SIZE_ERROR) {
                 addMessage(up.settings.gf_vars.message_id, err.file.name + " - " + strings.file_exceeds_limit);
             } else {
+<<<<<<< HEAD
                 const errorResponse = JSON.parse( err.response );
                 const errorCode = errorResponse?.error?.code || err.code;
                 const errorMessage = errorResponse?.error?.message || err.message;
                 const filePart = err.file?.name ? `${ err.file.name } - ` : '';
                 const m = `${ filePart }${ strings.error }: ${ errorCode }, ${ strings.message }: ${ errorMessage }`;
+=======
+                var m = "Error: " + err.code +
+                    ", Message: " + err.message +
+                    (err.file ? ", File: " + err.file.name : "");
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 
                 addMessage(up.settings.gf_vars.message_id, m);
             }
             $('#' + err.file.id ).html('');
+<<<<<<< HEAD
             up.removeFile( err.file );
+=======
+
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
             up.refresh(); // Reposition Flash
         });
 
@@ -2837,6 +3728,7 @@ function gformValidateFileSize( field, max_file_size ) {
 				up.removeFile(file);
 				addMessage(up.settings.gf_vars.message_id, file.name + " - " + response.error.message);
 				$('#' + file.id ).html('');
+<<<<<<< HEAD
 			} else {
 				up.settings.multipart_params[file.target_name] = response.data;
 			}
@@ -2908,6 +3800,74 @@ function gformValidateFileSize( field, max_file_size ) {
 		uploader.bind('FilesRemoved', function (up, files) {
 			toggleLimitReached(up.settings);
 		});
+=======
+			}
+		});
+
+        uploader.bind('FileUploaded', function(up, file, result) {
+			if( ! up.getFile(file.id) ) {
+				// The file has been removed from the queue.
+				return;
+			}
+            var response = $.secureEvalJSON(result.response);
+            if(response.status == "error"){
+                addMessage(up.settings.gf_vars.message_id, file.name + " - " + response.error.message);
+                $('#' + file.id ).html('');
+                toggleLimitReached(up.settings);
+                return;
+            }
+
+            var html = '<strong>' + htmlEncode(file.name) + '</strong>';
+            var formId = up.settings.multipart_params.form_id;
+            var fieldId = up.settings.multipart_params.field_id;
+
+            if ( typeof gf_legacy !== 'undefined' && gf_legacy.is_legacy ) {
+                html = "<img "
+                    + "class='gform_delete' "
+                    + "src='" + imagesUrl + "/delete.png' "
+                    + "onclick='gformDeleteUploadedFile(" + formId + "," + fieldId + ", this);' "
+                    + "onkeypress='gformDeleteUploadedFile(" + formId + "," + fieldId + ", this);' "
+                    + "alt='" + strings.delete_file + "' "
+                    + "title='" + strings.delete_file
+                    + "' /> "
+                    + html;
+            } else {
+                html = "<button class='gform_delete_file' onclick='gformDeleteUploadedFile(" + formId + "," + fieldId + ", this);'><span class='dashicons dashicons-trash' aria-hidden='true'></span><span class='screen-reader-text'>" + strings.delete_file + ': ' + file.name + "</span></button> " + html;
+            }
+
+	        /**
+	         * Allows the markup for the file to be overridden.
+	         *
+	         * @since 1.9
+	         * @since 2.4.23 Added the response param.
+	         *
+	         * @param {string} html      The HTML for the file name and delete button.
+	         * @param {object} file      The file upload properties. See: https://www.plupload.com/docs/v2/File.
+	         * @param {object} up        The uploader properties. See: https://www.plupload.com/docs/v2/Uploader.
+	         * @param {object} strings   Localized strings relating to file uploads.
+	         * @param {string} imagesURL The base URL to the Gravity Forms images directory.
+	         * @param {object} response  The response from GFAsyncUpload.
+	         */
+	        html = gform.applyFilters( 'gform_file_upload_markup', html, file, up, strings, imagesUrl, response );
+
+            $( '#' + file.id ).html( html );
+
+            if(file.percent == 100){
+                if(response.status && response.status == 'ok'){
+                    addFile(fieldId, response.data);
+                }  else {
+                    addMessage(up.settings.gf_vars.message_id, strings.unknown_error + ': ' + file.name);
+                }
+            }
+
+
+
+        });
+
+	    uploader.bind('FilesRemoved', function (up, files) {
+		    toggleLimitReached(up.settings);
+	    });
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 
 		function getAllFiles(){
 			var selector = '#gform_uploaded_files_' + formID,
@@ -2982,6 +3942,7 @@ function gformValidateFileSize( field, max_file_size ) {
 //----------------------------------------
 //------ GENERAL FUNCTIONS -------
 //----------------------------------------
+<<<<<<< HEAD
 let gformIsSpinnerInitialized = false;
 function gformInitSpinner(formId, spinnerUrl, isLegacy = true) {
 
@@ -3074,6 +4035,15 @@ function gformRemoveSpinner( uniqId = 'gform-ajax-spinner' ) {
 	spinners.forEach( function( spinner ) {
 		spinner.remove();
 	} );
+=======
+
+function gformInitSpinner(formId, spinnerUrl) {
+
+	jQuery('#gform_' + formId).submit(function () {
+		gformAddSpinner(formId, spinnerUrl);
+	});
+
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 }
 
 function gformAddSpinner(formId, spinnerUrl) {
@@ -3236,7 +4206,11 @@ function gf_get_form_id_by_html_id( htmlId ) {
 function gf_get_ids_by_html_id( htmlId ) {
     var ids = htmlId ? htmlId.split( '_' ) : [];
     for( var i = ids.length - 1; i >= 0; i-- ) {
+<<<<<<< HEAD
         if ( ! gform.utils.isNumber( ids[ i ] ) ) {
+=======
+        if ( ! gformIsNumber( ids[ i ] ) ) {
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
             ids.splice( i, 1 );
         }
     }
@@ -3257,6 +4231,68 @@ function gformExtractInputIndex( inputId ) {
     return ! inputIndex ? false : inputIndex;
 }
 
+<<<<<<< HEAD
+=======
+jQuery( document ).on( 'submit.gravityforms', '.gform_wrapper form', function( event ) {
+
+	var formWrapper = jQuery( this ).closest( '.gform_wrapper' ),
+		formID = formWrapper.attr( 'id' ).split( '_' )[ 2 ],
+		hasPages = formWrapper.find( '.gform_page' ).length > 0,
+		sourcePage = parseInt( formWrapper.find( 'input[name^="gform_source_page_number_"]' ).val(), 10 ),
+		targetPage = parseInt( formWrapper.find( 'input[name^="gform_target_page_number_"]' ).val(), 10 ),
+		isSubmit = targetPage === 0,
+		isNextSubmit = ! isSubmit && ( targetPage > sourcePage ),
+		isSave = jQuery( '#gform_save_' + formID ).val() === '1',
+		submitButton;
+
+	// Get the next or submit button.
+	if ( hasPages ) {
+		// Get the visible page.
+		var visiblePage = formWrapper.find( '.gform_page:visible' ),
+			buttonType = isNextSubmit ? 'next' : 'submit';
+
+		submitButton = visiblePage.find( '.gform_page_footer [id^="gform_' + buttonType + '_button_"]' );
+	} else {
+		submitButton = formWrapper.find( '#gform_submit_button_' + formID );
+	}
+
+	if ( isSave ) {
+		wp.a11y.speak( window.gf_global.strings.formSaved );
+	}
+
+	var isButtonHidden = ! submitButton.is(':visible'),
+        isButtonDisabled = submitButton.is( ':disabled' ),
+		abortSubmission = ! isSave && ( isSubmit || isNextSubmit ) && ( isButtonHidden || isButtonDisabled );
+
+	// If we are not saving or returning to an earlier page and the next/submit button is hidden abort the submission.
+	if ( abortSubmission ) {
+		window[ 'gf_submitting_' + formID ] = false;
+		formWrapper.find( '.gform_ajax_spinner' ).remove();
+		event.preventDefault();
+	} else if ( isSubmit || isSubmit ) {
+        var $reCaptcha = formWrapper.find( '.ginput_recaptcha' );
+
+        if ( $reCaptcha.length !== 0 && $reCaptcha.data( 'size' ) === 'invisible' ) {
+            // Check for the verified invisible captcha token first.
+            var $reCaptchaResponse = formWrapper.find( 'input[name="g-recaptcha-response"]' );
+            if ( $reCaptchaResponse.length === 0 ) {
+                $reCaptchaResponse = $reCaptcha.find( '.g-recaptcha-response' );
+            }
+            var token = $reCaptchaResponse.val();
+            if ( ! token ) {
+                // Execute the invisible captcha.
+                grecaptcha.execute($reCaptcha.data('widget-id'));
+                // Once the reCaptcha is triggered, set gf_submitting to true, so the form could be submitted if the
+                // reCaptcha modal is closed (by clicking on the area out of the modal or the reCaptcha response expires)
+                window['gf_submitting_' + formID] = false;
+                event.preventDefault();
+            }
+        }
+    }
+
+} );
+
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 
 
 //----------------------------------------
@@ -3286,6 +4322,7 @@ if( ! window['rgar'] ) {
     }
 }
 
+<<<<<<< HEAD
 if ( ! String.prototype.gformFormat ) {
 	String.prototype.gformFormat = function() {
 		var args = arguments;
@@ -3294,6 +4331,14 @@ if ( ! String.prototype.gformFormat ) {
 		} );
 	};
 }
+=======
+String.prototype.format = function () {
+    var args = arguments;
+    return this.replace(/{(\d+)}/g, function (match, number) {
+        return typeof args[number] != 'undefined' ? args[number] : match;
+    });
+};
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 
 
 /**
@@ -3302,6 +4347,7 @@ if ( ! String.prototype.gformFormat ) {
  * @since 2.5
  */
 jQuery( document ).ready( function() {
+<<<<<<< HEAD
 	jQuery( '#gform-form-toolbar__menu' )
 	.on( 'mouseenter focus', '> li',function() {
 			jQuery( this ).find( '.gform-form-toolbar__submenu' ).toggleClass( 'open' );
@@ -3309,11 +4355,22 @@ jQuery( document ).ready( function() {
 		} );
 	jQuery( '#gform-form-toolbar__menu' )
 		.on( 'mouseleave blur', '> li',function() {
+=======
+	jQuery( '#gform-form-toolbar__menu > li' )
+		.hover( function() {
+			jQuery( this ).find( '.gform-form-toolbar__submenu' ).toggleClass( 'open' );
+			jQuery( this ).find( '.has_submenu' ).toggleClass( 'submenu-open' );
+		}, function() {
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 			jQuery( '.gform-form-toolbar__submenu.open' ).removeClass( 'open' );
 			jQuery( '.has_submenu.submenu-open' ).removeClass( 'submenu-open' );
 		} );
 	jQuery( '#gform-form-toolbar__menu .has_submenu' )
+<<<<<<< HEAD
 		.on( 'click', function( e ) {
+=======
+		.click( function( e ) {
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 			e.preventDefault();
 		} );
 } );

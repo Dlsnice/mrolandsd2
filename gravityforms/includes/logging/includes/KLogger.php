@@ -128,7 +128,11 @@
 			if ( class_exists( 'DateTime' ) ) {
 				$original_time = microtime( true ) + $this->offset;
 				$microtime     = sprintf( '%06d', ( $original_time - floor( $original_time ) ) * 1000000 );
+<<<<<<< HEAD
 				$date          = new DateTime( date( 'Y-m-d H:i:s.' . $microtime, (int) $original_time ) );
+=======
+				$date          = new DateTime( date( 'Y-m-d H:i:s.' . $microtime, $original_time ) );
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 				$time          = $date->format( $this->DateFormat );
 			
 			} else {

@@ -27,7 +27,10 @@ class Textarea extends Base {
 	 */
 	public $allow_html = false;
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 	/**
 	 * Initialize as Rich Text Editor.
 	 *
@@ -38,6 +41,7 @@ class Textarea extends Base {
 	public $use_editor = false;
 
 	/**
+<<<<<<< HEAD
 	 * Number of rows.
 	 *
 	 * @since 2.5
@@ -57,6 +61,9 @@ class Textarea extends Base {
 
 	/**
 	 * Initialize Textarea field.
+=======
+	 * Initialize Save field.
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 	 *
 	 * @since 2.5
 	 *
@@ -79,9 +86,14 @@ class Textarea extends Base {
 
 	}
 
+<<<<<<< HEAD
 	private function get_editor_id() {
 		return esc_attr( $this->settings->get_input_name_prefix() ) . '_' . esc_attr( $this->name );
 	}
+=======
+
+
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 
 
 	// # RENDER METHODS ------------------------------------------------------------------------------------------------
@@ -98,10 +110,13 @@ class Textarea extends Base {
 		// Get value.
 		$value = $this->get_value();
 
+<<<<<<< HEAD
 		if ($value === null) {
 			$value = '';
 		}
 
+=======
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 		// Initialize rich text editor.
 		if ( $this->use_editor ) {
 
@@ -121,10 +136,17 @@ class Textarea extends Base {
 			ob_start();
 			wp_editor(
 				$value,
+<<<<<<< HEAD
 				$this->get_editor_id(),
 				array(
 					'autop'         => false,
 					'editor_class'  => $this->get_editor_class(),
+=======
+				esc_attr( $this->settings->get_input_name_prefix() ) . '_' . esc_attr( $this->name ),
+				array(
+					'autop'         => false,
+					'editor_class'  => 'merge-tag-support mt-wp_editor mt-manual_position mt-position-right',
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 					'editor_height' => $this->editor_height,
 				)
 			);
@@ -138,8 +160,11 @@ class Textarea extends Base {
 
 		} else {
 
+<<<<<<< HEAD
 			$escaped_value = $value !== null ? esc_textarea( $value ) : '';
 
+=======
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 			// Prepare markup.
 			// Display description.
 			$html = $this->get_description();
@@ -151,7 +176,11 @@ class Textarea extends Base {
 				esc_attr( $this->name ),
 				$this->get_describer() ? sprintf( 'aria-describedby="%s"', $this->get_describer() ) : '',
 				implode( ' ', $this->get_attributes() ),
+<<<<<<< HEAD
 				$escaped_value,
+=======
+				esc_textarea( $value ),
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 				// If field failed validation, add error icon.
 				$this->get_error_icon()
 			);
@@ -162,6 +191,7 @@ class Textarea extends Base {
 
 	}
 
+<<<<<<< HEAD
 	/**
 	 * Get the CSS classes for the rich text editor.
 	 *
@@ -181,6 +211,8 @@ class Textarea extends Base {
 		return $editor_class;
 	}
 
+=======
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 
 
 

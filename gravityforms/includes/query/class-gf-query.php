@@ -180,8 +180,12 @@ class GF_Query {
 				$field = GFAPI::get_field( $form_id, $sort_field );
 
 				if ( $field instanceof GF_Field ) {
+<<<<<<< HEAD
 					$numeric_fields = array( 'number', 'total', 'calculation', 'price', 'quantity', 'shipping', 'singleshipping', 'product', 'singleproduct' );
 					$force_order_numeric = in_array( $field->get_input_type(), $numeric_fields );
+=======
+					$force_order_numeric = $field->get_input_type() == 'number';
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 				} else {
 					$entry_meta          = GFFormsModel::get_entry_meta( $form_id );
 					$force_order_numeric = rgars( $entry_meta, $sort_field . '/is_numeric' );
@@ -209,6 +213,7 @@ class GF_Query {
 		$filters = array();
 
 		if ( isset( $search_criteria['status'] ) ) {
+<<<<<<< HEAD
 
 			if ( is_array( $search_criteria['status'] ) ) {
 				$statuses = array();
@@ -226,6 +231,12 @@ class GF_Query {
 				new GF_Query_Column( 'status' ),
 				$condition_operator,
 				$condition_value
+=======
+			$property_conditions[] = new GF_Query_Condition(
+				new GF_Query_Column( 'status' ),
+				GF_Query_Condition::EQ,
+				new GF_Query_Literal( $search_criteria['status'] )
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 			);
 		}
 
@@ -342,8 +353,12 @@ class GF_Query {
 
 				$form = GFFormsModel::get_form_meta( $form_id );
 				$field = GFFormsModel::get_field( $form, $key );
+<<<<<<< HEAD
 				$is_numeric_filter = ( $field && $field->get_input_type() == 'number' ) || rgar( $filter, 'is_numeric' );
 				if ( $operator != GF_Query_Condition::LIKE && $is_numeric_filter ) {
+=======
+				if ( $field && $operator != GF_Query_Condition::LIKE && ( $field->get_input_type() == 'number' || rgar( $filter, 'is_numeric' ) ) ) {
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 					if ( ! is_numeric( $value ) ) {
 						$value = floatval( $value );
 					}
@@ -687,7 +702,11 @@ class GF_Query {
 
 		$results = $this->query();
 
+<<<<<<< HEAD
 		$this->total_found = (int) $wpdb->get_var( 'SELECT FOUND_ROWS()' ); // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
+=======
+		$this->total_found = (int) $wpdb->get_var( 'SELECT FOUND_ROWS()' );
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 
 		return $this->get_entries( $results );
 	}
@@ -702,7 +721,11 @@ class GF_Query {
 
 		$results = $this->query();
 
+<<<<<<< HEAD
 		$this->total_found = (int) $wpdb->get_var( 'SELECT FOUND_ROWS()' ); // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
+=======
+		$this->total_found = (int) $wpdb->get_var( 'SELECT FOUND_ROWS()' );
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 
 		$ids = array();
 
@@ -816,7 +839,11 @@ class GF_Query {
 		GFCommon::log_debug( __METHOD__ . '(): sql => ' . $sql );
 
 		$this->timer_start();
+<<<<<<< HEAD
 		$results = $wpdb->get_results( $sql, ARRAY_N ); // phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared, WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
+=======
+		$results = $wpdb->get_results( $sql, ARRAY_N );
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 		$this->queries []= array( $this->timer_stop(), $sql );
 
 		if ( is_null( $results ) ) {
@@ -980,7 +1007,11 @@ class GF_Query {
 				/**
 				 * Make sure a WHERE clause exists on meta fields.
 				 */
+<<<<<<< HEAD
 				$conditions[] = $wpdb->prepare( sprintf( '`%s`.`meta_key` = %%s', $alias_on ), $on->field_id ); // phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared, WordPress.DB.PreparedSQLPlaceholders.ReplacementsWrongNumber
+=======
+				$conditions[] = $wpdb->prepare( sprintf( '`%s`.`meta_key` = %%s', $alias_on ), $on->field_id );
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 			}
 
 			$conditions[] = sprintf( '`%s`.`form_id` = %d', $alias_on, $on->source );
@@ -1468,7 +1499,11 @@ class GF_Query {
 
 		$entry_table = GFFormsModel::get_entry_table_name();
 		$sql = sprintf( "SELECT * from $entry_table WHERE id IN(%s)", $placeholders = implode( ',', array_fill( 0, count( $ids ), '%d' ) ) );
+<<<<<<< HEAD
 		$entryset = $wpdb->get_results( $wpdb->prepare( $sql, $ids ), ARRAY_A ); // phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared, WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
+=======
+		$entryset = $wpdb->get_results( $wpdb->prepare( $sql, $ids ), ARRAY_A );
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 
 		$entry_meta_table = GFFormsModel::get_entry_meta_table_name();
 
@@ -1496,7 +1531,11 @@ class GF_Query {
 				$entry_meta_placeholders = implode( ',', array_fill( 0, count( $entry_meta ), '%s' ) );
 				$sql = sprintf( '( form_id = %d AND meta_key IN (%s) )', $form_id, $entry_meta_placeholders );
 				if ( ! isset( $meta_clauses[ $form_id ] ) ) {
+<<<<<<< HEAD
 					$meta_clauses[ $form_id ] = $wpdb->prepare( $sql, array_keys( $entry_meta ) ); // phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared
+=======
+					$meta_clauses[ $form_id ] = $wpdb->prepare( $sql, array_keys( $entry_meta ) );
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 				}
 			}
 		}
@@ -1510,15 +1549,22 @@ WHERE entry_id IN(%s)
 AND ( meta_key REGEXP '^[0-9|.]+$'
 %s )
 ", $placeholders, $meta_clauses_str );
+<<<<<<< HEAD
 		$metaset = $wpdb->get_results( $wpdb->prepare( $sql, $ids ), ARRAY_A ); // phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared, WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
+=======
+		$metaset = $wpdb->get_results( $wpdb->prepare( $sql, $ids ), ARRAY_A );
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 
 
 		foreach ( $metaset as $meta ) {
 			$entries[ $meta['entry_id'] ][ $meta['meta_key'] . $meta['item_index'] ] = $meta['meta_value'];
 		}
 
+<<<<<<< HEAD
 		$entries_with_encrypted_fields = GFFormsModel::get_openssl_encrypted_fields_by_entries( $ids );
 
+=======
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 		foreach ( $entryset as $entry ) {
 			if ( isset( $cache['form_meta'][ $entry['form_id'] ] ) ) {
 				$form = $cache['form_meta'][ $entry['form_id'] ];
@@ -1526,7 +1572,11 @@ AND ( meta_key REGEXP '^[0-9|.]+$'
 				$form = $cache['form_meta'][ $entry['form_id'] ] = RGFormsModel::get_form_meta( $entry['form_id'] );
 			}
 
+<<<<<<< HEAD
 			$openssl_encrypted_fields = isset( $entries_with_encrypted_fields[ $entry['id'] ] ) ? $entries_with_encrypted_fields[ $entry['id'] ] : array();
+=======
+			$openssl_encrypted_fields = GFFormsModel::get_openssl_encrypted_fields( $entry['id'] );
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 
 			foreach ( $form['fields'] as $field ) {
 				/* @var GF_Field $field */
@@ -1582,9 +1632,13 @@ AND ( meta_key REGEXP '^[0-9|.]+$'
 				}
 				$results[] = $joined_entries;
 			} elseif ( count( $entry_id ) == 1 ) {
+<<<<<<< HEAD
 				// Fix for Implicit Conversion from float to Int warning in PHP 8.1+
 				$entry_key = is_numeric( $entry_id[0] ) ? (int) $entry_id[0] : $entry_id[0];
 				if ( ! isset( $entries[ $entry_key ] ) ) {
+=======
+				if ( ! isset( $entries[ $entry_id[0] ] ) ) {
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 					continue;
 				}
 				$results[] = &$entries[ $entry_id[0] ];

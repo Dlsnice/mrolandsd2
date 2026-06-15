@@ -6,6 +6,10 @@ namespace Yoast\WP\SEO\AI_Free_Sparks\User_Interface;
 use WP_REST_Response;
 use Yoast\WP\SEO\AI_Free_Sparks\Application\Free_Sparks_Handler_Interface;
 use Yoast\WP\SEO\Conditionals\AI_Conditional;
+<<<<<<< HEAD
+=======
+use Yoast\WP\SEO\Conditionals\Old_Premium_AI_Conditional;
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 use Yoast\WP\SEO\Main;
 use Yoast\WP\SEO\Routes\Route_Interface;
 
@@ -41,7 +45,11 @@ class Free_Sparks_Route implements Route_Interface {
 	 * @return array<string> The conditionals.
 	 */
 	public static function get_conditionals() {
+<<<<<<< HEAD
 		return [ AI_Conditional::class ];
+=======
+		return [ AI_Conditional::class, Old_Premium_AI_Conditional::class ];
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 	}
 
 	/**

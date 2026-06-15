@@ -430,10 +430,17 @@ class GF_REST_Form_Entries_Controller extends GF_REST_Controller {
 				foreach ( $field->choices as $choice ) {
 					$choice_labels[ $choice['value'] ] = $choice['text'];
 				}
+<<<<<<< HEAD
 				if ( $input_type === 'likert' && $field->gsurveyLikertEnableMultipleRows ) {
 					/* @var GF_Field_Likert $field  */
 					$label = array(
 						'label'=> $field->get_field_label( false, null ),
+=======
+				if ( $input_type = 'likert' && $field->gsurveyLikertEnableMultipleRows ) {
+					/* @var GF_Field_Likert $field  */
+					$label = array(
+						'label' => $field->label,
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 						'cols' => $choice_labels,
 						'rows' => array(),
 					);
@@ -441,7 +448,11 @@ class GF_REST_Form_Entries_Controller extends GF_REST_Controller {
 						$label['rows'][ $row['value'] ] = $row['text'];
 					}
 				} else {
+<<<<<<< HEAD
 					$label['label'] = $field->get_field_label( false, null );
+=======
+					$label['label'] = $field->label;
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 					$label['choices'] = $choice_labels;
 				}
 			} else {

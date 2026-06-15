@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 function initLayoutEditor( $ ) {
+=======
+( function ( $ ) {
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 
 	/**
 	 * Get the group ID of the targeted element.
@@ -8,6 +12,10 @@ function initLayoutEditor( $ ) {
 	 * @returns {jQuery}
 	 */
 	$.fn.setGroupId = function ( groupId ) {
+<<<<<<< HEAD
+=======
+
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 		this.attr( 'data-groupId', groupId );
 
 		this.each( function () {
@@ -36,7 +44,11 @@ function initLayoutEditor( $ ) {
 
 		var field;
 
+<<<<<<< HEAD
 		this.css( 'grid-column', 'span {0}'.gformFormat( span ) );
+=======
+		this.css( 'grid-column', 'span {0}'.format( span ) );
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 
 		this.each( function () {
 			// Spacer fields are pseudo-fields; they are generated when the last field in the group is resized and are
@@ -62,10 +74,13 @@ function initLayoutEditor( $ ) {
 	 * @returns {number}
 	 */
 	$.fn.getGridColumnSpan = function () {
+<<<<<<< HEAD
 		if( undefined === this.css('gridColumnStart') ) {
 			return;
 		}
 
+=======
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 		// Use 'gridColumnStart' instead of 'grid-column' as Firefox returns null for the latter.
 		var span = parseInt( this.css( 'gridColumnStart' ).split( ' ' )[ 1 ] );
 		if ( isNaN( span ) && typeof columnCount !== 'undefined' ) {
@@ -74,15 +89,19 @@ function initLayoutEditor( $ ) {
 		return span;
 	};
 
+<<<<<<< HEAD
 	$.fn.resizeGroup = function ( groupID ) {
 		resizeGroup( groupID );
 	};
 
+=======
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 	/**
 	 * Replace placeholders in the targeted string with passed values.
 	 *
 	 * @returns {string}
 	 */
+<<<<<<< HEAD
 	if ( ! String.prototype.gformFormat ) {
 		String.prototype.gformFormat = function() {
 			var args = arguments;
@@ -91,6 +110,14 @@ function initLayoutEditor( $ ) {
 			} );
 		};
 	}
+=======
+	String.prototype.format = function () {
+		var args = arguments;
+		return this.replace( /{(\d+)}/g, function ( match, number ) {
+			return typeof args[ number ] != 'undefined' ? args[ number ] : match;
+		} );
+	};
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 
 	var $editorContainer = $( '#form_editor_fields_container' ),
 		$editor = $( '.gform_editor' ),
@@ -103,7 +130,10 @@ function initLayoutEditor( $ ) {
 		$elem = null,
 		fieldButtonsSelector = '.add-buttons button';
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 	/**
 	 * The max column count determined by the fields container's grid CSS.
 	 * @type {number}
@@ -136,9 +166,12 @@ function initLayoutEditor( $ ) {
 	// Parse and maybe patch group ids
 	validateGroupIds();
 
+<<<<<<< HEAD
 	// Set the correct group for the submit button.
 	setSubmitButtonGroup();
 
+=======
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 	// Initialize field buttons.
 	initFieldButtons( $( fieldButtonsSelector ) );
 
@@ -168,6 +201,7 @@ function initLayoutEditor( $ ) {
 	} );
 
 	// Clear field selection when clicking off of any field.
+<<<<<<< HEAD
 	// Track mousedown target to prevent clearing selection when user clicks
 	// inside a flyout and drags to release over the editor.
 	var mousedownTarget = null;
@@ -181,6 +215,9 @@ function initLayoutEditor( $ ) {
 			return;
 		}
 		mousedownTarget = null;
+=======
+	$editorContainer.on( 'click', function () {
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 		clearFieldSelection();
 	} );
 
@@ -194,11 +231,14 @@ function initLayoutEditor( $ ) {
 
 			$field.setGroupId( getGroupId() );
 
+<<<<<<< HEAD
 			// If the submit button is inline, move it back to its own row
 			if( jQuery('#field_submit').attr( 'data-field-position' ) == 'inline' ) {
 				moveButtonToBottom();
 			}
 
+=======
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 		}
 		// This field was added by dragging into the editor.
 		else {
@@ -212,7 +252,14 @@ function initLayoutEditor( $ ) {
 
 		// editor is receiving first field, cleanup placeholders and no fields class, maybe init simplebar
 		if ( $editorContainer.hasClass( 'form_editor_fields_no_fields' ) ) {
+<<<<<<< HEAD
 			gform.simplebar.initializeInstance( $editorContainer[ 0 ] );
+=======
+			// we dont run simplebar in noconflict mode
+			if ( ! $editorContainer.hasClass( 'form_editor_no_conflict' ) ) {
+				gform.simplebar.initializeInstance( $editorContainer[ 0 ] );
+			}
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 			setTimeout( function() {
 				$noFieldsDropzone.hide();
 				$editorContainer.removeClass( 'form_editor_fields_no_fields' );
@@ -223,6 +270,7 @@ function initLayoutEditor( $ ) {
 
 		initElement( $field );
 
+<<<<<<< HEAD
 		if ( field['type'] === 'page' ) {
 			moveButtonToBottom();
 			jQuery('input[name="submit_location"][value="inline"]').prop( 'disabled', true );
@@ -236,11 +284,14 @@ function initLayoutEditor( $ ) {
 		var nativeEvent = new Event('gform/layout_editor/field_modified');
 		document.dispatchEvent(nativeEvent);
 
+=======
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 	} );
 
 	// Save the group ID of the deleted field.
 	$( document ).on( 'gform_field_deleted', function ( event, form, fieldId ) {
 		deletedFieldGroupId = getGroupId( $( '#field_' + fieldId ) );
+<<<<<<< HEAD
 		if ( ! HasPageField() ) {
 			jQuery('input[name="submit_location"][value="inline"]').prop( 'disabled', false );
 			jQuery( '.submit_location_setting' ).prev( '.gform-alert--notice' ).remove();
@@ -248,6 +299,8 @@ function initLayoutEditor( $ ) {
 
 		var nativeEvent = new Event('gform/layout_editor/gform_field_deleted');
 		document.dispatchEvent(nativeEvent);
+=======
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 	} );
 
 	// Handle resizing the group after the deleted field has been fully removed from the DOM.
@@ -277,10 +330,13 @@ function initLayoutEditor( $ ) {
 		initElement( $( '#field_' + fieldId ) );
 	} );
 
+<<<<<<< HEAD
 	gform.addAction( 'gform_after_change_input_type', function( fieldId ) {
 		initElement( $( '#field_' + fieldId ) );
 	} );
 
+=======
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 	gform.addAction( 'gform_before_get_field_markup', function( form, field, index ) {
 		addFieldPlaceholder( field, index );
 	} );
@@ -289,10 +345,13 @@ function initLayoutEditor( $ ) {
 		removeFieldPlaceholder();
 	} );
 
+<<<<<<< HEAD
 	gform.addAction( 'gform_after_get_field_markup', function( form, field, index ) {
 		initSubmit();
 	} );
 
+=======
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 	gform.addAction( 'gform_before_field_duplicated', function( sourcefieldId ) {
 		var $source = $( '#field_' + sourcefieldId );
 		var $index  = $container.children().index( $source );
@@ -312,6 +371,7 @@ function initLayoutEditor( $ ) {
 		removeFieldUpdateIndicator( field_id );
 	} );
 
+<<<<<<< HEAD
 	/**
 	 * Make the submit button resizable when it is first added to the form.
 	 *
@@ -322,6 +382,8 @@ function initLayoutEditor( $ ) {
 		initElement( submitField );
 	}
 
+=======
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 	function addFieldPlaceholder( field, index ) {
 
 		var fieldString = '<li data-js-field-loading-placeholder><div class="dropzone__loader">' +
@@ -337,11 +399,15 @@ function initLayoutEditor( $ ) {
 				$( '#gform_fields' ).children().eq( index - 1 ).after( fieldString );
 			}
 		} else {
+<<<<<<< HEAD
 			if ( jQuery( '#field_submit' ) ) {
 				jQuery( fieldString ).insertBefore ( jQuery( '#field_submit' ) );
 			} else {
 				$( '#gform_fields' ).append( fieldString );
 			}
+=======
+			$( '#gform_fields' ).append( fieldString );
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 		}
 
 		$( '[data-js-field-loading-placeholder]' ).setGridColumnSpan( columnCount );
@@ -478,12 +544,15 @@ function initLayoutEditor( $ ) {
 						}
 					}
 
+<<<<<<< HEAD
 					if ( ui.element.data( 'fieldClass' ) === 'gform_editor_submit_container' ) {
 						min = 1;
 					} else {
 						min = columnCount / 4;
 					}
 
+=======
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 					/**
 					 * We've calculated the desired span based on the physical size of the field. Now let's adjust it to
 					 * make sure it's not too big or too small.
@@ -491,6 +560,7 @@ function initLayoutEditor( $ ) {
 					 * If the field is in a group, we will deduct the minimum span from the max to always save room for
 					 * the field to it's right. If it the last field, we do not have to save this room.
 					 */
+<<<<<<< HEAD
 					var calculatedMax = max;
 					if ( $item.next().data( 'fieldClass' ) === 'gform_editor_submit_container' ) {
 						calculatedMax = max - 1;
@@ -498,6 +568,9 @@ function initLayoutEditor( $ ) {
 						calculatedMax = max - min;
 					}
 					span = getAdjustedGridColumnSpan( span, min, calculatedMax );
+=======
+					span = getAdjustedGridColumnSpan( span, min, max - ( $group.length > 1 && ! lastInGroup ? min : 0 ) );
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 
 					$().add( ui.helper ).add( ui.element )
 						// Resizable will set a width with each increment, we have to deliberately override this.
@@ -625,6 +698,7 @@ function initLayoutEditor( $ ) {
 	}
 
 	/**
+<<<<<<< HEAD
 	 * @function setSubmitButtonGroup
 	 * @description Sets the submit button's group ID to the group ID of the last row if it is inline.
 	 *
@@ -640,6 +714,8 @@ function initLayoutEditor( $ ) {
 	}
 
 	/**
+=======
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 	 * Initialize the field buttons so they can be dragged over the layout editor.
 	 *
 	 * @param {jQuery} $buttons All field buttons.
@@ -647,8 +723,11 @@ function initLayoutEditor( $ ) {
 	function initFieldButtons( $buttons ) {
 		$buttons
 			.on( 'mousedown touchstart', function() {
+<<<<<<< HEAD
 				// closes any open flyouts
 				gform.tools.trigger( 'gform/flyout/close-all' );
+=======
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 				// hides the tooltip during drag, stop method sets it back using the data-description
 				// start was too late to execute this with, the tooltip would persist in some browsers
 				$( this ).attr( 'title', '' );
@@ -671,8 +750,11 @@ function initLayoutEditor( $ ) {
 						return false;
 					}
 
+<<<<<<< HEAD
 					ui.helper.addClass( 'gform-theme__disable' );
 
+=======
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 					// Match the helper to the current elements size.
 					ui.helper
 						.width( $( this ).width() )
@@ -681,6 +763,10 @@ function initLayoutEditor( $ ) {
 					$container.addClass( 'dragging' );
 					$elem = $( this ).clone();
 					$elem.addClass( 'placeholder' );
+<<<<<<< HEAD
+=======
+
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 					$( this ).addClass( 'fieldPlaceholder' );
 				},
 				drag: function( event, ui ) {
@@ -690,19 +776,30 @@ function initLayoutEditor( $ ) {
 					}
 
 					/**
+<<<<<<< HEAD
 					 * New field buttons are dragged relative to #wpbody so their position needs to be adjusted to work
+=======
+					 * New field buttons are dragged relative to #wpbody so their position needs to be adjusted to work the
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 					 * the same way as dragging an existing field (which is relative to #gform_fields).
 					 */
 					var helperTop = ui.position.top - 0 + ( ui.helper.outerHeight() / 2 ),
 						helperLeft = ui.position.left - 0 + ( ui.helper.outerWidth() / 2 );
 
 					handleDrag( event, ui, helperTop, helperLeft );
+<<<<<<< HEAD
+=======
+
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 				},
 				stop: function( event, ui ) {
 					$( this ).removeClass( 'fieldPlaceholder' );
 					$editorContainer.removeClass( 'droppable' );
 					$container.removeClass( 'dragging' );
+<<<<<<< HEAD
 					ui.helper.removeClass( 'gform-theme__disable' );
+=======
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 
 					var isAddingField = false;
 
@@ -741,13 +838,18 @@ function initLayoutEditor( $ ) {
 
 		$elements().removeClass( 'hovering' );
 
+<<<<<<< HEAD
 		var isCompactView = $( '.gform-compact-view' ).length > 0;
 
 		if ( ! isInEditorArea( helperLeft, helperTop, isCompactView ) ) {
+=======
+		if ( ! isInEditorArea( helperLeft, helperTop ) ) {
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 			$indicator( false ).remove();
 			return;
 		}
 
+<<<<<<< HEAD
 		// drop indicator is a different distance from field in compact view.
 		if ( isCompactView ) {
 			var topDistanceAllFields = -9;
@@ -761,11 +863,17 @@ function initLayoutEditor( $ ) {
 			var bottomDistanceAllFields = 0;
 		}
 
+=======
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 		// Check if field is dragged *above* all other fields.
 		if ( helperTop < 0 ) {
 			$indicator()
 				.css( {
+<<<<<<< HEAD
 					top: topDistanceAllFields,
+=======
+					top: -30,
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 					left: 0,
 					height: '4px',
 					width: $container.outerWidth()
@@ -778,6 +886,7 @@ function initLayoutEditor( $ ) {
 		}
 		// Check if field is dragged *below* all other fields.
 		else if ( helperTop > $container.outerHeight() ) {
+<<<<<<< HEAD
 			if ( $elements().last().data( 'field-class' ) !== 'gform_editor_submit_container' && $elements().last().prev().data( 'field-class' ) !== 'gform_editor_submit_container' ) {
 				$indicator()
 					.css( {
@@ -791,6 +900,19 @@ function initLayoutEditor( $ ) {
 						target: $elements().last()
 					} );
 			}
+=======
+			$indicator()
+				.css( {
+					top: $container.outerHeight() - 14,
+					left: 0,
+					height: '4px',
+					width: $container.outerWidth()
+				} )
+				.data( {
+					where: 'bottom',
+					target: $elements().last()
+				} );
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 			return;
 		}
 
@@ -832,6 +954,7 @@ function initLayoutEditor( $ ) {
 
 				var available = isSpaceAvailable( ui, $target );
 
+<<<<<<< HEAD
 				if ( $target.data( 'field-class' ) === 'gform_editor_submit_container' ) {
 					if ( gform.tools.isRtl() ) {
 						if ( where === 'left' || where === 'bottom' ) {
@@ -847,6 +970,9 @@ function initLayoutEditor( $ ) {
 					if ( $target.data( 'field-position' ) === 'bottom' ) {
 						return;
 					}
+=======
+				if ( where === 'left' || where === 'right' ) {
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 					// Columns are not supported in Legacy markup or with Page or Section fields.
 					if ( ! areColumnsEnabled( $target, $elem ) ) {
 						return;
@@ -855,10 +981,13 @@ function initLayoutEditor( $ ) {
 					}
 				}
 
+<<<<<<< HEAD
 				if ( where === 'bottom' && isButtonInGroup( $targetGroup ) ) {
 					return;
 				}
 
+=======
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 				$indicator().data( {
 					where: where,
 					target: $target
@@ -889,8 +1018,14 @@ function initLayoutEditor( $ ) {
 
 						return false;
 					case 'bottom':
+<<<<<<< HEAD
 						$indicator().css( {
 							top: sibPos.top + $target.outerHeight() + bottomDistance,
+=======
+
+						$indicator().css( {
+							top: sibPos.top + $target.outerHeight() + 26,
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 							left: 0,
 							height: '4px',
 							width: '100%',
@@ -900,7 +1035,11 @@ function initLayoutEditor( $ ) {
 					case 'top':
 
 						$indicator().css( {
+<<<<<<< HEAD
 							top: sibPos.top - topDistance,
+=======
+							top: sibPos.top - 30,
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 							left: 0,
 							height: '4px',
 							width: '100%'
@@ -991,11 +1130,19 @@ function initLayoutEditor( $ ) {
 	 *
 	 * @param {number} x The left position of the coordinate.
 	 * @param {number} y The top position of the coordinate.
+<<<<<<< HEAD
 	 * @param {boolean} isCompactView Whether or not the form editor is in compact view.
 	 *
 	 * @returns {boolean}
 	 */
 	function isInEditorArea( x, y, isCompactView = false ) {
+=======
+	 *
+	 * @returns {boolean}
+	 */
+	function isInEditorArea( x, y ) {
+
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 		if ( ! gform.tools.isRtl() ) {
 			var editorOffsetLeft = $editorContainer.offset().left;
 		} else {
@@ -1006,7 +1153,11 @@ function initLayoutEditor( $ ) {
 			offsetLeft = containerOffset.left - editorOffsetLeft,
 			buttonWidth = $button.outerWidth() || null,
 			editorArea = {
+<<<<<<< HEAD
 				top: isCompactView ? -offsetTop : -offsetTop + buttonWidth,
+=======
+				top: -offsetTop + buttonWidth,
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 				right: -offsetLeft + $editorContainer.outerWidth() - $sidebar.outerWidth() - buttonWidth,
 				bottom: -offsetTop + $editorContainer.outerHeight(),
 				left: -offsetLeft,
@@ -1072,10 +1223,13 @@ function initLayoutEditor( $ ) {
 			return;
 		}
 
+<<<<<<< HEAD
 		if ( $target.hasClass( 'gform_button' ) ) {
 			return;
 		}
 
+=======
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 		var targetSpan,
 			splitSpan,
 			$targetGroup,
@@ -1189,11 +1343,19 @@ function initLayoutEditor( $ ) {
 	function getGroup( groupId, spacers ) {
 		if ( spacers || 'undefined' === typeof( spacers ) ) {
 			return $elements()
+<<<<<<< HEAD
 				.filter( '[data-groupId="{0}"]'.gformFormat( groupId ) )
 				.not( '.ui-draggable-dragging' );
 		} else {
 			return $elements()
 				.filter( '[data-groupId="{0}"]'.gformFormat( groupId ) )
+=======
+				.filter( '[data-groupId="{0}"]'.format( groupId ) )
+				.not( '.ui-draggable-dragging' );
+		} else {
+			return $elements()
+				.filter( '[data-groupId="{0}"]'.format( groupId ) )
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 				.not( '.ui-draggable-dragging' )
 				.not( '.spacer' );
 		}
@@ -1236,9 +1398,12 @@ function initLayoutEditor( $ ) {
 	 */
 	function isEvenSplit( $group ) {
 
+<<<<<<< HEAD
 		if ( $group.length === 0 ) {
 			return isEvenSplit = true;
 		}
+=======
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 		var baseSpan = $group.first().getGridColumnSpan(),
 			isEvenSplit = true;
 
@@ -1287,6 +1452,7 @@ function initLayoutEditor( $ ) {
 	}
 
 	/**
+<<<<<<< HEAD
 	 * Determine if a submit button is in the group.
 	 *
 	 * @since 2.6
@@ -1312,6 +1478,8 @@ function initLayoutEditor( $ ) {
 	}
 
 	/**
+=======
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 	 * Insert a Spacer field after the given field element.
 	 *
 	 * @param {jQuery} $field  The field element after which the Spacer should be inserted.
@@ -1429,6 +1597,10 @@ function initLayoutEditor( $ ) {
 		return $indicator;
 	}
 
+<<<<<<< HEAD
 }
 
 initLayoutEditor( jQuery );
+=======
+} )( jQuery );
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6

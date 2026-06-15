@@ -32,8 +32,11 @@ class Field_Select extends Select {
 	 */
 	public $args = array();
 
+<<<<<<< HEAD
 	public $fields_callback;
 
+=======
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 	/**
 	 * Initialize Field Select field.
 	 *
@@ -152,9 +155,12 @@ class Field_Select extends Select {
 			__( 'Country', 'gravityforms' )    => array( __( 'Address (Country)', 'gravityforms' ) ),
 		);
 
+<<<<<<< HEAD
 		// Normalize $field_label to avoid deprecated notices in PHP 8.5+
 		$field_label = $field_label === null ? '' : (string) $field_label;
 
+=======
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 		// If one or more global aliases are defined for this particular field label, merge them into auto-population choices.
 		if ( isset( $global_aliases[ $field_label ] ) ) {
 			$default_value_choices = array_merge( $default_value_choices, $global_aliases[ $field_label ] );
@@ -166,9 +172,13 @@ class Field_Select extends Select {
 		}
 
 		// Convert all auto-population choices to lowercase.
+<<<<<<< HEAD
 		foreach( $default_value_choices as $key => $value ) {
 			$default_value_choices[ $key ] = $value ? strtolower( $value ) : $value;
 		}
+=======
+		$default_value_choices = array_map( 'strtolower', $default_value_choices );
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 
 		// Loop through fields.
 		foreach ( $this->choices as $choice ) {

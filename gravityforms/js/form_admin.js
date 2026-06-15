@@ -6,6 +6,7 @@
 
 jQuery(document).ready(function($){
 
+<<<<<<< HEAD
 	gaddon.init();
 
 	gform.adminUtils.handleUnsavedChanges( '#gform-settings' );
@@ -13,6 +14,17 @@ jQuery(document).ready(function($){
 	$(document).on('change', '.gfield_rule_value_dropdown', function(){
 		SetRuleValueDropDown($(this));
 	});
+=======
+    gaddon.init();
+
+    gform.adminUtils.handleUnsavedChanges( '#gform-settings' );
+
+    $(document).on('change', '.gfield_rule_value_dropdown', function(){
+        SetRuleValueDropDown($(this));
+    });
+
+	initMergeTagSupport();
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 
 	// For backwards compat.
 	if( window.form ) {
@@ -34,7 +46,11 @@ jQuery(document).ready(function($){
  * @since 2.5
  */
 function initMergeTagSupport() {
+<<<<<<< HEAD
 	// init merge tag auto complete
+=======
+    // init merge tag auto complete
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 	if ( typeof form != 'undefined' && jQuery( '.merge-tag-support' ).length >= 0 ) {
 		jQuery( '.merge-tag-support' ).each( function() {
 			new gfMergeTagsObj( form, jQuery( this ) );
@@ -44,13 +60,18 @@ function initMergeTagSupport() {
 
 function FormatCurrency(element){
 	if(gf_vars.gf_currency_config){
+<<<<<<< HEAD
 		var currency = new gform.Currency(gf_vars.gf_currency_config);
+=======
+		var currency = new Currency(gf_vars.gf_currency_config);
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 		var price = currency.toMoney(jQuery(element).val());
 		jQuery(element).val(price);
 	}
 }
 
 function ToggleConditionalLogic( isInit, objectType ) {
+<<<<<<< HEAD
 	if(jQuery('#' + objectType + '_conditional_logic').is(":checked")){
 
 		var obj = GetConditionalObject(objectType);
@@ -67,10 +88,29 @@ function ToggleConditionalLogic( isInit, objectType ) {
 	else{
 		jQuery('#' + objectType + '_conditional_logic_container').hide();
 	}
+=======
+    if(jQuery('#' + objectType + '_conditional_logic').is(":checked")){
+
+        var obj = GetConditionalObject(objectType);
+
+        CreateConditionalLogic(objectType, obj);
+
+        //Initializing object so it has the default options set
+        SetConditionalProperty(objectType, "actionType", jQuery("#" + objectType + "_action_type").val());
+        SetConditionalProperty(objectType, "logicType", jQuery("#" + objectType + "_logic_type").val());
+        SetRule(objectType, 0);
+
+        jQuery('#' + objectType + '_conditional_logic_container').show();
+    }
+    else{
+        jQuery('#' + objectType + '_conditional_logic_container').hide();
+    }
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 }
 
 function GetConditionalObject(objectType){
 
+<<<<<<< HEAD
 	var object = false;
 
 	switch(objectType){
@@ -185,10 +225,130 @@ function CreateConditionalLogic(objectType, obj){
 	jQuery( '#' + objectType + '_conditional_logic', document ).parents( 'form' ).on( 'submit', function( e ) {
 		jQuery( '#' + objectType + '_conditional_logic_object' ).val( JSON.stringify( GetConditionalObject( objectType ).conditionalLogic ) );
 	} );
+=======
+    var object = false;
+
+    switch(objectType){
+    case "page":
+    case "field":
+        object = GetSelectedField();
+        break;
+
+    case "next_button" :
+        var field = GetSelectedField();
+        object = field["nextButton"];
+        object.id = field.id;
+        break;
+
+    case "confirmation":
+        object = confirmation;
+        break;
+
+    case "notification":
+        object = current_notification;
+        break;
+
+    default:
+        object = typeof form != 'undefined' ? form.button : false;
+        break;
+    }
+
+    object = gform.applyFilters( 'gform_conditional_object', object, objectType )
+
+    return object;
+}
+
+function CreateConditionalLogic(objectType, obj){
+
+    if(!obj.conditionalLogic)
+        obj.conditionalLogic = new ConditionalLogic();
+
+    var hideSelected = obj.conditionalLogic.actionType == "hide" ? "selected='selected'" :"";
+    var showSelected = obj.conditionalLogic.actionType == "show" ? "selected='selected'" :"";
+    var allSelected = obj.conditionalLogic.logicType == "all" ? "selected='selected'" :"";
+    var anySelected = obj.conditionalLogic.logicType == "any" ? "selected='selected'" :"";
+
+    var objText;
+    if (obj['type'] == "section")
+        objText = gf_vars.thisSectionIf;
+    else if(objectType == "field")
+        objText = gf_vars.thisFieldIf;
+    else if(objectType == "page")
+        objText = gf_vars.thisPage;
+    else if(objectType == "confirmation")
+        objText = gf_vars.thisConfirmation;
+    else if(objectType == "notification")
+        objText = gf_vars.thisNotification;
+    else
+        objText = gf_vars.thisFormButton;
+
+    // Some elements are shown/hidden, and some elements are enabled/disabled.
+    var showText;
+    var hideText;
+    if( objectType == "next_button" ) {
+        showText = gf_vars.enable;
+        hideText = gf_vars.disable;
+    } else {
+        showText = gf_vars.show;
+        hideText = gf_vars.hide;
+    }
+
+    var descPieces = {};
+    if( objectType == "form_button" ) {
+        descPieces.a11yWarning = "<div class='gform-alert gform-alert--accessibility'>";
+        descPieces.a11yWarning += "<span class='gform-alert__icon gform-icon gform-icon--accessibility' aria-hidden='true'></span>";
+        descPieces.a11yWarning += "<div class='gform-alert__message-wrap'><p class='gform-alert__message'>" + gf_vars.conditional_logic_a11y + "</p></div>";
+        descPieces.a11yWarning += "</div>";
+    }
+    descPieces.actionType = "<select id='" + objectType + "_action_type' onchange='SetConditionalProperty(\"" + objectType + "\", \"actionType\", jQuery(this).val());'><option value='show' " + showSelected + ">" + showText + "</option><option value='hide' " + hideSelected + ">" + hideText + "</option></select>";
+    descPieces.objectDescription = objText;
+    descPieces.logicType = "<select id='" + objectType + "_logic_type' onchange='SetConditionalProperty(\"" + objectType + "\", \"logicType\", jQuery(this).val());'><option value='all' " + allSelected + ">" + gf_vars.all + "</option><option value='any' " + anySelected + ">" + gf_vars.any + "</option></select>";
+    descPieces.ofTheFollowingMatch = gf_vars.ofTheFollowingMatch;
+
+    var descPiecesArr = makeArray( descPieces );
+
+    var str = descPiecesArr.join(' ');
+    str = gform.applyFilters( 'gform_conditional_logic_description', str, descPieces, objectType, obj );
+    var i, rule;
+    for(i=0; i < obj.conditionalLogic.rules.length; i++){
+        rule = obj.conditionalLogic.rules[i];
+        str += "<div width='100%' class='gf_conditional_logic_rules_container'>";
+        str += GetRuleFields(objectType, i, rule.fieldId);
+        str += GetRuleOperators(objectType, i, rule.fieldId, rule.operator);
+        str += GetRuleValues(objectType, i, rule.fieldId, rule.value);
+        str += "<button " +
+            "type='button' " +
+            "class='add_field_choice gform-st-icon gform-st-icon--circle-plus' " +
+            "title='add another rule' " +
+            "onclick=\"InsertRule('" + objectType + "', " + (i+1) + ");\" " +
+            "onkeypress=\"InsertRule('" + objectType + "', " + (i+1) + ");\"" +
+            "></button>";
+        if(obj.conditionalLogic.rules.length > 1 )
+            str += "<button " +
+                "type='button' " +
+                "class='delete_field_choice gform-st-icon gform-st-icon--circle-minus' " +
+                "title='remove this rule' " +
+                "onclick=\"DeleteRule('" + objectType + "', " + i + ");\" " +
+                "onkeypress=\"DeleteRule('" + objectType + "', " + i + ");\"" +
+                "></button></li>";
+
+        str += "</div>";
+    }
+
+    jQuery("#" + objectType + "_conditional_logic_container").html(str);
+
+    //initializing placeholder script
+    Placeholders.enable();
+
+    jQuery( '#' + objectType + '_conditional_logic', document ).parents( 'form' ).on( 'submit', function( e ) {
+        jQuery( '#' + objectType + '_conditional_logic_object' ).val( JSON.stringify( GetConditionalObject( objectType ).conditionalLogic ) );
+    } );
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 
 }
 
 function GetRuleOperators( objectType, i, fieldId, selectedOperator ) {
+<<<<<<< HEAD
 	var str, supportedOperators, operators, selected;
 	supportedOperators = {"is":"is","isnot":"isNot", ">":"greaterThan", "<":"lessThan", "contains":"contains", "starts_with":"startsWith", "ends_with":"endsWith"};
 	str = "<select id='" + objectType + "_rule_operator_" + i + "' class='gfield_rule_select' onchange='SetRuleProperty(\"" + objectType + "\", " + i + ", \"operator\", jQuery(this).val());var valueSelector=\"#" + objectType + "_rule_value_" + i + "\"; jQuery(valueSelector).replaceWith(GetRuleValues(\"" + objectType + "\", " + i + ",\"" + fieldId + "\", \"\"));jQuery(valueSelector).change();'>";
@@ -282,10 +442,102 @@ function GetRuleFieldsOptions( options, selectedFieldId ){
 		}
 	}
 	return str;
+=======
+    var str, supportedOperators, operators, selected;
+    supportedOperators = {"is":"is","isnot":"isNot", ">":"greaterThan", "<":"lessThan", "contains":"contains", "starts_with":"startsWith", "ends_with":"endsWith"};
+    str = "<select id='" + objectType + "_rule_operator_" + i + "' class='gfield_rule_select' onchange='SetRuleProperty(\"" + objectType + "\", " + i + ", \"operator\", jQuery(this).val());var valueSelector=\"#" + objectType + "_rule_value_" + i + "\"; jQuery(valueSelector).replaceWith(GetRuleValues(\"" + objectType + "\", " + i + ",\"" + fieldId + "\", \"\"));jQuery(valueSelector).change();'>";
+    operators = IsEntryMeta(fieldId) ? GetOperatorsForMeta(supportedOperators, fieldId) : supportedOperators;
+
+    operators = gform.applyFilters( 'gform_conditional_logic_operators', operators, objectType, fieldId );
+
+    jQuery.each(operators,function(operator, stringKey){
+        selected = selectedOperator == operator ? "selected='selected'" : "";
+        str += "<option value='" + operator + "' " + selected + ">" + gf_vars[stringKey] + "</option>"
+    });
+    str +="</select>";
+    return str;
+}
+
+function GetOperatorsForMeta(supportedOperators, key){
+    var operators = {};
+    if(entry_meta[key] && entry_meta[key].filter && entry_meta[key].filter.operators ){
+
+        jQuery.each(supportedOperators,function(operator, stringKey){
+            if(jQuery.inArray(operator, entry_meta[key].filter.operators) >= 0)
+                operators[operator] = stringKey;
+        });
+    } else {
+        operators = supportedOperators;
+    }
+    return operators;
+}
+
+function GetRuleFields( objectType, ruleIndex, selectedFieldId ) {
+
+    var str = "<select id='" + objectType + "_rule_field_" + ruleIndex + "' class='gfield_rule_select' onchange='jQuery(\"#" + objectType + "_rule_operator_" + ruleIndex + "\").replaceWith(GetRuleOperators(\"" + objectType + "\", " + ruleIndex + ", jQuery(this).val()));jQuery(\"#" + objectType + "_rule_value_" + ruleIndex + "\").replaceWith(GetRuleValues(\"" + objectType + "\", " + ruleIndex + ", jQuery(this).val())); SetRule(\"" + objectType + "\", " + ruleIndex + "); '>";
+    var options = [];
+
+    for( var i = 0; i < form.fields.length; i++ ) {
+
+        var field = form.fields[i];
+
+        if( IsConditionalLogicField( field ) ) {
+
+            // @todo: the inputType check will likely go away once we've figured out how we're going to manage inputs moving forward
+            if( field.inputs && jQuery.inArray( GetInputType( field ), [ 'checkbox', 'email', 'consent' ] ) == -1 ) {
+                for( var j = 0; j < field.inputs.length; j++ ) {
+                    var input = field.inputs[j];
+                    if( ! input.isHidden ) {
+                        options.push( {
+                            label: GetLabel( field, input.id ),
+                            value: input.id
+                        } );
+                    }
+                }
+            } else {
+                options.push( {
+                    label: GetLabel( field ),
+                    value: field.id
+                } );
+            }
+
+        }
+
+    }
+
+    // get entry meta fields and append to existing fields
+    jQuery.merge(options, GetEntryMetaFields( selectedFieldId ) );
+
+    options = gform.applyFilters( 'gform_conditional_logic_fields', options, form, selectedFieldId );
+
+    str += GetRuleFieldsOptions( options, selectedFieldId );
+
+    str += "</select>";
+    return str;
+}
+
+function GetRuleFieldsOptions( options, selectedFieldId ){
+    var str = '';
+    for( var i = 0; i < options.length; i++ ) {
+
+        var option = options[i];
+        if ( typeof option.options !== 'undefined' ) {
+            str += '<optgroup label=" ' + option.label + '">';
+            str += GetRuleFieldsOptions( option.options, selectedFieldId );
+            str += '</optgroup>';
+        } else {
+            var selected = option.value == selectedFieldId ? "selected='selected'" : '';
+
+            str += "<option value='" + option.value + "' " + selected + ">" + option.label + "</option>";
+        }
+    }
+    return str;
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 }
 
 function GetEntryMetaFields( selectedFieldId ) {
 
+<<<<<<< HEAD
 	var options = [], selected, label;
 
 	if(typeof entry_meta == 'undefined')
@@ -315,15 +567,51 @@ function IsConditionalLogicField(field){
 	var isConditionalLogicField = index >= 0 ? true : false;
 	isConditionalLogicField = gform.applyFilters( 'gform_is_conditional_logic_field', isConditionalLogicField, field );
 	return isConditionalLogicField;
+=======
+    var options = [], selected, label;
+
+    if(typeof entry_meta == 'undefined')
+        return options;
+
+    jQuery.each( entry_meta, function( key, meta ) {
+
+        if(typeof meta.filter == 'undefined')
+            return;
+
+       options.push( {
+            label: meta.label,
+            value: key,
+            isSelected: selectedFieldId == key ? "selected='selected'" : ""
+        } );
+
+    });
+
+    return options;
+}
+
+function IsConditionalLogicField(field){
+    var inputType = field.inputType ? field.inputType : field.type;
+    var supported_fields = GetConditionalLogicFields();
+
+    var index = jQuery.inArray(inputType, supported_fields);
+    var isConditionalLogicField = index >= 0 ? true : false;
+    isConditionalLogicField = gform.applyFilters( 'gform_is_conditional_logic_field', isConditionalLogicField, field );
+    return isConditionalLogicField;
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 }
 
 function IsEntryMeta(key){
 
+<<<<<<< HEAD
 	return typeof entry_meta != 'undefined' && typeof entry_meta[key] != 'undefined';
+=======
+    return typeof entry_meta != 'undefined' && typeof entry_meta[key] != 'undefined';
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 }
 
 function GetRuleValues(objectType, ruleIndex, selectedFieldId, selectedValue, inputName){
 
+<<<<<<< HEAD
 	if(!inputName)
 		inputName = false;
 
@@ -427,6 +715,111 @@ function GetRuleValues(objectType, ruleIndex, selectedFieldId, selectedValue, in
 	str = gform.applyFilters( 'gform_conditional_logic_values_input', str, objectType, ruleIndex, selectedFieldId, selectedValue )
 
 	return str;
+=======
+    if(!inputName)
+        inputName = false;
+
+    var dropdownId = inputName == false ? objectType + '_rule_value_' + ruleIndex : inputName;
+
+    if(selectedFieldId == 0)
+        selectedFieldId = GetFirstRuleField();
+
+    if(selectedFieldId == 0)
+        return "";
+
+    var field = GetFieldById(selectedFieldId),
+        isEntryMeta = IsEntryMeta(selectedFieldId),
+        obj = GetConditionalObject(objectType),
+        rule = obj["conditionalLogic"]["rules"][ruleIndex],
+        operator = rule.operator,
+        str = "";
+
+    if(field && field["type"] == "post_category" && field["displayAllCategories"]){
+
+        var dropdown = jQuery('#' + dropdownId + ".gfield_category_dropdown");
+
+        //don't load category drop down if it already exists (to avoid unnecessary ajax requests)
+        if(dropdown.length > 0){
+
+	        var options = dropdown.html();
+	        options = options.replace(/ selected="selected"/g, '');
+	        options = options.replace("value=\"" + selectedValue + "\"", "value=\"" + selectedValue + "\" selected=\"selected\"");
+	        str = "<select id='" + dropdownId + "' class='gfield_rule_select gfield_rule_value_dropdown gfield_category_dropdown'>" + options + "</select>";
+        }
+        else{
+            var placeholderName = inputName == false ? "gfield_ajax_placeholder_" + ruleIndex : inputName + "_placeholder";
+
+            //loading categories via AJAX
+            jQuery.post(ajaxurl,{   action:"gf_get_post_categories",
+                                    objectType: objectType,
+                                    ruleIndex: ruleIndex,
+                                    inputName: inputName,
+                                    selectedValue: selectedValue},
+                                function(dropdown_string){
+                                    if(dropdown_string){
+                                        jQuery('#' + placeholderName).replaceWith(dropdown_string.trim());
+
+                                        SetRuleProperty(objectType, ruleIndex, "value", jQuery("#" + dropdownId).val());
+                                    }
+                                }
+                        );
+
+            //will be replaced by real drop down during the ajax callback
+            str = "<select id='" + placeholderName + "' class='gfield_rule_select'><option>" + gf_vars["loading"] + "</option></select>";
+        }
+    }
+    else if(field && field.choices && jQuery.inArray(operator, ["is", "isnot"]) > -1){
+        var emptyChoice,
+            ruleChoices;
+
+        if (GetInputType(field) === 'multiselect') {
+            emptyChoice = gf_vars.emptyChoice;
+        } else if (field.placeholder) {
+            emptyChoice = field.placeholder;
+        }
+
+        ruleChoices = emptyChoice ? [{
+            text: emptyChoice,
+            value: ''
+        }].concat(field.choices) : field.choices;
+        str = GetRuleValuesDropDown(ruleChoices, objectType, ruleIndex, selectedValue, inputName);
+    }
+    else if( IsAddressSelect( selectedFieldId, field )  ) {
+
+        //loading categories via AJAX
+        jQuery.post( ajaxurl, {
+            action:       'gf_get_address_rule_values_select',
+            address_type: field.addressType ? field.addressType : gf_vars.defaultAddressType,
+            value:        selectedValue,
+            id:           dropdownId,
+            form_id:      field.formId
+        }, function( selectMarkup ) {
+            if( selectMarkup ) {
+                $select = jQuery( selectMarkup.trim() );
+                $placeholder = jQuery( '#' + dropdownId );
+                $placeholder.replaceWith( $select );
+                SetRuleProperty( objectType, ruleIndex, 'value', $select.val() );
+            }
+        } );
+
+        // will be replaced by real drop down during the ajax callback
+        str = "<select id='" + dropdownId + "' class='gfield_rule_select'><option>" + gf_vars['loading'] + "</option></select>";
+
+    }
+    else if (isEntryMeta && entry_meta && entry_meta[selectedFieldId] &&  entry_meta[selectedFieldId].filter && typeof entry_meta[selectedFieldId].filter.choices != 'undefined') {
+        str = GetRuleValuesDropDown(entry_meta[selectedFieldId].filter.choices, objectType, ruleIndex, selectedValue, inputName);
+    }
+    else{
+        selectedValue = selectedValue ? selectedValue.replace(/'/g, "&#039;") : "";
+
+        //create a text field for fields that don't have choices (i.e text, textarea, number, email, etc...)
+        str = "<input type='text' placeholder='" + gf_vars["enterValue"] + "' class='gfield_rule_select gfield_rule_input' id='" + dropdownId + "' name='" + dropdownId + "' value='" + selectedValue.replace(/'/g, "&#039;") + "' onchange='SetRuleProperty(\"" + objectType + "\", " + ruleIndex + ", \"value\", jQuery(this).val());' onkeyup='SetRuleProperty(\"" + objectType + "\", " + ruleIndex + ", \"value\", jQuery(this).val());'>";
+    }
+
+    str = gform.applyFilters( 'gform_conditional_logic_values_input', str, objectType, ruleIndex, selectedFieldId, selectedValue )
+
+    return str;
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 }
 /**
  * Determine if current Address field input ID is a select (i.e. US => State, International => Country)
@@ -437,6 +830,7 @@ function GetRuleValues(objectType, ruleIndex, selectedFieldId, selectedValue, in
  */
 function IsAddressSelect( inputId, field ) {
 
+<<<<<<< HEAD
 	if( ! field || GetInputType( field ) != 'address' ) {
 		return false;
 	}
@@ -461,10 +855,37 @@ function GetFirstRuleField(){
 	}
 
 	return 0;
+=======
+    if( ! field || GetInputType( field ) != 'address' ) {
+        return false;
+    }
+
+    var addressType = field.addressType ? field.addressType : gf_vars.defaultAddressType;
+
+    if( ! gf_vars.addressTypes[ addressType ] ) {
+        return false;
+    }
+
+    var addressTypeObj = gf_vars.addressTypes[ addressType ],
+        isCountryInput = inputId == field.id + '.6',
+        isStateInput   = inputId == field.id + '.4';
+
+    return ( isCountryInput && addressType == 'international' ) || ( isStateInput && typeof addressTypeObj.states == 'object' );
+}
+
+function GetFirstRuleField(){
+    for(var i=0; i<form.fields.length; i++){
+        if(IsConditionalLogicField(form.fields[i]))
+            return form.fields[i].id;
+    }
+
+    return 0;
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 }
 
 function GetRuleValuesDropDown(choices, objectType, ruleIndex, selectedValue, inputName){
 
+<<<<<<< HEAD
 	var dropdown_id = inputName == false ? objectType + '_rule_value_' + ruleIndex : inputName;
 
 	//create a drop down for fields that have choices (i.e. drop down, radio, checkboxes, etc...)
@@ -564,11 +985,105 @@ function TruncateRuleText(text){
 		return text;
 
 	return text.substr(0, 9) + "..." + text.substr(text.length -8, 9);
+=======
+    var dropdown_id = inputName == false ? objectType + '_rule_value_' + ruleIndex : inputName;
+
+    //create a drop down for fields that have choices (i.e. drop down, radio, checkboxes, etc...)
+    var str = "<select class='gfield_rule_select gfield_rule_value_dropdown' id='" + dropdown_id + "' name='" + dropdown_id + "'>";
+
+    var isAnySelected = false;
+    for(var i=0; i<choices.length; i++){
+        var choiceValue = typeof choices[i].value == "undefined" || choices[i].value == null ? choices[i].text + '' : choices[i].value + '';
+        var isSelected = choiceValue == selectedValue;
+        var selected = isSelected ? "selected='selected'" : "";
+        if(isSelected)
+            isAnySelected = true;
+		choiceValue = choiceValue.replace(/'/g, "&#039;");
+		var choiceText = jQuery.trim(jQuery('<div>'+choices[i].text+'</div>').text()) === '' ? choiceValue : choices[i].text;
+        str += "<option value='" + choiceValue.replace(/'/g, "&#039;") + "' " + selected + ">" + choiceText + "</option>";
+    }
+
+    if(!isAnySelected && selectedValue && selectedValue != "")
+        str += "<option value='" + selectedValue.replace(/'/g, "&#039;") + "' selected='selected'>" + selectedValue + "</option>";
+
+    str += "</select>";
+
+    return str;
+
+}
+function isEmpty(str){
+	return
+}
+
+
+function SetRuleProperty(objectType, ruleIndex, name, value){
+    var obj = GetConditionalObject(objectType);
+
+    if ( ! obj.conditionalLogic.rules ) {
+        return;
+    }
+
+    obj.conditionalLogic.rules[ruleIndex][name] = value;
+}
+
+function GetFieldById( id ) {
+    id = parseInt( id );
+    for(var i=0; i<form.fields.length; i++){
+        if(form.fields[i].id == id)
+            return form.fields[i];
+    }
+    return null;
+}
+
+function SetConditionalProperty(objectType, name, value){
+    var obj = GetConditionalObject(objectType);
+    obj.conditionalLogic[name] = value;
+}
+
+function SetRuleValueDropDown(element){
+    //parsing ID to get objectType and ruleIndex
+    var ary = element.attr("id").split('_rule_value_');
+
+    if(ary.length < 2)
+        return;
+
+    var objectType = ary[0];
+    var ruleIndex = ary[1];
+
+    SetRuleProperty(objectType, ruleIndex, "value", element.val());
+}
+
+function InsertRule(objectType, ruleIndex){
+    var obj = GetConditionalObject(objectType);
+    obj.conditionalLogic.rules.splice(ruleIndex, 0, new ConditionalRule());
+    CreateConditionalLogic(objectType, obj);
+    SetRule(objectType, ruleIndex);
+}
+
+function SetRule(objectType, ruleIndex){
+    SetRuleProperty(objectType, ruleIndex, "fieldId", jQuery("#" + objectType + "_rule_field_" + ruleIndex).val());
+    SetRuleProperty(objectType, ruleIndex, "operator", jQuery("#" + objectType + "_rule_operator_" + ruleIndex).val());
+    SetRuleProperty(objectType, ruleIndex, "value", jQuery("#" + objectType + "_rule_value_" + ruleIndex).val());
+}
+
+function DeleteRule(objectType, ruleIndex){
+    var obj = GetConditionalObject(objectType);
+    obj.conditionalLogic.rules.splice(ruleIndex, 1);
+    CreateConditionalLogic(objectType, obj);
+}
+
+function TruncateRuleText(text){
+    if(!text || text.length <= 18)
+        return text;
+
+    return text.substr(0, 9) + "..." + text.substr(text.length -8, 9);
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 
 }
 
 function gfAjaxSpinner(elem, imageSrc, inlineStyles) {
 
+<<<<<<< HEAD
 	imageSrc     = typeof imageSrc == 'undefined' || ! imageSrc ? gf_vars.baseUrl + '/images/spinner.svg': imageSrc;
 	inlineStyles = typeof inlineStyles != 'undefined' ? inlineStyles : '';
 
@@ -586,10 +1101,30 @@ function gfAjaxSpinner(elem, imageSrc, inlineStyles) {
 	};
 
 	return this.init();
+=======
+    imageSrc     = typeof imageSrc == 'undefined' || ! imageSrc ? gf_vars.baseUrl + '/images/spinner.svg': imageSrc;
+    inlineStyles = typeof inlineStyles != 'undefined' ? inlineStyles : '';
+
+    this.elem = elem;
+    this.image = '<img class="gfspinner" src="' + imageSrc + '" style="' + inlineStyles + '" />';
+
+    this.init = function() {
+        this.spinner = jQuery(this.image);
+        jQuery(this.elem).after(this.spinner);
+        return this;
+    };
+
+    this.destroy = function() {
+        jQuery(this.spinner).remove();
+    };
+
+    return this.init();
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 }
 
 function InsertVariable(element_id, callback, variable) {
 
+<<<<<<< HEAD
 	if(!variable)
 		variable = jQuery('#' + element_id + '_variable_select').val();
 
@@ -617,11 +1152,41 @@ function InsertVariable(element_id, callback, variable) {
 	if(callback && window[callback]){
 		window[callback].call(null, element_id, variable);
 	}
+=======
+    if(!variable)
+        variable = jQuery('#' + element_id + '_variable_select').val();
+
+    var input = document.getElementById (element_id);
+    var $input = jQuery(input);
+
+    if(document.selection) {
+        // Go the IE way
+        $input[0].focus();
+        document.selection.createRange().text=variable;
+    }
+    else if('selectionStart' in input) {
+        var startPos = input.selectionStart;
+        input.value = input.value.substr(0, startPos) + variable + input.value.substr(input.selectionEnd, input.value.length);
+        input.selectionStart = startPos + input.value.length;
+        input.selectionEnd = startPos + input.value.length;
+    } else {
+        $input.val(variable + messageElement.val());
+    }
+
+    var variableSelect = jQuery('#' + element_id + '_variable_select');
+    if(variableSelect.length > 0)
+        variableSelect[0].selectedIndex = 0;
+
+    if(callback && window[callback]){
+        window[callback].call(null, element_id, variable);
+    }
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 
 }
 
 function InsertEditorVariable( elementId, value ) {
 
+<<<<<<< HEAD
 	if( !value ) {
 		var select = jQuery("#" + elementId + "_variable_select");
 		select[0].selectedIndex = 0;
@@ -630,10 +1195,21 @@ function InsertEditorVariable( elementId, value ) {
 
 	wpActiveEditor = elementId;
 	window.send_to_editor( value );
+=======
+    if( !value ) {
+        var select = jQuery("#" + elementId + "_variable_select");
+        select[0].selectedIndex = 0;
+        value = select.val();
+    }
+
+    wpActiveEditor = elementId;
+    window.send_to_editor( value );
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 
 }
 
 function GetInputType(field){
+<<<<<<< HEAD
 	return field.inputType ? field.inputType : field.type;
 }
 
@@ -642,10 +1218,14 @@ function FieldIsChoiceType(field){
 		field = GetSelectedField();
 	}
 	return ['multi_choice', 'image_choice'].includes(field.type);
+=======
+    return field.inputType ? field.inputType : field.type;
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 }
 
 function HasPostField(){
 
+<<<<<<< HEAD
 	for(var i=0; i<form.fields.length; i++){
 		var type = form.fields[i].type;
 		if(type == "post_title" || type == "post_content" || type == "post_excerpt")
@@ -669,10 +1249,19 @@ function HasPageField(){
 			return true;
 	}
 	return false;
+=======
+    for(var i=0; i<form.fields.length; i++){
+        var type = form.fields[i].type;
+        if(type == "post_title" || type == "post_content" || type == "post_excerpt")
+            return true;
+    }
+    return false;
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 }
 
 function GetInput(field, id){
 
+<<<<<<< HEAD
 	if( typeof field['inputs'] != 'undefined' && jQuery.isArray(field['inputs']) ) {
 
 		for(i in field['inputs']) {
@@ -723,10 +1312,63 @@ function GetLabel(field, inputId, inputOnly) {
 	else {
 		return displayLabel;
 	}
+=======
+    if( typeof field['inputs'] != 'undefined' && jQuery.isArray(field['inputs']) ) {
+
+        for(i in field['inputs']) {
+
+            if(!field['inputs'].hasOwnProperty(i))
+                continue;
+
+            var input = field['inputs'][i];
+            if(input.id == id)
+                return input;
+        }
+
+    }
+
+    return null;
+}
+
+function IsPricingField(fieldType) {
+    return IsProductField(fieldType) || fieldType == 'donation';
+}
+
+function IsProductField(fieldType) {
+    return jQuery.inArray(fieldType, ["option", "quantity", "product", "total", "shipping", "calculation"]) != -1;
+}
+
+function GetLabel(field, inputId, inputOnly) {
+    if(typeof inputId == 'undefined')
+        inputId = 0;
+
+    if(typeof inputOnly == 'undefined')
+        inputOnly = false;
+
+    var input = GetInput(field, inputId);
+    var displayLabel = "";
+
+    if (field.adminLabel != undefined && field.adminLabel.length > 0){
+		//use admin label
+		displayLabel = field.adminLabel;
+    }
+    else{
+    	//use regular label
+		displayLabel = field.label;
+    }
+
+    if(input != null) {
+        return inputOnly ? input.label : displayLabel + ' (' + input.label + ')';
+    }
+    else {
+    	return displayLabel;
+    }
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 
 }
 
 function DeleteNotification(notificationId) {
+<<<<<<< HEAD
 	jQuery('#action_argument').val(notificationId);
 	jQuery('#action').val('delete');
 	jQuery('#notification_list_form')[0].submit();
@@ -747,6 +1389,28 @@ function DuplicateConfirmation(confirmationId) {
 	jQuery('#action_argument').val(confirmationId);
 	jQuery('#action').val('duplicate');
 	jQuery('#confirmation_list_form')[0].submit();
+=======
+    jQuery('#action_argument').val(notificationId);
+    jQuery('#action').val('delete');
+    jQuery('#notification_list_form')[0].submit();
+}
+function DuplicateNotification(notificationId) {
+    jQuery('#action_argument').val(notificationId);
+    jQuery('#action').val('duplicate');
+    jQuery('#notification_list_form')[0].submit();
+}
+
+function DeleteConfirmation(confirmationId) {
+    jQuery('#action_argument').val(confirmationId);
+    jQuery('#action').val('delete');
+    jQuery('#confirmation_list_form')[0].submit();
+}
+
+function DuplicateConfirmation(confirmationId) {
+    jQuery('#action_argument').val(confirmationId);
+    jQuery('#action').val('duplicate');
+    jQuery('#confirmation_list_form')[0].submit();
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 }
 
 function SetConfirmationConditionalLogic() {
@@ -755,6 +1419,7 @@ function SetConfirmationConditionalLogic() {
 
 function ToggleConfirmation() {
 
+<<<<<<< HEAD
 	var showElement, hideElement = '';
 	var isRedirect = jQuery("#form_confirmation_redirect").is(":checked");
 	var isPage = jQuery("#form_confirmation_show_page").is(":checked");
@@ -780,10 +1445,38 @@ function ToggleConfirmation() {
 
 	jQuery(hideElement).hide();
 	jQuery(showElement).show();
+=======
+    var showElement, hideElement = '';
+    var isRedirect = jQuery("#form_confirmation_redirect").is(":checked");
+    var isPage = jQuery("#form_confirmation_show_page").is(":checked");
+
+    if(isRedirect){
+        showElement = ".form_confirmation_redirect_container";
+        hideElement = "#form_confirmation_message_container, .form_confirmation_page_container";
+        ClearConfirmationSettings(['text', 'page']);
+    }
+    else if(isPage){
+        showElement = ".form_confirmation_page_container";
+        hideElement = "#form_confirmation_message_container, .form_confirmation_redirect_container";
+        ClearConfirmationSettings(['text', 'redirect']);
+    }
+    else{
+        showElement = "#form_confirmation_message_container";
+        hideElement = ".form_confirmation_page_container, .form_confirmation_redirect_container";
+        ClearConfirmationSettings(['page', 'redirect']);
+    }
+
+    ToggleQueryString();
+    TogglePageQueryString()
+
+    jQuery(hideElement).hide();
+    jQuery(showElement).show();
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 
 }
 
 function ToggleQueryString() {
+<<<<<<< HEAD
 	if(jQuery('#form_redirect_use_querystring').is(":checked")){
 		jQuery('#form_redirect_querystring_container').show();
 	}
@@ -803,10 +1496,32 @@ function TogglePageQueryString() {
 		jQuery("#form_page_querystring").val('');
 		jQuery("#form_page_use_querystring").val('');
 	}
+=======
+    if(jQuery('#form_redirect_use_querystring').is(":checked")){
+        jQuery('#form_redirect_querystring_container').show();
+    }
+    else{
+        jQuery('#form_redirect_querystring_container').hide();
+        jQuery("#form_redirect_querystring").val('');
+        jQuery("#form_redirect_use_querystring").val('');
+    }
+}
+
+function TogglePageQueryString() {
+    if(jQuery('#form_page_use_querystring').is(":checked")){
+        jQuery('#form_page_querystring_container').show();
+    }
+    else{
+        jQuery('#form_page_querystring_container').hide();
+        jQuery("#form_page_querystring").val('');
+        jQuery("#form_page_use_querystring").val('');
+    }
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 }
 
 function ClearConfirmationSettings(type) {
 
+<<<<<<< HEAD
 	var types = jQuery.isArray(type) ? type : [type];
 
 	for(i in types) {
@@ -831,10 +1546,37 @@ function ClearConfirmationSettings(type) {
 			break;
 		}
 	}
+=======
+    var types = jQuery.isArray(type) ? type : [type];
+
+    for(i in types) {
+
+        if(!types.hasOwnProperty(i))
+            continue;
+
+        switch(types[i]) {
+        case 'text':
+            jQuery('#form_confirmation_message').val('');
+            jQuery('#form_disable_autoformatting').prop('checked', false);
+            break;
+        case 'page':
+            jQuery('#form_confirmation_page').val('');
+            jQuery('#form_page_querystring').val('');
+            jQuery('#form_page_use_querystring').prop('checked', false);
+            break;
+        case 'redirect':
+            jQuery('#form_confirmation_url').val('');
+            jQuery('#form_redirect_querystring').val('');
+            jQuery('#form_redirect_use_querystring').prop('checked', false);
+            break;
+        }
+    }
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 
 }
 
 function StashConditionalLogic() {
+<<<<<<< HEAD
 	var string = JSON.stringify(confirmation['conditionalLogic']);
 	jQuery('#conditional_logic').val(string);
 }
@@ -845,10 +1587,23 @@ function ConfirmationObj() {
 	this.type = 'message';
 	this.message = gf_vars.confirmationDefaultMessage;
 	this.isDefault = 0;
+=======
+    var string = JSON.stringify(confirmation['conditionalLogic']);
+    jQuery('#conditional_logic').val(string);
+}
+
+function ConfirmationObj() {
+    this.id = false;
+    this.name = gf_vars.confirmationDefaultName;
+    this.type = 'message';
+    this.message = gf_vars.confirmationDefaultMessage;
+    this.isDefault = 0;
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 }
 
 (function (gaddon, $, undefined) {
 
+<<<<<<< HEAD
 	gaddon.init = function () {
 
 		var defaultVal, valueExists, value;
@@ -867,6 +1622,26 @@ function ConfirmationObj() {
 			jQuery( btn ).removeClass( 'gform-status--active' ).addClass( 'gform-status--inactive' ).find( '.gform-status-indicator-status' ).html( i18n.form_admin.toggle_feed_inactive );
 		} else {
 			jQuery( btn ).removeClass( 'gform-status--inactive' ).addClass( 'gform-status--active' ).find( '.gform-status-indicator-status' ).html( i18n.form_admin.toggle_feed_active );
+=======
+    gaddon.init = function () {
+
+        var defaultVal, valueExists, value;
+
+        f = window.form;
+        var id = 0;
+        if(isSet(f)){
+            id = f.id
+        }
+
+    };
+
+	gaddon.toggleFeedSwitch = function( btn, is_active ) {
+	    var i18n = window.gform_admin_i18n;
+		if ( is_active ) {
+			jQuery( btn ).removeClass( 'gform-status--active' ).addClass( 'gform-status--inactive' ).find( '.gform-status-indicator-status' ).html( i18n.formAdmin.toggleFeedInactive );
+		} else {
+			jQuery( btn ).removeClass( 'gform-status--inactive' ).addClass( 'gform-status--active' ).find( '.gform-status-indicator-status' ).html( i18n.formAdmin.toggleFeedActive );
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 		}
 	};
 
@@ -884,17 +1659,26 @@ function ConfirmationObj() {
 					gaddon.toggleFeedSwitch( btn, is_active );
 				} else {
 					gaddon.toggleFeedSwitch( btn, ! is_active );
+<<<<<<< HEAD
 					gform.instances.dialogAlert( response.data.message );
+=======
+					alert( response.data.message );
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 				}
 			}
 		).fail( function( jqXHR, textStatus, error ) {
 			gaddon.toggleFeedSwitch( btn, ! is_active );
+<<<<<<< HEAD
 			gform.instances.dialogAlert( error );
+=======
+			alert( error );
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 		} );
 
 		return true;
 	};
 
+<<<<<<< HEAD
 	gaddon.deleteFeed = function (id) {
 		$("#single_action").val("delete");
 		$("#single_action_argument").val(id);
@@ -927,11 +1711,46 @@ function ConfirmationObj() {
 			return array[name];
 		return '';
 	}
+=======
+    gaddon.deleteFeed = function (id) {
+        $("#single_action").val("delete");
+        $("#single_action_argument").val(id);
+        $("#gform-settings").submit();
+    };
+
+    gaddon.duplicateFeed = function (id) {
+        $("#single_action").val("duplicate");
+        $("#single_action_argument").val(id);
+        $("#gform-settings").submit();
+    };
+
+    function isValidJson(str) {
+        try {
+            JSON.parse(str);
+        } catch (e) {
+            return false;
+        }
+        return true;
+    }
+
+    function isSet($var) {
+        if (typeof $var != 'undefined')
+            return true
+        return false
+    }
+
+    function rgar(array, name) {
+        if (typeof array[name] != 'undefined')
+            return array[name];
+        return '';
+    }
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 
 }(window.gaddon = window.gaddon || {}, jQuery));
 
 function Copy(variable){
 
+<<<<<<< HEAD
 	if(!variable)
 		return variable;
 	else if(typeof variable != 'object')
@@ -944,6 +1763,20 @@ function Copy(variable){
 	}
 
 	return variable;
+=======
+    if(!variable)
+        return variable;
+    else if(typeof variable != 'object')
+        return variable;
+
+    variable = jQuery.isArray(variable) ? variable.slice() : jQuery.extend({}, variable);
+
+    for(i in variable) {
+        variable[i] = Copy(variable[i]);
+    }
+
+    return variable;
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 }
 
 var gfMergeTagsObj = function( form, element ) {
@@ -974,9 +1807,13 @@ var gfMergeTagsObj = function( form, element ) {
 
 		self.addMergeTagIcon();
 
+<<<<<<< HEAD
 		self.mergeTagIcon.find( '.open-list' ).on( 'click.gravityforms', function(e) {
 
 			e.preventDefault();
+=======
+		self.mergeTagIcon.find( 'a.open-list' ).on( 'click.gravityforms', function() {
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 
 			var trigger = jQuery(this);
 
@@ -1036,6 +1873,10 @@ var gfMergeTagsObj = function( form, element ) {
 	self.bindKeyDown = function() {
 
 		self.elem.on( 'keydown.gravityforms', function( event ) {
+<<<<<<< HEAD
+=======
+
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 			var menuActive = self.elem.data( 'autocomplete' ) && self.elem.data( 'autocomplete' ).menu ? self.elem.data( 'autocomplete' ).menu.active : false;
 
 			if ( event.keyCode === jQuery.ui.keyCode.TAB && menuActive ) {
@@ -1097,14 +1938,24 @@ var gfMergeTagsObj = function( form, element ) {
 	}
 
 	/**
+<<<<<<< HEAD
 	* Add merge tag drop down text and icon above element.
+=======
+	* Add merge tag drop down icon next to element.
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 	*/
 	self.addMergeTagIcon = function() {
 
 		var inputType     = self.elem.is( 'input' ) ? 'input' : 'textarea',
+<<<<<<< HEAD
 			positionClass = self.getClassProperty( self.elem, 'position' );
 
 		self.mergeTagIcon  = jQuery( '<span class="all-merge-tags ' + positionClass + ' ' + inputType + '"><button class="open-list tooltip-merge-tag gform-button gform-button--unstyled" title="' + gf_vars.mergeTagsText + '"><i class="gform-icon gform-icon--merge-tag gform-button__icon" aria-hidden="true"></i>' + gf_vars.mergeTagsText + '</button></span>' );
+=======
+		    positionClass = self.getClassProperty( self.elem, 'position' );
+
+		self.mergeTagIcon  = jQuery( '<span class="all-merge-tags ' + positionClass + ' ' + inputType + '"><a class="open-list tooltip-merge-tag" title="' + gf_vars.mergeTagsTooltip + '"></a></span>' );
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 
 		// Add the target element to the merge tag icon data for reference later when determining where the selected merge tag should be inserted.
 		self.mergeTagIcon.data( 'targetElement', self.elem.attr( 'id' ) );
@@ -1112,9 +1963,15 @@ var gfMergeTagsObj = function( form, element ) {
 		// If "mt-manual_position" class prop is set, look for manual elem with correct class.
 		if ( self.getClassProperty( self.elem, 'manual_position' ) ) {
 
+<<<<<<< HEAD
 			// Make sure we only do this on the mergetag button for this field.
 			var id = self.elem.attr( 'id' ).substring( 1, self.elem.attr( 'id' ).length );
 			jQuery( '#' + id ).find( '.gform-tinymce-mergetag-button' ).append( self.mergeTagIcon );
+=======
+			var manualClass = '.mt-' + self.elem.attr('id');
+
+			jQuery( manualClass ).append( self.mergeTagIcon );
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 
 		} else {
 
@@ -1122,6 +1979,18 @@ var gfMergeTagsObj = function( form, element ) {
 
 		}
 
+<<<<<<< HEAD
+=======
+		self.mergeTagIcon.find( '.tooltip-merge-tag' ).tooltip( {
+			show:    { delay:1250 },
+            position: {
+                my: 'center bottom',
+                at: 'center-3 top-10'
+            },
+			content: function () { return jQuery( this ).prop( 'title' ); }
+		} );
+
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 	}
 
 	/**
@@ -1279,6 +2148,7 @@ var gfMergeTagsObj = function( form, element ) {
 
 		}
 
+<<<<<<< HEAD
 		var otherTags = [
 			'ip', 'date_mdy', 'date_dmy', 'embed_post:ID', 'embed_post:post_title', 'embed_url', 'entry_id', 'entry_url', 'form_id', 'form_title', 'user_agent', 'referer', 'post_id', 'post_edit_url', 'user:display_name', 'user:user_email', 'user:user_login'
 		];
@@ -1302,6 +2172,31 @@ var gfMergeTagsObj = function( form, element ) {
 
 			otherGroup.push( { tag: '{'+ otherTags[i] +'}', label: this.getMergeTagLabel('{'+ otherTags[i] +'}') });
 		}
+=======
+        var otherTags = [
+            'ip', 'date_mdy', 'date_dmy', 'embed_post:ID', 'embed_post:post_title', 'embed_url', 'entry_id', 'entry_url', 'form_id', 'form_title', 'user_agent', 'referer', 'post_id', 'post_edit_url', 'user:display_name', 'user:user_email', 'user:user_login'
+        ];
+
+        // the form and entry objects are not available during replacement of pre-population merge tags
+        if (isPrepop) {
+            otherTags.splice(otherTags.indexOf('entry_id'), 1);
+            otherTags.splice(otherTags.indexOf('entry_url'), 1);
+            otherTags.splice(otherTags.indexOf('form_id'), 1);
+            otherTags.splice(otherTags.indexOf('form_title'), 1);
+        }
+
+        if(!HasPostField() || isPrepop) { // TODO: consider adding support for passing form object or fields array
+            otherTags.splice(otherTags.indexOf('post_id'), 1);
+            otherTags.splice(otherTags.indexOf('post_edit_url'), 1);
+        }
+
+        for(var i in otherTags) {
+            if(jQuery.inArray(otherTags[i], excludeFieldTypes) != -1)
+                continue;
+
+            otherGroup.push( { tag: '{'+ otherTags[i] +'}', label: this.getMergeTagLabel('{'+ otherTags[i] +'}') });
+        }
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 
 		var customMergeTags = this.getCustomMergeTags();
 		if( customMergeTags.tags.length > 0 ) {
@@ -1508,8 +2403,13 @@ var gfMergeTagsObj = function( form, element ) {
 				if(!tags.hasOwnProperty(i))
 					continue;
 
+<<<<<<< HEAD
 				var tag   = tags[ i ];
 				var label = gform.tools.stripSlashes( tag.label );
+=======
+                var tag   = tags[ i ];
+                var label = gform.tools.stripSlashes( tag.label );
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 
 				var tagHTML = jQuery( '<a class="" data-value="' + escapeAttr( tag.tag ) + '">' + escapeHtml( label ) + '</a>' );
 				tagHTML.on( 'click.gravityforms', self.bindMergeTagListClick );
@@ -1549,9 +2449,15 @@ var gfMergeTagsObj = function( form, element ) {
 	* You can pass multiple values for a property like so:
 	*	e.g. mt-{property}-{value1}-{value2}-{value3}
 	*
+<<<<<<< HEAD
 	* Use the following values to support JS merge tags (because they are not available in front end forms):
 	*	mt-exclude-entry_id-entry_url-form_id-form_title
 	*
+=======
+    * Use the following values to support JS merge tags (because they are not available in front end forms):
+    *	mt-exclude-entry_id-entry_url-form_id-form_title
+    *
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 	* Current classes:
 	*	mt-hide_all_fields
 	*	mt-exclude-{field_type}			e.g. mt-exlude-paragraph
@@ -1669,6 +2575,7 @@ var gfMergeTagsObj = function( form, element ) {
 
 var FeedConditionObj = function( args ) {
 
+<<<<<<< HEAD
 	this.strings = isSet( args.strings ) ? args.strings : {};
 	this.logicObject = args.logicObject;
 
@@ -1686,6 +2593,25 @@ var FeedConditionObj = function( args ) {
 	};
 
 	this.init();
+=======
+    this.strings = isSet( args.strings ) ? args.strings : {};
+    this.logicObject = args.logicObject;
+
+    this.init = function() {
+
+        var fcobj = this;
+
+        gform.addFilter( 'gform_conditional_object', 'FeedConditionConditionalObject' );
+        gform.addFilter( 'gform_conditional_logic_description', 'FeedConditionConditionalDescription' );
+
+        jQuery(document).ready(function(){
+            ToggleConditionalLogic( true,"feed_condition" );
+        });
+
+    };
+
+    this.init();
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 
 };
 
@@ -1701,14 +2627,22 @@ function SimpleConditionObject( object, objectType ) {
 
 function FeedConditionConditionalObject( object, objectType ) {
 
+<<<<<<< HEAD
 	if( objectType != 'feed_condition' )
 		return object;
 
 	return feedCondition.logicObject;
+=======
+    if( objectType != 'feed_condition' )
+        return object;
+
+    return feedCondition.logicObject;
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 }
 
 function FeedConditionConditionalDescription( description, descPieces, objectType, obj ) {
 
+<<<<<<< HEAD
 	if( objectType != 'feed_condition' )
 		return description;
 
@@ -1729,6 +2663,28 @@ function makeArray( object ) {
 
 function isSet( $var ) {
 	return typeof $var != 'undefined';
+=======
+    if( objectType != 'feed_condition' )
+        return description;
+
+    descPieces.actionType = descPieces.actionType.replace('<select', '<select style="display:none;"');
+    descPieces.objectDescription = feedCondition.strings.objectDescription;
+    var descPiecesArr = makeArray( descPieces );
+
+    return descPiecesArr.join(' ');
+}
+
+function makeArray( object ) {
+    var array = [];
+    for( i in object ) {
+        array.push( object[i] );
+    }
+    return array;
+}
+
+function isSet( $var ) {
+    return typeof $var != 'undefined';
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 }
 
 /**
@@ -1736,6 +2692,7 @@ function isSet( $var ) {
  */
 jQuery( document ).ready( function() {
 
+<<<<<<< HEAD
 	var $formTitle = jQuery( '.gform-form-toolbar__form-title span:not(.gform-dropdown__trigger-text):not(.gform-dropdown__control-text):not(.gform-visually-hidden)' );
 
 	// If form title is not present, exit.
@@ -1758,6 +2715,30 @@ jQuery( document ).ready( function() {
 	}
 
 	$clone.remove();
+=======
+    var $formTitle = jQuery( '.gform-form-toolbar__form-title span:not(.gform-dropdown__trigger-text):not(.gform-dropdown__control-text):not(.gform-visually-hidden)' );
+
+    // If form title is not present, exit.
+    if ( ! $formTitle ) {
+        return;
+    }
+
+    // Clone form title.
+    var $clone = $formTitle.clone().css( { display: 'inline', width: 'auto', visibility: 'hidden' } ).appendTo( $formTitle );
+
+    // If cloned title is wider, initialize tooltip.
+    if ( $clone.width() > $formTitle.width() ) {
+        jQuery( '.gform-form-toolbar__form-title span' ).tooltip( {
+            position:     {
+                my: 'left center',
+                at: 'right+6 center'
+            },
+            tooltipClass: 'arrow-left'
+        } );
+    }
+
+    $clone.remove();
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 
 } );
 
@@ -1827,7 +2808,11 @@ var gform = window.gform || {};
  * Components namespace to house scripts associated with our new 2.5 and up components
  */
 
+<<<<<<< HEAD
 gform.components = gform.components || {};
+=======
+gform.components = {};
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 
 /**
  * @function gform.components.dropdown
@@ -1839,6 +2824,7 @@ gform.components = gform.components || {};
  */
 
 gform.components.dropdown = function( options ) {
+<<<<<<< HEAD
 	this.el = null;
 	this.control = null;
 	this.controlText = null;
@@ -2032,6 +3018,200 @@ gform.components.dropdown.prototype.bindEvents = function() {
 	addEventListener( 'beforeunload', function() {
 		this.state.unloading = true;
 	}.bind( this ));
+=======
+    this.el = null;
+    this.control = null;
+    this.controlText = null;
+    this.triggers = [];
+    this.state = {
+        open: false,
+        unloading: false,
+    };
+    this.options = {
+        closeOnSelect: true,
+        container : document,
+        detectTitleLength: false,
+        onItemSelect: function() {},
+        reveal: 'click',
+        selector : '',
+        showSpinner: false,
+        swapLabel: true,
+        titleLengthThresholdMedium: 23,
+        titleLengthThresholdLong: 32,
+    };
+
+    this.options = gform.tools.mergeObjects( this.options, gform.tools.defaultFor( options, {} ) );
+    this.el = gform.tools.getNodes( this.options.selector, false, this.options.container )[ 0 ];
+    if ( ! this.el ) {
+        gform.console.error( 'Gform dropdown couldn\'t find [data-js="' + this.options.selector + '"] to instantiate on.');
+        return;
+    }
+    this.titleEl = gform.tools.getNodes( 'gform-dropdown-control-text', false, this.el )[ 0 ];
+
+    this.storeTriggers();
+    this.bindEvents();
+    this.setupUI();
+
+    this.hideSpinner = function() {
+        this.el.classList.remove( 'gform-dropdown--show-spinner' );
+    }
+
+    this.showSpinner = function() {
+        this.el.classList.add( 'gform-dropdown--show-spinner' );
+    }
+}
+
+gform.components.dropdown.prototype.handleChange = function( e ) {
+    this.options.onItemSelect( e.target.dataset.value );
+    if ( this.options.showSpinner ) {
+        this.showSpinner();
+    }
+    if ( this.options.swapLabel ) {
+        this.controlText.innerText = e.target.innerText;
+    }
+    if ( this.options.closeOnSelect ) {
+        this.handleControl();
+    }
+};
+
+gform.components.dropdown.prototype.handleControl = function() {
+    if ( this.state.open ) {
+        this.closeDropdown();
+    } else {
+        this.openDropdown();
+    }
+};
+
+gform.components.dropdown.prototype.openDropdown = function() {
+    if ( this.state.open ) {
+        return;
+    }
+    this.el.classList.add( 'gform-dropdown--reveal' );
+    setTimeout( function() {
+        this.el.classList.add( 'gform-dropdown--open' );
+        this.control.setAttribute( 'aria-expanded', 'true' );
+        this.state.open = true;
+    }.bind( this ), 25 );
+    setTimeout( function() {
+        this.el.classList.remove( 'gform-dropdown--reveal' );
+    }.bind( this ), 200 );
+};
+
+gform.components.dropdown.prototype.closeDropdown = function() {
+    this.state.open = false;
+    this.el.classList.remove( 'gform-dropdown--open' );
+    this.el.classList.add( 'gform-dropdown--hide' );
+    this.control.setAttribute( 'aria-expanded', 'false' );
+    setTimeout( function() {
+        this.el.classList.remove( 'gform-dropdown--hide' );
+    }.bind( this ), 150 );
+};
+
+gform.components.dropdown.prototype.handleMouseenter = function() {
+    if ( this.options.reveal !== 'hover' || this.state.open || this.state.unloading ) {
+        return;
+    }
+    this.openDropdown();
+};
+
+gform.components.dropdown.prototype.handleMouseleave = function( e ) {
+    if ( this.options.reveal !== 'hover' || this.state.unloading ) {
+        return;
+    }
+    this.closeDropdown();
+};
+
+gform.components.dropdown.prototype.handleA11y = function( e ) {
+    if ( ! this.state.open ) {
+        return;
+    }
+    if ( e.keyCode === 27 ) {
+        this.closeDropdown();
+        this.control.focus();
+        return;
+    }
+    if ( e.keyCode === 9  && ! gform.tools.getClosest( e.target, '[data-js="' + this.options.selector + '"]' ) ) {
+        this.triggers[0].focus();
+    }
+};
+
+gform.components.dropdown.prototype.handleSearch = function( e ) {
+    var search = e.target.value.toLowerCase();
+    this.triggers.forEach( function( trigger ) {
+        if ( trigger.innerText.toLowerCase().includes( search ) ) {
+            trigger.parentNode.style.display = '';
+        } else {
+            trigger.parentNode.style.display = 'none';
+        }
+    } );
+};
+
+gform.components.dropdown.prototype.setupUI = function() {
+    if ( this.options.reveal === 'hover' ) {
+        this.el.classList.add( 'gform-dropdown--hover' );
+    }
+    if ( this.options.detectTitleLength ) {
+        // add a class to the container of the dropdown if displayed title is long.
+        // class doesnt do anything by default, you have to wire css if you want to do some handling for long titles
+        // dropdown is just always full width of its container
+        var title = this.titleEl ? this.titleEl.innerText : '';
+        if ( title.length > this.options.titleLengthThresholdMedium && title.length <= this.options.titleLengthThresholdLong ) {
+            this.el.parentNode.classList.add( 'gform-dropdown--medium-title' );
+        } else if ( title.length > this.options.titleLengthThresholdLong ) {
+            this.el.parentNode.classList.add( 'gform-dropdown--long-title' );
+        }
+    }
+};
+
+gform.components.dropdown.prototype.storeTriggers = function() {
+    this.control = gform.tools.getNodes( 'gform-dropdown-control', false, this.el )[ 0 ];
+    this.controlText = gform.tools.getNodes( 'gform-dropdown-control-text', false, this.control )[ 0 ];
+    this.triggers = gform.tools.getNodes( 'gform-dropdown-trigger', true, this.el );
+};
+
+gform.components.dropdown.prototype.bindEvents = function() {
+    gform.tools.delegate(
+        '[data-js="' + this.options.selector + '"]',
+        'click',
+        '[data-js="gform-dropdown-trigger"], [data-js="gform-dropdown-trigger"] > span',
+        this.handleChange.bind( this )
+    );
+    gform.tools.delegate(
+        '[data-js="' + this.options.selector + '"]',
+        'click',
+        '[data-js="gform-dropdown-trigger"]',
+        this.handleChange.bind( this )
+    );
+    gform.tools.delegate(
+        '[data-js="' + this.options.selector + '"]',
+        'click',
+        '[data-js="gform-dropdown-control"], [data-js="gform-dropdown-control"] *',
+        this.handleControl.bind( this )
+    );
+    gform.tools.delegate(
+        '[data-js="' + this.options.selector + '"]',
+        'keyup',
+        '[data-js="gform-dropdown-search"]',
+        this.handleSearch.bind( this )
+    );
+
+    this.el.addEventListener( 'mouseenter', this.handleMouseenter.bind( this ) );
+    this.el.addEventListener( 'mouseleave', this.handleMouseleave.bind( this ) );
+    this.el.addEventListener( 'keyup', this.handleA11y.bind( this ) );
+
+    document.addEventListener( 'keyup', this.handleA11y.bind( this ) );
+    document.addEventListener( 'click', function( event ) {
+        if ( this.el.contains( event.target ) || ! this.state.open ) {
+            return;
+        }
+        this.handleControl();
+    }.bind( this ) );
+
+    // store unloading state to make sure item stays closed during this event
+    addEventListener( 'beforeunload', function() {
+        this.state.unloading = true;
+    }.bind( this ));
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 };
 
 /**
@@ -2060,6 +3240,7 @@ gform.components.dropdown.prototype.bindEvents = function() {
  */
 
 gform.components.alert = {
+<<<<<<< HEAD
 	/**
 	 * Initialized instances are stored here with an array of objects.
 	 */
@@ -2160,6 +3341,108 @@ gform.components.alert = {
 };
 
 document.addEventListener( 'gform_main_scripts_loaded', gform.components.alert.init );
+=======
+    /**
+     * Initialized instances are stored here with an array of objects.
+     */
+    instances: [],
+
+    /**
+     * @function gform.components.alert.getInstance
+     * @description Get an Alert instance by element it was rendered on.
+     *
+     * @since 2.5.8
+     *
+     * @param {HTMLElement} element The element you initialize Alert on.
+     *
+     * @returns {*}
+     */
+    getInstance: function( element ) {
+        return gform.components.alert.instances.filter( function( instance ) {
+            return instance.id === element.getAttribute( 'data-gform-alert-instance' ); }
+        )[ 0 ];
+    },
+
+    /**
+     * @function gform.components.alert.initializeInstance
+     * @description Initialize a Alert instance and store on our instances object.
+     *
+     * @since 2.5.8
+     *
+     * @param {HTMLElement} element
+     */
+    initializeInstance: function( element ) {
+        if ( element.hasAttribute( 'data-gform-alert-instance' ) ) {
+            return;
+        }
+
+        var uid = gform.tools.uniqueId( 'gform-alert' );
+        var cookie = element.hasAttribute( 'data-gform-alert-cookie' ) ? element.getAttribute( 'data-gform-alert-cookie' ) : '';
+
+        element.setAttribute( 'data-gform-alert-instance', uid );
+        element.classList.add( 'gform-initialized' );
+
+        gform.components.alert.instances.push( {
+            id: uid,
+            cookie: cookie
+        } );
+    },
+
+    /**
+     * @function gform.components.alert.initializeInstances
+     * @description Initialize any uninitialized Alert instances in the DOM.
+     *
+     * @since 2.5.8
+     *
+     * @param {HTMLElement} element
+     */
+    initializeInstances: function() {
+        gform.tools
+            .getNodes( '[data-js="gform-alert"]:not(.gform-initialized)', true, document, true )
+            .forEach( gform.components.alert.initializeInstance );
+    },
+
+    /**
+     * @function gform.components.alert.dismissAlert
+     * @description Implements hiding of an alert and sets up cookie if it has been configured via
+     * the data-gform-alert-cookie attribute on the parent el.
+     *
+     * @since 2.5.8
+     */
+    dismissAlert: function( e ) {
+        var parentEl = gform.tools.getClosest( e.target, '[data-js="gform-alert"]' );
+        var instance = gform.components.alert.getInstance( parentEl );
+        parentEl.style.display = 'none';
+        if ( instance.cookie ) {
+            gform.tools.setCookie( instance.cookie, form.id, 1, true );
+        }
+    },
+
+    /**
+     * @function gform.components.alert.bindEvents
+     * @description Bind event listeners for this namespace.
+     *
+     * @since 2.5.8
+     */
+    bindEvents: function() {
+        document.addEventListener( 'gform_init_alerts', gform.components.alert.initializeInstances );
+        gform.tools.delegate( 'body', 'click', '[data-js="gform-alert-dismiss-trigger"]', gform.components.alert.dismissAlert );
+    },
+
+    /**
+     * @function gform.components.alert.init
+     * @description Initialize this module.
+     *
+     * @since 2.5.8
+     */
+    init: function() {
+        gform.components.alert.bindEvents();
+        gform.components.alert.initializeInstances();
+    }
+};
+
+gform.initializeOnLoaded( gform.components.alert.init );
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
 
 //------------------------------------------------
 //---------- SIMPLEBAR ---------------------------
@@ -2189,6 +3472,7 @@ document.addEventListener( 'gform_main_scripts_loaded', gform.components.alert.i
  */
 
 gform.simplebar = {
+<<<<<<< HEAD
 	/**
 	 * Initialized instances are stored here with an array of objects. Each instance looks like:
 	 *
@@ -2309,3 +3593,125 @@ gform.simplebar = {
 };
 
 document.addEventListener( 'gform_main_scripts_loaded', gform.simplebar.init );
+=======
+    /**
+     * Initialized instances are stored here with an array of objects. Each instance looks like:
+     *
+     */
+    instances: [],
+
+    /**
+     * @function gform.simplebar.cleanInstances
+     * @description Cleans out any instances that were removed in between the last call and this one to render.
+     *
+     * @since 2.5.6
+     */
+    cleanInstances: function() {
+        gform.simplebar.instances = gform.simplebar.instances.filter( function( instance, index ) {
+            var exists = gform.tools.getNodes( '[data-simplebar-instance="' + instance.id + '"]', false, document, true )[ 0 ];
+            if ( exists ) {
+                return true;
+            }
+            gform.simplebar.instances[ index ].instance.unMount();
+            return false;
+        } );
+    },
+
+    /**
+     * @function gform.simplebar.getInstance
+     * @description Get a SimpleBar instance by element it was rendered on.
+     *
+     * @since 2.5.6
+     *
+     * @param {HTMLElement} element The element you initialize SimpleBar on.
+     *
+     * @returns {*}
+     */
+    getInstance: function( element ) {
+        var instanceObj = gform.simplebar.instances.filter( function( instance ) {
+            return instance.id === element.getAttribute( 'data-simplebar-instance' ); }
+        )[ 0 ];
+        return instanceObj.instance;
+    },
+
+    /**
+     * @function gform.simplebar.initializeInstance
+     * @description Initialize a SimpleBar instance and store on our instances object.
+     * You can delay initialization of an instance by a data attribute of data-simplebar-delay (helpful if say
+     * your container is part of some jquery ui or other third party display logic).
+     *
+     * @since 2.5.6
+     *
+     * @param {HTMLElement} element
+     */
+    initializeInstance: function( element ) {
+        if ( element.hasAttribute( 'data-simplebar-instance' ) ) {
+            return;
+        }
+        var uid = gform.tools.uniqueId( 'simplebar' );
+        var delayAttr = element.getAttribute( 'data-simplebar-delay' );
+        var delay = delayAttr ? parseInt( delayAttr, 10 ) : 0;
+
+        setTimeout( function() {
+            var direction = gform.tools.isRtl() ? 'rtl' : 'ltr';
+
+            if ( direction === 'rtl' ) {
+                element.setAttribute( 'data-simplebar-direction', 'rtl' );
+            }
+            element.setAttribute( 'data-simplebar-instance', uid );
+            element.classList.add( 'gform-initialized' );
+
+            var simplebar = new SimpleBar( element, {
+                direction: direction,
+            } );
+
+            gform.simplebar.instances.push( {
+                id: uid,
+                instance: simplebar,
+            } );
+        }, delay );
+    },
+
+    /**
+     * @function gform.simplebar.initializeInstances
+     * @description Start by cleaning any zombie instances, then initialize any uninitialized SimpleBar instances in
+     * the DOM.
+     *
+     * @since 2.5.6
+     *
+     * @param {HTMLElement} element
+     */
+    initializeInstances: function() {
+        gform.simplebar.cleanInstances();
+        gform.tools
+            .getNodes( '[data-js="gform-simplebar"]:not(.gform-initialized)', true, document, true )
+            .forEach( gform.simplebar.initializeInstance );
+    },
+
+    /**
+     * @function gform.simplebar.bindEvents
+     * @description Bind event listeners for this namespace.
+     *
+     * @since 2.5.6
+     */
+    bindEvents: function() {
+        document.addEventListener( 'gform_render_simplebars', gform.simplebar.initializeInstances );
+    },
+
+    /**
+     * @function gform.simplebar.init
+     * @description Initialize this module if SimpleBar is enqueued.
+     *
+     * @since 2.5.6
+     */
+    init: function() {
+        if ( ! window.SimpleBar ) {
+            return;
+        }
+        gform.simplebar.bindEvents();
+        gform.simplebar.initializeInstances();
+    }
+};
+
+gform.initializeOnLoaded( gform.simplebar.init );
+>>>>>>> f26e4f95b60bfd1cf1147cc07e0ad43a657b7fd6
